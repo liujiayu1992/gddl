@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>结算单主界面</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var Iscb;
+Ext.onReady(function(){
+	var win;
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+
+
+function chak(str){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf(";");
+	url = url.substring(0,end);
+	url=url+'?service=page/Jiesdcz&lx='+str;
+	window.open(url);
+}
+function chak_ht(str){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf(";");
+	url = url.substring(0,end);
+	url=url+'?service=page/Shenhrz&hetb_id='+str;
+	window.open(url);
+}
+
+</script>	
+
+
+</head>
+<body id="body" >
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+	<tr>
+		<td>
+            
+            <span id="GONGYS" jwcid="GONGYS" submitOnChange="true" style="display:none"></span>
+			<span id="RIQ"  jwcid = "RIQ" style="display:none"></span>
+			<span id="RIQ1"  jwcid = "RIQ1" style="display:none"></span>
+			<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="保存" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+            <span jwcid="DeleteButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="删除" id = "DeleteButton" listener="ognl:listeners.DeleteButton" ></span>
+			<span jwcid="ImportButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="导入" id = "ImportButton" listener="ognl:listeners.ImportButton" ></span>
+            <span jwcid="InsertButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="录入" id = "InsertButton" listener="ognl:listeners.InsertButton" ></span>
+			<span jwcid="CreateButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="提交进入流程" id = "CreateButton" listener="ognl:listeners.CreateButton" ></span>
+			<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+			<span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+			<span id="ISCHECKED"  jwcid = "ISCHECKED" style="display:none"></span>
+			<span id='dayzt1' width="150" style="height:21" jwcid="LiucmcDropDown" type="text" style="display:none"></span>
+			  <span id='TEXT_LIUCMCSELECT_VALUE' style="display:none" jwcid="TEXT_LIUCMCSELECT_VALUE"></span>	
+             
+		</td>
+	</tr>
+	<tr height="100%">
+		<td>
+		<div id="gridDiv" style="width:100%;height:100%;overflow:none"></div>
+		<div id="hello-win" class="x-hidden"></div>
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

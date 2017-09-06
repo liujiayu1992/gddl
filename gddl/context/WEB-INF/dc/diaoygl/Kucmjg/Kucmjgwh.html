@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>
+库存煤结构维护
+</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+	<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+function countKuc(e){
+	rec = e.record;
+	//定义变量
+	var LAIMSL =eval(rec.get('LAIMSL'));
+	var LAIMRL=eval(rec.get('LAIMRL'));
+	var RUCBMDJ=eval(rec.get('RUCBMDJ'));
+	var HAOMSL=eval(rec.get('HAOMSL'));
+	var HAOMRL=eval(rec.get('HAOMRL'));
+	var HAOMZF=eval(rec.get('HAOMZF'));
+	var RULBMDJ=eval(rec.get('RULBMDJ'));
+	var KUCSL=eval(rec.get('KUCSL'));
+	var KUCRL=eval(rec.get('KUCRL'));
+	var KUCBMDJ=eval(rec.get('KUCBMDJ'));
+	var ZRSL=eval(rec.get('ZRSL'));
+	var ZRRL=eval(rec.get('ZRRL'));
+	var ZRDJ=eval(rec.get('ZRDJ'));
+	//初始化3个数量的标煤量
+	var LAIMSL_bm=0; 
+	var HAOMSL_bm=0;
+	var ZRSL_bm=0;
+	//将原煤量转换为标煤量
+	if(LAIMRL!=0&&HAOMRL!=0){
+		 LAIMSL_bm=LAIMSL*7000/LAIMRL; 
+		 HAOMSL_bm=HAOMSL*7000/HAOMRL;
+	}
+	if(ZRRL!=0){
+		ZRSL_bm=ZRSL*7000/ZRRL
+	}
+
+	if(e.field=='RUCBMDJ'){
+		var new_kucbmdj=0;
+		if(LAIMRL!=0&&HAOMRL!=0){
+			new_kucbmdj=Math.round((ZRSL_bm*ZRDJ+LAIMSL_bm/10000*RUCBMDJ-HAOMSL_bm/10000*RULBMDJ)/(ZRSL_bm+LAIMSL_bm/10000-HAOMSL_bm/10000)*1000)/1000;
+		}
+		rec.set('KUCBMDJ',new_kucbmdj);
+	}
+	if(e.field=='HAOMSL'||e.field=='HAOMRL'||e.field=='HAOMZF'||e.field=='RULBMDJ'){
+		var new_KUCSL=Math.round((ZRSL+LAIMSL/10000-HAOMSL/10000)*1000000)/1000000;
+		var new_KUCRL=Math.round((ZRSL*ZRRL+LAIMSL/10000*LAIMRL-HAOMSL/10000*HAOMRL)/(ZRSL+LAIMSL/10000-HAOMSL/10000)*1000)/1000;
+		var new_KUCBMDJ=0;
+			if(LAIMRL!=0&&HAOMRL!=0){
+				new_KUCBMDJ=Math.round((ZRSL_bm*ZRDJ+LAIMSL_bm/10000*RUCBMDJ-HAOMSL_bm/10000*RULBMDJ)/(ZRSL_bm+LAIMSL_bm/10000-HAOMSL_bm/10000)*1000)/1000;
+			}
+		rec.set('KUCSL',new_KUCSL);
+		rec.set('KUCRL',new_KUCRL);
+		rec.set('KUCBMDJ',new_KUCBMDJ);
+	}
+}
+</script>	
+</head>
+<body id="body" >
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+	<tr>
+		<td>
+			<span jwcid="Riq" style="display:none" id="Riq"></span> 
+			
+			<span jwcid="CreateButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="生成" id = "CreateButton" listener="ognl:listeners.CreateButton" ></span>
+			<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="保存" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+			<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="刷新" id = "RefreshButton" listener="ognl:listeners.RefreshButton" ></span>
+			<span jwcid="DelButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="删除" id = "DelButton" listener="ognl:listeners.DelButton" ></span>
+			<span jwcid="TijButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="提交" id = "TijButton" listener="ognl:listeners.TijButton" ></span>
+			<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+			<span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+		</td>
+	</tr>
+	<tr height="100%">
+		<td>
+		<div id="gridDiv" style="width:100%;height:100%;overflow:none"></div>
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

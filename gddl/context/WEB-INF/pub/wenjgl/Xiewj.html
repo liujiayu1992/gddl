@@ -1,0 +1,140 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Expires" content="0"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+
+
+<title>文件管理</title>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/examples.css"/>
+<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<script>
+    <span jwcid="@Insert" raw="true" value="ognl:value"></span>
+Ext.onReady(function() {
+   
+    var top = new Ext.Panel({
+        applyTo:'extPanel',
+        layout:'form',
+  	    labelAlign: 'top',
+        frame:true,
+ 		buttonAlign :'center',
+        width: 600,
+    	height:400,
+        items: [{
+            layout:'table',          
+            layoutConfig: {
+			    columns: 4
+			},
+            items: [
+            {html:Ext.util.Format.htmlDecode('<span style=\'font:normal 12px tahoma, arial, helvetica, sans-serif\' >标题:</span>')},
+           { xtype:'textfield',                                         
+            id: 'zhut',
+            width:'300',
+		    value:document.getElementById('a').value
+            }, {html:Ext.util.Format.htmlDecode('<span style=\'font:normal 12px tahoma, arial, helvetica, sans-serif\' >类型:</span>')},
+            new Ext.form.ComboBox({                                         
+            store:  [['1','通知'],['2','文件'],['3','公告'],['4','政策']], //direct array data
+		    editable:false,
+            id: 'leix',
+		    triggerAction: 'all',
+		    selectOnFocus:false,
+            value:document.getElementById('b').value
+			})] },
+            {xtype:'htmleditor', colspan:4,
+            id:'neir',
+            fieldLabel:'内容',
+            height:200,enableSourceEdit :false,
+            anchor:'98%',value:Ext.util.Format.htmlDecode(document.getElementById('c').value) }
+    		],
+         buttons: [{
+            text: '保存',
+            handler:function(){
+		     var a=Ext.get('zhut').getValue();
+			 var b=Ext.get('leix').getValue();
+			 var c=Ext.get('neir').getValue();
+             if (a==''||b==''||c==''){
+			      alert("主题、类型或内容不允许为空！");
+			     return;
+			 }
+			 document.getElementById('a').value=a;
+			 document.getElementById('b').value=b;
+			 document.getElementById('c').value=c;
+              // document.forms[1].submit();
+              //document.forms[0].submit();
+            
+             document.getElementById('baoc').click();
+            }
+        }]
+    });
+    new Ext.form.ComboBox({                                         
+          // autoCreate :true,
+           lazyRender :true,
+           transform :'fujbSelect',
+		    editable:false,
+		    triggerAction: 'all',
+			applyTo :'fujmcSelected',
+		    selectOnFocus:false,
+            listeners :{select:function(obj,rec){if(rec.get("value")==-1){	Ext.MessageBox.minWidth=200;
+		             	Ext.MessageBox.alert('系统提示：','请选择要删除的附件!');return;};document.getElementById('fujidSelected').value=rec.get("value")}}
+            
+			})
+
+	switch(document.getElementById("flag").value){//三种显示
+          case"0" ://直接进入
+            top.buttons[0].show(); //保存
+        	Ext.getDom("zhut").readOnly =false;
+			Ext.getDom("neir").readOnly =false;
+ 		    Ext.getDom("leix").readOnly =false;
+			break;
+          case"1"://只读调用
+            top.buttons[0].hide(); //保存
+        	Ext.getDom("zhut").readOnly =true;
+			Ext.getDom("neir").readOnly =true;
+ 		    Ext.getDom("leix").readOnly =true;
+        	 break;
+          case"2"://修改调用
+            top.buttons[0].show(); //保存
+        	Ext.getDom("zhut").readOnly =false;
+			Ext.getDom("neir").readOnly =false;
+ 		    Ext.getDom("leix").readOnly =false;
+    }    
+      tongb=function(){   //同步
+         var a=Ext.get('zhut').getValue();
+		 var b=Ext.get('leix').getValue();
+		 var c=Ext.get('neir').getValue();
+		 document.getElementById('a').value=a;
+		 document.getElementById('b').value=b;
+		 document.getElementById('c').value=c;        
+ 	}
+
+});
+
+</script>
+</head>
+<body  style="padding:0 0 0 0">
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<div id="extPanel"></div>
+<table><td><span jwcid="FileStream" id="FileStream" style="width:350;height:22px"/></td>
+<td> <span jwcid="@ZRcontrib:ImgButton" id="shangc"buttontype=""label="上传" onclick="tongb()" listener="ognl:listeners.shangc" /></td>
+<td><span jwcid="fujbSelect"id='fujbSelect' style="display:none;" />
+<input  jwcid="@TextField"id='fujidSelected' value="ognl:fujidSelected"style='display:none;'></input>
+<input  jwcid="@TextField"id='fujmcSelected' value="ognl:fujmcSelected"style='width:150px;height:22px'></input>
+</td>
+
+<td><span jwcid="@ZRcontrib:ImgButton" id="delet"buttontype=""label="删除"onclick="tongb()" listener="ognl:listeners.shanc" /></td>
+</table>
+	<input  jwcid="@TextField"id='a' value="ognl:zhut"style='display:none'></input>
+	<input  jwcid="@TextField"id='b' value="ognl:leix"style='display:none'></input>
+	<input jwcid="@TextArea"id='c'value="ognl:neir"style='display:none'></input>
+	<input jwcid="@TextField"id='id'value="ognl:id"style='display:none'></input>
+	<input jwcid="@TextField"id='flag'value="ognl:flag"style='display:none'></input>
+	<span jwcid="@ZRcontrib:ImgButton" id="baoc"buttontype=""style="display:none"label="保存"listener="ognl:listeners.baoc" ></span>
+    <span jwcid="@ZRcontrib:ImgButton" id="xinjwj"buttontype=""style="display:none"label="新建文件"listener="ognl:listeners.xinjwj" ></span>
+</form>
+</body>
+</html>

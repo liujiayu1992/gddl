@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>化验对比设置详细表</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+<span jwcid="@Insert" raw="true" value="ognl:Msg"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+});
+</script>	
+</head>
+<body id="body" jwcid="@Body" class="bgs">
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%"  height="100%">
+	<tr id="SelectData" valign=top hight="100%">
+	   <td>
+	    <div id = "gridDiv" style="height:100%;overflow:none"></div>
+        
+        <span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>       
+         <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" style="display:none" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+         <span jwcid="shuaxin@ZRcontrib:ImgButton" buttontype="" label="刷新" style="display:none" id = "ShuaxinButton" listener="ognl:listeners.ShuaxinButton" ></span>
+          <span jwcid="ReturnButton@ZRcontrib:ImgButton" buttontype="" label="返回" style="display:none" id = "ReturnButton" listener="ognl:listeners.ReturnButton" ></span>
+          
+        <span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+
+	   </td>
+	</tr>
+    
+</table>
+</form>
+</body>
+
+</html>

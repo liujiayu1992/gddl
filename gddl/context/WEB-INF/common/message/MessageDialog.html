@@ -1,0 +1,49 @@
+<html jwcid="@Shell" title="提示信息" stylesheet="ognl:assets.Main">
+<head>
+
+</head>
+<script type="text/javascript">
+var timeOver = 10;
+var strMessage = window.dialogArguments;
+function bodyload(){
+	setTimeout("isOver()",1000);
+	showMsg();
+}
+function isOver(){
+	if(timeOver-- <= 0){
+		self.close();
+	}else{
+		//showMsg();
+		TimeChange();
+	}
+	setTimeout("isOver()",1000);
+}
+function ButtonClick(){
+	self.close();
+}
+function TimeChange(){
+	var oButton = document.getElementById("FIX");
+	oButton.value = "确定(0"+timeOver+")";
+}
+function showMsg(){
+	var oLabel = document.getElementById("Messagelabel");
+	oLabel.innerHTML = strMessage;
+}
+</script>
+<body onload="bodyload()" bgcolor=#ECE9D8>
+<div id = MessageDiv align=center >
+<div bgcolor=#ECE9D8 style="OVERFLOW: auto;height:90;width:240">
+<br>
+<h3><label id=Messagelabel></label></h3>
+</div>
+<form jwcid="@Form">
+<input type=button id="FIX" value="确认(10)"
+onmouseout="this.className='btn_mouseout'"
+onmouseover="this.className='btn_mouseover'"
+onmousedown="this.className='btn_mousedown'"
+onmouseup="this.className='btn_mouseup'"
+class=btn_mouseout  onclick="ButtonClick();" ></input>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<html jwcid="@Shell" doctype=" " title="确认信息">
+	
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>确认信息</title>
+<style>
+<!--
+.ms-3deff2-main { border-style: none; background-color: silver }
+.ms-3deff2-top { font-weight: bold; color: black; border-left-style: none; border-right-style: 
+               none; border-top: .75pt solid white; border-bottom-style: none }
+.ms-3deff2-even { font-weight: normal; color: black; border-left-style: none; 
+               border-right-style: none; border-top: .75pt solid white; 
+               border-bottom-style: none }
+.ms-3deff2-odd { font-weight: normal; color: black; border-left-style: none; 
+               border-right-style: none; border-top: .75pt solid gray; 
+               border-bottom-style: none }
+-->
+</style>
+</head>
+
+<body id="body" jwcid="@Body" class="ms-3deff2-main">
+<form jwcid="@Form" method="post"
+	>
+<table  valign="middle" align="center" id="SelectData" border="1" width="384" height="500" class="ms-3deff2-main">
+	<tr>
+		<td jwcid="@Any" width="384" class="ms-3deff2-main" colspan="2" valign="middle">
+		<p align="center"><font size="6">确 认 信 息</font></td>
+	</tr>
+	<tr>
+		<td  jwcid="@Any" width="192" class="ms-3deff2-even">
+		<p align="left"><font size="5">&nbsp;&nbsp;煤矿地区：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even"><font size="5"><span id = "Meikdqmc" name = "Meikdqmc"></span></font></td>
+	</tr>
+	<tr>
+		<td  width="192" class="ms-3deff2-even"><font size="5">&nbsp;&nbsp;煤矿单位：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><span id = "Meikdwmc" name = "Meikdwmc"></span></font></td>
+	</tr>
+    <tr>
+		<td  width="192" class="ms-3deff2-even"><font size="5">&nbsp;&nbsp;承运单位：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><span id = "Chengydw" name = "Chengydw"></span></font></td>
+	</tr>
+    <tr>
+		<td  width="192" class="ms-3deff2-even"><font size="5">&nbsp;&nbsp;过磅号：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><span id = "Liush" name = "Liush"></span></font></td>
+	</tr>
+	<tr>
+		<td  width="192" class="ms-3deff2-even"><font size="5">&nbsp;&nbsp;车号：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><span id = "Cheph" name = "Cheph"></span></font></td>
+	</tr>
+	<tr>
+		<td  width="192" class="ms-3deff2-even" ><font size="5">&nbsp;&nbsp;毛重：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><span id = "Maoz" name = "Maoz"></span></font></td>
+	</tr>
+	<tr>
+		<td  width="192" class="ms-3deff2-even" ><font size="5">&nbsp;&nbsp;皮重：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><span id = "Piz" name = "Piz"></span></font></td>
+	</tr>
+    <tr>
+		<td  width="192" class="ms-3deff2-even" ><font size="5">&nbsp;&nbsp;扣吨：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><strong><span id = "Koud" name = "Koud"></span></strong></font></td>
+	</tr>
+    <tr>
+		<td  width="192" class="ms-3deff2-even" ><font size="5">&nbsp;&nbsp;发货量：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><strong><span id = "Fahl" name = "Fahl"></span></strong></font></td>
+	</tr>
+    <tr>
+		<td  width="192" class="ms-3deff2-even" ><font size="5">&nbsp;&nbsp;计划口径：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><span id = "Jihkj" name = "Jihkj"></span></font></td>
+	</tr>
+	<tr>
+		<td  width="192" class="ms-3deff2-even" ><font size="5">&nbsp;&nbsp;<span id = "lblJingz" name = "lblJingz"></span>&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><span id = "Jingz" name = "Jingz"></span></font></td>
+	</tr>
+    
+	<tr>
+		<td  width="192" class="ms-3deff2-even"><font size="5">&nbsp;&nbsp;煤场：&nbsp;</font></td>
+		<td  width="192" class="ms-3deff2-even">
+		<font size="5"><span id = "Meic" name = "Meic"></span></font></td>
+	</tr>
+	<tr>
+		<td bordercolor="#FFFFFF" class="ms-3deff2-main" height="22" width="192" align="center">
+		<font size = "5"><span jwcid="RefurbishButton@rmis:ImgButton"
+					buttontype="nosubmitbuttons" label="确定"
+					onclick = "Ok();"/></font></td>
+		<td bordercolor="#FFFFFF" class="ms-3deff2-main" height="22" width="192"  align="center">
+		<font size = "5"><span jwcid="BackButton@rmis:ImgButton"
+					buttontype="nosubmitbuttons" label="返回"
+					onclick="Cancel();"/></font></td>
+	</tr> 
+	
+</table>
+<span jwcid="MAXKOUD" id = "MAXKOUD" />
+</form>
+</body>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	var obj;
+	obj = window.dialogArguments;
+	Meikdqmc.innerText = obj.MEIKDQMC;
+	Meikdwmc.innerText = obj.MEIKDWMC;
+	Chengydw.innerText = obj.CHENGYDW;
+	Jihkj.innerText = obj.JIHKJ;
+	Liush.innerText = obj.JILHH;
+	Cheph.innerText = obj.CHEPH;
+	Maoz.innerText = obj.MAOZ;
+	Piz.innerText = obj.PIZ;
+	Jingz.innerText = obj.JINGZ;
+	Meic.innerText = obj.MEIC;
+	Fahl.innerText = obj.FAHL;
+	Koud.innerText = obj.KOUD;
+	lblJingz.innerText = obj.JINGZNAME
+	var max = document.getElementById("MAXKOUD").value;
+	if(Number(obj.KOUD)>Number(max)){
+		Koud.style.color="#FF0000";
+		Koud.innerText = obj.KOUD + "<可疑数据!>";
+	}
+	Jingz.style.color="#FF0000";
+	Jingz.style.fontFamily ="黑体";
+	Jingz.style.fontWeight = "bolder";
+	Jingz.style.fontSize = "30pt";
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	document.onkeydown = function(){
+	//如果按下的是退格键
+	if(event.keyCode==8){
+	//alert("ok");
+ 	event.returnValue = false;
+}
+
+}
+//-->
+</SCRIPT>
+
+ <script   language= "JavaScript ">                 
+        <!--   
+javascript:window.history.forward(1);   
+        //-->                 
+        </script>
+
+<script>
+
+
+	
+
+	function Ok(){
+		window.returnValue="y";
+	  	window.close(); 
+	}
+	
+	function Cancel(){
+		window.returnValue="n";   
+	  	window.close(); 
+	}
+</script>
+</html>

@@ -1,0 +1,393 @@
+<html jwcid="@Shell" doctype=" " title="合同模板"
+	stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<!--script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>
+<script type="text/javascript" src="ext/zr/select/Selectcombo.js"></script-->
+
+<script>
+    var gridDiv_history = "";
+    var gridDivk_history = "";
+    var gridDivs_history = "";
+var submited=false;
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+    	
+	    // basic tabs 1, built from existing content
+   		bodyHeight =body.clientHeight;
+		bodyWidth =body.clientWidth;
+	    var tabs = new Ext.TabPanel({
+	        renderTo: 'tabs1',
+	        width:bodyWidth-5,
+    		height:bodyHeight-115,
+	        activeTab: document.all.item("TabbarSelect").value,
+	        frame:true,
+	        defaults:{autoHeight: true},
+	        items:[
+	            {contentEl:'div3', title: '价格'},
+				{contentEl:'div4', title: '增扣款'},
+				{contentEl:'div5', title: '其他条款'},
+   			    {contentEl:'div7', title: '收货人'},
+    			{contentEl:'div6', title: '供方需方'}
+	        ]
+	    });
+        tabs.on('tabChange',function(oldtab,newtab){
+
+            if(newtab.title=='价格'){
+              document.all.item("TabbarSelect").value=0;
+            	gridDiv_grid.render();
+		    	gridDiv_grid.setHeight(tabs.height-30);
+		  		newtab.hide();
+		  		newtab.show();
+              }else if(newtab.title=='增扣款'){
+              	document.all.item("TabbarSelect").value=1;
+            	gridDivk_grid.render();
+		    	gridDivk_grid.setHeight(tabs.height-30);
+		  		newtab.hide();
+		  		newtab.show();
+            }else if(newtab.title=='其他条款'){
+              document.all.item("TabbarSelect").value=1;
+          
+            }else if(newtab.title=='供方需方'){
+              document.all.item("TabbarSelect").value=2;
+            }else if(newtab.title=='收货人'){
+              document.all.item("TabbarSelect").value=3;
+              gridDivs_grid.render();
+		    	gridDivs_grid.setHeight(tabs.height-30);
+		  		newtab.hide();
+		  		newtab.show();
+            }
+         });
+	    function handleActivate(tab){
+	        alert(tab.title + ' was activated.');
+	    }
+
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:GridScriptk"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:GridScripts"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:ToolbarScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+</script>
+<style>
+table th{
+	text-align: center
+}
+</style>
+
+<body id="body" jwcid="@Body" class="bgs"
+	onkeydown="if(event.keyCode==13 && event.srcElement.tagName!='TEXTAREA'){event.keyCode=9}">
+<script jwcid="Yunshtjs" />
+
+<script jwcid="Datejs" />
+
+<script jwcid="EditSelectionjs" />  
+
+<script jwcid="Validatejs" /> 
+
+<script>
+    <span jwcid="pageLink" />
+    <span jwcid="@Insert" raw="true" value="ognl:ChengyfArrayScript"></span>
+</script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><script>
+        function chax(){
+         if(Ext.get('hetSelect').getValue()!=-1){
+         	var url = "http://"+document.location.host+document.location.pathname;
+            var end = url.indexOf(";");
+			url = url.substring(0,end);
+       	    url = url + "?service=page/" + "Yunshtshrz&hetys_id="+Ext.get('hetSelect').getValue();
+            window.open(url,'newWin');
+         }else{
+         	alert("请选择合同！");
+         }
+        }
+    </script> <input class="text-position"  style="display:none"
+	jwcid="TabbarSelect" id="TabbarSelect" type="text" />
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign=middle height="20">
+		<td>
+            <div id ="container" height ="20">
+		   		<div id="tbdiv" height ="20"></div>
+			</div>
+		<table class="toolBar" style="display:none">
+			<tr>
+				<td width='60' align="right">签订年份:</td>
+				<td width='80'><input style="width:100%" onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					jwcid="NianfDropDown" id="NianfDropDown" type="text" /></td>
+				<td align="right" width='30'>模板:</td>
+				<td width='120'><input style="width:100%" onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					jwcid="mobmcSelect" id="mobmcSelect" /></td>
+				<td align="right" width='60'>选择合同:</td>
+				<td width='150'><input style="width:100%" onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					jwcid="hetSelect" id="hetSelect" /></td>
+				<td width='40' align="left"><span
+					jwcid="QueryButton@ZRcontrib:ImgButton" onclick="if(chax()){return chekRepear()}else{return false;}"
+					style="width:100%" buttontype="nosubmitbuttons" label="文本" /></td>
+				<td width='40'><span style="width:100%"onclick="return chekRepear()"
+					jwcid="ShancButton@ZRcontrib:ImgButton" buttontype="" label="删除"
+					listener="ognl:listeners.ShancButton" /></td>
+				<td width='40'><span style="width:100%"
+					jwcid="BaocButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+					listener="ognl:listeners.BaocButton" /></td>
+                <td width='40'><span style="width:100%"
+					jwcid="FuzButton@ZRcontrib:ImgButton" buttontype="" label="复制合同"
+					listener="ognl:listeners.FuzButton" /></td>
+				<td width='100'><span style="width:100%"
+					jwcid="TijButton@ZRcontrib:ImgButton" buttontype="" label="提交进入流程"
+					listener="ognl:listeners.TijButton" /></td>
+				<td>&nbsp</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<!--合同信息-->
+	<tr id="hetxx" valign=top>
+		<td valign="bottom">
+		<fieldset align="middle"><legend class="text-position">合同信息</legend>
+		<table class="text-position" style="margin:4px;" border="0"
+			cellspacing="0" cellpadding="0">
+			<tr>
+                <td align="right">合同名称:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input type="text" jwcid="hetmc" style="border:0px;" size="20"
+					displayname="合同名称" /></td>
+                
+				<td align="right">合同编号:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input type="text" jwcid="hetbh" style="border:0px;" size="20"
+					displayname="合同编号" /></td>
+                
+                <td align="right">签订时间:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input type="text" style="border:0px;" jwcid="qiandrq" /></td>
+                
+				
+			</tr>
+			<tr height="5">
+				<td colspan="6"></td>
+			</tr>
+			<tr>
+				<td align="right">生效时间:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input style="border:0px;" size="9" jwcid="shengxsj" /></td>
+				<td align="right">过期时间:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input size="9" style="border:0px;" jwcid="guoqsj"/ ></td>
+                
+				<td align="right">签订地点:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input class="text-position" jwcid="qianddd" style="border:0px;"
+					id="qianddd" type="text" /></td>
+				<td align="right">价格方案:</td>
+				<td><input type="text" style="width:255px" jwcid="yunsjgfaSelect"  id="yunsjgfaSelect"/></td>
+
+			</tr>
+		</table>
+		</fieldset>
+		</td>
+	</tr>
+	<!--合同详细信息-->
+	<tr id="hetzxx" valign=top>
+		<td>
+		<div id="tabs1" style="margin:2px">
+		
+		<div id="div3"class="x-hide-display">
+               <table id="tablemaing"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+		         <tr  id="trconditiong"  valign=middle  height ="20">
+		            <td > 
+                        <div id = "gridDiv" style="height:100%;width:100%;overflow:none"></div>
+						<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+                        <span jwcid="InsertButtong@ZRcontrib:ImgButton" buttontype="" label="添加" onclick="return chekRepear()" style="display:none" id = "InsertButtong" listener="ognl:listeners.InsertButtong"></span>
+				        <span jwcid="DeleteButtong@ZRcontrib:ImgButton" buttontype="" label="删除" style="display:none" onclick="return chekRepear()" id = "DeleteButtong" listener="ognl:listeners.DeleteButtong"></span>
+                        <!--span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" style="display:none" onclick="return chekRepear()" id = "SaveButton" listener="ognl:listeners.SaveButton"></span-->
+	                    <span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+		      	  </tr>
+                </table>
+             </div>
+        <div id="div4"class="x-hide-display">
+                 <table id="tablemaink"  border="0" cellspacing="0"  cellpadding="0" height ="100%" width ="100%">
+		         <tr  id="trconditionk"  valign=middle  height ="100%"  width ="100%">
+		            <td > 
+                        <div id = "gridDivk" style="height:100%;width:100%;overflow:none"></div>
+							<span jwcid="@Insert" raw="true" value="ognl:GridHtmlk"></span>
+                            <span jwcid="InsertButtonk@ZRcontrib:ImgButton" buttontype="" label="添加" onclick="return chekRepear()" style="display:none" id = "InsertButtonk" listener="ognl:listeners.InsertButtonk"></span>
+					        <span jwcid="DeleteButtonk@ZRcontrib:ImgButton" buttontype="" label="删除" style="display:none" onclick="return chekRepear()" id = "DeleteButtonk" listener="ognl:listeners.DeleteButtonk"></span>
+                            <!--span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" style="display:none" onclick="return chekRepear()" id = "SaveButton" listener="ognl:listeners.SaveButton"></span-->
+		                    <span id="CHANGEK"  jwcid = "CHANGEK" style="display:none"></span>
+		            </td>
+		          </tr>
+                </table>
+             </div>
+		
+		<div id="div5" class="x-hide-display"><span jwcid="wenz"
+			style="border:0px;overflow:auto" id="wenzTextareay"> </span></div>
+        <div id="div7"class="x-hide-display">
+               <table id="tablemains"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+		         <tr  id="trconditions"  valign=middle  height ="20">
+		            <td > 
+                        <div id = "gridDivs" style="height:100%;width:100%;overflow:none"></div>
+						<span jwcid="@Insert" raw="true" value="ognl:GridHtmls"></span>
+                        <span jwcid="InsertButtons@ZRcontrib:ImgButton" buttontype="" label="添加" onclick="return chekRepear()" style="display:none" id = "InsertButtons" listener="ognl:listeners.InsertButtons"></span>
+				        <span jwcid="DeleteButtons@ZRcontrib:ImgButton" buttontype="" label="删除" style="display:none" onclick="return chekRepear()" id = "DeleteButtons" listener="ognl:listeners.DeleteButtons"></span>
+                        <!--span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" style="display:none" onclick="return chekRepear()" id = "SaveButton" listener="ognl:listeners.SaveButton"></span-->
+	                    <span id="CHANGES"  jwcid = "CHANGES" style="display:none"></span>
+		      	  </tr>
+                </table>
+		</div>
+		<div id="div6" class="x-hide-display">
+		<table id="gongfTable"
+			style="font-size:13px;margin-bottom:20px;margin-top:50px"
+			cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="right">承运方：</td>
+				<td style="width:255px"><input  style="width:100%"  onchange="Pipfz('chengyf')"
+					jwcid="gongfSelect" id="gongfSelect" /></td>
+			</tr>
+			<tr>
+				<td align="right">单位名称（章）：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfdwmc" /></td>
+				<td align="right">单位地址：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfdwdz" /></td>
+			</tr>
+			<tr>
+				<td align="right">法定代表人：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongffddbr" /></td>
+				<td align="right">委托代理人：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfwtdlr" /></td>
+			</tr>
+			<tr>
+				<td align="right">电话：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfdn" /></td>
+				<td align="right">传真：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfcz" /></td>
+
+			</tr>
+			<tr>
+				<td align="right">开户银行：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfkhyh" /></td>
+				<td align="right">账号：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfzh" /></td>
+			</tr>
+			<tr>
+				<td align="right">邮政编码：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfyzbm" /></td>
+				<td align="right">税号：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="Gshuih" /></td>
+			</tr>
+		</table>
+		<table style="font-size:13px" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="right">托运方：</td>
+				<td><input style="width:255px" onchange="Pipfz('xuf')"
+					jwcid="xufSelect" id="xufSelect" /></td>
+			</tr>
+			<tr>
+				<td align="right">单位名称（章）：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufdwmc" /></td>
+				<td align="right">单位地址：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufdwdz" /></td>
+			</tr>
+			<tr>
+				<td align="right">法定代表人：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xuffddbr" /></td>
+				<td align="right">委托代理人：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufwtdlr" /></td>
+			</tr>
+			<tr>
+				<td align="right">电话：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufdn" /></td>
+				<td align="right">传真：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufcz" /></td>
+
+			</tr>
+			<tr>
+				<td align="right">开户银行：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufkhyh" /></td>
+				<td align="right">账号：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xuffzh" /></td>
+			</tr>
+			<tr>
+				<td align="right">邮政编码：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufyzbm" /></td>
+				<td align="right">税号：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="shuih" /></td>
+			</tr>
+			<tr height="20">
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<!--td align="right">发货人：</td>
+				<td><input style="width:255px" jwcid="shijgfSelect"onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					id="shijgfSelect" /></td-->
+				<td align="right">煤矿单位:</td>
+				<td>
+                    <input jwcid="MEIKMCS"id="MEIKMCS" style="display:none;font-size:12px;width:250px" /> 
+                <input jwcid="Meiksselect" id="Meiksselect" style="display:none;font-size:12px;height:12px;width:250px"/></td>
+			</tr>
+		</table>
+		</div>
+        
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+<script>window.onresize();</script>
+</html>

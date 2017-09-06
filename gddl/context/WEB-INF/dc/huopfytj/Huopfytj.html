@@ -1,0 +1,102 @@
+<html jwcid="@Shell" doctype=" " title="月报"  stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" tyspe="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	
+	<span jwcid="@Insert" raw=true value="ognl:ToolbarScript"></span>
+    
+        
+   
+});
+</script>
+<body id="body"  jwcid="@Body" class="bgs" >
+<!--<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>-->
+
+    <script jwcid="Monthqueryjs"/>
+    <script jwcid="Reportjs" /> 
+    <form id="subform" listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+
+   <span jwcid="@ZRcontrib:ModalDialog" message="ognl:Msg" > </span>
+    <OBJECT id=WebBrowser classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2 height=0 width=0></OBJECT>
+    <div id = container>
+    <div id = tbdiv></div>
+    </div>
+    <table id="tablemain" class=ReportTableMain border="0" cellspacing="0"  cellpadding="0" width ="100%" >
+        <tr id="trcondition">
+            <td> 
+                <table style="display:none" class=toolbar >
+	                <tr id="caozq">
+                    	<td  width="60" >到货日期:</td>
+                        <td width="152"> <span id="RIQI"  jwcid = "RIQI" style="" submitOnChange="true" readonly="true" type="text"></span></td> 
+                        <td  width="60" >到货日期:</td>
+                        <td width="144"> <span id="RIQ2"  jwcid = "RIQ2" style="" submitOnChange="true" type="text"></span></td>
+	                    <td width="53">供货单位:</td> 
+		                <td width="91"><input width="100" jwcid="GongysDropDown" id="GongysDropDown"  type="text" /></td>
+                        <td width="53">煤矿单位:</td> 
+		                <td width="91"><input width="100" jwcid="MeikdwDropDown" id="MeikdwDropDown"  type="text" /></td> 
+		                <span jwcid="Leib" style="display:none" id="Leib"></span> 
+                        <!--td width="54">入帐状态:</td> 
+		                <td width="79"><input width="100" jwcid="RuzztDropDown" id="RuzztDropDown" type="text" /></td-->      
+                              
+                        <td width="30"><span  jwcid="SaveButton@ZRcontrib:ImgButton"  buttontype=""  label="入帐"  listener="ognl:listeners.SaveButton"  /></td> 
+                        <!--td width="30"><span  jwcid="Day@ZRcontrib:ImgButton"  buttontype=""  label="打印"  /></td--> 
+	                    <!--td><span jwcid="@ZRcontrib:ImgButton" buttontype="Query" onclick="return Showwait()" listener="ognl:listeners.QueryButton" label="刷新" /></td-->		
+                        <td width="2%"></td>   
+                    </tr>
+                </table>
+                <table id='navigationBar'  border="0" height="30" width="100%" cellspacing="0"  cellpadding="0"  class=navigationBarpage >
+			    	<tr>
+			    	<td width="10%" ><b>显示页<span id='pageNumber'></span>/<span id='totalPage'></span></b></td>
+			    	<td align='left' style='cursor:hand'>
+			    	<a href="#" jwcid="PrintSetLink">
+			    	<image id="PrintSet" jwcid="PrintSet" alt="页面设置" onclick=document.all.WebBrowser.ExecWB(8,1)/></a>
+			    	<a href="#" jwcid="PrintPageLink">
+			    	<image id="PrintPage" jwcid="PrintPage"  alt="打印" onclick="if(confirm('需要打印全部吗? 确定:打印所有页; 取消:打印当前页.')){allPrint('SelectFrmDiv');}else{print('SelectFrmDiv');}"/></a>
+			    	<a href="#" jwcid="ExportPageLink">
+			    	<image id="ExportPage" jwcid="ExportPage"  alt="导出Excel" onclick=exportExcel("SelectFrmDiv")/></a>&nbsp;&nbsp;&nbsp;&nbsp;
+			    	</td>                    
+			        <td style="font-size:9pt" align='right' width=50%> 
+			        <image id="FirstPage" style="display:none;" jwcid="@Image" image="ognl:assets.FirstPage" width="15" height="15" alt="首页" onclick="navigatorClick('first')"/>
+			        <image id="FirstPage_disabled" jwcid="@Image" image="ognl:assets.FirstPage_disabled" width="15" height="15" alt="首页" />
+			        <image id="PreviousPage" style="display:none;" jwcid="@Image" image="ognl:assets.PreviousPage" width="15" height="15" alt="上一页" onclick="navigatorClick('previous')"/>
+			        <image id="PreviousPage_disabled" jwcid="@Image" image="ognl:assets.PreviousPage_disabled" width="15" height="15" alt="上一页" />
+			        <image id="NextPage" style="display:none;" jwcid="@Image" image="ognl:assets.NextPage" width="15" height="15" alt="下一页" onclick="navigatorClick('next')"/>
+			        <image id="NextPage_disabled" jwcid="@Image" image="ognl:assets.NextPage_disabled" width="15" height="15" alt="下一页" />
+			        <image id="LastPage" style="display:none;" jwcid="@Image" image="ognl:assets.LastPage" width="15" height="15" alt="尾页" onclick="navigatorClick('last')"/>
+			        <image id="LastPage_disabled" jwcid="@Image" image="ognl:assets.LastPage_disabled" width="15" alt="尾页" height="15" />
+			        </td>
+			        <td width="5%"></td>
+			        <td width="5%"><b>转到页</b></td>
+			        <td width="10%">
+			        <input size="5" id="GoPage" type="" />
+			        <image id="goButton" jwcid="@Image" image="ognl:assets.Go" width="15" height="15" onclick="navigatorClick('go')"/>
+
+                    </tr>
+			    </table>
+            </td> 
+        </tr>
+        <tr id="SelectData" valign=top>
+            <td >
+                <div id="SelectFrmDiv" class = "" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto;width:897px; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+					<span jwcid="PrintTable"/>
+                </div>
+            </td>
+        </tr>        
+        <input style="display:none;" jwcid="CurrentPage" id="CurrentPage" type="text" />
+        <input style="display:none;" jwcid="AllPages" id="AllPages" type="text" />
+    </table>
+    </form>
+</body>
+<script>	
+	setNavigatorButton(); window.onresize();
+</script>
+</html>

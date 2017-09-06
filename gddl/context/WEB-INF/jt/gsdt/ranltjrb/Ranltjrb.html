@@ -1,0 +1,155 @@
+<html jwcid="@Shell" doctype=" " title="燃料统计日报"  stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	
+
+	<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw=true value="ognl:ToolbarScript"></span>
+});
+</script>
+<body id="body" jwcid="@Body"
+	onkeydown="Pingb();if(event.keyCode==13)event.keyCode=9" class="bgs"
+	bottommargin=0 topmargin=2 leftmargin=5 rightmargin=5>
+	<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+<div id="waitshez"
+	style="border:0px solid gray; padding:2px; POSITION: absolute;z-index:1; OVERFLOW: none; HEIGHT: 119px;width:228px; left:284px; top:200px">
+<object classid="clsid:D27CDB6E-AE6D-11CF-96B8-444553540000" id="obj1"
+	codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+	border="0" width="210" height="85">
+	<param name="movie" jwcid="@Any" value="ognl:assets.tiaoj_waiting" />
+	<param name="quality" value="high" />
+	<embed jwcid="@Any" src="ognl:assets.tiaoj_waiting"
+		pluginspage="http://www.macromedia.com/go/getflashplayer"
+		type="application/x-shockwave-flash" name="obj1" width="210"
+		height="85" quality="High" /></object> <OBJECT id=WebBrowser
+	classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2 height=0 width=0></OBJECT>
+
+</div>
+<script>
+        function Showwait(){
+			if(document.all.item("waitshez").style.display=="none"){
+                 document.all.item("waitshez").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+    </script>
+<script jwcid="Ranltjrbjs" />
+    
+<script jwcid="Reportjs" />
+    
+<script jwcid="Datejs" />
+    
+<script jwcid="Validatejs" /> 
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+    
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+	<span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+	<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"> </span> <!--显示报表内容开始-->
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign=middle height="50">
+		<td>
+		<div id = container>
+	    <div id = tbdiv></div>
+	    </div>
+		<table valign="middle" width="100%" height="40"
+			style=" background-color: #DBE4EE;display:none">
+			<tr>
+				<td>
+				<table>
+					<tr>
+						
+ 			    		<td  width="35" style="font-size: 12px;">日期:</td>
+                		<td width="50"> <span id="RIQI"  jwcid = "RIQ" style="display:none"  type="text"></span></td> 
+						<td><span jwcid="@ZRcontrib:ImgButton" buttontype="refurbish" onclick="return Showwait()" listener="ognl:listeners.RefurbishButton" label="刷新" /></td>	
+						
+					</tr>
+				</table>
+				</td>
+
+			</tr>
+		</table>
+
+		<table id='navigationBar' height="30" width="100%"
+			class=navigationBarpage>
+			<tr>
+				<td width="10%" style="font-size:9pt"><b>显示页<span
+					id='pageNumber'></span>/<span id='totalPage'></span></b></td>
+				<td align='left' style='cursor:hand'><a href="#"
+					jwcid="PrintSetLink"> <image id="PrintSet" jwcid="PrintSet"
+					alt="页面设置" onclick=document.all.WebBrowser.ExecWB(8,1) /></a> <a
+					href="#" jwcid="PrintPageLink"> <image id="PrintPage"
+					jwcid="PrintPage" alt="打印"
+					onclick="if(confirm('需要打印全部吗? 确定:打印所有页; 取消:打印当前页.')){allPrint('SelectFrmDiv');}else{print('SelectFrmDiv');}" /></a>
+				<a href="#" jwcid="ExportPageLink"> <image id="ExportPage"
+					jwcid="ExportPage" alt="导出Excel" onclick=exportExcel("SelectFrmDiv")/></a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td style="font-size:9pt" align='right' width=50%><image
+					id="FirstPage" style="display:none;" jwcid="@Image"
+					image="ognl:assets.FirstPage" width="15" height="15" alt="首页"
+					onclick="navigatorClick('first')" /> <image id="FirstPage_disabled"
+					jwcid="@Image" image="ognl:assets.FirstPage_disabled" width="15"
+					height="15" alt="首页" /> <image id="PreviousPage"
+					style="display:none;" jwcid="@Image"
+					image="ognl:assets.PreviousPage" width="15" height="15" alt="上一页"
+					onclick="navigatorClick('previous')" /> <image
+					id="PreviousPage_disabled" jwcid="@Image"
+					image="ognl:assets.PreviousPage_disabled" width="15" height="15"
+					alt="上一页" /> <image id="NextPage" style="display:none;"
+					jwcid="@Image" image="ognl:assets.NextPage" width="15" height="15"
+					alt="下一页" onclick="navigatorClick('next')" /> <image
+					id="NextPage_disabled" jwcid="@Image"
+					image="ognl:assets.NextPage_disabled" width="15" height="15"
+					alt="下一页" /> <image id="LastPage" style="display:none;"
+					jwcid="@Image" image="ognl:assets.LastPage" width="15" height="15"
+					alt="尾页" onclick="navigatorClick('last')" /> <image
+					id="LastPage_disabled" jwcid="@Image"
+					image="ognl:assets.LastPage_disabled" width="15" alt="尾页"
+					height="15" /></td>
+				<td width="5%"></td>
+				<td width="5%" style="font-size:9pt"><b>转到页</b></td>
+				<td width="10%"><input size="5" id="GoPage" type="" /> <image
+					id="goButton" jwcid="@Image" image="ognl:assets.Go" width="15"
+					height="15" onclick="navigatorClick('go')" />
+			</tr>
+		</table>
+		</td>
+	</tr>
+
+	<!-- 报表工具条结束 -->
+	<tr id="SelectData" valign=top>
+		<td><span style="cursor:move">
+		<div id="SelectFrmDiv"
+			style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto;BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		<span jwcid="PrintTable" /></div>
+		</span> </td>
+	</tr>
+	<!-- 报表工具条开始 -->
+	<input class="text-position" style="display:none;" jwcid="CurrentPage"
+		id="CurrentPage" type="text" />
+	<input class="text-position" style="display:none;" jwcid="AllPages"
+		id="AllPages" type="text" />
+	<input jwcid="Zhuangt" style="display:none;" id="Zhuangt" type="text" />
+
+</table>
+
+</form>
+</body>
+<script>	
+	 setNavigatorButton();window.onresize();document.all.item("waitshez").style.display="none";
+    document.all.item("SelectFrmDiv").style.height = bodyHeight - 80;
+</script>
+</html>

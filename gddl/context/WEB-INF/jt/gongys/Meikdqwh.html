@@ -1,0 +1,727 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>煤矿地区同步查询</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function() {
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';	
+	Ext.QuickTips.init();
+
+    Ext.form.Field.prototype.msgTarget = 'side';
+
+    var bd = Ext.getBody();
+    var shengf_x;
+    var fuid_x;
+    var rongqgx_x;
+    var xiny;
+    var shifss;
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:SaveMsg"></span>
+
+   /////////////////////////////////GridPanel//////////////////////////////////
+    /*
+	var gridDiv_grid = new Ext.grid.GridPanel({
+		el:'gridDiv',
+		ds: gridDiv_ds,
+		cm: gridDiv_cm,
+		sm: gridDiv_sm,
+	    sm: new Ext.grid.RowSelectionModel({
+		    singleSelect: true,
+		    listeners: {
+		        rowselect: function(sm, row, rec) {
+		            Ext.getCmp("company-form").getForm().loadRecord(rec);
+
+				    shengf_x.setValue(rec.get('SHENGFB_ID'));
+				  
+    				fuid_x.setValue(rec.get('FUID'));
+    
+    				rongqgx_x.setValue(rec.get('RONGQGX'));
+    
+    				xiny.setValue(rec.get('XINY'));
+    
+    				shifss.setValue(rec.get('SHIFSS'));
+		        }
+		    }
+		})
+    <!--span jwcid="@Insert" raw="true" value="ognl:TbarScript"></span-->
+		bbar:gridDiv_pag,
+		stripeRows:true,
+		//autoExpandColumn: 'company',
+        frame: true,
+		height: 300,
+		width: 980
+	});
+    */
+    //////////////////////////////////////////////////////////////////////////
+	<!--span jwcid="@Insert" raw="true" value="ognl:GridScriptLoad"></span-->
+    ////////////////////////////////////////////////////////
+	var tab = new Ext.FormPanel({
+	    id:'company-form',
+        labelAlign: 'top',
+        el:'formDiv',
+        bodyStyle:'padding:5px',
+        width: '100%',
+        height: '100%',
+        frame: true,
+        items: [
+        {
+            layout:'column',
+            border:false,
+            items:[
+            {
+            columnWidth: 1,
+            layout: 'fit',
+            items: [gridDiv_grid]
+        }]
+        }
+        ,
+        {
+            xtype:'tabpanel',
+            plain:true,
+             listeners:{
+            	'tabchange':function(){
+            		var gsm = gridDiv_grid.getSelectionModel();
+            		rec = gsm.getSelected();
+            		if(rec  != null){
+            			gridDiv_grid.getSelectionModel().selectRecords(rec);
+            			gsm.fireEvent('selectionchange',gsm);
+
+            		}
+					
+            	}
+            },
+            activeTab: 0,
+            height:250,
+            defaults:{bodyStyle:'padding:10px'},
+            items:[{
+                title:'基本信息',
+                width:'auto',
+				layout:'column',
+                border:false,
+                
+                items: [
+                {
+	                width:'auto',
+	                columnWidth:.25,
+	                layout: 'form',
+	                border:false,
+	                items: [
+            		{
+	                    xtype:'textfield',
+	                    fieldLabel: '序号',
+	 					name: 'XUH',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("XUH",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '拼音',
+	                    name: 'PINY',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("PINY",newValue);
+                		 	}
+                		 },
+	                    width:156
+                	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '法定代表人',
+	 					name: 'FADDBR',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("FADDBR",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '开户银行',
+	                    name: 'KAIHYH',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("KAIHYH",newValue);
+                		 	}
+                		 },
+	                    width:156
+                	}]
+            		},{
+	            	columnWidth:.25,
+	          		width:'auto',
+	            	layout: 'form',
+	            	border:false,
+	            	items: [
+            		{
+	                    xtype:'textfield',
+	                    fieldLabel: '供应商编码',
+	                    name: 'BIANM',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		if (strlen(newValue) > 50) {
+        							Ext.MessageBox.alert('提示信息','您输入的供应商编码过长，请重新输入！');
+                		 	    	this.focus(true);
+                		 		} else {
+                		 			setRecord("BIANM",newValue);
+                		 		}
+                		 		if (strlen(newValue) <= 50) {
+                		 			if (document.all.isEditShangjgsbm.value == '是') {
+            							setRecord("SHANGJGSBM",newValue);
+	            						Ext.getCmp('company-form').getForm().loadRecord(rec);            						
+            						}
+                		 		}
+                		 	}
+                		 },
+	                    width:156
+	                },{
+						disabled:disable,
+	                    xtype:'textfield',
+	                    fieldLabel: '上级单位编码',
+	                    name: 'SHANGJGSBM',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 	    if (strlen(newValue) > 50) {
+                		 	    	Ext.MessageBox.alert('提示信息','您输入的上级单位编码过长，请重新输入！');
+                		 	    	this.focus(true);
+                		 	    } else {
+                		 	    	setRecord("SHANGJGSBM",newValue);
+                		 	    }
+                		 	}
+                		},
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '委托代理人',
+	                   	name: 'WEITDLR',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("WEITDLR",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '账号',
+	 					name: 'ZHANGH',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("ZHANGH",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	}]
+            		},{
+	            	columnWidth:.25,
+	          		width:'auto',
+	            	layout: 'form',
+	            	border:false,
+	            	items: [
+            		{
+	                    xtype:'textfield',
+	                    fieldLabel: '简称',
+	                    name: 'MINGC',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("MINGC",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },shengf_x= new Ext.form.ComboBox(
+	            			{	fieldLabel:'省份',
+	            				width:156,
+            					selectOnFocus:true,
+            					transform:'SHENGFB_IDSelect',
+								lazyRender:true,
+            					triggerAction:'all',
+            					typeAhead:true,
+								forceSelection:true,
+					            editable:false,
+					            allowBlank:true,//false,
+            					listeners: {
+	                		 		change:function(own,newValue,oldValue){
+	                		 			setRecord("SHENGFB_ID",own.getRawValue());
+                		 			}
+                		 		}
+					}),{
+	                    xtype:'textfield',
+	                    fieldLabel: '煤种',
+	 					name: 'MEIZ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("MEIZ",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '传真',
+	 					name: 'CHUANZ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+            					setRecord("CHUANZ",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	}]
+            		},{
+	            	columnWidth:.25,
+	          		width:'auto',
+	            	layout: 'form',
+	            	border:false,
+	            	items: [
+            		{
+	                    xtype:'textfield',
+	                    fieldLabel: '全称',
+	                    name: 'QUANC',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("QUANC",newValue);
+                		 	}
+                		 },
+	                    width:156
+                	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '煤炭来源',
+	 					name: 'MEITLY',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("MEITLY",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '邮编',
+	                    name: 'YOUZBM',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+            					setRecord("YOUZBM",newValue);		 		
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '电话',
+	                    name: 'DIANH',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+            					setRecord("DIANH",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]}]
+            		},{
+                title:'其他信息',
+                width:300,
+				layout:'column',
+                border:false,
+                items: [
+                {
+	                width:300,
+	                columnWidth:.33,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '储备能力(万吨)',
+	                    name: 'CHUBNL',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("CHUBNL",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '开采能力(万吨)',
+	 					name: 'KAICNL',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("KAICNL",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '开采年限(年)',
+	 					name: 'KAICNX',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("KAICNX",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '生产能力(万吨)',
+	 					name: 'SHENGCNL',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("SHENGCNL",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	}]
+            		}
+            	,{
+	                columnWidth:.33,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '供应能力(万吨)',
+	                    name: 'GONGYNL',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("GONGYNL",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },
+                  {
+	                    xtype:'textfield',
+	                    fieldLabel: '流向',
+	 					name: 'LIUX',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("LIUX",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '运输方式',
+	 					name: 'YUNSFS',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("YUNSFS",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '市场采购量(万吨)',
+	 					name: 'SHICCGL',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("SHICCGL",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	}]
+            	},{
+	                columnWidth:.33,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '重点合同(万吨)',
+	                    name: 'ZHONGDHT',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("ZHONGDHT",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '运输能力(万吨)',
+	 					name: 'YUNSNL',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("YUNSNL",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '合作年限(年)',
+	 					name: 'HEZNX',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("HEZNX",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},rongqgx_x=new Ext.form.ComboBox(
+	            			{	fieldLabel:'融洽关系',
+	            				width:156,
+            					selectOnFocus:true,
+            					transform:'RONGQGXSelect',
+								lazyRender:true,
+            					triggerAction:'all',
+            					typeAhead:true,
+								forceSelection:true,
+            					editable:false,
+            					allowBlank:true,//false,
+            					listeners: {
+                		 			change:function(own,newValue,oldValue){
+                		 				setRecord("RONGQGX",own.getRawValue());
+                		 		}
+                			 }
+					})]
+            	}]
+            },{
+                title:'其他信息',
+                width:300,
+				layout:'column',
+                border:false,
+                items: [
+                {
+	                width:300,
+	                columnWidth:.25,
+	                layout: 'form',
+	                border:false,
+	                items: [
+            			xiny=new Ext.form.ComboBox(
+	            			{	fieldLabel:'信誉',
+	            				width:156,
+            					selectOnFocus:true,
+            					transform:'XINYSelect',
+								lazyRender:true,
+            					triggerAction:'all',
+            					typeAhead:true,
+								forceSelection:true,
+            					editable:false,
+            					allowBlank:true,//false,
+            					listeners: {
+                		 			change:function(own,newValue,oldValue){
+                		 				setRecord("XINY",own.getRawValue());
+                		 		}
+                			 }
+					}),{
+	                    xtype:'textfield',
+	                    fieldLabel: '公司性质',
+	                    name: 'GONGSXZ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("GONGSXZ",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '可供应煤种',
+	                    name: 'KEGYWFMZ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("KEGYWFMZ",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '单位地址',
+	                    name: 'DANWDZ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("DANWDZ",newValue);
+                		 	}
+                		},
+	                    width:156 
+                	}
+                ]},{
+	                columnWidth:.25,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [
+            		shifss=new Ext.form.ComboBox(
+	            			{	fieldLabel:'是否上市',
+	            				width:156,
+            					selectOnFocus:true,
+            					transform:'SHIFSSSelect',
+								lazyRender:true,
+            					triggerAction:'all',
+            					typeAhead:true,
+								forceSelection:true,
+            					editable:false,
+            					allowBlank:true,//false,
+            					listeners: {
+                		 			change:function(own,newValue,oldValue){
+                		 				setRecord("SHIFSS",own.getRawValue());
+                		 		}
+                			 }
+					}),{
+	                    xtype:'textfield',
+	                    fieldLabel: '上市地址',
+	                    name: 'SHANGSDZ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("SHANGSDZ",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '可供应煤种指标',
+	                    name: 'KEGYWFMZZB',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("KEGYWFMZZB",newValue);
+                		 	}
+                		},
+	                    width:156
+                	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '税号',
+	                    name: 'SHUIH',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("SHUIH",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]
+            	},{
+	                columnWidth:.25,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'numberfield',
+	                    fieldLabel: '收煤比例',
+	                    name: 'SHOUMBFB',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("SHOUMBFB",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'numberfield',
+	                    fieldLabel: '其他比例',
+	                    name: 'QITBFB',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("QITBFB",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'numberfield',
+	                    fieldLabel: '自产比例',
+	                    name: 'ZICBFB',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("ZICBFB",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },fuid_x=new Ext.form.ComboBox(
+		            			{	fieldLabel:'隶属于',
+		            				width:156,
+	            					selectOnFocus:true,
+	            					transform:'FUIDSelect',
+									lazyRender:true,
+	            					triggerAction:'all',
+	            					typeAhead:true,
+									forceSelection:true,
+	            					editable:false,
+	            					allowBlank:true,//false,
+	            					listeners: {
+		                		 		change:function(own,newValue,oldValue){
+		                		 			setRecord("FUID",own.getRawValue());
+	                		 			}
+	                		 		}
+						})]
+            	},{
+	                columnWidth:.25,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '备注',
+	                    name: 'BEIZ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+                		 		setRecord("BEIZ",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]
+            	}]
+            
+            
+            }]
+        }]
+
+    });
+	
+    tab.render();
+    function strlen(str) {
+	    var len = 0;   
+	    for (var i = 0; i < str.length; i++) {
+	        if ((str.charCodeAt(i) >= 0) && (str.charCodeAt(i) <= 255)) {
+	        	len ++;
+	        } else {
+	        	len += 2;
+	        }
+	    }   
+	    return len;
+	}
+    function setRecord(field,value){
+        rec = gridDiv_grid.getSelectionModel().getSelected();
+        if(rec == null){
+        	Ext.MessageBox.alert('提示信息','请选中一条记录进行编辑');
+            return;
+        }
+        rec.set(field,value);
+    }
+    if(document.getElementById('DataSource').value!=''){
+    	
+    	gridDiv_sm.selectRow(0);
+    }
+});
+
+</script>
+</head>
+<body id="body">
+
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+    <span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span> 
+    <span id="CHANGE" jwcid="CHANGE" style="display:none"></span> 
+    <input style="width:100%" jwcid="SHENGFB_IDSelect" id="SHENGFB_IDSelect" /> 
+    <input style="width:100%" jwcid="FUIDSelect" id="FUIDSelect" />
+    <input style="width:100%" jwcid="RONGQGXSelect" id="RONGQGXSelect" />
+    <input style="width:100%" jwcid="XINYSelect" id="XINYSelect" />
+    <input style="width:100%" jwcid="SHIFSSSelect" id="SHIFSSSelect" /> 
+    <span jwcid="GuanlButton@ZRcontrib:ImgButton" buttontype=""
+          label="添加已有供应商" style="display:none" 
+          id = "GuanlButton" listener="ognl:listeners.GuanlButton" ></span>
+	<span jwcid="deleteButton@ZRcontrib:ImgButton" buttontype="" label="删除" style="display:none" id = "deleteButton"  ></span>
+    <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" style="display:none" id="SaveButton" listener="ognl:listeners.SaveButton"></span>
+	<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="刷新" id = "RefreshButton" listener="ognl:listeners.RefreshButton" ></span>
+    
+    <input id="DataSource" style="display:none" type="text" jwcid="DataSource"/>
+    <input id="isEditShangjgsbm"  style="display:none" type="text" jwcid="isEditShangjgsbm"/>
+    <!--input id="SaveMsg" style="display:none" type="text" jwcid="SaveMsg"/-->
+	</form>
+<div id="formDiv" style="height:100%;overflow:none"></div>
+<div id="gridDiv" style="height:65%;overflow:none"></div>
+</body>
+
+<script type="text/javascript">
+
+window.onload=function(){
+    
+}
+</script>
+
+</html>

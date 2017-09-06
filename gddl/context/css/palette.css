@@ -1,0 +1,22 @@
+TABLE.palette TH
+{
+  font-size: 11pt;
+  font-weight: bold;
+  color: white;
+  background-color: activecaption;
+  text-align: center;
+}
+
+TABLE.palette SELECT
+{
+
+  background-color: lightsteelblue;
+  width: 250px;
+}
+
+TABLE.palette TD.controls
+{
+   text-align: center;
+   vertical-align: middle;
+   width: 70px;
+}

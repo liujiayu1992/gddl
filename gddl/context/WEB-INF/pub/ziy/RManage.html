@@ -1,0 +1,264 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>资源菜单管理</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+//	添加一rediobox框
+var jt = true;
+var fgs = false;
+var dc = false;
+var jobj = document.getElementById("JIB");
+if(jobj!=null){
+	if(jobj.value == "2"){
+		jt = false;
+		fgs = true;
+		dc = false;
+	}else
+	if(jobj.value == "3"){
+		jt = false;
+		fgs = false;
+		dc = true;
+	}	
+}
+/*
+	var menu = new Ext.menu.Menu({
+		id: 'mainMenu',
+		items: [{
+			text: '选择级别',
+			menu: {
+				items: [
+					{text: '集团',
+	    			checked: jt,
+	    			group: 'theme',
+	    			checkHandler: onItemCheck
+					}, {text: '分公司',
+	    			checked: fgs,
+	    			group: 'theme',
+	    			checkHandler: onItemCheck
+					}, {text: '电厂',
+	    			checked: dc,
+	    			group: 'theme',
+	    			checkHandler: onItemCheck}]
+			}
+		}]
+	});
+*/
+//	添加一添加按钮
+	var insBtn = new Ext.Toolbar.Button({
+		text: '添加',
+		handler : function(){
+			var Node = treePanel.getSelectionModel().getSelectedNode();
+			if((Node.id).indexOf("ynode")!=-1){
+				Ext.MessageBox.alert("提示信息","请先保存资源!");
+				return ;
+			}
+			Ext.MessageBox.prompt('提示', '请输入资源路径', adNode)
+			function adNode(btn,text){
+				if(btn=="ok"){
+					var newnode = new Ext.tree.TreeNode({
+			        		//id:'-1',
+			        		text:'',
+			        		pageName:text,
+			        		allowDrag:false
+		        		});
+		        		
+		        		Node.leaf = false;
+		        		Node.appendChild(newnode);
+		        		op = "I," + newnode.id + "," + Node.id + "," + newnode.text + "," + text;
+		        		ModifyHis(newnode.id,op,"I");
+		        		savBtn.setDisabled(false);
+				}
+			};
+		}
+	});
+
+//	添加一删除按钮
+	var delBtn = new Ext.Toolbar.Button({
+		text: '删除',
+		handler : function(){
+       		var Node = treePanel.getSelectionModel().getSelectedNode();
+       		if(Node){
+       			if(Node.id == 0){
+       				return;
+       			}else
+       			
+       			if((Node.id).indexOf("ynode")!=-1){
+       				op = "" ;
+       				ModifyHis(Node.id,op,"I");
+       				Node.remove();
+       			}else{
+       				op = "D," + Node.id ;
+       				ModifyHis(Node.id,op,"D");
+       				Node.remove();
+       			}
+       			savBtn.setDisabled(false);
+       		}
+		}
+	});
+//	添加一修改资源按钮
+	var upBtn = new Ext.Toolbar.Button({
+		text:'修改资源',
+		handler : function(){
+			var Node = treePanel.getSelectionModel().getSelectedNode();
+			Ext.MessageBox.prompt('提示', '请输入资源路径', upNode);
+			function upNode(btn,text){
+				if(btn=="ok"){
+	        		op = "R," + Node.id + "," + text;
+	        		ModifyHis(Node.id,op,"R");
+	        		savBtn.setDisabled(false);	
+				}
+			};
+		}
+	});
+//	添加一保存按钮
+	var savBtn = new Ext.Toolbar.Button({
+		text: '保存',
+		disabled: true,
+		handler : function(){
+			if(history==""){
+				Ext.MessageBox.alert("提示信息","没有进行改动无需保存");
+				return ;
+			}
+			var Robj = document.getElementById("OperateNotes");
+			Robj.value = history;
+			document.getElementById("SaveButton").click();
+		}
+	});
+//	添加一treePanel
+	var treePanel=new Ext.tree.TreePanel({ 
+		el:'ShowPlatform',
+		animate:true,
+		line:true,
+		enableDD:true,
+		rootVisible:true,
+		autoScroll :true,
+		//title:'',
+		tbar : [
+		/*{
+            text:'级别',
+            menu: [
+            {text: '集团',
+	    			checked: jt,
+	    			group: 'theme',
+	    			checkHandler: onItemCheck
+					}, {text: '分公司',
+	    			checked: fgs,
+	    			group: 'theme',
+	    			checkHandler: onItemCheck
+					}, {text: '电厂',
+	    			checked: dc,
+	    			group: 'theme',
+	    			checkHandler: onItemCheck}
+            //*new Ext.Action({text: '集团',handler: function(){var jobj = document.getElementById("JIB");jobj.value = 1;
+	            document.getElementById("RefurbishButton").click();}}),
+	            new Ext.Action({text: '分公司',handler: function(){var jobj = document.getElementById("JIB");jobj.value = 2;
+	            document.getElementById("RefurbishButton").click();}}),
+	            new Ext.Action({text: '电厂',handler: function(){var jobj = document.getElementById("JIB");jobj.value = 3;
+	            document.getElementById("RefurbishButton").click();}})
+    		]    
+        },*/
+        insBtn,delBtn,upBtn,savBtn ] 
+    });
+	<span jwcid="@Insert" raw="true" value="ognl:TreeData"></span>
+	treePanel.setRootNode(node0);
+	node0.expanded = true;
+    var treeEdit = new Ext.tree.TreeEditor(treePanel);
+    treePanel.render();
+	treePanel.on("movenode",function(tree,node,oldParent,newParent,index){
+		op = "M," + node.id + "," + newParent.id + ","+ oldParent.id + "," + index;
+		ModifyHis(node.id,op,"M");
+		savBtn.setDisabled(false);
+	});
+	treePanel.on("textchange",function(node,text,oldText){
+		if(text != oldText){
+			if((node.id).indexOf("ynode")!=-1){
+				ChangeNewtext(node.id,text);
+			}else{
+				op = "U," + node.id + "," + text + "," + oldText;
+				ModifyHis(node.id,op,"U");
+			}
+			savBtn.setDisabled(false);
+		}
+	});
+
+});
+
+function onItemCheck(item, checked){
+	var jobj = document.getElementById("JIB");
+	if(checked){
+		if(item.text == "集团"){
+			jobj.value = 1;
+		}else
+			if(item.text == "分公司"){
+				jobj.value = 2;
+			}else{
+				jobj.value = 3;
+			}
+		document.getElementById("RefurbishButton").click();
+	}	
+}
+function ModifyHis(nodid,op,opm){
+	changed = history.split(";");
+	found = false;
+	for(ci=0;ci<changed.length;ci++){
+		mod = changed[ci].split(",")[0]
+		id  = changed[ci].split(",")[1];
+		if(nodid == id && mod == opm){
+			changed[ci] = op;
+			found = true;
+			break;
+		}
+	}
+	if(found){
+		history = changed.join(";");
+	}else{
+		history += op + ";";
+	}
+}
+
+function ChangeNewtext(nodid,text){
+	changed = history.split(";");
+	for(ci=0;ci<changed.length;ci++){
+		sx  = changed[ci].split(",");
+		id = sx[1];
+		if(nodid == id){
+			sx[3] = text;
+			changed[ci] = sx.join(",");
+			found = true;
+			break;
+		}
+	}
+	history = changed.join(";");
+}
+
+
+</script>
+</head>
+
+<body jwcid="@Body">
+<div id = ShowPlatform style="width:100%;height:100%">
+</div>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<input style="display:none" jwcid="OperateNotes" id="OperateNotes"/> 
+<input style="display:none" jwcid="JIB" id="JIB"/> 
+<span jwcid="RefurbishButton@ZRcontrib:ImgButton"
+buttontype="refurbish" label="刷新" style="display:none"
+listener="ognl:listeners.RefurbishButton" id = "RefurbishButton" />
+<span jwcid="SaveButton@ZRcontrib:ImgButton"
+buttontype="save" label="保存" style="display:none"
+listener="ognl:listeners.SaveButton" id = "SaveButton" />
+</form>
+</body>
+</html>
+

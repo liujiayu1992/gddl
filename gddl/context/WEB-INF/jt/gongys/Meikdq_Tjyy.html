@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>添加已有煤矿地区</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+
+function mohcx(fieldValue,data,ds){
+        	var name_value=fieldValue;
+        	var new_data_str="new_data=[";
+        	if(name_value==null || name_value=='')
+        	{
+        		ds.loadData(data);
+        	}else{
+        	var s='var name_regex=new RegExp("'+name_value+'","");';
+        	eval(s);
+        	for(var i=0;i<data.length;i++){
+        		var arr=data[i];
+        		if(name_regex.test(arr[3])){
+        			var recoName="[";
+        			for(var j=0;j<arr.length;j++){
+        				recoName+="'"+arr[j]+"'";
+        				if(j!=arr.length-1){recoName+=",";}
+        				}
+        				recoName+="]";
+        				new_data_str+=recoName;
+        				new_data_str+=",";
+        		}
+        	}
+        	new_data_str=new_data_str.substring(0,new_data_str.lastIndexOf(','));
+        	if(new_data_str==null||new_data_str==""){
+        		new_data_str+="new_data=[";
+        	}
+        	new_data_str+="];";
+        	eval(new_data_str);
+    	ds.loadData(new_data);
+        }
+}
+</script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var grid_div;
+var gongysmc;
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+});
+</script>	
+</head>
+<body id="body" >
+<div id = "gridDiv" style="height:100%;overflow:none"></div>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<span jwcid="ReturnButton@ZRcontrib:ImgButton" buttontype="" label="返回" style="display:none" id="ReturnButton" listener="ognl:listeners.ReturnButton"></span>
+		<td align="right"width='60'>供应商名称:</td> 
+	    <td width='120'><input style="width:100%"  jwcid="gongysmc"  id="gongysmc"/> </td>
+<span jwcid="SelectButton@ZRcontrib:ImgButton" buttontype="" label=模糊查询 style="display:none" 
+          id = "SelectButton" listener="ognl:listeners.SelectButton" ></span>
+<span jwcid="RbButton@ZRcontrib:ImgButton" buttontype="" label="添加所选供应商"
+			style="display:none" id="RbButton" listener="ognl:listeners.RbButton"></span>
+<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+
+<input id="Gongysmc_value"  style="display:none" type="text" jwcid="Gongysmc_value"/>
+<input id="MsgAdd" style="display:none" type="text" name="MsgAdd"/>
+</form>
+
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<html jwcid="@Shell" title="人员角色选择" stylesheet="ognl:assets.Main">
+<SCRIPT LANGUAGE="JavaScript"> 
+	<!-- Hide 
+	function killErrors() { 
+		return true; 
+	} 
+	window.onerror = killErrors; 
+	--> 
+</SCRIPT>
+<body id="body" jwcid="@Body">
+	<script jwcid = "Mainjs" ></script>
+	<script jwcid = "Personjs" ></script>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+		<table>
+			<tr>
+                <td>
+                    <table id = Toolbar>
+                        <tr>
+							<td><span jwcid="SaveButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="确认" onblur="return blurfocus();" listener="ognl:listeners.SaveButton" ></span>
+							</td>
+							<td><span jwcid="ReturnButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype="" 
+                                label="返回" onblur="return blurfocus();" listener="ognl:listeners.ReturnButton" ></span>
+							</td>
+                        </tr>
+                     </table>
+                </td>
+			</tr>
+            <tr>
+                <td>
+                	<div id="editMainDiv" class=frameDivY>
+						<table id="editBodyTable" class="editBodyTable" cellpadding="0" cellspacing="0" width=230>
+							<tr>
+								<th width=30 height=28><input style="width:28px;" type=checkbox></input></th>
+	                            <th width=100 height=28>组名</th>
+	                            <th width=100 height=28>备注</th>
+							</tr>
+							<tr jwcid="EditValues">
+	                            <td width=30><span style="width:26px;"  jwcid="SELECTED"></span></td>
+								<td width=100><span style="width:96px;" readonly=true jwcid="MINGC"></span></td>
+								<td width=100><span style="width:96px;" readonly=true jwcid="BEIZ"></span></td>
+							</tr>
+						</table>
+					</div>
+                </td>  
+            </tr>
+		</table>
+	</form>
+</body><script>window.onresize();</script>
+</html>

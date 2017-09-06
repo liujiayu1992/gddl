@@ -1,0 +1,71 @@
+<html jwcid="@Shell" title="组信息维护" stylesheet="ognl:assets.Main">
+<SCRIPT LANGUAGE="JavaScript"> 
+	<!-- Hide 
+	function killErrors() { 
+		return true; 
+	} 
+	window.onerror = killErrors; 
+	 --> 
+</SCRIPT>
+<script type="text/javascript"><span jwcid="@Insert" value="ognl:ArrayScript" /></script>
+<body id="body" jwcid="@Body">
+    <script jwcid = "Mainjs" ></script>
+    <script jwcid = "Groupjs" ></script>
+    <script jwcid = "ImgCheckTreejs" ></script>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+		<table>
+			<tr>
+                <td colspan=2>
+                    <table id = Toolbar>
+                        <tr>
+							<td><span jwcid="RefurbishButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="刷新" onblur="return blurfocus();" listener="ognl:listeners.RefurbishButton" ></span>
+							</td>
+							<td><span jwcid="InsertButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="添加" onblur="return blurfocus();" listener="ognl:listeners.InsertButton" ></span>
+							</td>
+			                <td><span jwcid="DeleteButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="删除" onblur="return blurfocus();" listener="ognl:listeners.DeleteButton" ></span>
+							</td>
+							<td><span jwcid="SaveButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="保存" onblur="return blurfocus();" listener="ognl:listeners.SaveButton" ></span>
+							</td>
+							<td><span jwcid="ShowPowerButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="查看权限" onblur="return blurfocus();" listener="ognl:listeners.ShowPowerButton" ></span>
+							</td>
+							<td><span jwcid="SavePowerButton@ZRcontrib:ImgButton" onclick="if(SavePowerClick()){return Showwait();}else{return false;}" buttontype=""
+								label="保存权限" onblur="return blurfocus();" listener="ognl:listeners.SavePowerButton" ></span>
+							</td>
+							<td>
+								<span id="POWERCHANGE"  jwcid = "POWERCHANGE" style="display:none"></span>
+							</td>
+                        </tr>
+                     </table>
+                </td>
+			</tr>
+            <tr>
+                <td>
+                	<div id="editMainDiv" class=frameDiv>
+						<table id="editBodyTable" class="editBodyTable" cellpadding="0" cellspacing="0" width=230>
+							<tr>
+								<th width=30 height=28><input style="width:28px;" type=checkbox></input></th>
+	                            <th width=100 height=28>组名</th>
+	                            <th width=100 height=28>备注</th>
+							</tr>
+							<tr jwcid="EditValues">
+	                            <td width=30><span style="width:26px;"  onclick="CheckClick(this)" jwcid="SELECTED"></span></td>
+								<td width=100><span style="width:96px;" onchange="InfoChange(this)" jwcid="MINGC"></span></td>
+								<td width=100><span style="width:96px;" onchange="InfoChange(this)" jwcid="BEIZ"></span></td>
+							</tr>
+						</table>
+					</div>
+                </td>
+                <td width=50%>
+                <div id="treeMainDiv" class=frameDiv></div>
+                </td>    
+            </tr>
+		</table>
+	</form>
+</body><script>window.onresize();CheckShowRoot("treeMainDiv");</script>
+</html>

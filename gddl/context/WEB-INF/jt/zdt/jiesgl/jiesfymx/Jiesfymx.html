@@ -1,0 +1,415 @@
+<html jwcid="@Shell" doctype=" " title="结算费用明细"  stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<style>
+
+.default_report_table_body{
+    border-style: solid;
+	border-width: 0px 0px 1px 1px;
+    border-color: #000000;    
+ }
+    
+.default_report_table_cells{
+    border-style: solid;
+	border-width: 1px 1px 0px 0px;
+    border-color: #000000;    
+ }
+
+.search_re_tab{
+	background-color: #B6C6D8;
+    border-style: solid;
+	border-width: 0px 0px 1px 1px;
+    border-color: #B6C6D8;
+}
+    
+.search_re_tab td{
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #184671;
+	text-decoration: none;
+	padding-top: 4px;
+	padding-right: 6px;
+	padding-bottom: 4px;
+	padding-left: 12px;
+}
+.search_re_tab th{
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #184671;
+	text-decoration: none;
+	padding: 6px 6px 6px 12px;
+	background-color: #D3DFEB;
+}
+.search_re_tab #line_one{
+	background-color: #FFFFFF;
+}
+.search_re_tab #line_two{
+	background-color: #E3EBF2;
+}
+
+.tabel_outline {
+	border: 1px solid #99bbe8;
+}
+    
+.tabel_inline {
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-top-color: #FFFFFF;
+	border-bottom-color: #99bbe8;
+}
+               
+a {
+	color: #FE6000;
+	text-decoration: none;
+    font-size:12px;
+}
+a:hover {
+	color: #FF8F4D;
+	text-decoration: underline;
+}
+a:active {
+	color: #FE6000;
+	text-decoration: none;
+}
+a:visited {
+	color: #FE6000;
+	text-decoration: none;
+}
+
+.tubiao_layer_tab {
+	border: 1px solid #FFFFFF;
+	background-color: #8aabca;
+}
+
+.tubiaoLayer01 {
+	position:absolute;
+	left:89px;
+	top:48px;
+	z-index:1;
+	visibility: hidden;
+}
+
+ .tubiao_mini {
+	padding-top: 6px;
+	padding-right: 6px;
+	padding-bottom: 6px;
+	padding-left: 6px;
+	background-color: #dddddd;
+}
+.tubiao_text {
+	padding-top: 8px;
+	text-align: center;
+}
+ 
+.tab_data_line_one{
+    font-size: 12px;
+	background-color: #FFFFFF;
+}
+    
+.tab_data_line_two{
+	font-size: 12px;
+    background-color: #E3EBF2;
+}
+.tab_colheader{
+	font-size: 12px;
+    font-weight:bold;
+	color: #184671;
+    background-color: #D3DFEB;
+}
+    
+.tab_rowheader{
+	font-size: 9px;
+    font-weight:bold;
+	background-color: #ECE9D8;	
+}
+
+.tab_body{
+	background-color: #B6C6D8;
+    border-style: solid;
+	border-width: 0px 0px 1px 1px;
+    border-color: #B6C6D8;
+}
+
+.tab_cells{
+	border-style: solid;
+	border-width: 1px 1px 0px 0px;
+	border-color: #B6C6D8;
+    color:#184671
+}
+</style>
+
+<script type="text/javascript">
+
+function openChildItem(lngId,strLeix){
+    if (strLeix=="厂" ){
+		var obj0 = document.getElementById('diancTree_id');
+		obj0.value = lngId;
+    }else{
+    	var obj0 = document.getElementById('GongysId');
+		obj0.value=lngId;
+    }
+    document.forms[0].submit();
+}
+    
+function printReport(lx){
+    var intyear=document.getElementById('NIANF').value;
+    var StrMonth=document.getElementById('YUEF').value;
+	var url = 'http://'+document.location.host+document.location.pathname+'?service=page/RucmcbtjReport&nianf='+intyear+'&yuef='+StrMonth+'&lx='+lx;
+	window.open(url,'newWin');
+}
+    
+function openMingxTaiz(lx){
+    var url = 'http://'+document.location.host+document.location.pathname+'?service=page/JiesfymxReport&lx='+lx;
+	window.open(url,'newWin');
+} 
+
+//function MM_showHideLayers() {
+//var i,p,v,obj,args=MM_showHideLayers.arguments;
+//  var objimgID;
+//  var imgBar='none';
+//  var imgPie3D='none';
+//  var imgLine='none';
+ 
+//  document.getElementById('tubiaoLayer').style.left='60';
+//  document.getElementById('tubiaoLayer').style.top='150';
+          
+//  for (i=0; i<(args.length-2); i+=3) {
+//	  if (document.getElementById && ((obj=document.getElementById(args[i]))!=null)) { 
+//			v=args[i+2];
+//	    	if (obj.style) { 
+//	     		obj=obj.style; 
+//	     		v=(v=='show')?'visible':(v=='hide')?'hidden':v; 
+//	   	 	}
+      		
+//      		if (v=='visible'){
+//      			objimgID=args[i+1];
+//      			if (objimgID=='imgChartBar'){
+//      				imgBar='';
+//      			}else if(objimgID=='imgChartPie3D'){
+//      				imgPie3D='';
+//      			}else {
+//      				imgLine='';
+//      			}
+//      	    }
+//     		document.getElementById('imgChartBar').style.display=imgBar;
+//			document.getElementById('imgChartPie3D').style.display=imgPie3D;
+//			document.getElementById('imgChartLine').style.display=imgLine;
+//      		obj.visibility=v;       		
+//	  }
+//  }
+   
+//}
+      
+</script>
+
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	var win;
+	var rbvalue;
+
+	<!--span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span-->
+	<span jwcid="@Insert" raw=true value="ognl:ToolbarScript"></span>
+});
+</script>
+<body id="body"  jwcid="@Body"     onkeydown="if(event.keyCode==13)event.keyCode=9" class="bgs" bottommargin=0 topmargin=2 leftmargin=5 rightmargin=5>   
+	<!--span jwcid="@Insert" raw=true value="ognl:TreeHtml"/-->
+<div id="waitshez" style="border:0px solid gray; padding:2px; POSITION: absolute;z-index:1; OVERFLOW: none; HEIGHT: 119px;width:228px; left:284px; top:200px">
+	<object classid="clsid:D27CDB6E-AE6D-11CF-96B8-444553540000" id="obj1" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" border="0" width="210" height="85">
+      <param name="movie" jwcid="@Any" value="ognl:assets.tiaoj_waiting"  />
+      <param name="quality" value="high" />
+      <embed jwcid="@Any" src="ognl:assets.tiaoj_waiting" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" name="obj1" width="210" height="85" quality="High"/> 
+    </object>
+    <OBJECT id=WebBrowser classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2 height=0 width=0></OBJECT>
+    
+</div>
+    <script>
+        function Showwait(){
+			if(document.all.item("waitshez").style.display=="none"){
+                 document.all.item("waitshez").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+    </script>
+    
+    <script jwcid="Reportjs" />
+    <script jwcid="Datejs"/>
+    <script jwcid="Validatejs"/> 
+	<script jwcid="ShouhcChartjs"/>
+    
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+    <span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+
+       <span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg" > </span>
+    <!--显示报表内容开始-->    
+    <table id="tablemain"  border=1 cellspacing="0"  cellpadding="0" width ="100%" class="tabel_outline">
+        <tr  id="trcondition"  valign="middle"  height ="50">
+            <td> 
+            <div id = container>
+	    		<div id = tbdiv></div>
+	    	</div>
+            	<table valign="middle" width="100%" height="40" style=" background-color: #DBE4EE;display:none">
+					<tr>
+						<td>
+						<table>
+						<tr>
+			               	<td style="font-size: 12px;">年份:</td>
+		                    <td><input readonly="true" class="text-position" width="60"  jwcid="NIANF" id="NIANF" submitOnChange="true" type="text" /></td>
+		                    <td style="font-size: 12px;">月份:</td>
+		                    <td><input readonly="true" class="text-position"  width="50" jwcid="YUEF" id="YUEF" submitOnChange="true" type="text" /></td>
+			              	<!--td align="left" ><span jwcid="@ZRcontrib:ImgButton" buttontype="refurbish" onclick="return Showwait()" listener="ognl:listeners.RefurbishButton" label="刷新" /></td-->	
+						 	<!--span id="rbvalue" style="display:none"></span>
+			              	<span id="TEXT_RADIO_SELECT_VALUE"  jwcid = "TEXT_RADIO_SELECT_VALUE" style="display:none"></span>
+                            <span id="NIAN"  jwcid = "NIAN" style="display:none"></span>
+                            <span id="YUE"  jwcid = "YUE" style="display:none"></span>
+                        </tr>
+                     	<tr>
+							<span id="NIANFEN"  jwcid = "NIANFEN" style="display:none"></span>
+	        				<span id="YUEFEN"  jwcid = "YUEFEN" style="display:none"></span>
+						</tr-->
+						</table>
+						</td>
+							
+					</tr>	
+				</table>
+				
+				<table id='navigationBar' background="imgs/report/toolbar_bg.gif" height=20 style="background-image:url(imgs/report/toolbar_bg.gif)"  width="100%" class="tabel_inline"  >
+			    	<tr  >
+                   
+                    <td align='left' style="cursor:hand;" >
+			    	<a href="#" jwcid="PrintSetLink">
+			    	<image id="PrintSet" jwcid="PrintSet" alt="页面设置" onclick="document.all.WebBrowser.ExecWB(8,1)"/></a>
+			    	<a href="#" jwcid="PrintPageLink">
+			    	<image id="PrintPage" jwcid="PrintPage"  alt="打印" onclick="if(confirm('需要打印全部吗? 确定:打印所有页; 取消:打印当前页.')){allPrint('SelectFrmDiv');}else{print('SelectFrmDiv');}"/></a>
+			    	<a href="#" jwcid="ExportPageLink">
+			    	<image id="ExportPage" jwcid="ExportPage"  alt="导出Excel" onclick="exportExcel('SelectFrmDiv')"/></a>&nbsp;&nbsp;&nbsp;&nbsp;
+			    	</td> 
+                    <td style="font-size:9pt;display:none;" align='right'> 
+			        <image id="FirstPage" style="display:none;" jwcid="@Image" image="ognl:assets.FirstPage" width="15" height="15" alt="首页" onclick="navigatorClick('first')"/>
+			        <image id="FirstPage_disabled" jwcid="@Image" image="ognl:assets.FirstPage_disabled" width="15" height="15" alt="首页" />
+			        <image id="PreviousPage" style="display:none;" jwcid="@Image" image="ognl:assets.PreviousPage" width="15" height="15" alt="上一页" onclick="navigatorClick('previous')"/>
+			        <image id="PreviousPage_disabled" jwcid="@Image" image="ognl:assets.PreviousPage_disabled" width="15" height="15" alt="上一页" />
+			        <image id="NextPage" style="display:none;" jwcid="@Image" image="ognl:assets.NextPage" width="15" height="15" alt="下一页" onclick="navigatorClick('next')"/>
+			        <image id="NextPage_disabled" jwcid="@Image" image="ognl:assets.NextPage_disabled" width="15" height="15" alt="下一页" />
+			        <image id="LastPage" style="display:none;" jwcid="@Image" image="ognl:assets.LastPage" width="15" height="15" alt="尾页" onclick="navigatorClick('last')"/>
+			        <image id="LastPage_disabled" jwcid="@Image" image="ognl:assets.LastPage_disabled" width="15" alt="尾页" height="15" />
+			        </td>
+			        <td width="50" style="font-size:9pt;display:none;" ><b>转到页</b></td>
+			        <td width="110" style="font-size:9pt;display:none;">
+			        <input size="3" id="GoPage" type="" />
+			        <image id="goButton" jwcid="@Image" image="ognl:assets.Go" width="20" height="15" onclick="navigatorClick('go')"/>
+                    </td>
+                     <td width="90" style="font-size:9pt;display:none;" ><b>显示页<span id='pageNumber'></span>/<span id='totalPage'></span></b></td>
+                     <td>&nbsp;</td>
+                     <!--td align="right">
+                     	<table >
+                           <tr>
+		                    <td style="font-size:9pt;">报表打印:</td>
+		                    <td width=80 align="middle" ><a href="#" onclick=printReport("fchs") ><b>分厂含税</b></td>
+		                    <td width=4  align="middle" ><img src="imgs/report/tb_spliter.gif" height=15 width=2 /></td>
+							<td width=80 align="middle" ><a href="#" onclick=printReport("fcbhs") ><b>分厂不含税</b></td>
+		                    <td width=4  align="middle" ><img src="imgs/report/tb_spliter.gif" height=15 width=2 /></td>
+		                    <td width=80 align="middle" ><a href="#" onclick=printReport("fkhs")><b>分矿含税</b></td>
+		                    <td width=4 align="middle" ><img src="imgs/report/tb_spliter.gif" height=15 width=2 /></td>
+                            <td width=80 align="middle" ><a href="#" onclick=printReport("fkbhs")><b>分矿不含税</b></td>
+		                    <td width=4 align="middle" ><img src="imgs/report/tb_spliter.gif" height=15 width=2 /></td>
+		                    <td widht=10 align="cetner" >&nbsp;</td>
+		                    </tr>
+                        </table>
+                  	</td-->
+                    </tr>
+			    </table>
+            </td> 
+        </tr>
+ 		
+		<!-- 报表工具条结束 -->
+        <tr id="SelectData" valign="top">
+            <td style="padding-left: 4px;padding-top: 4px;padding-right: 4px; OVERFLOW: auto;width:100%;">
+                <div id="selectdate1" style="overflow: auto; ">
+                <table >
+                  
+                <tr>
+	           		<td  id="SelectFrmDiv" valign="top"><span jwcid="PrintTable"/>
+                 </td>
+	             <!--td valign="top">
+					<table width="200" border="0" cellspacing="0" cellpadding="0">
+						<tr><td class="tubiao_mini"><span jwcid="ChartBar"/></td></tr>
+						<tr><td class="tubiao_text" style="font-size:12px"><a href="#" onclick="MM_showHideLayers('tubiaoLayer','imgChartBar','show');">本同期对比图</a></td></tr>
+		                
+						<tr><td class="tubiao_mini"><span jwcid="ChartLine"/></td></tr>
+						<tr><td class="tubiao_text"><a href="#" onclick="MM_showHideLayers('tubiaoLayer','imgChartLine','show');">各月变化曲线图</a></td></tr>
+		                
+						<tr><td class="tubiao_mini"><span jwcid="ChartPie3D"/></td></tr>
+						<tr><td class="tubiao_text" style="font-size:12px"><a href="#" onclick="MM_showHideLayers('tubiaoLayer','imgChartPie3D','show');">各单位数量比例图</a></td></tr>
+					</table>
+                    
+                    <div id="tubiaoLayer"  class="tubiaoLayer01">
+					 <table width="10" border="0" cellpadding="0" cellspacing="0">
+					   <tr>
+					     <td colspan="2" rowspan="2" align="left" valign="top" height="100%"><table width="100%" border="0" cellpadding="18" cellspacing="0" class="tubiao_layer_tab">
+					         <tr>
+					           <td style="padding-left:4"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+					             <tr>
+					               <td align="right"><img src="imgs/report/close_bt.gif" width="16" height="16" onClick="MM_showHideLayers('tubiaoLayer','','hide')" /></td>
+					             </tr>
+					             <tr>
+					               <td align="right">&nbsp;</td>
+					             </tr>
+					           </table>
+                                 <span jwcid="ChartBarBig"/>
+                                 <span jwcid="ChartLineBig"/>
+                                 <span jwcid="ChartPie3DBig"/>
+                                 
+                                 </td>
+					         </tr>
+					       </table></td>
+					     <td height="0%"  bgcolor="#888888"><img src="imgs/report/spacer.gif" width="4" height="4" /></td>
+					   </tr>
+					   <tr>
+					     <td width="0" height="100%" bgcolor="#888888">&nbsp;</td>
+					   </tr>
+					   <tr>
+					     <td width="0%"><img src="imgs/report/spacer.gif" width="4" height="4" /></td>
+					     <td width="100%" bgcolor="#888888"><img src="imgs/report/spacer.gif" width="4" height="4" /></td>
+					     <td bgcolor="#888888"><img src="imgs/report/spacer.gif" width="4" height="4" /></td>
+					   </tr>
+					 </table>
+					 </div>
+					 <img src="imgs/report/spacer.gif" width="4" height="4" />
+				</td-->
+             </tr>
+             </table></div>
+         </td>
+      </tr>
+    </table>
+   
+    <!-- 报表变量 -->
+    <input class = "text-position" style="display:none;" jwcid="CurrentPage" id="CurrentPage" type="text" />
+    <input class = "text-position" style="display:none;" jwcid="AllPages" id="AllPages" type="text" />
+    <input class = "text-position" style="display:none;" jwcid="GongysId" id="GongysId" type="text" />
+  	<input style="display:none;" jwcid="LeixDropDown"  id="LeixDropDown" type="text"/>
+    <input style="display:none;" jwcid="JihkjDropDown"  id="JihkjDropDown" type="text" />
+    <input style="display:none;" jwcid="YunsfsDropDown"  id="YunsfsDropDown" type="text" />        
+    <input style="display:none;" jwcid="GongysDropDown"  id="GongysDropDown" type="text" />
+	<input style="display:none;" jwcid="ZHUANGT"  id="ZHUANGT" type="text"/>
+    <span  jwcid="@ZRcontrib:ImgButton"  buttontype="" label="返回" style="display:none" id="ReturnButton"listener="ognl:listeners.ReturnButton" />
+        
+    </form>
+</body>
+<script>	
+	 setNavigatorButton();window.onresize();document.all.item("waitshez").style.display="none";
+</script>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title>计划卡采样(Jihcy)</title>
+	<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.mainjs"></script>
+<script type="text/javascript">
+	Ext.onReady(function(){
+
+var form = new Ext.FormPanel({
+	labelAlign: 'right', 
+//	buttonAlign:'center',
+	height:bodyHeight,
+	labelWidth:350,
+	frame: true,
+	defaults: {msgTarget: 'side'},
+    //width: 300,
+    items: [{
+		layout:'column',
+		items:[{
+			columnWidth:.7,
+//			buttonAlign:'center',
+			layout: 'form',
+			items: [{
+			xtype:'textfield',
+			fieldLabel: '<font color="red">车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号&nbsp;</font>',
+			readOnly :true,
+			name:'CH',
+			value:Ext.getDom('CHEPH').value,
+			anchor:'95%'
+			}, {
+			xtype:'textfield',
+			disabled : true,
+			fieldLabel: '车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;队&nbsp;',
+			value: Ext.getDom('CHED').value,
+			anchor:'95%'
+			}, {
+			xtype:'textfield',
+			disabled : true,
+			fieldLabel: '状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态&nbsp;',
+			name : 'ZT',
+			value: Ext.getDom('ZHUANGT').value,
+			anchor:'95%'
+			}, {
+			xtype:'textfield',
+			disabled : true,
+			fieldLabel: '排&nbsp;序&nbsp;&nbsp;号&nbsp;',
+			value:Ext.getDom('XUH').value,
+			anchor:'95%'
+			}, {
+			xtype:'textfield',
+			disabled : true,
+			fieldLabel: '当&nbsp;前&nbsp;&nbsp;号&nbsp;',
+			value:Ext.getDom('CURXUH').value,
+			anchor:'95%'
+			}, {
+			xtype:'textfield',
+			fieldLabel: '<font color="red">煤矿编码&nbsp;</font>',
+			listeners:{
+				focus :function(o){
+					getMeikbm();
+				}
+			},
+			name : 'BM',
+			value:Ext.getDom('MEIKBM').value,
+			anchor:'95%'
+			}, {
+			xtype:'textfield',
+			disabled : true,
+			fieldLabel: '煤矿名称&nbsp;',
+			name : 'MC',
+			value:Ext.getDom('MEIKMC').value,
+			anchor:'95%'
+			}, {
+			xtype:'numberfield',
+			fieldLabel: '<font color="red">扣&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;吨&nbsp;</font>',
+			name: 'KD',
+			value:Ext.getDom('KOUD').value,
+			anchor:'95%'
+			}, {
+			xtype:'combo',
+			fieldLabel: '<font color="red">桶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号&nbsp;</font>',
+			//name : 'TH'
+			//hiddenName:'性别',
+			transform: 'CUNYWZ',
+			//value:Ext.getDom('CUNY').value,
+			editable: false,
+			typeAhead: true,
+			mode: 'local',
+			listeners:{
+				select:function(o,r,n){
+					document.getElementById('CUNY').value = o.getRawValue();
+				}
+			},
+			triggerAction: 'all',
+			lazyRender:true,
+			selectOnFocus:true,
+			anchor:'95%'
+			}
+			]
+			},{
+			columnWidth:.3,
+			layout: 'form',
+			items: [{
+			xtype:'button',
+			text: '识别',
+			handler:getCheph
+			},{height:30},{xtype:'button',
+			text: '锁定',handler:Lock},
+			{xtype:'button',text:'解锁',handler:unLock},{height:160}
+			, {xtype:'button',text: '保存',handler:Save}
+			]
+		}]
+    }]
+});
+form.render("form");
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+
+auto = 1;
+function Lock(){
+	if(Ext.getDom('ZT').value)
+	Ext.getDom('ZT').value = "锁定";
+}
+function unLock(){
+	if(Ext.getDom('ZT').value)
+	Ext.getDom('ZT').value = "正常";
+}
+function Save(){
+	cheph = Ext.getDom('CH').value;
+	zhuangt = Ext.getDom('ZT').value;
+	meikbm = Ext.getDom('BM').value;
+	meikmc = Ext.getDom('MC').value;
+	koud = Ext.getDom('KD').value;
+	//th = Ext.get('CUNYWZ').getRawValue();
+	document.getElementById('CHEPH').value = cheph;
+	document.getElementById('ZHUANGT').value = zhuangt;
+	document.getElementById('MEIKBM').value = meikbm;
+	document.getElementById('MEIKMC').value = meikmc;
+	document.getElementById('KOUD').value = koud;
+	//document.getElementById('CUNY').value = th;
+	//th = Ext.getDom('TH').value;
+	document.getElementById('SaveButton').click();
+}
+function getCheph(){
+	cheph = '';
+	//这里添加得到车号的方法
+	if(cheph.length){
+		Ext.getDom('CH').value =cheph;
+		document.getElementById('CHEPH').value = cheph;
+		document.getElementById('ChehButton').click();
+	}else{
+		if(auto){
+			Ext.MessageBox.confirm('提示信息','车号识别系统未取得车号,是否手工输入？',
+				function(btn){
+					if(btn == 'yes'){auto = 0;Ext.getDom('CH').readOnly = false;}
+				}
+			);
+		}else{
+			cheph = Ext.getDom('CH').value;
+			if(cheph.length){
+				Ext.MessageBox.alert('提示信息','手动输入车号: <font color="red">' +Ext.getDom('ch').value+'</font>');
+				document.getElementById('CHEPH').value = cheph;
+				document.getElementById('ChehButton').click();
+			}else{
+				Ext.MessageBox.alert('提示信息','请输入车号！');
+			}
+		}
+	}
+}
+function getMeikbm(){
+	meikbm = "0000000000123";
+	//这里添加得到煤矿编码的方法 
+	document.getElementById('MEIKBM').value = meikbm;
+	document.getElementById('MeikButton').click();
+}
+</script>
+</head>
+<body>
+<div id = "form" style="width:100%;height:100%"></div>
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<div id = "form" style="width:100%;height:100%"></div>
+	<span jwcid="ChehButton@ZRcontrib:ImgButton" buttontype=""
+		label="车号刷新" style="display:none" 
+		id = "ChehButton" listener="ognl:listeners.ChehButton" ></span>
+	<span jwcid="MeikButton@ZRcontrib:ImgButton" buttontype=""
+		label="计划编码" style="display:none" 
+		id = "MeikButton" listener="ognl:listeners.MeikButton" ></span>
+	<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+		label="保存" style="display:none" 
+		id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+	<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+	<span id="CHEPH"  jwcid = "CHEPH" style="display:none"></span>
+	<span id="CHED"  jwcid = "CHED" style="display:none"></span>
+	<span id="ZHUANGT"  jwcid = "ZHUANGT" style="display:none"></span>
+	<span id="XUH"  jwcid = "XUH" style="display:none"></span>
+	<span id="CURXUH"  jwcid = "CURXUH" style="display:none"></span>
+	<span id="MEIKBM"  jwcid = "MEIKBM" style="display:none"></span>
+	<span id="MEIKMC"  jwcid = "MEIKMC" style="display:none"></span>
+	<span id="KOUD"  jwcid = "KOUD" style="display:none"></span>
+	<span id="CUNY"  jwcid = "CUNY" style="display:none"></span>
+	<span id="CUNYWZ"  jwcid = "CUNYWZ" style="display:none"></span>
+</form>
+</body>
+</html>

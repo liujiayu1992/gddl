@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title>设置SQL</title>
+	<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+	
+<script type="text/javascript">
+	Ext.onReady(function(){
+	Ext.QuickTips.init();
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	<span jwcid="@Insert" raw="true" value="ognl:InitData"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+	
+	var fp = new Ext.form.FormPanel({
+	    defaultType: 'textfield',
+	    labelAlign: 'left',
+    	title: intitle,
+	    labelWidth: 60,
+	    height:bodyHeight-30,
+	    frame: true,
+	    defaults: {
+	        msgTarget: 'side'
+	    },
+	    items: [extGS = new Ext.form.TextArea({
+			//fieldLabel: '内容',
+			hideLabel: true,
+			anchor: '100% -10',
+			value:Ext.getDom('Gongs').value
+	    })],
+        buttons: [{
+        	text:'确认',
+            handler: function(){
+        		  document.getElementById('CHANGE').value=Ext.getDom('Gongs').value=extGS.getValue();
+                  document.getElementById('SaveButton').click();}
+        	},{
+            	text: '退回',
+         		handler: function(){
+                  document.getElementById('ReturnButton').click();}
+            }
+        ]
+	});
+	fp.render("gsfp");
+
+});
+
+</script>
+</head>
+<body>
+<script jwcid = "Mainjs" ></script>
+<table border="0" height=100% cellspacing="0" cellpadding="0" width="100%">
+	<tr height=100%>
+		<td>
+		<div id="gsfp" style="width:100%;"></div>
+		</td>
+	</tr>
+	<tr style="display:none">
+		<td>
+		<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+			<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+				label="确认" style="display:none" 
+				id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+			<span jwcid="ReturnButton@ZRcontrib:ImgButton" buttontype=""
+				label="返回" style="display:none" 
+				id = "ReturnButton" listener="ognl:listeners.ReturnButton" ></span>
+			<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+		    <textarea id ="Gongs" style="display:none" onkeydown="editTab();" jwcid="Gongs" wrap="wrap" id="Gongs"></textarea>
+		</form>
+		</td>
+	</tr>
+	
+</table>
+</body>
+</html>

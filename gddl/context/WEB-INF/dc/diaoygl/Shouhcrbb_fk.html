@@ -1,0 +1,139 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>分矿收耗存日报表Shouhcrbb</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+    <span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+function countKuc(e){
+	rec = e.record;
+	changeValue = parseFloat(e.value - e.originalValue);
+	if(e.field=='SHANGRKC' ){
+    
+    	rec.set('BENRJC',eval(rec.get('BENRJC')||0)+changeValue);
+ 
+	}else if(e.field=='DANGRLM' ){
+    
+    	rec.set('BENRJC',eval(rec.get('BENRJC')||0)+changeValue);    
+		rec.set('LAIMLJ',eval(rec.get('LAIMLJ')||0)+changeValue);  
+     
+	}else if(e.field=='FADY' ||e.field=='GONGRY' ||e.field=='QITY' ){
+    
+    	rec.set('BENRJC',eval(rec.get('BENRJC')||0)-changeValue);
+    	rec.set('HAOMLJ',eval(rec.get('HAOMLJ')||0)+changeValue);  
+    
+	}else if(e.field=='PANYK' ||e.field=='TIAOZL' ){
+    
+    	rec.set('BENRJC',eval(rec.get('BENRJC')||0)+changeValue);
+    
+	}else if(e.field=='CUNS' ){
+    
+    	rec.set('BENRJC',eval(rec.get('BENRJC')||0)-changeValue);
+    
+	}
+    
+}
+function validateHy(gridDiv_ds){	
+	if(validateHydx(gridDiv_ds,'FADY')){
+		Ext.MessageBox.alert("各矿发电耗煤总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'GONGRY')){
+		Ext.MessageBox.alert("各矿供热耗煤总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'SHANGRKC')){
+		Ext.MessageBox.alert("各矿上日库存总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'DANGRLM')){
+		Ext.MessageBox.alert("各矿当日来煤总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'LAIMLJ')){
+		Ext.MessageBox.alert("各矿来煤累计总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'QITY')){
+		Ext.MessageBox.alert("各矿其他耗煤总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'CUNS')){
+		Ext.MessageBox.alert("各矿存损耗总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'TIAOZL')){
+		Ext.MessageBox.alert("各矿调整量总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'PANYK')){
+		Ext.MessageBox.alert("各矿盘盈亏总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'HAOMLJ')){
+		Ext.MessageBox.alert("各矿耗煤累计总和与合计不相等！");
+		return true;
+	}
+    if(validateHydx(gridDiv_ds,'BENRJC')){
+		Ext.MessageBox.alert("各矿本日结存总和与合计不相等！");
+		return true;
+	}
+}
+function validateHydx(gridDiv_ds,Field){
+	var zj = eval(gridDiv_ds.getAt(0).get(Field));
+	var dx = 0;
+	for(i=1;i<gridDiv_ds.getCount();i++){
+		dx = eval(dx + eval(gridDiv_ds.getAt(i).get(Field)));
+    }
+    //alert(Field + ": " + zj + "----" + dx);
+    return zj!=dx;
+}
+
+</script>	
+</head>
+<body id="body" >
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+	<tr>
+		<td>
+			<span jwcid="Riq" style="display:none" id="Riq"></span> 
+			<span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+            <span jwcid="InsertButton@ZRcontrib:ImgButton" onclick="checkgongys()" buttontype="" label="添加" style="display:none" id = "InsertButton"  ></span>
+			<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="保存" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+			<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="刷新" id = "RefreshButton" listener="ognl:listeners.RefreshButton" ></span>
+			<span jwcid="CreateButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="生成" id = "CreateButton" listener="ognl:listeners.CreateButton" ></span>
+			<span jwcid="DelButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="删除" id = "DelButton" listener="ognl:listeners.DelButton" ></span>
+			<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+		</td>
+	</tr>
+	<tr height="100%">
+		<td>
+		<div id="gridDiv" style="width:100%;height:100%;overflow:none"></div>
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

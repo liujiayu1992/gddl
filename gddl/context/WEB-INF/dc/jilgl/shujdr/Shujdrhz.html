@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>数据导入汇总</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var win;
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+</script>	
+</head>
+<body id="body" >
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%" height="100%">
+	<tr id="trcondition" valign=middle height="20"style="display:none">
+		<td>
+		<td width="120" style="display:none"><span  style="width:150;height:21" jwcid="ChangbDropDown" id='ChangbDropDown'  submitOnChange="true"  type="text"/></td>
+		<span id="RIQI"  jwcid = "RIQI" style="display:none" submitOnChange="true" type="text"></span>
+		<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" label="刷新"
+			style="display:none" id="RefreshButton"
+			listener="ognl:listeners.RefreshButton"></span>
+        <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+			style="display:none" id="SaveButton"
+			listener="ognl:listeners.SaveButton"></span>
+        <span jwcid="ChakButton@ZRcontrib:ImgButton" buttontype="" label="查看"
+			style="display:none" id="ChakButton"
+			listener="ognl:listeners.ChakButton"></span>
+        <span jwcid="AutoMathButton@ZRcontrib:ImgButton" buttontype="" label="自动匹配并导入"
+			style="display:none" id="AutoMathButton"
+			listener="ognl:listeners.AutoMathButton"></span>
+        
+        <span jwcid="DeleteButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="删除" id = "DeleteButton" listener="ognl:listeners.DeleteButton" ></span>
+        
+        <span id='dayzt1' width="150" style="height:21" jwcid="DsDropDown" type="text" style="display:none"></span>
+			  <span id='DS_VALUE' style="display:none" jwcid="DS_VALUE"></span>	
+              
+		<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+        <span id="CHANGEID" jwcid="CHANGEID" style="display:none"></span>
+		</td>
+	</tr>
+	<tr hight="100%">
+		<td>
+		<div id="gridDiv" style="height:100%;overflow:none"></div>
+        <div id="hello-win" class="x-hidden"></div>
+		</td>
+	</tr>	
+</table>	
+</form>
+</body>
+</html>

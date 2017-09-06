@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="GBK">
+    <file url="file://$PROJECT_DIR$/context/WEB-INF/applicationContext.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/context/WEB-INF/spring-dataSource.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/context/WEB-INF/spring-servlet.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/context/app.jsp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/context/views" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/context/views/app.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/zhiren/common/Jiesgs/Jiesgs.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/zhiren/dc/hesgl/jiesd/Balances.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/zhiren/dc/hesgl/jiesxz/Jiesxz.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/com/zhiren/dc/huaygl/huaybb/huayyb/Huayyb.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/中卫月报.sql" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.0/zdgjgkxt/zdgjgkxt/src/app/common-component/chart/chart.component.spec.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.0/zdgjgkxt/zdgjgkxt/src/app/nicefish/post/post.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.0/zdgjgkxt/zdgjgkxt/src/app/nicefish/user/forget-pwd/forget-pwd.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.0/zdgjgkxt/zdgjgkxt/src/app/nicefish/user/user.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.0/zdgjgkxt/zdgjgkxt/src/app/page/cctd/cctd.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.0/zdgjgkxt/zdgjgkxt/src/app/page/home/home.component.spec.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.0/zdgjgkxt/zdgjgkxt/src/app/page/home/home.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.0/zdgjgkxt/zdgjgkxt/src/app/page/home/home.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.0/zdgjgkxt/zdgjgkxt/src/app/page/home/home.routes.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/.angular-cli.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/src/app/demo/datepicker/datepicker.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/src/app/others/manage/manage-main/manage-main.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/src/app/others/map/gaode-map/gaode-map.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/src/app/others/post/post.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/src/app/others/shared/post.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/src/app/others/user/forget-pwd/forget-pwd.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/src/app/others/user/user.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/src/app/others/user/user.routes.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/v1.0.1/zdgjgkxt/zdgjgkxt/src/app/page/shicxx/cctd/cctd.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/zdgjgkxt/zdgjgkxt/NiceFish/src/app/app.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/zdgjgkxt/zdgjgkxt/NiceFish/src/app/demo/datepicker/datepicker.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/zdgjgkxt/zdgjgkxt/NiceFish/src/app/demo/demo-modal-sizes/demo-modal-sizes.component.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/zdgjgkxt/zdgjgkxt/NiceFish/src/app/demo/demo-modal-sizes/demo-modal-sizes.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/zdgjgkxt/zdgjgkxt/NiceFish/src/app/demo/demo-modal-sizes/demo-modal-sizes.module.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/zdgjgkxt/zdgjgkxt/NiceFish/src/app/nicefish/animations/fade-in.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/zdgjgkxt/zdgjgkxt/NiceFish/src/app/nicefish/use-jquery/use-jquery.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/zdgjgkxt/zdgjgkxt/NiceFish/src/app/nicefish/user/forget-pwd/forget-pwd.component.ts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../燃料管控平台/zdgjgkxt/zdgjgkxt/NiceFish/src/app/nicefish/user/user.module.ts" charset="UTF-8" />
+    <file url="PROJECT" charset="GBK" />
+  </component>
+</project>

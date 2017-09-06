@@ -1,0 +1,71 @@
+<html jwcid="@Shell" doctype=" " title="ÎÄ¼þä¯ÀÀ"  stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>
+<script>
+	Ext.onReady(function(){
+		var url = "http://"+document.location.host+document.location.pathname;
+		var end = url.indexOf("/app");
+		url = url.substring(0,end);
+		Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	});
+    <!--span jwcid="@Insert" value="ognl:ShowHtml"  raw="true"/-->
+    /*
+    Ext.onReady(function(){
+	    var p = new Ext.Panel({
+	        title: 'News',
+	        collapsible:true,
+	        renderTo: document.body,
+	        autoWidth : true,
+	        height : document.body.clientHeight,
+	        html:  showMessage()
+	    });
+	});*/
+</script>
+ 
+<!--style type="text/css">
+    .x-panel-body p {
+        margin:10px;
+    }
+    #container {
+        padding:10px;
+    }
+</style-->
+<body id="body"  jwcid="@Body" >
+   
+    
+
+ <!--script jwcid="Jiesdcxjs"/-->
+ <script jwcid="Datejs"></script>
+ <script jwcid="Reportjs"></script>
+<script jwcid="Validatejs"></script>
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+   <script><span jwcid="@Insert" value="ognl:PageHome" /></script>
+    <OBJECT id=WebBrowser classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2 height=0 width=0></OBJECT>
+    <!--span jwcid="@Insert" value="ognl:ShowHtml"  raw="true"/-->
+    <table id="tablemain"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+        <tr  id="trcondition"  valign=middle  height ="20">
+            <td > 
+
+              <table id='navigationBar' height="30" width="100%" class=navigationBarpage >
+			    	
+			    </table>
+            </td> 
+        </tr>
+        <tr  id="SelectData" valign=top>
+            <td align=center height=550>
+                <div id="SelectFrmDiv" class = "" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto;width:720px; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+					<span jwcid="@Insert" value="ognl:ShowHtml"  raw="true"></span>
+                </div>
+            </td>
+        </tr>        
+    </table>
+    
+    </form>
+</body>
+
+
+</html>

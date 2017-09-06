@@ -1,0 +1,102 @@
+<html jwcid="@Shell" doctype=" " title="显示文件"  stylesheet="ognl:assets.Rmis">
+<meta http-quive="content-type" content="text/html; charset=gb2312">
+<body id="body"  jwcid="@Body" class="bgs" onkeydown="Pingb()">
+
+<div id="wait" style="POSITION: absolute;BORDER-RIGHT: gray 0px solid;z-index:1; PADDING-RIGHT: 2px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;HEIGHT: 218;width:330">
+		<iframe jwcid="@Iframe" page="Waiting"  height="100%" oncontextmenu="self.event.returnValue=false" name="mainFrame" style="background:ThreeDLowwer" width="100%"  align="middle" frameborder="0" scrolling="no"> </iframe>
+	</div>
+    <script>
+		document.all.item("wait").style.posTop=(body.clientHeight-document.all.item("wait").clientHeight)/2;
+		document.all.item("wait").style.posLeft=(body.clientWidth-document.all.item("wait").clientWidth )/2;
+     	function Showwait(){
+			if(document.all.item("wait").style.display=="none"){
+                 document.all.item("wait").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+ </script>
+
+<style>
+    .content td{
+		background-image: url(<span jwcid="contextPath" />/img/pop/xuxian_heng.gif);
+		background-repeat: repeat-x;
+		background-position: bottom;
+		padding-top: 4px;
+		padding-bottom: 4px;
+		font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+		font-size: 12px;
+		color: #006699;
+		text-decoration: none;
+		padding-left: 2px;
+	}
+</style>
+
+<script>
+    
+    function ShowSelzdk(_value){
+			if(_value=='show'){
+				document.all.item("SetzdkDIV").style.display="";
+				//SetDisabled('tablemain',true);
+			}else if(_value=='qued'){
+				document.all.item("SetzdkDIV").style.display="none";
+				//SetDisabled('tablemain',false);  
+			}else{
+				document.all.item("SetzdkDIV").style.display="none";
+				//SetDisabled('tablemain',false);
+			}
+		} 
+    
+</script>
+<script jwcid="Jingjhdfxjs"/>
+<script jwcid="Datejs" />
+<script jwcid="Validatejs"/>
+<script jwcid="ShowFilejs" />
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<script><span jwcid="@Insert" value="ognl:PageHome" /></script>
+
+    <table valign="middle"  height="50">
+         <tr>
+         	 <td class="text-position"style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;">编辑日期:</td>
+             <td><input readonly="true" jwcid="riqb" id ="riqb" style="width:80"  class="text-position"/></td> 
+             
+             <td><span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="refurbish"  label="查询" listener="ognl:listeners.RefurbishButton" onclick="Showwait();"/></td> 
+			 <td></td> 
+             <td><span jwcid="CreateButton@ZRcontrib:ImgButton" buttontype="create"  label="生成" listener="ognl:listeners.CreateButton" onclick="Showwait();"/></td> 
+         </tr>
+    </table>
+	<table width="92%" border="0" cellpadding="0" cellspacing="0" class="content">
+           <span jwcid="Show" />
+	</table>
+    
+    <!-- 重点矿设置DIV -->
+    <div id="SetzdkDIV" style="border:0px solid gray;display:none;padding:2px;width:530;height:300;POSITION: absolute;z-index:1;BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid; OVERFLOW: none;top:60px;left:150px;background-color:#DBE4EE">
+		<table width="102%" height="21" cellspacing="0" cellpadding="0" style="font-size:9pt" bordercolordark="#DBE4EE" bgcolor="#808080">
+			<tr>
+				<td id="tijld" width="100%" style="color: #ffffff">&nbsp;<b>设置重点矿</b>:</td>
+				<td align="right">
+				<image jwcid="@Image" image="ognl:assets.close" width="20" height="20" onclick="ShowSelzdk('qux')"/> </td>
+				
+			</tr>
+		</table>
+		<table><tr><td></td></tr></table>
+		<table id="tablemain" border="1" bordercolor="#0099FF" style="border-width: 1px;width:530px">
+			<tr id="SelectData">
+				<td  width="100%" style="border-style: none; border-width: medium">
+				</td>
+			</tr>	
+		</table> 
+		<table width="530">		
+			<tr align="center">
+				<td align="center" style="width:85%">
+					<input style="width:80" jwcid="SavezdkButton@ZRcontrib:ImgButton" buttontype="" type="" label="确定" listener="ognl:listeners.SavezdkButton" onclick="ShowSelzdk('qued');Showwait()" />
+                    <span style="width:80" jwcid="QuxBotton@ZRcontrib:ImgButton" buttontype="nosubmitbuttons" type="" label="取消" onclick="ShowSelzdk('qux')"></span>
+				</td>
+			</tr>		
+		</table>
+	</div> 
+</form>
+</body>
+<script>window.onresize();document.all.item("wait").style.display="none";</script>
+</html>

@@ -1,0 +1,44 @@
+ <html jwcid="@Shell" doctype=" " title="合同及审核日志"  stylesheet="ognl:assets.Rmis">
+ <script jwcid="Reportjs"/>
+ <script jwcid="Shenhrzjs"/>
+<body id="body"  jwcid="@Body"  class="bgs"bottommargin=0 topmargin=2 leftmargin=5 rightmargin=5>   
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+    <!--显示报表内容开始-->    
+    <table id="tablemain"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+		<!-- 报表工具条结束 -->
+        <tr id="SelectData" valign=top>
+            <td > 
+                <div id="SelectFrmDiv">
+            	<span jwcid="@Iframe"id="Hetwb" page="Hetwb"width="100%"height="100%"></span>
+                </div>
+            </td>
+        </tr>
+        <tr  id="rzb">
+            <td width ="100%"height="100%"> 
+                <div  id="rizdiv" style="border:solid gray 1px;padding:0px;overflow:auto" >
+            	<table border="0" cellspacing="0" cellpadding="0"width ="100%"height="100%">
+					<tr jwcid="@Foreach" source="ognl:yijs" element="tr"value="ognl:yijbean">
+						<td class="text-position"id="xitts" align=right valign=top width="25%">
+                           <span jwcid="@Insert" value="ognl:yijbean.xitts"></span> 
+                        </td>
+						<td class="text-position" id="yij" align=left valign=top width="75%" >
+                           <span jwcid="@Insert" value="ognl:yijbean.yij"></span> 
+                        </td>  			
+					</tr>	
+				</table>
+                </div>
+            </td> 
+        </tr>
+    </table>
+    <!--报表条件设置结束-->    
+    </form>
+</body>
+<script>window.onresize(); 
+     <span jwcid="@Insert" value="ognl:script"></span>  
+     var url ='http://'+document.location.host+document.location.pathname; 
+     var end = url.indexOf(';');
+	 url = url.substring(0,end); 
+     url = url + '?service=page/Yunshtwb&hetys_id='+hetys_id; 
+     document.all.Hetwb.src = url;
+     </script>
+</html>

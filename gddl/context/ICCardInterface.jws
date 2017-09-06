@@ -1,0 +1,13 @@
+import com.zhiren.webservice.iccardinterface.ICCardLogin;
+
+
+public class ICCardInterface {	
+	
+	public long icCardLogin(String username, String password) {
+		return ICCardLogin.LoginUser(username, password);
+	}
+	
+	public long IsPasswordRight(String username, String password) {
+		return ICCardLogin.PasswordRight(username, password);
+	}
+}

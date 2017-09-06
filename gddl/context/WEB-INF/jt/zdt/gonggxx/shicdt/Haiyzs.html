@@ -1,0 +1,61 @@
+<html jwcid="@Shell" doctype=" " title="客户信息维护"  stylesheet="ognl:assets.Rmis">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>供应商</title>
+<style>
+.tdTextext {
+	
+	background-color: #E3E3E3;
+	font-family: "Geneva", "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+	color: #464646;
+	padding-top: 2px;
+	text-align: center;
+}    
+</style>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:TreedcScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:Msg"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+});
+</script>	
+</head>
+<body id="body"  jwcid="@Body" >
+
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+     <span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+     <span jwcid="@TextField" id="riq1"value="ognl:riq1"style="display:none"></span>
+<div id = "gridDiv" style="height:100%;overflow:none"></div>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+
+
+    <span jwcid="InsertButton@ZRcontrib:ImgButton"
+							buttontype="insert" label="添加" style="display:none"
+							listener="ognl:listeners.InsertButton" />
+     <span id="GuanjzTf" jwcid="GuanjzTf" style="display:none"></span>
+ <input style="display: none"  jwcid="WeizSelectx" id="WeizSelectx" type="text"/>
+ 	<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" id="RefurbishButton"
+			style="display:none" listener="ognl:listeners.RefurbishButton"></span>
+			 <span jwcid="SaveButton@ZRcontrib:ImgButton"
+							buttontype="insert" label="保存" style="display:none"
+							listener="ognl:listeners.SaveButton" />
+							<span jwcid="DeleteButton@ZRcontrib:ImgButton"
+							buttontype="insert" label="删除" style="display:none"
+							listener="ognl:listeners.DeleteButton" />
+<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+  <span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+</form>
+</body>
+
+</html>

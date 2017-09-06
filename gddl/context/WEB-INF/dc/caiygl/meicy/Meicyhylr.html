@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>化验录入</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.datetimecss"></link>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.datetimefield"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.datetimepicker"></script>
+
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+
+</script>
+</head>
+<body id="body" jwcid="@Body" class="bgs">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+<div id = "gridDiv" style="height:100%;overflow:none"></div>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%" height="100%">
+
+</table>
+	<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="提交"
+	style="display:none" id="SaveButton"
+	listener="ognl:listeners.SaveButton"></span> 
+	<span jwcid="SavebButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+	style="display:none" id="SavebButton"
+	listener="ognl:listeners.SavebButton"></span> 
+	<span jwcid="HuitButton@ZRcontrib:ImgButton" buttontype="" label="清空"
+	style="display:none" id="HuitButton"
+	listener="ognl:listeners.HuitButton"></span> 
+	<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label="刷新"
+	style="display:none" id="RefurbishButton"></span>
+	<span jwcid="ZuofButton@ZRcontrib:ImgButton" buttontype="" label="作废"
+	style="display:none" id="ZuofButton" listener="ognl:listeners.ZuofButton"></span>
+	<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+    <span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+    <span id="Caiyrq" jwcid="Caiyrq" style="display:none" type="text"/>
+    <span id="Zhiyrq" jwcid="Zhiyrq" style="display:none" type="text"/>
+	</form>
+
+<div id="formDiv" style="height: 100%; overflow: none"></div>
+<div id="gridDiv" style="height: 100%; overflow: none"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,351 @@
+<html jwcid="@Shell" doctype=" " title="计划合同"
+	stylesheet="ognl:assets.Rmis">
+<link rel="stylesheet" type="text/css"
+	href="ext/resources/css/ext-all.css" />
+<link rel="stylesheet" type="text/css"
+	href="ext/resources/css/xtheme-gray.css" />
+<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+if(	document.getElementById('DiancmcDropDown')!=null){
+  cbofun_DiancmcDropDown();
+}
+	if(	document.getElementById('DiancmcDropDown1')!=null){
+		cbofun_FengsSelect();
+		cbofun_DiancmcDropDown1(); 
+	}
+});
+</script>
+<body id="body" jwcid="@Body" class="bgs"
+	onkeydown="if(event.keyCode==13)event.keyCode=9" bottommargin=0
+	topmargin=2 leftmargin=5 rightmargin=5>
+
+<script jwcid="Rezcbjs" />
+    
+
+<script jwcid="Datejs" />
+    
+
+<script jwcid="Validatejs" />
+    
+
+<script>
+        var oldFenx='';
+        function show(_value){
+			if(_value=='show'){
+				oldFenx = document.all.item("CHAOCFX").value;
+				document.all.item("ChaocfxDIV").style.display="";
+				document.all.item("CHAOCFX").focus();
+								
+			}else if(_value=='qued'){
+				document.all.item("ChaocfxDIV").style.display="none";
+			}else{
+				document.all.item("CHAOCFX").value=oldFenx;
+				document.all.item("ChaocfxDIV").style.display="none";
+			}
+		}
+    </script>
+<div id="wait"
+	style="POSITION: absolute;BORDER-RIGHT: gray 0px solid;z-index:1; PADDING-RIGHT: 2px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;HEIGHT: 218;width:330">
+<iframe jwcid="@Iframe" page="Waiting" height="100%"
+	oncontextmenu="self.event.returnValue=false" name="mainFrame"
+	style="background:ThreeDLowwer" width="100%" align="middle"
+	frameborder="0" scrolling="no"> </iframe></div>
+<script>
+		document.all.item("wait").style.posTop=(body.clientHeight-document.all.item("wait").clientHeight)/2;
+		document.all.item("wait").style.posLeft=(body.clientWidth-document.all.item("wait").clientWidth )/2;
+     	function Showwait(){
+			if(document.all.item("wait").style.display=="none"){
+                 document.all.item("wait").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+    </script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"
+	onkeydown="if(event.keyCode==13)return false;"><span
+	jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"> </span>
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign=middle height="20">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+				<span jwcid="@Conditional" condition="ognl:DiancUser"> </span>
+				<span jwcid="@Conditional" condition="ognl:GongsUser">
+				<td width="35" class="text-position"
+					style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;">单位:</td>
+				<td width="120"><input width="110"
+					style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;"
+					submitOnChange="true" jwcid="DiancmcDropDown" id="DiancmcDropDown"
+					type="text" /></td>
+				</span>
+				<!-- 集团用户进来时显示分公司下拉框 -->
+				<span jwcid="@Conditional" condition="ognl:JitUserShow">
+				<td width="35" class="text-position"
+					style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;">单位:</td>
+				<td width="110"><input width="100"
+					style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;z-index:200"
+					submitOnChange="true" jwcid="FengsSelect" id="FengsSelect"
+					type="text" /></td>
+				<td width="35" class="text-position"
+					style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;">电厂:</td>
+				<td width="120"><input width="110"
+					style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;"
+					submitOnChange="true" jwcid="DiancmcDropDown1"
+					id="DiancmcDropDown1" type="text" /></td>
+				</span>
+				<td width="35"
+					style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;">日期:</td>
+				<td width="110"><input readonly="true" class="text-position"
+					style="width:100;height:21" jwcid="riqDateSelect"
+					id="riqDateSelect" type="text" /></td>
+				<td><span jwcid="@ZRcontrib:ImgButton" buttontype="refurbish"
+					onclick="return Showwait()" label="刷新"
+					listener="ognl:listeners.RefurbishButton" /> <!--span  jwcid="I@ZRcontrib:ImgButton" onclick="return Showwait()"  buttontype="insert"  label="添加" listener="ognl:listeners.InsertButton" /-->
+				<span jwcid="@ZRcontrib:ImgButton" buttontype="delete"
+					onclick="return confirm('确定要删除该信息吗？');Showwait();" label="删除"
+					listener="ognl:listeners.DeleteButton" /> <span
+					jwcid="@ZRcontrib:ImgButton" buttontype="save" label="保存"
+					onclick="if(_selectredio(this,'save')){return Showwait();}else{return false;}"
+					listener="ognl:listeners.SaveButton" /> <span
+					jwcid="@ZRcontrib:ImgButton" buttontype="nosubmitbuttons"
+					label="填写超差分析" onclick="show('show')" /> <input
+					class="text-position" style="display:none;" jwcid="EditTableRow"
+					id="EditTableRow" type="text" /></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top>
+		<td>
+		<div id="SelectFrmDiv" class="text-position"
+			style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		<div id="SelectHeadDiv"
+			style="OVERFLOW: hidden; background-color:#FFFFFF">
+		<table id="EditHeadTabel" jwcid="@Any"
+			background="ognl:assets.background" bordercolordark="#ffffff"
+			cellpadding="1" bordercolor="#ffffff"
+			style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;"
+			bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+			class="edittablehead" width="860">
+			<tr width="860" valign="middle" align="center">
+				<!--th rowspan="2" height="12" align="center">
+							单位</th-->
+				<th rowspan="2" height="12" align="center"></th>
+				<th rowspan="2" height="12" align="center">&nbsp;&nbsp; &nbsp;
+				&nbsp; &nbsp; &nbsp;日期</th>
+				<th colspan="3" height="18" align="center"><label
+					class="text-position"> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+				&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;入厂煤</label></th>
+				<th colspan="3" height="18" align="center"><label
+					class="text-position"> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+				&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;入炉煤</label></th>
+				<th height="6" align="center" colspan="2"><label
+					class="text-position"> &nbsp;&nbsp; &nbsp;水分调整前热值差</label></th>
+				<th height="6" align="center" colspan="2"><label
+					class="text-position"> &nbsp;&nbsp; &nbsp;水分调整后热值差</label></th>
+				<th rowspan="2" height="18" align="center"><label
+					class="text-position">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;备注</label></th>
+			</tr>
+			<tr width="860" valign="middle" align="center">
+				<th height="20" valign="middle" align="center"><label
+					class="text-position">&nbsp;&nbsp; &nbsp;数量(t)</label></th>
+				<th height="20" align="center"><label class="text-position">
+				&nbsp;&nbsp;Qnet,ar(MJ/kg)</label></th>
+				<th height="20" align="center"><label class="text-position">&nbsp;&nbsp;&nbsp;Mt(%)</label></th>
+				<th height="20" valign="middle" align="center"><label
+					class="text-position">&nbsp;&nbsp;&nbsp;数量(t)</label></th>
+				<th height="20" align="center"><label class="text-position">
+				&nbsp;&nbsp;Qnet,ar(MJ/kg)</label></th>
+				<th height="20" align="center"><label class="text-position">&nbsp;&nbsp;&nbsp;Mt(%)</label></th>
+				<th height="6" align="center"><label class="text-position">&nbsp;&nbsp;&nbsp;mj/kg</label></th>
+				<th height="6" align="center"><label class="text-position">&nbsp;&nbsp;大卡/公斤</label></th>
+				<th height="6" align="center"><label class="text-position">&nbsp;&nbsp;&nbsp;mj/kg</label></th>
+				<th height="6" align="center"><label class="text-position">&nbsp;&nbsp;大卡/公斤</label></th>
+			</tr>
+			<tr>
+				<td width="30" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:28px">0</label>
+				</td>
+				<td width="90" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:88px">1</label>
+				</td>
+				<td width="70" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:68px">2</label>
+				</td>
+				<td width="65" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:63px">3</label>
+				</td>
+				<td width="65" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:63px">4</label>
+				</td>
+				<td width="70" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:68px">
+				5</label></td>
+				<td width="65" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:63px">
+				6</label></td>
+				<td width="65" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:63px">
+				7</label></td>
+				<td width="65" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:63px">
+				8</label></td>
+				<td width="65" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:63px">
+				9</label></td>
+				<td width="65" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:63px">
+				10</label></td>
+				<td width="65" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:63px">
+				11</label></td>
+				<td width="80" align="center"><label id="tittleHead"
+					class="text-position" style="position:relative;left:0;width:78px">
+				12</label></td>
+			</tr>
+		</table>
+		</div>
+		<div id="SelectDataDiv" onscroll="_onscroll(this,SelectHeadDiv)"
+			style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+		<table id="oData" class="edittable" border="0" cellpadding="0"
+			cellspacing="0"
+			style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"
+			width="860">
+			<tr Height="21" onclick="classchange(this,'onclick')"
+				onblur="editin(this,'onblur');ChangeSelectRow(this);"
+				onmouseout="classchange(this,'onmouseout')"
+				onmouseover="classchange(this,'onmouseover')" width="860"
+				jwcid="EditValues" class="edittableTrOut">
+				<!--td width = "90" class="tdText">
+                             <input readonly="false" class = "text-position" style="width:88px" jwcid="DIANCHANGMC" id="DIANCHANGMC" type="text" />
+                             </td-->
+				<td width="30" align="center"><input readonly="true"
+					class="text-position" style="width:28px" jwcid="FLAG" id="FLAG"
+					type="text" /></td>
+				<td width="90" class="tdText"><input readonly="false"
+					class="text-position" style="width:88px" jwcid="RIQ" id="RIQ"
+					type="text" /></td>
+				<td width="70"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput)"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:68px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rucsl"
+					id="Rucsl" type="text" /></td>
+				<td width="65"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput)"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:63px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rucrl"
+					id="Rucrl" type="text" /></td>
+				<td width="65"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput)"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:63px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rucsf"
+					id="Rucsf" type="text" /></td>
+				<td width="70"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput)"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:68px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rulsl"
+					id="Rulsl" type="text" /></td>
+				<td width="65"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput)"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:63px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rulrl"
+					id="Rulrl" type="text" /></td>
+				<td width="65"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput)"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:63px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rulsf"
+					id="Rulsf" type="text" /></td>
+				<td width="65" class="tdText"><input readonly="false"
+					class="text-position" style="width:63px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rezctzq"
+					id="Rezctzq" type="text" /></td>
+				<td width="65" class="tdText"><input readonly="false"
+					class="text-position" style="width:63px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rezctzqdk"
+					id="Rezctzqdk" type="text" /></td>
+				<td width="65" class="tdText"><input readonly="false"
+					class="text-position" style="width:63px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rezctzh"
+					id="Rezctzh" type="text" /></td>
+				<td width="65" class="tdText"><input readonly="false"
+					class="text-position" style="width:63px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Rezctzhdk"
+					id="Rezctzhdk" type="text" /></td>
+				<td width="80"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput)"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:78px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="Beiz"
+					id="Beiz" type="text" /></td>
+			</tr>
+		</table>
+		<input onchange="editchange(1)" style="display:none;"
+			class="bigtext-position" id="EditInputUpdateAll" type="text" /> <input
+			onchange="editchange(0);if(myMatchNum(this)){hej();}"
+			onkeydown="if(event.keyCode==13)event.keyCode=9"
+			style="display:none;" class="bigtext-position" id="EditInput"
+			type="text" /></div>
+		</div>
+		</td>
+	</tr>
+</table>
+<div id="ChaocfxDIV"
+	style="border:0px solid gray;display:none;padding:2px;width:425;POSITION: absolute;z-index:1;BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid; OVERFLOW: none;left:200;top:100px;background-color:#DBE4EE">
+<table width="100%" height="25" cellspacing="0" cellpadding="0"
+	style="font-size:9pt" bordercolordark="#DBE4EE" bgcolor="#808080">
+	<tr>
+		<td id="tiaojian" width="100%" style="color: #ffffff">&nbsp;<b>超差分析</b></td>
+		<td align="right"><image jwcid="@Image" image="ognl:assets.close"
+			width="15" height="15" onclick="show('close')" /></td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td><image id="parameter" jwcid="@Image"
+			image="ognl:assets.parameter" width="14" height="14" /> <font
+			style="font-size:9pt">请填写超差分析：</font></td>
+	</tr>
+</table>
+<table border="1" bordercolor="#0099FF"
+	style="border-width: 1px;width:415px">
+	<tr>
+		<td width="96%" style="border-style: none; border-width: medium">
+		<div style="width:410;HEIGHT: 220">
+		<table>
+			<tr height="30">
+				<td align="left" height="220" width="405"><textarea
+					onkeydown='editTab()' class='mytextarea' rows="15" jwcid="CHAOCFX"
+					name="CHAOCFX" cols="55"></textarea></td>
+			</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+</table>
+<table width="410">
+	<tr align="center" height="30">
+		<td align="right"><input style="width:80"
+			jwcid="@ZRcontrib:ImgButton" buttontype="nosubmitbuttons" type=""
+			label="确定" onclick="return show('qued')" /> <span style="width:80"
+			jwcid="@ZRcontrib:ImgButton" buttontype="nosubmitbuttons" type=""
+			label="取消" onclick="show('close')"></span></td>
+	</tr>
+</table>
+</div>
+</form>
+</body>
+<script>window.onresize();document.all.item("wait").style.display="none";</script>
+</html>

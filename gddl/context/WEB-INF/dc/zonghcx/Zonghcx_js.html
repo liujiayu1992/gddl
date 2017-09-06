@@ -1,0 +1,613 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title>综合查询结算</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+
+<script type="text/javascript">
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif'; 
+
+    //<!-- *************right form************** -->
+var js_ck= new Ext.form.Checkbox({
+	boxLabel:'结算编号',
+	checked:false,
+	width:'auto'
+});
+
+var sk_ck= new Ext.form.Checkbox({
+	boxLabel:'收款单位',
+	checked:false,
+	width:'auto'
+});
+
+var js_tx = new Ext.form.TextField({
+	width:140,
+	allowBlank:true,
+     selectOnFocus:true,
+     blankText :'This Field is required',
+    	disabled:false
+}); //需要添加空格验证
+
+var sk_tx = new Ext.form.TextField({
+	width:160,
+	allowBlank:true,
+     selectOnFocus:true,
+     blankText :'This Field is required',
+    	disabled:false
+}); //需要添加空格验证
+
+    var js_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [js_ck,{html:'&nbsp;' },js_tx,{html:'&nbsp;&nbsp;&nbsp;' },sk_ck,{html:'&nbsp;' },sk_tx]
+});
+
+var pz_ck = new Ext.form.Checkbox({
+	boxLabel:'燃料品种',
+	width:'auto'
+});
+var pz_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'PINZ',
+	lazyRender:true,//动态绑定
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true,
+    width:140
+});
+
+var fs_ck = new Ext.form.Checkbox({
+	boxLabel:'运输方式',
+	width:'auto'
+});
+
+var fs_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'YSFS',
+	lazyRender:true,//动态绑定
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true,
+    width:160
+});
+
+    var pz_fs_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [pz_ck,{html:'&nbsp;' },pz_cb,{html:'&nbsp;&nbsp;&nbsp;' },fs_ck,{html:'&nbsp;' },fs_cb]
+});
+
+var ch_ck= new Ext.form.Checkbox({
+	boxLabel:'代表车号',
+	checked:false,
+	width:'auto'
+});
+
+var ch_tx = new Ext.form.TextField({
+	width:140,
+	allowBlank:true,
+     selectOnFocus:true,
+     blankText :'This Field is required',
+    	disabled:false
+}); //需要添加空格验证
+
+var ch_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [ch_ck,{html:'&nbsp;' },ch_tx]
+});
+
+var fh_ck=new Ext.form.Checkbox({
+	boxLabel:'发货日期',
+	width:'auto'
+});
+var fh_df_s = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var fh_df_e = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var fh_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [fh_ck,{html:'&nbsp;' },fh_df_s,{html: '&nbsp;至&nbsp;'},fh_df_e]
+});
+
+var dh_ck=new Ext.form.Checkbox({
+	boxLabel:'到货日期',
+	checked:false,
+	width:'auto'
+});
+var dh_df_s = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var dh_df_e = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var dh_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [dh_ck,{html:'&nbsp;' },dh_df_s,{html: '&nbsp;至&nbsp;'},dh_df_e]
+});
+
+var yh_ck= new Ext.form.Checkbox({
+	boxLabel:'开户银行',
+	checked:false,
+	width:'auto'
+});
+
+var yh_tx = new Ext.form.TextField({
+	width:140,
+	allowBlank:true,
+     selectOnFocus:true,
+     blankText :'This Field is required',
+    	disabled:false
+}); //需要添加空格验证
+
+
+var zh_ck= new Ext.form.Checkbox({
+	boxLabel:'账<span style="white-space:nowrap; word-spacing:18"> </span>号',
+	checked:false,
+	width:'auto'
+});
+
+var zh_tx = new Ext.form.TextField({
+	width:140,
+	allowBlank:true,
+     selectOnFocus:true,
+     blankText :'This Field is required',
+    	disabled:false
+}); //需要添加空格验证
+
+    var yhzh_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [yh_ck,{html:'&nbsp;' },yh_tx,{html:'&nbsp;&nbsp;&nbsp;' },zh_ck,{html:'&nbsp;' },zh_tx]
+});
+
+
+var js_rq_ck=new Ext.form.Checkbox({
+	boxLabel:'结算日期',
+	checked:false,
+	width:'auto'
+});
+var js_rq_df_s = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+
+var js_rq_df_e = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+    
+var js_rq_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [js_rq_ck,{html:'&nbsp;' },js_rq_df_s,{html: '&nbsp;至&nbsp;'},js_rq_df_e]
+});    
+    
+var rz_rq_ck=new Ext.form.Checkbox({
+	boxLabel:'入账日期',
+	checked:true,
+	width:'auto'
+});
+
+var rz_rq_df_s = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+
+var rz_rq_df_e = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+    
+var rz_rq_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [rz_rq_ck,{html:'&nbsp;' },rz_rq_df_s,{html: '&nbsp;至&nbsp;'},rz_rq_df_e]
+});    
+    
+
+var fp_ck= new Ext.form.Checkbox({
+	boxLabel:'发票编号',
+	checked:false,
+	width:'auto'
+});
+
+var fp_tx = new Ext.form.TextField({
+	width:140,
+	allowBlank:true,
+     selectOnFocus:true,
+     blankText :'This Field is required',
+    	disabled:false
+}); //需要添加空格验证
+
+var ht_ck= new Ext.form.Checkbox({
+	boxLabel:'合同编号',
+	checked:false,
+	width:'auto'
+});
+
+var ht_tx = new Ext.form.TextField({
+	width:140,
+	allowBlank:true,
+     selectOnFocus:true,
+     blankText :'This Field is required',
+    	disabled:false
+}); //需要添加空格验证
+
+
+    var fpht_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [fp_ck,{html:'&nbsp;' },fp_tx,{html:'&nbsp;&nbsp;&nbsp;' },ht_ck,{html:'&nbsp;' },ht_tx]
+});
+
+var jslx_ck = new Ext.form.Checkbox({
+	boxLabel:'结算类型',
+	width:'auto'
+});
+
+var jslx_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'JieslxDropDown',
+	lazyRender:true,//动态绑定
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true,
+    width:140
+});
+
+    var jslx_pan = new Ext.Panel({  
+	height:40,
+	layout:'table',
+	items : [jslx_ck,{html:'&nbsp;' },jslx_cb]
+});
+   
+   //用框框将发货相关信息和结算相关信息圈起来
+   
+    var fahxgxx = new Ext.form.FieldSet({   
+        title:'发货相关信息',  
+        height:130,
+        //layout : 'column',
+        collapsible: true,  
+        items : [pz_fs_pan,fh_pan,dh_pan]
+    });
+    
+    var jiesxgxx = new Ext.form.FieldSet({   
+        title:'结算相关信息',  
+        height:290,
+        //layout : 'column',
+        collapsible: true,  
+        items : [js_pan,rz_rq_pan,js_rq_pan,ch_pan,yhzh_pan,fpht_pan ,jslx_pan]
+    });
+
+
+   
+    var form = new Ext.form.FormPanel({
+	defaultType: 'textfield',
+	autoScroll:true,
+	labelAlign: 'left',
+	title: '综合查询基本设置',
+	labelWidth: 370,
+	height: bodyHeight - 10,
+	frame: true,
+	defaults: {	msgTarget: 'side'},
+	items: [fahxgxx,jiesxgxx],
+	buttons: [{
+	text: '确认',
+	//handler:getSQL,
+	minWidth : 65
+	}]
+
+});
+	form.render("form"); 
+    
+    //<!-- *************left up************** -->
+var gongysTree0 = new Ext.tree.TreeNode({	id:'0',
+	text:'全部',
+	expanded:true
+});
+var gongysTree02018204 = new Ext.tree.TreeNode({	id:'2018204',
+	text:'大同运销公司'
+});
+	gongysTree0.appendChild([gongysTree02018204]);
+var gongysTree020182044036425 = new Ext.tree.TreeNode({	id:'4036425',
+	text:'大同矿'
+});
+	gongysTree02018204.appendChild([gongysTree020182044036425]);
+var gongysTree0201820440364256611733 = new Ext.tree.TreeNode({	id:'6611733',
+	text:'大同',
+	leaf:true
+});
+	gongysTree020182044036425.appendChild([gongysTree0201820440364256611733]);
+var gongysTree02018207 = new Ext.tree.TreeNode({	id:'2018207',
+	text:'新疆神华'
+});
+	gongysTree0.appendChild([gongysTree02018207]);
+var gongysTree020182074036432 = new Ext.tree.TreeNode({	id:'4036432',
+	text:'乌4矿',
+	leaf:true
+});
+	gongysTree02018207.appendChild([gongysTree020182074036432]);
+var gongysTree02018209 = new Ext.tree.TreeNode({	id:'2018209',
+	text:'神华集团'
+});
+	gongysTree0.appendChild([gongysTree02018209]);
+var gongysTree020182094036433 = new Ext.tree.TreeNode({	id:'4036433',
+	text:'乌矿',
+	leaf:true
+});
+	gongysTree02018209.appendChild([gongysTree020182094036433]);
+var gongysTree_treePanel =new Ext.tree.TreePanel({
+	autoScroll:true,
+	animate:true,
+	width:200,
+	root:gongysTree0,
+	bbar:new Ext.Toolbar({
+	items:[ new Ext.Toolbar.Button({
+	text:'确认',
+	handler:function() { 
+var cks = gongysTree_treePanel.getSelectionModel().getSelectedNode(); 
+if(cks==null){gongysTree_window.hide();return;} 
+rec = gridDiv_grid.getSelectionModel().getSelected(); 
+var gysid,gys,mkid,mk,fzid,fz;if(cks.getDepth() == 3){ 
+gysid = cks.parentNode.parentNode.id;gys = cks.parentNode.parentNode.text;mkid = cks.parentNode.id;mk = cks.parentNode.text;fzid = cks.id;fz = cks.text;}else if(cks.getDepth() == 2){ 
+gysid = cks.parentNode.id;gys = cks.parentNode.text;mkid = cks.id;mk = cks.text;}else if(cks.getDepth() == 1){ 
+gysid = cks.id;gys = cks.text;}rec.set('GONGYSB_ID', gysid); 
+rec.set('GONGYS', gys); 
+rec.set('MEIKXXB_ID', mkid); 
+rec.set('MEIKMC', mk); 
+rec.set('FAZ_ID', fzid); 
+rec.set('FAZ', fz); 
+gongysTree_window.hide(); 
+return;},
+	minWidth:75
+})
+]})
+
+});gongysTree_treePanel.render('body');var gongysTree_window =new Ext.Window({
+	width:300,
+	height:400,
+	closeAction:'hide',
+	modal:true,
+	layout:'fit',
+items:[gongysTree_treePanel]
+});
+gongysTree_window.show();
+gongysTree_window.hide();
+var gridDiv_sm = new Ext.grid.RowSelectionModel();
+var gridDiv_cm = new Ext.grid.ColumnModel([
+	{header:'供应商ID',dataIndex:'GONGYSB_ID',hidden :true},
+	{header:'供应商',dataIndex:'GONGYS',width:150,hidden :false},
+	{header:'煤矿单位ID',dataIndex:'MEIKXXB_ID',hidden :true},
+	{header:'煤矿单位',dataIndex:'MEIKMC',width:150,hidden :false},
+	{header:'发站ID',dataIndex:'FAZ_ID',hidden :true},
+	{header:'发站',dataIndex:'FAZ',hidden :false}
+]);
+
+gridDiv_cm.defaultSortable=true;
+
+var gridDiv_ds = new Ext.data.Store({
+proxy : new Ext.zr.data.PagingMemoryProxy([]),
+pruneModifiedRecords:true,
+reader: new Ext.data.ArrayReader({}, [{name:'GONGYSB_ID'},{name:'GONGYS'},{name:'MEIKXXB_ID'},{name:'MEIKMC'},{name:'FAZ_ID'},{name:'FAZ'}])
+});
+
+
+var gridDiv_plant = Ext.data.Record.create([{name: 'GONGYSB_ID', type:'string'},{name: 'GONGYS', type:'string'},{name: 'MEIKXXB_ID', type:'string'},{name: 'MEIKMC', type:'string'},{name: 'FAZ_ID', type:'string'},{name: 'FAZ', type:'string'}]);
+var gridDiv_grid = new Ext.grid.EditorGridPanel({
+//el:'gridDiv',
+cm:gridDiv_cm,
+sm:gridDiv_sm,
+ds:gridDiv_ds,
+title:'供货信息',
+clicksToEdit:1,
+frame:true,
+tbar: [{text:' 添加',icon:'imgs/btnicon/insert.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+var plant = new gridDiv_plant({GONGYSB_ID: '',GONGYS:'',MEIKXXB_ID: '',MEIKMC:'',FAZ_ID: '',FAZ:''});
+gridDiv_ds.insert(gridDiv_ds.getCount(),plant);}},
+{text:' 删除',icon:'imgs/btnicon/delete.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+for(i=0;i<gridDiv_sm.getSelections().length;i++){
+	record = gridDiv_sm.getSelections()[i];
+	gridDiv_ds.remove(gridDiv_sm.getSelections()[i--]);}}}
+],
+height:bodyHeight/3-10,  //由2变到3
+clicksToEdit:1,frame:true,
+stripeRows:true
+});
+gridDiv_grid.render('gridDiv');
+
+gridDiv_ds.load({params:{start:0, limit:18}});
+
+gridDiv_grid.on('cellclick',
+function(own, irow, icol, e){ 
+	row = irow; 
+	if('GONGYS' == gridDiv_grid.getColumnModel().getDataIndex(icol)){
+		gongysTree_window.show();
+	}
+});
+
+
+//<!-- *************left middle************** -->
+var gridDiv_sm1 = new Ext.grid.RowSelectionModel()
+var gridDiv_cm1 = new Ext.grid.ColumnModel([
+new Ext.grid.RowNumberer(),
+{header:'ID',dataIndex:'ID',hidden :true},
+
+{header:'项目',dataIndex:'XIANGM',editor: new Ext.form.ComboBox({
+               typeAhead: true,
+               triggerAction: 'all',
+               transform:'XM',
+               lazyRender:true}),hidden :false},
+{header:'条件',dataIndex:'TIAOJ',editor: new Ext.form.ComboBox({
+               typeAhead: true,
+               triggerAction: 'all',
+               transform:'TJ',
+               lazyRender:true}),hidden :false},
+{header:'值',dataIndex:'ZHI',editor :new Ext.form.NumberField({
+	decimalPrecision:3,
+	selectOnFocus:true}),hidden :false}
+]);
+
+//新添加的<!-- *************left down************** -->
+xdata = [['1','合计'],['2','供应商'],['3','煤矿单位']];
+var gridDiv_sm2 = new Ext.grid.RowSelectionModel()
+
+var store1 = new Ext.data.SimpleStore({
+	    fields: ['abbre', 'mingch'],
+	    data : xdata
+});
+	
+var gridDiv_cm2 = new Ext.grid.ColumnModel([
+new Ext.grid.RowNumberer(),
+{header:'ID',dataIndex:'ID',hidden :true},
+
+{header:'项目',dataIndex:'XIANGM2',editor: new Ext.form.ComboBox({
+               store:store1 ,
+               displayField:'mingch',
+               typeAhead: true,
+               mode:'local',
+               triggerAction: 'all'
+               }),hidden :false}
+]);
+
+
+//<!-- defaultSortable默认排序的列有没有指定排序（默认为false ）-->
+gridDiv_cm1.defaultSortable=true;
+
+var gridDiv_ds1 = new Ext.data.Store({
+proxy : new Ext.zr.data.PagingMemoryProxy([]),
+pruneModifiedRecords:true,
+reader: new Ext.data.ArrayReader({}, [
+{name:'ID'},{name:'XIANGM'},{name:'TIAOJ'},{name:'ZHI'},{name:'ZUB'}])});
+
+var gridDiv_plant1 = Ext.data.Record.create([{name: 'ID', type:'string'},{name: 'XIANGM'},{name: 'TIAOJ'},{name: 'ZHI', type:'float'},{name: 'ZUB', type:'string'}]);
+var gridDiv_grid1 = new Ext.grid.EditorGridPanel({
+//el:'gridDiv',
+cm:gridDiv_cm1,
+sm:gridDiv_sm1,
+ds:gridDiv_ds1,
+title:'条件设置',
+clicksToEdit:1,frame:true,tbar: [{text:' 添加',icon:'imgs/btnicon/insert.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+var plant1 = new gridDiv_plant1({ID: '0',XIANGM: '',TIAOJ: '',ZHI: '',ZUB: '1'});
+gridDiv_ds1.insert(gridDiv_ds1.getCount(),plant1);}},
+{text:' 删除',icon:'imgs/btnicon/delete.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+for(i=0;i<gridDiv_sm1.getSelections().length;i++){
+	record = gridDiv_sm1.getSelections()[i];
+	gridDiv_ds1.remove(gridDiv_sm1.getSelections()[i--]);}}}
+],
+height:bodyHeight/3,  //从2变到3
+clicksToEdit:1,frame:true,
+stripeRows:true});
+gridDiv_grid1.render('gridDiv1');
+// gridDiv_ds1.load({params:{start:0, limit:18}});
+
+//新添加的 汇总行
+var gridDiv_ds2 = new Ext.data.Store({
+proxy : new Ext.zr.data.PagingMemoryProxy([]),
+pruneModifiedRecords:true,
+reader: new Ext.data.ArrayReader({}, [
+{name:'ID'},{name:'XIANGM2'}])});
+        
+var gridDiv_plant2 = Ext.data.Record.create([{name: 'ID', type:'string'},{name: 'XIANGM2'}]);
+var gridDiv_grid2 = new Ext.grid.EditorGridPanel({
+//el:'gridDiv',
+cm:gridDiv_cm2,
+sm:gridDiv_sm2,
+ds:gridDiv_ds2,
+title:'汇总行',
+clicksToEdit:1,frame:true,tbar: [{text:' 添加',icon:'imgs/btnicon/insert.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+var plant2 = new gridDiv_plant2({ID: '0',XIANGM2: ''});
+gridDiv_ds2.insert(gridDiv_ds2.getCount(),plant2);}},
+{text:' 删除',icon:'imgs/btnicon/delete.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+for(i=0;i<gridDiv_sm2.getSelections().length;i++){
+	record = gridDiv_sm2.getSelections()[i];
+	gridDiv_ds2.remove(gridDiv_sm2.getSelections()[i--]);}}}
+],
+height:bodyHeight/3,
+clicksToEdit:1,frame:true,
+stripeRows:true});
+gridDiv_grid2.render('gridDiv2');
+gridDiv_ds2.load({params:{start:0, limit:18}});
+
+//添加完成
+    
+ });
+    
+ </script>   
+</head>
+
+<body id="body">
+<div style="width:100%;height:100%;">
+<div style="float:left; width:49%;height:100%;">
+	<div id="gridDiv"></div>
+	<div id="gridDiv1"></div>
+    <div id="gridDiv2"></div>
+</div>
+<div style="float:right; width:50%;height:100%;">
+	<div id = "form"></div>
+</div>
+</div>
+
+<form jwcid="@Form">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+	style="display:none" id="SaveButton" listener="ognl:listeners.SaveButton"></span>
+<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+<span id="PINZ"  jwcid = "PINZ" style="display:none"></span>
+<span id="YSFS"  jwcid = "YSFS" style="display:none"></span>
+<span id="JieslxDropDown"  jwcid = "JieslxDropDown" style="display:none"></span>
+
+
+<select style='display:none' id = XM>
+<option value='车数'>车数</option>
+<option value='结算数量'>结算数量</option>
+<option value='过衡量'>过衡量</option>
+<option value='应吨'>应吨</option>
+<option value='亏吨'>亏吨</option>
+<option value='运损'>运损</option>
+<option value='扣吨'>扣吨</option>
+<option value='结算热量'>结算热量</option>
+<option value='结算硫分'>结算硫分</option>
+<option value='煤款含税单价'>煤款含税单价</option>
+<option value='煤款不含税单价'>煤款不含税单价</option>
+<option value='含税煤款'>含税煤款</option>
+<option value='不含税煤款'>不含税煤款</option>
+
+</select>
+<select style='display:none' id = TJ>
+<option value='='>=</option>
+<option value='>'>&gt</option>
+<option value='>='>&gt=</option>
+<option value='&lt'>&lt</option>
+<option value='&lt='>&lt=</option>
+</select>
+
+</form>
+</body>
+</html>

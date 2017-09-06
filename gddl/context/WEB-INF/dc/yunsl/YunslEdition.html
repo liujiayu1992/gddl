@@ -1,0 +1,89 @@
+<html jwcid="@Shell" title="" stylesheet="ognl:assets.Main">
+<body id="body" jwcid="@Body">
+<script jwcid="Mainjs" />
+   
+<script jwcid="Datejs" />
+
+<script jwcid="Validatejs" />
+
+<script jwcid="YunslEditionjs" />
+
+<script>
+    <span jwcid="@Insert" raw="true" value="ognl:ArrayScript"/>
+</script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><span
+	jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+<table align="center">
+	<tr>
+		<td height=30></td>
+	</tr>
+	<tr>
+		<td>
+		<div id="editMainDiv" class=frameDivY>
+		<table align="center">
+			<tr>
+				<td>序号:</td>
+				<td><span jwcid="XUH"></span></td>
+			</tr>
+			<tr>
+				<td>名称:</td>
+				<td><span jwcid="MINGC"></span></td>
+			</tr>
+			<tr>
+				<td>单位:</td>
+				<td><span jwcid="DANW"></span></td>
+			</tr>
+			<tr>
+				<td>类别:</td>
+				<td><span jwcid="LEIB"></span></td>
+			</tr>
+            <tr>
+				<td>值:</td>
+				<td><span jwcid="ZHI"></span></td>
+			</tr>
+			<tr>
+				<td>上级单位:</td>
+				<td><span jwcid="DIANCXXBDropDownSelect" submitOnChange="true"></span></td>
+			</tr>
+			<tr>
+				<td>使用电厂:</td>
+				<td><span jwcid="DIANCXXB_IDSelect"></span></td>
+			</tr>
+			<tr>
+				<td>状态:</td>
+				<td><span jwcid="ZHUANGTSelect"></span></td>
+			</tr>
+			<tr>
+				<td>备注:</td>
+				<td><span jwcid="BEIZ"></span></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+				<table align="center">
+					<tr align="center">
+						<td><span jwcid="SaveButton@ZRcontrib:ImgButton"
+							onclick="return Showwait();" buttontype="" label="保存"
+							onblur="return blurfocus();" listener="ognl:listeners.SaveButton"></span>
+						</td>
+						<td><span jwcid="DeleteButton@ZRcontrib:ImgButton"
+							onclick="return Showwait();" buttontype="" label="删除"
+							onblur="return blurfocus();"
+							listener="ognl:listeners.DeleteButton"></span></td>
+						<td><span jwcid="ReturnsButton@ZRcontrib:ImgButton"
+							onclick="return Showwait();" buttontype="" label="返回"
+							onblur="return blurfocus();"
+							listener="ognl:listeners.ReturnsButton"></span></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+<script>window.onresize();</script>
+</html>

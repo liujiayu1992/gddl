@@ -1,0 +1,355 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>Renyxx</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var grid1_history = "";
+Ext.onReady(function(){
+Ext.QuickTips.init();
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+	var grid1_sm =new Ext.grid.RowSelectionModel();
+	
+	var grid1_Plant = Ext.data.Record.create([
+		{name: 'id', 	 type: 'string'},
+		{name: 'user', 	 type: 'string'},
+		{name: 'name', 	 type: 'string'},
+		{name: 'sex', 	 type: 'string'}, 
+		{name: 'bum', 	 type: 'string'},
+		{name: 'zhiw',   type: 'string'},
+		{name: 'zhuangt',type: 'string'},
+		{name: 'yiddh',	 type: 'number'},
+		{name: 'guddh',	 type: 'number'},
+		{name: 'chuanz', type: 'number'},
+		{name: 'youzbm', type: 'number'},
+		{name: 'Email',	 type: 'string'},
+		{name: 'lianxdz',type: 'string'},          
+	]);
+
+	var grid1_cm = new Ext.grid.ColumnModel([
+	    new Ext.grid.RowNumberer(),
+	    {header:'编号',dataIndex:'id',sortable:true,hidden :true},
+	    {header:'用户名',dataIndex:'user',
+	    editor: new Ext.form.TextField({
+               allowBlank: false,
+               vtype:'alphanum'
+           })
+		},
+		{header:'姓名',dataIndex:'name',
+	    editor: new Ext.form.TextField({
+               allowBlank: false
+           })
+		},
+	    {header:'性别',dataIndex:'sex',sortable:true,
+	    editor: new Ext.form.ComboBox({
+               typeAhead: true,
+               triggerAction: 'all',
+               transform:'sex',
+               lazyRender:true,
+               editable:false
+            })
+	    },
+	    {header:'部门',dataIndex:'bum',
+		editor:new Ext.form.TextField({
+				 allowBlank:false
+			})
+		},
+		{header:'职位',dataIndex:'zhiw',
+		editor:new Ext.form.TextField({
+				allowBlank:false
+			})
+		},
+		{header:'是否可登陆',dataIndex:'zhuangt',sortable:true,
+	    editor: new Ext.form.ComboBox({
+               typeAhead: true,
+               triggerAction: 'all',
+               transform:'zhuangt',
+               lazyRender:true,
+               editable:false
+            })
+	    },
+	    {header:'移动电话',dataIndex:'yiddh',
+	    editor:new Ext.form.TextField({
+	    		allowBlank:false
+	    	})
+	    },
+	    {header:'固定电话',dataIndex:'guddh',
+	    editor:new Ext.form.TextField({
+	    		allowBlank:false
+	    	})
+	    },
+	    {header:'传真',dataIndex:'chuanz',
+	    editor:new Ext.form.TextField({
+	    		allowBlank:false
+	    	})
+	    },
+	    {header:'邮政编码',dataIndex:'youzbm',
+	    editor:new Ext.form.TextField({
+	    		allowBlank:false
+	    	})
+	    },
+	    {header:'Email',dataIndex:'Email',
+	    editor:new Ext.form.TextField({
+	    		allowBlank:false
+	    	})
+	    },
+	    {header:'联系地址',dataIndex:'lianxdz',
+	    editor:new Ext.form.TextField({
+	    		allowBlank:false
+	    	})
+	    }
+	]);
+
+<span jwcid="@Insert" raw="true" value="ognl:GridData"></span>
+
+	var grid1_ds = new Ext.data.Store({
+	    proxy : new Ext.zr.data.PagingMemoryProxy(grid1_data),
+	    reader: new Ext.data.ArrayReader({}, [
+	        {name: 'id'},
+        	{name: 'user'},
+        	{name: 'name'},
+        	{name: 'sex'},
+        	{name: 'bum'},
+        	{name: 'zhiw'},
+        	{name: 'zhuangt'},
+        	{name: 'yiddh'},
+        	{name: 'guddh'},
+        	{name: 'chuanz'},
+        	{name: 'youzbm'},
+        	{name: 'Email'},
+        	{name: 'lianxdz'}
+	    ])
+	});
+
+	var grid1_pag = new Ext.PagingToolbar({
+        pageSize: 18,
+        store: grid1_ds,
+        displayInfo: true,
+        displayMsg: '显示第 {0} 条到 {1} 条记录，一共 {2} 条',
+        emptyMsg: "没有记录"
+    });
+	
+    var grid1_iBtn = new Ext.Toolbar.Button({
+    	text: '添加',
+        handler : function(){
+	        var plant = new grid1_Plant({
+	      		id :0,
+	      		user : '',
+	      		name : '',
+	      		sex : '男',
+	      		bum : '',
+	      		zhiw : '',
+	      		zhuangt : '是',
+	      		yiddh : '',
+	      		guddh :'',
+	      		chuanz : '',
+	      		youzbm : '',
+	      		Email : '',
+	      		lianxdz :''
+	      		
+			});
+			grid1_ds.insert(grid1_ds.getCount(),plant);
+		}
+    });
+    
+    var grid1_dBtn = new Ext.Toolbar.Button({
+    	text: '删除',
+        handler : function(){
+			Ext.MessageBox.alert("提示信息","删除后请进行保存!");
+			for(i=0;i<grid1_sm.getSelections().length;i++){
+				grid1_rcd = grid1_sm.getSelections()[i];
+				if(grid1_rcd.get("id") != "0"){
+					grid1_history += "D,"+grid1_rcd.get("id");
+				}
+				grid1_ds.remove(grid1_sm.getSelections()[i--]);
+			}
+		}
+    });
+
+    var grid1_sBtn = new Ext.Toolbar.Button({
+    	text: '保存',
+        handler : grid1_save
+    });
+    
+//	添加一取消按钮
+	var grid1_cBtn = new Ext.Toolbar.Button({
+		text: '取消',
+		handler : function(){
+			grid1_ds.rejectChanges();
+		}
+	});
+    
+    var grid1_rBtn = new Ext.Toolbar.Button({
+    	text: '重置密码',
+        handler : grid1_rpwd
+    });
+    
+    var grid1_pBtn = new Ext.Toolbar.Button({
+    	text: '设置分组',
+        handler : function(){
+			if(grid1_sm.getSelections().length <= 0 
+				|| grid1_sm.getSelections().length > 1){
+        		Ext.MessageBox.alert("提示信息","请选中一个人员设置分组");
+        		return;
+        	}
+        	grid1_rcd = grid1_sm.getSelections()[0];
+        	if(grid1_rcd.get("id") == "0"){
+        		Ext.MessageBox.alert("提示信息","在设置分组之前请先保存!");
+        		return;
+        	}
+        	grid1_history = grid1_rcd.get("id");
+			var Cobj = document.getElementById("CHANGE");
+			Cobj.value = grid1_history;
+			document.getElementById("PowerButton").click();
+		}
+    });
+    var grid1_prBtn = new Ext.Toolbar.Button({
+    	text: '打印',
+		handler : function(){
+			 var url = 'http://'+document.location.host+document.location.pathname;var end = url.indexOf(';');url = url.substring(0,end);url = url + '?service=page/' + 'Renyxxreport&lx=rezc'; window.open(url,'newWin');
+		}
+    });
+
+    
+    var grid1_egp = new Ext.grid.EditorGridPanel({
+    	el: 'editMainDiv',
+		ds: grid1_ds,
+    	cm: grid1_cm,
+    	width: 1000,
+    	sm: grid1_sm,
+    	stripeRows: true,
+    	clicksToEdit:1,
+    	frame:true,
+    	tbar: [grid1_iBtn,grid1_dBtn,grid1_sBtn,grid1_cBtn,grid1_rBtn,grid1_pBtn,grid1_prBtn],
+	    bbar: grid1_pag
+	});
+ 
+	grid1_egp.render();
+	grid1_ds.load({params:{start:0, limit:18}});
+	
+	grid1_ds.on("datachanged",function(){
+		grid1_history = "";
+	}); 
+	function grid1_save(){
+		var	grid1_Mrcd = grid1_ds.getModifiedRecords();
+        var grid1_sh = "";
+        var hasnull = false;
+        for(mi = 0; mi< grid1_Mrcd.length; mi++){
+        	//alert(grid1_Mrcd[mi].get("zhuangt"));
+        	id = grid1_Mrcd[mi].get("id");
+        	mingc = grid1_Mrcd[mi].get("user");
+        	quanc = grid1_Mrcd[mi].get("name");
+        	xingb = grid1_Mrcd[mi].get("sex");
+        	bum   = grid1_Mrcd[mi].get("bum");
+        	zhiw  = grid1_Mrcd[mi].get("zhiw");
+        	zt    = grid1_Mrcd[mi].get("zhuangt");
+        	yiddh = grid1_Mrcd[mi].get("yiddh");
+        	guddh = grid1_Mrcd[mi].get("guddh");
+        	chuanz = grid1_Mrcd[mi].get("chuanz");
+        	youzbm  = grid1_Mrcd[mi].get("youzbm");
+        	Email = grid1_Mrcd[mi].get("Email");
+        	lianxdz = grid1_Mrcd[mi].get("lianxdz");
+        	if(mingc == null || mingc == "" || quanc== null || quanc == ""){
+        		hasnull = true;
+        	}else{
+        		grid1_sh += "U," + id + "," + mingc + "," + quanc + "," + xingb + "," + bum + "," + zhiw + "," + zt 
+        		+ "," + yiddh +"," + guddh +"," + chuanz + "," + youzbm + "," + Email +"," + lianxdz + ";";
+        	}
+		}
+		grid1_history += grid1_sh;
+		if(hasnull){
+			Ext.MessageBox.confirm('提示信息', '用户名或名称为空的记录将不被保存,是否继续?', function(btn){
+				if(btn == "yes"){
+					var Cobj = document.getElementById("CHANGE");
+					Cobj.value = grid1_history;
+					document.getElementById("SaveButton").click();
+				}
+			});
+		}else{
+			if(grid1_history==""){
+				Ext.MessageBox.alert("提示信息","没有进行改动无需保存");
+			}else{
+				var Cobj = document.getElementById("CHANGE");
+				Cobj.value = grid1_history;
+				document.getElementById("SaveButton").click();
+			}
+		}
+	}
+	
+	function grid1_rpwd(){
+		var	grid1_Mrcd = grid1_ds.getModifiedRecords();
+		if(grid1_Mrcd.length > 0){
+			Ext.MessageBox.confirm('提示信息', '重置密码后您所做的更改将不被保存,是否继续?', function(btn){
+				if(btn == "yes"){
+					getpwdChange();
+				}
+			});
+		}else{
+			getpwdChange();
+		}
+	}
+	
+	function getpwdChange(){
+		if(grid1_sm.getSelections().length <= 0 
+			|| grid1_sm.getSelections().length > 1){
+       		Ext.MessageBox.alert("提示信息","请选中一个人员重置密码");
+       		return;
+       	}
+       	grid1_rcd = grid1_sm.getSelections()[0];
+       	if(grid1_rcd.get("id") == "0"){
+       		Ext.MessageBox.alert("提示信息","在重置密码之前请先保存!");
+       		return;
+       	}
+       	Ext.MessageBox.confirm('提示信息','重置密码后密码将更新为与用户名相同,确认码?',function(btn){
+       		if(btn == "yes"){
+	       		grid1_history = grid1_rcd.get("id") + "," + grid1_rcd.get("user");
+				var Cobj = document.getElementById("CHANGE");
+				Cobj.value = grid1_history;
+				document.getElementById("ReSetPwdButton").click();
+       		}
+       	})
+       	
+	}
+});
+</script>
+<SCRIPT LANGUAGE="JavaScript"> 
+	<!-- Hide 
+	function killErrors() { 
+		return true; 
+	} 
+	window.onerror = killErrors; 
+	 --> 
+</SCRIPT>
+<body id="body" jwcid="@Body">
+    <div id="editMainDiv" style="width:100%;height:100%"></div>
+    <select name="sex" id="sex" style="display: none;">
+		<option value="男">男</option>
+		<option value="女">女</option>
+	</select>
+	<select name="zhuangt" id="zhuangt" style="display: none;">
+		<option value="是">是</option>
+		<option value="否">否</option>
+	</select>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+		<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+		<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+			label="保存" style="display:none" 
+			id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+		<span jwcid="ReSetPwdButton@ZRcontrib:ImgButton" buttontype=""
+			label="重置密码" style="display:none" 
+			id = "ReSetPwdButton" listener="ognl:listeners.ReSetPwdButton" ></span>
+		<span jwcid="PowerButton@ZRcontrib:ImgButton" buttontype=""
+			label="权限" style="display:none" 
+			id = "PowerButton" listener="ognl:listeners.PowerButton" ></span>
+		<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+	</form>
+</body>
+</html>

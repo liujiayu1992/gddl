@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Expires" content="0"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+
+
+<title>文件管理</title>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/examples.css"/>
+<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<script>
+<span jwcid="@Insert" raw="true" value="ognl:closeScript"></span>
+Ext.onReady(function() {
+    var top = new Ext.Panel({
+        applyTo:'extPanel',
+        layout:'form',
+  	    labelAlign: 'top',
+        frame:true,
+ 		buttonAlign :'center',
+        width: 600,
+    	height:400,
+        items: [{
+            layout:'table',          
+            layoutConfig: {
+			    columns: 4
+			}},
+            {xtype:'htmleditor', colspan:4,
+            id:'neir',
+            fieldLabel:'内容',
+            height:200,enableSourceEdit :false,
+            anchor:'98%',value:Ext.util.Format.htmlDecode(document.getElementById('c').value) }
+    		],
+         buttons: [{
+            text: '保存',
+            handler:function(){
+			 var c=Ext.get('neir').getValue();
+             if (c==''){
+			      alert("内容不允许为空！");
+			     return;
+			 }
+			 document.getElementById('c').value=c;
+             document.getElementById('baoc').click();
+            }
+        }]
+    });
+    tongb=function(){   //同步
+		 var c=Ext.get('neir').getValue();
+		 document.getElementById('c').value=c;        
+ 	}
+});
+
+</script>
+</head>
+<body  style="padding:0 0 0 0">
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<div id="extPanel"></div>
+<table>
+	<td>
+		<input jwcid="@TextArea"id='c'value="ognl:neir"style='display:none'></input>
+		<span jwcid="@ZRcontrib:ImgButton" id="baoc"buttontype=""style="display:none"label="保存"listener="ognl:listeners.baoc" ></span>
+	<td>
+</table>
+</form>
+</body>
+</html>

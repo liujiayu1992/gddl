@@ -1,0 +1,127 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>关联电厂</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var tree1_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+	
+
+<span jwcid="@Insert" raw="true" value="ognl:TreeData"></span>
+	//	添加一保存按钮
+	var tree1_sBtn = new Ext.Toolbar.Button({
+		text: '保存',
+		handler : function(){
+			if(tree1_history==""){
+				Ext.MessageBox.alert("提示信息","没有进行改动无需保存");
+				return ;
+			}
+			var Cobj = document.getElementById("CHANGE");
+			Cobj.value = tree1_history;
+			document.getElementById("SaveButton").click();
+		}
+	});
+	//  添加一返回按钮
+	var tree1_rBtn = new Ext.Toolbar.Button({
+		text: '返回',
+		handler : function(){
+			document.getElementById("ReturnButton").click();
+		}
+	});
+    //	添加一treePanel
+	var tree1_tp=new Ext.tree.TreePanel({ 
+		el:'editMainDiv',
+		animate:true,
+		line:true,
+		rootVisible:true,
+		autoScroll :true,
+		tbar : [tree1_sBtn,tree1_rBtn] 
+    });
+    node0.expanded = true;
+    tree1_tp.setRootNode(node0);
+	tree1_tp.render();
+	tree1_tp.on("checkchange",function(node,checked){
+		if(checked){
+			addNode(node);
+		}else{
+			subNode(node);
+		}
+		node.expand();      
+		node.attributes.checked = checked;      
+		node.eachChild(function(child) {
+			if(child.attributes.checked != checked){
+				if(checked){
+					addNode(child);
+				}else{
+					subNode(child);
+				}
+				child.ui.toggleCheck(checked);      
+            	child.attributes.checked = checked;
+            	child.fireEvent('checkchange', child, checked);
+			}     
+		});  
+	},tree1_tp);
+	function addNode(node){
+		var history = "+,"+node.id+";";
+		writesrcipt(node,history);
+	}
+	
+	function subNode(node){
+		var history = "-,"+node.id+";";
+		writesrcipt(node,history);
+	}
+	function writesrcipt(node,history){
+		if(tree1_history==""){
+			tree1_history = history;
+		}else{
+			var his = tree1_history.split(";");
+			var reset = false;
+			for(i=0;i<his.length;i++){
+				if(his[i].split(",")[1] == node.id){
+					his[i] = "";
+					reset = true;
+					break;
+				}
+			}
+			if(reset){
+				tree1_history = his.join(";");
+			}else{
+				tree1_history += history;
+			}
+		}
+	}
+
+});
+</script>
+<SCRIPT LANGUAGE="JavaScript"> 
+	<!-- Hide 
+	function killErrors() { 
+		return true; 
+	} 
+	window.onerror = killErrors; 
+	 --> 
+</SCRIPT>
+<body id="body" jwcid="@Body">
+    <div id="editMainDiv" style="width:100%;height:100%"></div>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+		<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+		<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+			label="保存" style="display:none" 
+			id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+			<span jwcid="ReturnButton@ZRcontrib:ImgButton" buttontype=""
+			label="返回" style="display:none" 
+			id = "ReturnButton" listener="ognl:listeners.ReturnButton" ></span>
+		<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+	</form>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>单车核对</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.PageSetupjs"></script>
+<script type="text/javascript">
+var gridDiv_weihd_history = "";
+var gridDiv_yihd_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+    
+Hej_ches=new Ext.form.Field({
+	
+	width:40,		
+	readOnly:true
+});
+Hej_biaoz=new Ext.form.Field({
+	
+	width:60,	
+	readOnly:true
+});
+Hej_jine=new Ext.form.Field({
+	
+	width:60,
+	readOnly:true
+});
+    
+var tbpanel = new Ext.TabPanel({
+	renderTo:'hello-tabs',
+    width:body.clientWidth,
+    height:body.clientHeight*0.7,
+    activeTab: 0,
+    frame:true,
+    bbar:['->','您选择了: ',Hej_ches,'车,&nbsp;&nbsp;&nbsp;&nbsp;票重: ',Hej_biaoz,'吨,&nbsp;&nbsp;&nbsp;&nbsp;金额: ',Hej_jine,'元&nbsp;&nbsp;'],
+    items:[
+            {contentEl:'weihd', title: '未核对车皮'},
+            {contentEl:'yihd',  title: '已核对车皮'}
+        ]          
+  });
+        
+  tbpanel.on('tabchange', function(own,tab){
+		
+    Hej_ches.setValue(0);
+	Hej_biaoz.setValue(0);
+	Hej_jine.setValue(0);
+	document.getElementById('BIAOZHP').value='';
+	document.getElementById('BIAOZHP_TEXT').value='';
+	if(own.activeTab.contentEl=='yihd'){
+		
+//      用于TabPanl切换时再画Grid，切换时再画Grid。
+		gridDiv_yihd_grid.render();
+    	gridDiv_yihd_grid.setHeight(tbpanel.height-54);
+  		tab.hide();
+  		tab.show();
+	    reCountToolbarNum(gridDiv_yihd_grid);
+	}else if(own.activeTab.contentEl=='weihd'){
+		
+		reCountToolbarNum(gridDiv_weihd_grid);
+	}
+  });
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>      
+<span jwcid="@Insert" raw="true" value="ognl:BzhpArray"></span>         
+<span jwcid="@Insert" raw="true" value="ognl:GridScript_Weihd"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript_Yihd"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript_Fenz"></span>
+});
+</script>	
+</head>
+
+<body id="body" onkeydown="Pingb()">
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<span jwcid="DeleteButton@ZRcontrib:ImgButton" buttontype=""
+label="删除选定车皮" style="display:none" 
+id = "DeleteButton" listener="ognl:listeners.DeleteButton" ></span>
+<span jwcid="UpdataButton@ZRcontrib:ImgButton" buttontype=""
+label="确定修改" style="display:none" 
+id = "UpdataButton" listener="ognl:listeners.UpdataButton" ></span>
+<span jwcid="QuerButton@ZRcontrib:ImgButton" buttontype=""
+label="确认核对" style="display:none" 
+id = "QuerButton" listener="ognl:listeners.QuerButton" ></span>
+<span jwcid="FeiyxgButton@ZRcontrib:ImgButton" buttontype=""
+label="费用修改" style="display:none" 
+id = "FeiyxgButton" listener="ognl:listeners.FeiyxgButton" ></span>
+<span jwcid="ReturnButton@ZRcontrib:ImgButton" buttontype=""
+label="返回" style="display:none" 
+id = "ReturnButton" listener="ognl:listeners.ReturnButton" ></span>
+<input style="display: none" jwcid="ChebSelect" id="ChebSelect" type="text"/>
+<span style="display:none;" jwcid="EditTableRow"  id="EditTableRow"></span>
+<span id="DPORLP"  jwcid = "DPORLP" style="display:none"></span>
+<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+<span id="YANSBH"  jwcid = "YANSBH" style="display:none"></span>
+<span id="BIAOZHP_TEXT"  jwcid = "BIAOZHP_TEXT" style="display:none"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml_Weihd"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml_Yihd"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml_Fenz"></span>
+</form>
+	<div id="hello-tabs" style="height:70%;width:100%">
+    	<!-- Auto create tab 1 -->
+	    <div class="x-hide-display"  id="weihd" style="height:100%;width:100%">
+	        <div id = "gridDiv_weihd" style="height:100%;overflow:none"></div>
+	    </div>
+    	<!-- Auto create tab 2 -->
+	    <div class="x-hide-display" id="yihd" style="height:100%;width:100%">
+	        <div id = "gridDiv_yihd" style="height:100%;overflow:none"></div>
+	    </div>
+    </div>
+    <div style="height:30%;width:100%">
+        <table width="100%" height="100%" border="1">
+            <tr>
+                <td width="55%" height="100%">
+                    <textarea readOnly="true" style="width: 100%; height: 100%; border: 0px; overflow: auto" id="BIAOZHP"></textarea>
+                </td>            
+        		<td width="45%" height="100%">
+                    <div id = "gridDiv_fenz" style="height:100%;overflow:none"></div>
+                </td>
+           	</tr>         
+       	</table>     
+    </div>
+</body>
+
+</html>

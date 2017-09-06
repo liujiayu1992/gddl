@@ -1,0 +1,50 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title></title>
+	<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.Selectcombojs"></script>
+	
+	<script type="text/javascript">
+		var gridDiv_history = "";
+		var row;
+		Ext.onReady(function(){
+			var url = "http://"+document.location.host+document.location.pathname;
+			var end = url.indexOf("/app");
+			url = url.substring(0,end);
+			Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+			<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+			<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+		});
+	</script>
+</head>
+<body id="body">
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+		<table height="100%">
+			<tr>
+				<td>
+					<div id="gridDiv" style="height:100%;overflow:none"></div>
+					<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+				</td>
+			</tr>
+		</table>
+		<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+		<span id="Jieslx" jwcid="Jieslx" style="display:none"></span>
+		<input type="text" id="RowNumIndex" jwcid="RowNumIndex" style="display:none" name="RowNumIndex" />
+		<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none"
+			label="刷新" id="RefreshButton" listener="ognl:listeners.RefreshButton">
+		</span>
+		<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="保存" id="SaveButton" listener="ognl:listeners.SaveButton" >
+		</span>
+		<span jwcid="ShezButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="设置" id="ShezButton" listener="ognl:listeners.ShezButton" >
+		</span>
+	</form>
+</body>
+</html>

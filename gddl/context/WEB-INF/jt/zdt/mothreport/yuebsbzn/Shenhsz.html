@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title>上报中能设置</title>
+	<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+	<script type="text/javascript">
+	Ext.onReady(function(){
+Ext.QuickTips.init();
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	
+	<span jwcid="@Insert" raw="true" value="ognl:InitData"></span>
+	
+	var indizip;
+    var inxingm;
+    var inmim;
+    var inxingmsql;
+    var inmimsql;
+    var form = new Ext.form.FormPanel({
+    defaultType: 'textfield',
+    labelAlign: 'right',
+    title: '设置信息',
+    labelWidth: 370,
+    height: 270, 
+    frame: true,
+    defaults: {
+        msgTarget: 'side'
+    },
+    
+    items: [{
+        fieldLabel: '中能Ftp服务器ip',
+        value: indizip,
+        width: 150
+    },{
+		fieldLabel: '上报中能Ftp服务器用户',
+		value: inxingm,
+		width :150
+    },{
+		fieldLabel: '上报中能Ftp服务器密码',
+		value: inmim,
+        inputType:'password',
+    allowBlank: false,
+       width :150
+    },{
+		fieldLabel: 'cpi燃料管理01表上报中能SQLServer数据库用户',
+		value: inxingmsql,
+		width :150
+    },{
+		fieldLabel: 'cpi燃料管理01表上报中能SQLServer数据库密码',
+		value: inmimsql,
+        inputType:'password',
+    allowBlank: false,
+       width :150
+    }],
+    buttons: [{
+        text: '返回',
+        minWidth : 65
+    },{
+        text: '确认',
+        minWidth : 65
+    }]
+});
+form.render("form");
+    form.buttons[0].on("click",function(){
+		
+		document.getElementById("ReturnButton").click();
+	});
+	form.buttons[1].on("click",function(){
+		texts	=	form.items;
+		indizip	=	texts.itemAt(0).getValue();
+		inxingm	=	texts.itemAt(1).getValue();
+		inmim	=	texts.itemAt(2).getValue();
+	    inxingmsql	=	texts.itemAt(3).getValue();
+		inmimsql	=	texts.itemAt(4).getValue();
+		
+		newInfo = indizip + ";" +
+				inxingm+ ";" +
+				inmim+ ";" +
+			    inxingmsql+ ";" +
+				inmimsql+ ";" ;
+		var Cobj = document.getElementById("CHANGE");
+		Cobj.value = newInfo;
+		document.getElementById("SaveButton").click();
+	});
+
+});
+</script>
+</head>
+<body>
+
+<div id = "form" style="width:100%;height:100%"></div>
+<!--div id = "formpwd" style="width:100%;height:200"></div-->
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+    <span jwcid="ReturnButton@ZRcontrib:ImgButton" buttontype=""
+					label="返回" style="display:none" 
+					id = "ReturnButton" listener="ognl:listeners.ReturnButton" ></span>
+	<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+		label="保存" style="display:none" 
+		id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+	<!--span jwcid="ReSetPwdButton@ZRcontrib:ImgButton" buttontype=""
+		label="修改密码" style="display:none" 
+		id = "ReSetPwdButton" listener="ognl:listeners.ReSetPwdButton" ></span-->
+	<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+</form>
+</body>
+</html>

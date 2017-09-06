@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>汽车日计划</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<!-- 
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+ -->
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var row;
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+    <span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+function MsgChangYunsdw(e){
+	rec = e.record;
+	
+    if((e.field=='YUNSDWB_ID')&&(e.value!=e.originalValue)&&(rec.get('ID')>0)){
+    	
+	    Ext.MessageBox.confirm('提示信息','如果运输单位，系统会自动删除该计划的车辆分配信息，是否确定修改?',function(btn){
+    		
+    		if(btn == 'no'){
+    			
+    			rec.set('YUNSDWB_ID',e.originalValue);
+    		}
+    	});
+    }
+}
+</script>	
+</head>
+<body id="body" >
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+		<tr>
+			<td>
+				<span id="JIHRQ"  jwcid = "JIHRQ" style="display:none"></span>
+				<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+					label="刷新" id = "RefreshButton" listener="ognl:listeners.RefreshButton" ></span>
+				<span jwcid="ShoucButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+					label="保存" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+                <span jwcid="FenpchButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+					label="分配车号" id = "FenpchButton" listener="ognl:listeners.FenpchButton" ></span>
+				<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+                <span id="PARAMETERS"  jwcid = "PARAMETERS" style="display:none"></span>
+                <span id='ChangbDropDown' jwcid="ChangbDropDown"  submitOnChange="true" style="display:none"></span>
+			</td>
+		</tr>
+		<tr height="100%">
+			<td>
+			<div id="gridDiv" style="width:100%;height:100%;overflow:none"></div>
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

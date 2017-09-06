@@ -1,0 +1,22 @@
+.ShowText_xw td{
+    vertical-align: middle;
+	background-color: #E3E3E3;
+	font-family: "Geneva", "Arial", "Helvetica", "sans-serif";
+	color: #464646;
+	height: 50px;
+	width:300px;
+}
+.ShowText_xw input{
+	background-color: #E3E3E3;
+	font-family: "Geneva", "Arial", "Helvetica", "sans-serif";
+	color: #464646;
+	border-top: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	border-bottom: 0px;
+    border:0px; 
+    font-size:35pt;
+	text-align: center;
+	height: 50px;
+	width:300px;
+}

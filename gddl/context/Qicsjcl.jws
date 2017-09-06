@@ -1,0 +1,202 @@
+import com.zhiren.common.ErrorMessage;
+import com.zhiren.common.JDBCcon;
+import com.zhiren.common.ResultSetList;
+import com.zhiren.common.SysConstant;
+import com.zhiren.common.WriteLog;
+import java.sql.SQLException;
+import com.zhiren.dc.jilgl.Jilcz;
+import com.zhiren.webservice.QichsjppInterface;
+
+public class Qicsjcl {
+	public String Save(long dcid, String insertSQL) {
+		if (insertSQL == null || "".equals(insertSQL)) {
+			return "没有SQL";
+		}
+		JDBCcon con = new JDBCcon();
+		con.setAutoCommit(false);
+		int flag = -1;
+		flag = con.getInsert(insertSQL);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.InsertDatabaseFail + "SQL:"
+					+ insertSQL);
+			return "SQL错误";
+		}
+		flag = Jilcz.Updatezlid(con, dcid, SysConstant.YUNSFS_QIY, null);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr003);
+			return "采样方式没有设置";
+		}
+		flag = Jilcz.INSorUpfahb(con, dcid);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr004);
+			return "插入发货表失败";
+		}
+		flag = Jilcz.InsChepb(con, dcid, SysConstant.YUNSFS_QIY,
+				SysConstant.HEDBZ_TJ);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr005);
+			return "插入车皮表失败";
+		}
+
+		String sql = "select distinct fahb_id from cheplsb";
+		ResultSetList rsl = con.getResultSetList(sql);
+		if (rsl == null) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr006);
+			return "取得发货失败";
+		}
+		while (rsl.next()) {
+			flag = Jilcz.updateLieid(con, rsl.getString("fahb_id"));
+			if (flag == -1) {
+				con.rollBack();
+				con.Close();
+				WriteLog.writeErrorLog(ErrorMessage.Qicjjlr007);
+				return "更新列ID";
+			}
+		}
+		con.commit();
+		con.Close();
+		return "0";
+	}
+
+	public void SavePiz(long dcid, String chepid, String updateSQL) {
+		if (updateSQL == null || "".equals(updateSQL)) {
+			return;
+		}
+		JDBCcon con = new JDBCcon();
+		con.setAutoCommit(false);
+		String fahbid = "";
+		int flag = 0;
+		flag = con.getUpdate(updateSQL);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr008);
+			return;
+		}
+
+		// 保存车辆信息表
+		String sql = "select fahb_id,yunsdwb_id,maoz,piz from chepb where id = "
+				+ chepid;
+		ResultSetList rsl = con.getResultSetList(sql);
+		if (rsl.next()) {
+			fahbid = rsl.getString("fahb_id");
+			Jilcz.SaveChelxx(con, dcid, rsl.getLong("yunsdwb_id"),
+					SysConstant.YUNSFS_QIY, rsl.getString("CHEPH"), rsl
+							.getDouble("maoz"), rsl.getDouble("piz"));
+		} else {
+			rsl.close();
+			return;
+		}
+		rsl.close();
+
+		// 根据单车id 调用jilcz 中CountChepbYuns 方法计算单车的运损盈亏
+		flag = Jilcz.CountChepbYuns(con, chepid, SysConstant.HEDBZ_YJJ);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr009);
+			return;
+		}
+		// 根据车皮所在fahid 调用Jilcz 中 updateFahb 方法更新发货表
+		flag = Jilcz.updateFahb(con, fahbid);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr010);
+			return;
+		}
+		flag = Jilcz.updateLieid(con, fahbid);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr011);
+			return;
+		}
+		con.commit();
+		con.Close();
+	}
+	
+	public void UpdateFahb(String fahbid){
+		JDBCcon con = new JDBCcon();
+		con.setAutoCommit(false);
+		int flag = 0;
+		flag = Jilcz.updateFahb(con, fahbid);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr010);
+			return;
+		}
+		flag = Jilcz.updateLieid(con, fahbid);
+		if (flag == -1) {
+			con.rollBack();
+			con.Close();
+			WriteLog.writeErrorLog(ErrorMessage.Qicjjlr011);
+			return;
+		}
+		con.commit();
+		con.Close();
+	}
+
+	public String Qicsjpp_jws(String daohrq) throws SQLException {
+
+		String strArray[][] = null; // diancxxb_id,insertSql,chepbtmp_id
+		strArray = QichsjppInterface.Qicsjpp(daohrq);
+		String ReValue = "";
+
+		if (strArray != null) {
+
+			JDBCcon con = new JDBCcon();
+			con.setAutoCommit(false);
+
+			for (int i = 0; i < strArray.length; i++) {
+				// 先进行chpetmp的更新，如果成功了再调用save方法
+				if (strArray[i][2] != null) {
+					// 得到了匹配好的数据
+					if (QichsjppInterface.UpdateChepbtmp(con, strArray[i][2])) {
+						// 插入成功
+						ReValue = Jilcz.SaveJilData(strArray[i][1], Long
+								.parseLong(strArray[i][0]),
+								SysConstant.YUNSFS_QIY, SysConstant.HEDBZ_YJJ,
+								null, this.getClass().getName(), Jilcz.SaveMode_JK);
+
+						if (ReValue.equals(ErrorMessage.SaveSuccessMessage)) {
+
+							con.commit();
+							ReValue = "导入成功";
+						} else {
+
+							con.rollBack();
+						}
+					} else {
+
+						ReValue = "更新导入状态失败";
+						con.rollBack();
+					}
+				} else {
+
+					ReValue = "匹配信息为找到或信息不完整";
+				}
+			}
+			con.Close();
+		} else {
+
+			ReValue = "没有未导入的汽车数据";
+		}
+		return ReValue;
+	}
+	
+	public String SaveAll(String sql, long diancxxbID) {
+		return Jilcz.SaveJilData(sql, diancxxbID, 2, 2, null, null, 1, null);
+	}
+}

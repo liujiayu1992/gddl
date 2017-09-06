@@ -1,0 +1,533 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312" />
+<title>无标题文档</title>
+<style type="text/css">
+DIV {
+	BORDER-WIDTH: 0px; 
+	PADDING: 0px; 
+}
+
+#n-body {
+	MARGIN: 0px auto; OVERFLOW: hidden; WIDTH: 650px; LINE-HEIGHT: 20px; HEIGHT: 20px;
+}
+#m-body{
+    MARGIN: 0px auto; OVERFLOW: hidden; WIDTH: 650px; LINE-HEIGHT: 20px; HEIGHT: 20px;
+}
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.tb_line01 {
+	border: 1px solid #E8E8E8;
+}
+.tb_line02 {
+	border: 1px solid #DADADA;
+}
+.tb_line03 {
+	border: 1px solid #FFFFFF;
+}
+.bg03 {
+	background-image: url(imgs/startpage/start_page_laihaocun_bg.gif);
+	background-color: #CAD8E6;
+	border: 1px solid #A6B9CD;
+	background-repeat: repeat-x;
+	background-position: top;
+
+}
+.bg02 {
+	background-image: url(imgs/startpage/start_page_content_bg.gif);
+	background-repeat: repeat-x;
+	background-position: top;
+	background-color: #A9BCD1;
+}
+.bg01 {
+	background-color: #A9BCD1;
+	background-image: url(imgs/startpage/start_page_link_bg.gif);
+	background-repeat: repeat-x;
+	background-position: top;
+}
+.quicklinks a:link {
+	color: #194671;
+	font-size: 14px;
+	text-decoration: none;
+}
+.quicklinks a:visited {
+	color: #194671;
+	font-size: 14px;
+	text-decoration: none;
+}
+.quicklinks a:hover {
+	font-size: 14px;
+	color: #FF6600;
+	text-decoration: none;
+}
+.quicklinks a:active {
+	color: #194671;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.laihaocun {
+	font-family: "黑体", simhei;
+	font-size: 16px;
+}
+.laihaocun a:link {
+	color: #FF6600;
+	text-decoration: none;
+}
+.laihaocun a:visited {
+	color: #FF6600;
+	text-decoration: none;
+}
+.laihaocun a:hover {
+	color: #FF6600;
+	text-decoration: underline;
+}
+.laihaocun a:active {
+	color: #FF6600;
+	text-decoration: none;
+}
+
+.tubiao {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.tubiao a:link {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.tubiao a:visited {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.tubiao a:hover {
+	font-size: 12px;
+	color: #FF6600;
+	text-decoration: none;
+}
+.tubiao a:active {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.news {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #8DB6DF;
+}
+.news a:link {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.news a:visited {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.news a:hover {
+	font-size: 12px;
+	color: #FF6600;
+	text-decoration: none;
+}
+.news a:active {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+-->
+</style>
+
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.DaibrwMsgjs"></script>
+
+<script>
+function QuickStart(obj){
+	window.parent.MM_openTab(obj);
+}
+</script>
+<body>
+
+    
+<script>    
+	var	objActive=null;
+	function ChangeChart(obj){
+    	
+    	obj.style.backgroundColor="#EAF0F6";
+
+		if (objActive==null){
+			objActive=obj;
+		}else{
+			objActive.style.backgroundColor="";
+			objActive=obj;
+		}
+    	var divKuc="none";
+    	var divShouh="none";
+       	var divTongz="none";    
+    
+    	if(obj.id=='kuc'){
+    		divKuc="";
+    	}else if(obj.id=='shouh'){
+    		divShouh="";
+    	}else if(obj.id=='tongz'){
+    		divTongz ="";
+    	}
+		document.getElementById('KucchartDiv').style.display=divKuc;
+		document.getElementById('ShouhchartDiv').style.display=divShouh;
+    	document.getElementById('TongzDiv').style.display=divTongz;
+	}
+    
+    function getWenjxxPage(obj1){
+    
+        var Id=obj1;
+    
+    
+        var url = "http://"+document.location.host+document.location.pathname;
+        var end = url.indexOf(";");
+		url = url.substring(0,end);
+   	    url = url + "?service=page/Tongzwj&wenj="+Id;        
+		window.open(url,"newWin");
+    }
+    
+    function getShouhcPage(obj){
+    
+        var Id=obj;
+        var url = "http://"+document.location.host+document.location.pathname;
+        var end = url.indexOf(";");
+		url = url.substring(0,end);
+   	    url = url + "?service=page/Shouhctb&shouhctb="+Id; 
+	    window.open(url,"newWin");
+    }
+    
+    function ShownewPage(obj){
+        
+    	var pageName="";
+    	var leix="";
+    	pageName=obj.id;
+    	if(obj.id=="zuorshc"){
+    		pageName="Rishctj";
+    		leix="";
+    	}else if(obj.id=="kucgj"){
+    		pageName="Kucgjreport";
+    		leix="kucgj";
+    	}else if(obj.id=="shouhctb"){
+            pageName="Shouhctb";
+            leix="shouhctb";
+        }else if(obj.id=="wenj"){
+            pageName="Tongzwj";
+            leix="wenj";
+        }
+    	
+   		var url = "http://"+document.location.host+document.location.pathname;
+        var end = url.indexOf(";");
+		url = url.substring(0,end);
+   	    url = url + "?service=page/"+pageName +"&lx="+leix;        
+		window.open(url,"newWin");
+
+    }
+    
+    function ShownewPageAll(obj){
+    	var url = "http://"+document.location.host+document.location.pathname;
+        var end = url.indexOf(";");
+		url = url.substring(0,end);
+   	    url = url + "?service=page/WenjAll";        
+		window.open(url,"newWin");
+    }
+</script>
+
+<form jwcid="@Form" delegate="ognl:beans.delegate">
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="imgs/startpage/spacer.gif" width="1" height="8" /></td>
+  </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" class="tb_line01">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_line02">
+      <tr>
+        <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_line03">
+          <tr>
+            <td class="bg01">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                    <td width="0" align="left" valign="bottom" bgcolor="#8AA1BA"><p><img src="imgs/startpage/start_page_link01.gif" width="20" height="80" /></p>                      </td>
+                    <td width="100%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td width="0%" rowspan="2"><img src="imgs/startpage/spacer.gif" width="22" height="1" /></td>
+                          <td width="97%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td width="100%">
+                          <table width="95%" border="0" cellpadding="0" cellspacing="0" class="quicklinks">
+                            <span jwcid="@Insert" value="ognl:QuickStart" raw="true"></span>
+                            <tr>
+                              <td colspan="7"><img src="imgs/startpage/spacer.gif" width="1" height="6" /></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </table></td>
+                    <td width="0" align="right" valign="top"><img src="imgs/startpage/start_page_link02.gif" width="72" height="80" /></td>
+                    </tr>
+                </table>
+			</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="imgs/startpage/spacer.gif" width="1" height="8" /></td>
+  </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" class="tb_line01">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_line02">
+      <tr>
+        <td><table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_line03">
+          <tr>
+            <td class="bg02"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="center"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td><img src="imgs/startpage/spacer.gif" width="1" height="9" /></td>
+                    </tr>
+                  </table>
+                  <table width="97%" border="0" cellpadding="8" cellspacing="0" class="bg03">
+                    <tr>
+                      <td align="center" valign="middle"><table width="97%" border="0" cellpadding="3" cellspacing="0" class="laihaocun">
+                        <tr hight="0">
+                          <td id="zuorshc" width="60%" hight="20" align="left" onclick="ShownewPage(this);">【<a href="#">昨日来耗存</a>】</td>
+                          <td id="kucgj" align="left" onclick="ShownewPage(this);">【<a href="#">库存告警电厂</a>】</td>
+                        </tr>
+                        <tr>
+                      	  <td align="left">
+                                <div  style="width:98%" id="n-body" >
+									<div id="n-body1" ></div>
+								</div>
+                          </td>
+                          <!--td align="left"><a href="#">清河发电厂</a>  <a href="#">神头发电厂</a>  <a href="#">贵溪发电厂</a>  <a href="#">神头发电厂</a></td-->
+                          <td align="left"><div  style="width:98%" id="m-body" >
+									<div id="m-body1" ></div>
+								</div></td>
+                        </tr>
+                      </table>
+                        </td>
+                    </tr>
+                  </table>
+                  <table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td><img src="imgs/startpage/spacer.gif" width="1" height="12" /></td>
+                    </tr>
+                  </table>
+                  <table width="97%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td align="left" valign="top" width="15%"><img src="imgs/startpage/start_page_tubiao_title.gif" width="151" height="31" /></td>
+                      <td align="center" width="60%" class="laihaocun"><span jwcid="@Insert" value="ognl:UserDanwmc" raw="true"></span></td>
+                      <td><img src="imgs/startpage/spacer.gif" width="12" height="1" /></td>
+                      <td align="left"><img usemap="#Map" src="imgs/startpage/start_page_news_title.gif" width="151" height="31" border="0"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan=2 valign="top">  
+                        <table width="722" border="0" cellpadding="8" cellspacing="1" bgcolor="#95ABC3">
+                          <tr>
+                            <td bgcolor="#C3D4E6">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	                              <tr>
+	                                <td valign="top">
+	                                    <table width="113" border="0" cellpadding="6" cellspacing="0" class="tubiao">
+		                                   <tr>
+		                                    <td id="tongz" align="right" onclick="ChangeChart(this)"><a href="#">重要通知</a></td>
+		                                  </tr>
+		                                  
+		                                  <tr>
+		                                    <td id="kuc" align="right" onclick="ChangeChart(this)"><a href="#">库存走势图</a></td>
+		                                  </tr>
+		                                  <tr>
+		                                    <td id="shouh" align="right" onclick="ChangeChart(this)"><a href="#">收煤量比较图</a></td>
+		                                  </tr>
+		
+		                                  <tr>
+		                                    <td align="right">&nbsp;</td>
+		                                  </tr>
+		                                  <tr>
+		                                    <td align="right">&nbsp;</td>
+		                                  </tr>
+		                                </table>
+	                                </td>
+	                                <td width="100%" align="left" valign="top" bgcolor="#FFFFFF">
+	                                    <div id="TongzDiv" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW-x:none;OVERFLOW-Y: auto;BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT:302px;width:608px">
+											<span jwcid="Tongz"/>
+						                </div>
+	                                   
+	                                    <div id="KucchartDiv" style="display:none;BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none;BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+											<span jwcid="KUCCHART"/>
+						                </div>
+	                                   
+										<div id="ShouhchartDiv" style="display:none;BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none;BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+											<span jwcid="ShouhChart"/>
+						                </div>
+	                                    
+		                                <!--p>&nbsp;</p>
+		                                <p>&nbsp;</p>
+		                                <p>&nbsp;</p>
+		                                <p>&nbsp;</p>
+	                                    <p>&nbsp;</p>
+	                                    <p>&nbsp;</p-->
+	                                </td>
+                              	</tr>
+                            </table>
+                          </td>
+                        </tr>
+                     </table>
+                    </td>
+                      <td align="left" valign="top"><img src="imgs/startpage/spacer.gif" width="12" height="1" /></td>
+                      <td width="100%" align="left" valign="top">
+                          <!--img src="imgs/startpage/start_page_news_title.gif" width="151" height="31" /-->
+                        <table width="175" border="0" cellpadding="3" cellspacing="0">
+                            <span jwcid="@Insert" value="ognl:Wenj" raw="true"></span>
+                          <!--tr>
+                            <td bgcolor="#8DB6DF" class="news"><a href="#">滚动的新闻标题</a></td>
+                          </tr>
+                            <td class="news">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td class="news">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td class="news">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td class="news">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td class="news">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td class="news">&nbsp;</td>
+                          </tr-->
+                          <!--tr>
+                            <td class="news" valign="bottom"><img src="imgs/startpage/welcome_news.jpg" width="160px"  height="126px"/></td>
+                          </tr -->
+                        </table></td>
+                    </tr>
+                  </table>
+                  <table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td><img src="imgs/startpage/spacer.gif" width="1" height="9" /></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</form>
+<script >
+	var shouhc="";	
+	shouhc=shouhc+'<span jwcid="@Insert" value="ognl:Zuorshc" raw="true"></span>';
+
+</script>
+
+<script >
+var byHeight = 20;
+var totalRolling = 3;
+if(shouhc!=null && shouhc.length>0){
+	document.getElementById("n-body1").innerHTML = shouhc;
+}
+var currentTop = byHeight;
+var stopscroll = true;
+var infoMsg = document.getElementById("n-body")
+infoMsg.scrollTop = 0;
+document.getElementById("n-body1").innerHTML += document.getElementById("n-body1").innerHTML;
+function scrollUp(){
+    
+    infoMsg.onmouseover = function(){stopscroll = false;}
+	infoMsg.onmouseout = function(){stopscroll = true;}
+    
+	if(stopscroll==true) return;
+	
+	currentTop+=1;
+	if (currentTop == byHeight + 1) {
+		clearInterval(MyMar1);
+		setTimeout("init()", 2500);
+		currentTop = 0;
+	}else{
+		infoMsg.scrollTop+=1
+		if (infoMsg.scrollHeight == (infoMsg.scrollTop + byHeight)) {
+			infoMsg.scrollTop = byHeight * (totalRolling - 1);
+		}
+	}
+}
+function init(){
+	MyMar1 = setInterval("scrollUp()", 40);
+}
+init();
+</script>
+<script >
+	var kucgjdc="";	
+	kucgjdc=kucgjdc+"<span jwcid="@Insert" value="ognl:Kucgjdc" raw="true"></span>";
+
+</script>
+<script >
+var Height = 20;
+var Rolling = <span jwcid="@Insert" value="ognl:Msg"></span>;
+if(kucgjdc!=null && kucgjdc.length>0){
+	document.getElementById("m-body1").innerHTML = kucgjdc;
+}
+var Top = Height;
+var Scroll = true;
+var Msg = document.getElementById("m-body")
+Msg.scrollTop = 0;
+document.getElementById("m-body1").innerHTML += document.getElementById("m-body1").innerHTML;
+function scrollUp1(){
+	if(Scroll==true) return;
+	
+	Top+=1;
+	if (Top == Height + 1) {
+		clearInterval(MyMar2);
+		setTimeout("init1()", 2500);
+		Top = 0;
+	}else{
+		Msg.scrollTop+=1
+		if (Msg.scrollHeight == (Msg.scrollTop + Height)) {
+			Msg.scrollTop = Height * (Rolling - 1);
+		}
+	}
+	Msg.onmouseover = function(){Scroll = true;}
+	Msg.onmouseout = function(){Scroll = false;}
+}
+function init1(){
+	MyMar2 = setInterval("scrollUp1()", 40);
+}
+init1();
+</script>
+<span jwcid="SetDefaultItem"/>
+<map name="Map">
+<area shape="rect" coords="2, 2, 50, 29" onclick="ShownewPageAll(this);" href="#">
+</map>
+
+
+<script  type="text/javascript">
+    
+<span jwcid="@Insert" raw="true" value="ognl:DaibrwMsg"></span>
+
+</script>
+
+</body>
+</html>

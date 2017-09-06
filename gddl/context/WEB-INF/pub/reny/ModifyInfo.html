@@ -1,0 +1,98 @@
+<html jwcid="@Shell" title="人员修改" stylesheet="ognl:assets.Main">
+<SCRIPT LANGUAGE="JavaScript"> 
+	<!-- Hide 
+	function killErrors() { 
+		return true; 
+	} 
+	window.onerror = killErrors; 
+	--> 
+</SCRIPT>
+<body id="body" jwcid="@Body">
+	<script jwcid = "Mainjs" ></script>
+	<script jwcid = "Personjs" ></script>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+		<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+		<table>
+			<tr>
+                <td height=30>
+                    
+                </td>
+			</tr>
+            <tr>
+                <td>
+                	<div id="editMainDiv" class=frameDivY>
+						<table border="0" width="90%" cellspacing="0" cellpadding="0">
+						<tr>
+							<td>真实姓名:</td>
+							<td><span jwcid="QUANC"></span></td>
+						</tr>
+						<tr>
+							<td>部门:</td>
+							<td><span jwcid="BUM"></span></td>
+						</tr>
+						<tr>
+							<td>职位:</td>
+							<td><span jwcid="ZHIW"></span></td>
+						</tr>
+						<tr>
+							<td>性别:</td>
+							<td><span jwcid="XINGB"></span></td>
+						</tr>
+						<tr>
+							<td>联系地址:</td>
+							<td><span jwcid="LIANXDZ"></span></td>
+						</tr>
+						<tr>
+							<td>邮政编码:</td>
+							<td><span jwcid="YOUZBM"></span></td>
+						</tr>
+						<tr>
+							<td>传真:</td>
+							<td><span jwcid="CHUANZ"></span></td>
+						</tr>
+						<tr>
+							<td>移动电话:</td>
+							<td><span jwcid="YIDDH"></span></td>
+						</tr>
+						<tr>
+							<td>固定电话:</td>
+							<td><span jwcid="GUDDH"></span></td>
+						</tr>
+						<tr>
+							<td>E-mail</td>
+							<td><span jwcid="EMAIL"></span></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><span jwcid="SaveButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="确认" onblur="return blurfocus();" listener="ognl:listeners.SaveButton" ></span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>
+								<img src="imgs/main/main_bar_bg.gif" width="100%" height="1">
+							</td>
+						</tr>
+						<tr>
+							<td>原密码:</td>
+							<td><span jwcid="YUANMM"></span></td>
+						</tr>
+						<tr>
+							<td>新密码:</td>
+							<td><span jwcid="MIM"></span></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><span jwcid="UpdateButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="更改密码" onblur="return blurfocus();" listener="ognl:listeners.UpdateButton" ></span>
+							</td>
+						</tr>
+					</table>
+											
+					</div>
+                </td>  
+            </tr>
+		</table>
+	</form>
+</body><script>window.onresize();</script>
+</html>

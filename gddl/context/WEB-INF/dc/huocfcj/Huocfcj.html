@@ -1,0 +1,269 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>火车翻车机</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.showtext" />
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var grid;
+var gp_plant;
+var ljz=35;
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:Pzljz"></span>
+
+var gridDiv_sm = new Ext.grid.RowSelectionModel();
+var gridDiv_cm = new Ext.grid.ColumnModel([new Ext.grid.RowNumberer(),
+
+{header:'<center>车皮号</center>',dataIndex:'CHEPH',
+//renderer:function(value,metadata){ return value;},
+width:140,hidden :false,
+editor :new Ext.form.TextField({
+	allowBlank:true,
+	selectOnFocus:true
+	/*listeners:{change:function(field,newValue,oldValue){
+				createTempFile(gridDiv_ds);			
+				}
+	}*/
+})
+},
+
+{header:'<center>毛重</center>',dataIndex:'MAOZ',
+//renderer:function(value,metadata){ return value;},
+width:140,hidden :false,
+editor :new Ext.form.NumberField({
+	allowBlank:false,
+	decimalPrecision:2,
+	selectOnFocus:true,
+	emptyText:'0',
+	disabled:true,
+	id:'mm'
+
+})},
+
+{header:'<center>皮重</center>',dataIndex:'PIZ',
+//renderer:function(value,metadata){ return value;},
+width:140,hidden :false,
+editor :new Ext.form.NumberField({
+	allowBlank:false,
+	decimalPrecision:2,
+	selectOnFocus:true,
+	emptyText:'0',
+	disabled:true,
+	id:'pp'
+	
+
+})},
+
+{header:'<center>速度</center>',dataIndex:'SUD',
+//renderer:function(value,metadata){ return value;},
+width:140,hidden :true,
+editor :new Ext.form.NumberField({
+	allowBlank:false,
+	decimalPrecision:2,
+	selectOnFocus:true,
+	emptyText:'0',
+	disabled:true
+	
+
+})}
+
+
+]);
+gridDiv_cm.defaultSortable=false;
+
+var gridDiv_data = [];
+
+gridDiv_data =InitGridData();
+//<span jwcid="@Insert" raw="true" value="ognl:initData"></span>
+
+var gridDiv_ds = new Ext.data.Store({
+proxy : new Ext.zr.data.PagingMemoryProxy(gridDiv_data),
+pruneModifiedRecords:true,
+reader: new Ext.data.ArrayReader({}, [
+{name:'CHEPH'},{name:'MAOZ'},{name:'PIZ'},{name:'SUD'}])});
+
+var gridDiv_pag = new Ext.PagingToolbar({ 
+pageSize: 1000,
+store: gridDiv_ds,
+displayInfo: true,
+displayMsg: '显示第 {0} 条到 {1} 条记录，一共 {2} 条',
+emptyMsg: '没有记录' });
+
+var gridDiv_plant = Ext.data.Record.create([{name: 'CHEPH', type:'string'},
+{name: 'MAOZ', type:'float'},{name: 'PIZ', type:'float'},{name: 'SUD', type:'float'}]);
+
+gp_plant=gridDiv_plant;
+
+var gridDiv_grid = new Ext.grid.EditorGridPanel({
+el:'gridDiv',
+cm:gridDiv_cm,
+sm:gridDiv_sm,
+ds:gridDiv_ds,
+width:1000,
+clicksToEdit:1,frame:true,
+tbar: [
+{text:'添加',id:'INSERT',icon:'imgs/btnicon/insert.gif',cls:'x-btn-text-icon',minWidth:75,
+handler:function (){
+
+//createTempFile(gridDiv_data,gridDiv_ds);
+
+var plant = new gridDiv_plant(
+{CHEPH: '',MAOZ: '0',PIZ: '0',SUD:'0'});
+gridDiv_ds.insert(gridDiv_ds.getCount(),plant);
+//gridDiv_ds.commitChanges();
+}},
+
+
+{text:'删除',id:'DELETE',icon:'imgs/btnicon/delete.gif',cls:'x-btn-text-icon',minWidth:75,
+handler:function (){
+
+for(var i=0;i<gridDiv_sm.getSelections().length;i++){
+	gridDiv_ds.remove(gridDiv_sm.getSelections()[i--]);
+    
+}
+createTempFile(gridDiv_ds);
+
+}},
+
+{text:'开启手动编辑',hidden:true,id:'BIANJ',icon:'imgs/btnicon/create.gif',cls:'x-btn-text-icon',minWidth:75,
+handler:function (){
+	
+	Ext.Msg.alert('提示信息','您没有权限操作!');return ;
+   if(gridDiv_sm.getSelections().length!=1){
+    	Ext.Msg.alert('提示信息','请选择一行记录操作');   return ;
+    }
+       
+    Ext.Msg.prompt('提示信息', '请输入要编辑的值:', function(btn, text){
+    if (btn == 'ok'){
+    
+    	if(eval(text)>ljz)  gridDiv_sm.getSelected().set('MAOZ',text);
+    	else   gridDiv_sm.getSelected().set('PIZ',text);
+       createTempFile(gridDiv_ds);
+    }
+	});
+
+
+}},
+    
+    
+{text:'保存',id:'SAVE',icon:'imgs/btnicon/save.gif',cls:'x-btn-text-icon',minWidth:75,
+handler:function (){
+	var gridDivsave_history = '';
+    gridDivsave_history=grid_save(gridDiv_ds);
+    if( gridDivsave_history==''){ Ext.Msg.alert('提示信息','没有任何数据,无需保存!');return;}
+    if( gridDivsave_history=='false'){ Ext.Msg.alert('提示信息','车皮号字段不可为空!');return;}
+    var Cobj = document.getElementById('CHANGE');
+    Cobj.value = gridDivsave_history;
+	document.getElementById('SaveButton').click();
+    Ext.MessageBox.show({msg:'正在处理数据,请稍后...',progressText:'处理中...',width:300,wait:true,waitConfig: {interval:200},icon:Ext.MessageBox.INFO});
+}}
+],
+stripeRows:true,
+
+listeners: {afteredit:function(e){
+    
+    createTempFile(gridDiv_ds);	
+    }   
+     }
+});
+
+gridDiv_grid.render();
+//gridDiv_ds.load({params:{start:0, limit:100}});
+  gridDiv_ds.load();
+grid=gridDiv_grid;
+
+
+    
+});
+</script>
+</head>
+<body id="body" jwcid="@Body" onkeyup="if(event.keyCode==32)caij('nosel','MAOZ')">
+<object classid="clsid:648A5600-2C6E-101B-82B6-000000000014" width=0
+	height=0 style="display:none" id="MSComm1">
+	<param name="_ExtentX" value="1005">
+	<param name="_ExtentY" value="1005">
+	<param name="_Version" value="393216">
+	<param name="CommPort" value="1">
+	<param name="DTREnable" value="-1">
+	<param name="Handshaking" value="0">
+	<param name="InBufferSize" value="1024">
+	<param name="InputLen" value="0">
+	<param name="NullDiscard" value="0">
+	<param name="OutBufferSize" value="512">
+	<param name="ParityReplace" value="63">
+	<param name="RThreshold" value="0">
+	<param name="RTSEnable" value="0">
+	<param name="BaudRate" id="4800">
+	<param name="ParitySetting" value="0">
+	<param name="DataBits" id="8">
+	<param name="StopBits" value="0">
+	<param name="SThreshold" value="0">
+	<param name="EOFEnable" value="0">
+	<param name="InputMode" value="0">
+</object>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Setting"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+        <tr height="20%">
+            <td>
+                <table valign="top" align="center">
+					<tr>
+					<td class="text-position"><b> <font id="DTfont" size="7" color="#0054a6"
+						face="楷体_GB2312">动态<br>重量</font></b></td>
+					<td class="ShowText"><input readonly="true" id="dongtzl" label="动态重量" size="5"></input></td>
+					<td>&nbsp;&nbsp;<span jwcid="CaijButton@ZRcontrib:ImgButton"
+						onclick="return caij('nosel','MAOZ')" buttontype="nosubmitbuttons" label="采集(空格)>>"
+						style="font-size: 12pt; font-family:楷体_GB2312; font-weight:bold" ></span></td>
+					<td class="text-position"><b><font size="7"
+						face="楷体_GB2312" color="#0054a6">采集<br>重量</font></b></td>
+					<td class="ShowText"><input readonly="true" label="采集重量" id="caijzl" size="5"/></td>
+	                <td>
+	                <input style="display:none;" id="Lastzl" type="text"></input>
+                    </td>
+			        </tr>
+			    </table>
+            </td>
+        </tr>
+        
+        <tr height="80%">
+            <td>
+                <div id="gridDiv" style="height:100%;overflow:none"></div>
+                </td>
+            </tr>
+        
+        <tr style="display:none">
+            <td>
+					<span
+			jwcid="InsertButton@ZRcontrib:ImgButton" onclick=""
+			buttontype="" label="添加" style="display:none" id="InsertButton"></span>
+			
+					<span jwcid="DeleteButton@ZRcontrib:ImgButton" buttontype=""
+				label="删除" style="display:none" id="DeleteButton" ></span>
+				<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+					style="display:none" id="SaveButton"
+					listener="ognl:listeners.SaveButton"></span>
+				<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+                <span id="File_name" jwcid="File_name" style="display:none"></span>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+
+<script type="text/javascript">
+    
+    <span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+    </script>
+</html>

@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">   
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Expires" content="0"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Pragma" content="no-cache"/>    
+<title>文件管理</title>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/examples.css"/>
+<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<script src="ext/zr/data/PagingMemoryProxy.js" type="text/javascript"></script>
+<script type="text/javascript" src="ext/source/locale/ext-lang-zh_CN.js"></script>
+<script>
+Ext.onReady(function() {
+    <span jwcid="@Insert" raw="true"value="ognl:GridData"></span>
+	<span jwcid="@Insert" raw="true"value="ognl:TreeData"></span>
+    <span jwcid="@Insert" raw="true"value="ognl:QitJs"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+</script>
+
+</head>
+<body id="body" >
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<span jwcid="@TextField" id="youxLeix"value="ognl:youxLeix"></span>
+<span jwcid="@TextField" id="youxrq"value="ognl:riq"></span>
+<span hide='true' jwcid="@TextField" id="isCheck"value="ognl:isCheck"></span>
+<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+<span jwcid="@TextField" id="riq1"value="ognl:riq1"style="display:none"></span>
+<span jwcid="@TextField" id="riq2"value="ognl:riq2"style="display:none"></span>
+<span jwcid="@ZRcontrib:ImgButton" id="wenjfb"buttontype=""style="display:none"label="发布" listener="ognl:listeners.wenjfb" ></span>
+<span jwcid="@ZRcontrib:ImgButton" id="shuax"buttontype=""style="display:none"label="刷新" listener="ognl:listeners.shuaxButton" ></span>
+<span jwcid="@ZRcontrib:ImgButton" id="shanc"buttontype=""style="display:none"label="删除" listener="ognl:listeners.DelButton" ></span>
+<span jwcid="@ZRcontrib:ImgButton" id="shangcwjButton"buttontype=""style="display:none"label="删除文件" listener="ognl:listeners.shangcwjButton" ></span>
+</form>
+</body>
+</html>

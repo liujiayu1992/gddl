@@ -1,0 +1,94 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>货票核对</title>
+
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Selectcombojs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var win;  
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+function renderHdzt(value) {
+	if (value == '已完成') {	
+		return "<span style='color:red;font-weight:bold;'>已完成</span>";
+	}else if(value =='未完成'){
+		return "<span style='color:green;font-weight:bold;'>未完成</span>";
+	}
+}
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+</script>	
+
+</head>	
+<body id="body" jwcid="@Body" class="bgs">
+<script jwcid="Datejs" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<!--script jwcid="Validatejs"/-->
+<!--script jwcid="Yunsjhjs"/-->
+<form listener="ognl:listeners.submit" jwcid="@Form"delegate="ognl:beans.delegate">
+   <table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="80%"  height="100%">
+	<tr id="trcondition" valign=middle height="20"style="display:none">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+                <td  width="35" style="font-size: 12px;">启始日期:</td>
+                <td width="50"> <span id="QISRIQI"  jwcid = "QISRIQI" style="display:none" submitOnChange="true" type="text"></span></td>
+                <td  width="35" style="font-size: 12px;">截止日期:</td>
+                <td width="50"> <span id="JIEZRIQI"  jwcid = "JIEZRIQI" style="display:none" submitOnChange="true" type="text"></span></td>
+                
+	            
+	            <!--td width="35"style="font-size: 12px;display:none">发站:</td-->
+	            <td width="50" style="display:none"><span  style="width:50;height:21" jwcid="FazDropDown" id="FazDropDown"  submitOnChange="true"  type="text"/></td>
+	            <!--td width="35"style="font-size: 12px;display:none">费用类别:</td-->
+	            <td width="100" style="display:none"><span  style="width:100;height:21" jwcid="FeiylbDropDown" id="FeiylbDropDown"  submitOnChange="true"  type="text"/></td>
+                <!--td width="35"style="font-size: 12px;display:none">验收编号:</td-->
+	            <td width="120" style="display:none"><span  style="width:150;height:21" jwcid="YansbhDropDown" id="YansbhDropDown"  submitOnChange="true"  type="text"/></td>
+	            <td width="50" style="display:none"><span  style="width:50;height:21" jwcid="ChangbDropDown" id="ChangbDropDown"  submitOnChange="true"  type="text"/></td>      
+                <td width="50" style="display:none"><span  style="width:50;height:21" jwcid="MainjsdwDropDown" id='MainjsdwDropDown'  submitOnChange="true"  type="text"/></td>
+        	</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top hight="100%">
+		<td>
+		    <div id = "gridDiv" style="height:100%;overflow:none"></div>
+			<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+	        <span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+			<!--span jwcid="@Insert" raw="true" value="ognl:TreeHtml"></span-->
+	        <span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+            <span id="gongysTree_id" jwcid="TREEID" style="display: none"></span>
+	        <span id="rbvalue" style="display:none"></span>
+	        <span id="TEXT_CHANGB_VALUE"  jwcid = "TEXT_CHANGB_VALUE" style="display:none"></span>
+            <span id="TEXT_MAINJSDW_VALUE"  jwcid = "TEXT_MAINJSDW_VALUE" style="display:none"></span>
+           	<span id="TEXT_YANSBH_VALUE"  jwcid = "TEXT_YANSBH_VALUE" style="display:none"></span>
+            <span id="TEXT_RADIO_RQSELECT_VALUE"  jwcid = "TEXT_RADIO_RQSELECT_VALUE" style="display:none"></span>   
+            <div id="hello-win" class="x-hidden"></div>
+	   	</td>
+	</tr>
+</table>
+	<span jwcid="SbButton@ZRcontrib:ImgButton" buttontype=""
+	label="条件" style="display:none" 
+	id = "SbButton" onclick="return" listener="ognl:listeners.SbButton"></span>
+	<span jwcid="RbButton@ZRcontrib:ImgButton" buttontype=""
+	label="核对费用" style="display:none" 
+	id = "RbButton" listener="ognl:listeners.RbButton"></span>
+	<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype=""
+	label="刷新" style="display:none" 
+	id = "RefurbishButton" listener="ognl:listeners.RefurbishButton"></span>
+<span style="display:none;" jwcid="EditTableRow"  id="EditTableRow"></span>
+</form>
+</body>
+</html>

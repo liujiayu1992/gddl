@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
+
+<page-specification class="com.zhiren.dc.zhuangh.shulgl.Zijjsdspreport">
+<!--page-specification class="com.zhiren.jt.diaoygl.shouhcrb.shouhcchart.Shouhcchart"-->
+   <property-specification name="includeWeek" type="boolean" initial-value="false" persistent="yes"/>
+   <bean name="delegate" class="org.apache.tapestry.valid.ValidationDelegate"/>
+   <!--基础设置开始-->
+    <component id ="riqDateSelect" type="contrib:DateField">
+       <static-binding name="displayName" value="起止日期"/>
+       <static-binding name="readonly" value="true"/>
+       <static-binding name="onfocus" value="changedate(this)"/>
+       <static-binding name="onchange" value="Showwait();javascript:this.form.submit();"/>
+       <binding name="format" expression="@com.zhiren.common.DateUtil@DATE_FORMAT"></binding>
+       <binding name="date" expression="BeginriqDate"></binding>
+    </component>
+    
+    <component id="Riq" type="TextField">
+        <static-binding name="displayName" value="Riq"/>
+        <binding name="value" expression="Riq"/>
+    </component>
+    <component id ="riqDateSelect1" type="contrib:DateField">
+       <static-binding name="displayName" value="终止日期"/>
+       <static-binding name="readonly" value="true"/>
+       <static-binding name="onfocus" value="changedate(this)"/>
+       <static-binding name="onchange" value="Showwait();javascript:this.form.submit();"/>
+       <binding name="format" expression="@com.zhiren.common.DateUtil@DATE_FORMAT"></binding>
+       <binding name="date" expression="EndriqDate"></binding>
+    </component>
+
+    <component id="PrintTable" type="Insert">
+        <binding name="value" expression="PrintTable"/>
+        <binding name="raw" expression="Raw"/>    
+ 	</component>
+    <component id="BaoblxDropDown" type="PropertySelection">
+        <binding name="value" expression="BaoblxValue"/>
+        <binding name="model" expression="IBaoblxModel"/>
+    </component>
+    <component id="CurrentPage" type="contrib:NumericField">
+        <static-binding name="type" value="int"/>
+        <static-binding name="displayName" value="CurrentPage"/>
+        <binding name="value" expression="CurrentPage"/>
+    </component>
+     
+    <component id="AllPages" type="contrib:NumericField">
+        <static-binding name="type" value="int"/>
+        <static-binding name="displayName" value="AllPages"/>
+        <binding name="value" expression="AllPages"/>
+    </component>
+ 
+      <component id="TREEID" type="TextField">
+	    <binding name="value" expression="Treeid"/>
+	    <binding name="title" expression="Treeid"/>
+	 </component>
+      <!--component id="FengsSelect" type="ZRcontrib:PropertySelection">
+          <static-binding name="displayName" value="分公司"/>
+        <binding name="value" expression="FengsValue"/>
+        <binding name="model" expression="FengsModel"/>
+    </component-->
+    
+	<component id="Validatejs" type="Any">
+        <binding name="src" expression="assets.Validate"/>
+        <binding name="language" expression="'JavaScript'"/>
+        <binding name="type" expression="'text/javascript'"/>
+    </component>
+    <component id="Reportjs" type="Any">
+        <binding name="src" expression="assets.Report"/>
+        <binding name="language" expression="'JavaScript'"/>
+        <binding name="type" expression="'text/javascript'"/>
+    </component>
+	<component id="Jizyxqkreportjs" type="Any">
+        <binding name="src" expression="assets.Jizyxqkreportjsass"/>
+        <binding name="language" expression="'JavaScript'"/>
+        <binding name="type" expression="'text/javascript'"/>
+    </component>
+    <component id="Datejs" type="Any">
+        <binding name="src" expression="assets.Date"/>
+        <binding name="language" expression="'JavaScript'"/>
+        <binding name="type" expression="'text/javascript'"/>
+    </component>
+    
+    <!--脚本邦定-->
+	
+    <component id="PrintSetLink" type="GenericLink">
+        <static-binding name="href" value="#"/>
+    </component>
+    
+	<component id="PrintSet" type="Rollover">
+        <binding name="src " expression="assets.PrintSet_btn"/>
+        <binding name="image" expression="assets.PrintSet_btn"/>
+        <binding name="focus" expression="assets.PrintSet_btn_on"/>
+        <binding name="disabled" expression="assets.PrintSet_btn"/>
+    </component>
+     <context-asset name="PrintSet_btn" path="imgs/report/PrintSet.gif"/>
+    <context-asset name="PrintSet_btn_on" path="imgs/report/PrintSet_on.gif"/>
+
+    <component id="PrintPageLink" type="GenericLink">
+        <static-binding name="href" value="#"/>
+    </component>
+    
+    <component id="PrintPage" type="Rollover">
+        <binding name="src " expression="assets.PrintPage_btn"/>
+        <binding name="image" expression="assets.PrintPage_btn"/>
+        <binding name="focus" expression="assets.PrintPage_btn_on"/>
+        <binding name="disabled" expression="assets.PrintPage_btn"/>
+    </component>
+    <context-asset name="PrintPage_btn" path="imgs/report/PrintPage.gif"/>
+    <context-asset name="PrintPage_btn_on" path="imgs/report/PrintPage_on.gif"/>
+    
+    <component id="ExportPageLink" type="GenericLink">
+        <static-binding name="href" value="#"/>
+    </component>
+    
+    <component id="ExportPage" type="Rollover">
+        <binding name="src " expression="assets.ExportPage_btn"/>
+        <binding name="image" expression="assets.ExportPage_btn"/>
+        <binding name="focus" expression="assets.ExportPage_btn_on"/>
+        <binding name="disabled" expression="assets.ExportPage_btn"/>
+    </component>
+    <context-asset name="ExportPage_btn" path="imgs/report/ExportPage.gif"/>
+    <context-asset name="ExportPage_btn_on" path="imgs/report/ExportPage_on.gif"/>
+    
+    <context-asset name="Date" path="js/public/DatePicker.js"/>
+	<context-asset name="Rmis" path="css/rmis.css"/>
+    <context-asset name="background" path="imgs/report/table_h.gif"/>
+	<context-asset name="Validate" path="js/public/validate.js"/>
+    <context-asset name="Report" path="js/public/report.js"/>
+    <context-asset name="Jizyxqkreportjsass" path="js/jt/zdt/shengcdy/jizyxqk/Jizyxqkreport.js"/>
+    <context-asset name="tiaoj_waiting" path="imgs/report/tiaoj_wait.swf"/>
+    <context-asset name="close" path="imgs/report/close.gif"/>
+    <context-asset name="PrintPage" path="imgs/report/PrintPage.gif"/>
+    <context-asset name="ExportPage" path="imgs/report/ExportPage.gif"/>
+    <context-asset name="FirstPage" path="imgs/report/FirstPage.gif"/>
+    <context-asset name="FirstPage_disabled" path="imgs/report/FirstPage_disabled.gif"/>
+    <context-asset name="PreviousPage" path="imgs/report/PreviousPage.gif"/>
+    <context-asset name="PreviousPage_disabled" path="imgs/report/PreviousPage_disabled.gif"/>
+    <context-asset name="NextPage" path="imgs/report/NextPage.gif"/>
+    <context-asset name="NextPage_disabled" path="imgs/report/NextPage_disabled.gif"/>
+    <context-asset name="LastPage" path="imgs/report/LastPage.gif"/>
+    <context-asset name="LastPage_disabled" path="imgs/report/LastPage_disabled.gif"/>
+    <context-asset name="Go" path="imgs/report/Go.gif"/>
+    <context-asset name="parameter" path="imgs/report/parameter.gif"/>
+    <context-asset name="PrintSet" path="imgs/report/PrintSet.gif"/>
+    
+    <context-asset name="extallcss" path="ext/resources/css/ext-all.css"/>
+    <context-asset name="extbasejs" path="ext/adapter/ext/ext-base.js"/>
+    <context-asset name="extalljs" path="ext/ext-all.js"/>
+    <context-asset name="pagingmpjs" path="ext/zr/data/PagingMemoryProxy.js"/>
+    <context-asset name="extlangjs" path="ext/source/locale/ext-lang-zh_CN.js"/>
+
+</page-specification>

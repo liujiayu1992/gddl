@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Eclipse" />
+    <excludeFromCompile>
+      <file url="file://$PROJECT_DIR$/src/com/zhiren/sms/JinDiSms.java" />
+      <file url="file://$PROJECT_DIR$/src/com/zhiren/dc/jihk/JihkPrint.java" />
+      <file url="file://$PROJECT_DIR$/src/com/zhiren/sms/SmsManager.java" />
+      <file url="file://$PROJECT_DIR$/src/com/zhiren/webservice/SmsListener.java" />
+      <file url="file://$PROJECT_DIR$/src/com/zhiren/common/tools/FtpUtil.java" />
+    </excludeFromCompile>
+  </component>
+</project>

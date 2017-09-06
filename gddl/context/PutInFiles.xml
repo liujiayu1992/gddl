@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<project name="RmisPutIn" default="Export" basedir=".">
+
+	<property name="PutInfile.dir" location="D:\IdeaProjects\中电投\临河\gddl" />
+	<property name="project.name" value="patch" />
+
+	<target name="init">
+		<echo message="${TODAY}" />
+		<echo message="${DSTAMP}" />
+		<echo message="${TSTAMP}" />
+	</target>
+
+	<target name="Export">
+		<tstamp>
+			<format property="NOW" pattern="yyyy-MM-dd HH-mm-ss" locale="cn" />
+			<format property="TODAY" pattern="yyyyMMddHHmmss" locale="cn"/>
+			<format property="TODAYDIR" pattern="yyyyMMdd" locale="cn"/>
+			<format property="TD" pattern="yyyy年MM月dd日" offset="8" unit="hour" locale="cn"/>
+		</tstamp>
+		<mkdir dir="${PutInfile.dir}/${project.name}/${TODAYDIR}" />
+		<!--
+			<delete file="context/WEB-INF/classes/com/zhiren/project/cpicrmis/factory/jiesgl/BalanceDifferModel.exp" quiet="true"></delete>
+			<copy file="src/com/zhiren/project/cpicrmis/factory/jiesgl/BalanceDifferModel.exp" 
+				todir="context/WEB-INF/classes/com/zhiren/project/cpicrmis/factory/jiesgl/" 
+				overwrite="true">
+			</copy>
+			-->
+		<!--&#xA;为回车符 -->
+		<zip destfile="${PutInfile.dir}/${project.name}/${TODAYDIR}/${project.name}_${TODAY}.zip" comment="${TD} &#xA;">
+			<fileset dir=".">
+				<exclude name="cvs*" />
+<<<<<<< .mine
+                <include name="WEB-INF/classes/com/zhiren/dc/huaygl/huaybb/huayrb/Meizjyrb.class"/>
+||||||| .r61
+                <include name="WEB-INF/classes/com/zhiren/dc/jilgl/shenh/Shujsh.class"/>
+=======
+                <include name="WEB-INF/classes/com/zhiren/jt/het/diancgmht/Diancgmht.class"/>
+>>>>>>> .r98
+			</fileset>
+		</zip>
+	</target>
+
+</project>

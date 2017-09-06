@@ -1,0 +1,85 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>车号核对</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var Tree_history = "";
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+    Tree_treePanel.on('beforemovenode',function(tree, node, oldParent, newParent, index){
+		if(newParent == Tree_root){
+			Ext.MessageBox.alert("提示信息","您不能那样做！");
+			return false;
+		}
+	});
+    Tree_treePanel.on('movenode',function(tree,node,oldParent,newParent,index){
+    	Tree_history += node.id+','+newParent.id+';';
+    	//savebtn.setDisabled(false);
+    });
+    var ExtDesignName = new Ext.form.TextField({
+		fieldLabel: '进厂批次号',
+		width:200,
+		selectOnFocus:true
+	});
+	
+	var InsertFP = new Ext.form.FormPanel({
+		labelAlign: 'right',
+		title: '修改批次号',
+		labelWidth: 80,
+		frame: true,
+		defaults: {msgTarget: 'side'},
+		items:[ExtDesignName],
+		buttons: [{text: '确认',minWidth : 60,handler:function(){Insert();}}
+        ,{text:'取消',minWidth:60,handler:function(){Rpt_window.hide();}}]
+	});
+	var Rpt_window =new Ext.Window({
+		width:320,
+		height:120,
+		closable:false,
+		modal:true,
+		layout:'fit',
+		items:[InsertFP]
+	});
+    function Insert(){
+		treenode = Tree_treePanel.getSelectionModel().getSelectedNode();
+        v = treenode.id + "," + ExtDesignName.getValue();
+        document.getElementById('CHANGE').value = v;
+        document.getElementById('UpdateButton').click();
+    }
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+</script>	
+</head>
+<body id="body" jwcid="@Body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label="刷新"
+		style="display:none" id="RefurbishButton"
+		listener="ognl:listeners.RefurbishButton"></span>
+    <span jwcid="InsertButton@ZRcontrib:ImgButton" buttontype="" label="添加"
+		style="display:none" id="InsertButton"
+		listener="ognl:listeners.InsertButton"></span>
+    <span jwcid="DeleteButton@ZRcontrib:ImgButton" buttontype="" label="删除"
+		style="display:none" id="DeleteButton"
+		listener="ognl:listeners.DeleteButton"></span>
+    <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" id="SaveButton"
+		style="display:none" listener="ognl:listeners.SaveButton"></span>
+    <span jwcid="UpdateButton@ZRcontrib:ImgButton" buttontype="" id="UpdateButton"
+		style="display:none" listener="ognl:listeners.UpdateButton"></span>
+    <span id="RIQ" jwcid="RIQ" style="display:none" type="text"></span>
+	<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+	<span id="TREEID"  jwcid = "TREEID" style="display:none"></span>
+    <div id="Tree" ></div>
+</form>
+</body>
+</html>

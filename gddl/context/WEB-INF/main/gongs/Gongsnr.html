@@ -1,0 +1,47 @@
+<html jwcid="@Shell" title="公式内容" stylesheet="ognl:assets.Main">
+<SCRIPT LANGUAGE="JavaScript"> 
+	<!-- Hide 
+	function killErrors() { 
+		return true; 
+	} 
+	window.onerror = killErrors; 
+	--> 
+</SCRIPT>
+<body>
+	<script jwcid = "Mainjs" ></script>
+	<script jwcid = "Gongsjs" ></script>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+		<table>
+			<tr>
+                <td>
+                    <table id = Toolbar>
+                        <tr>
+							<td><span jwcid="SaveButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="确认" onblur="return blurfocus();" listener="ognl:listeners.SaveButton" ></span>
+							</td>
+							<td><span jwcid="ReturnButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="返回" onblur="return blurfocus();" listener="ognl:listeners.ReturnButton" ></span>
+							</td>
+                        </tr>
+                     </table>
+                </td>
+			</tr>
+			<tr>
+				<td><blink><u><font size="4"><em><strong><span jwcid="Biaot"></span></strong></em> </font>
+				</u></blink></td>
+			</tr>
+            <tr>
+                <td>
+					<table>
+						<tr>
+							<td align="right" valign="top">内容:</td>
+							<td align="left" width="90%" valign="top"><textarea cols=60
+								rows="30" onkeydown="editTab();" jwcid="Gongs" wrap="wrap" id="Gongs"></textarea></td>
+						</tr>
+					</table>
+                </td>  
+            </tr>
+		</table>
+	</form>
+</body>
+</html>

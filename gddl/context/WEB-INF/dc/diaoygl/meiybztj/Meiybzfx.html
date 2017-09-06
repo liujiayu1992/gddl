@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title></title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+
+});
+</script>
+</head>
+<body id="body">
+
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	
+	<table height="100%">
+		<tr>
+			<td><span jwcid="@Insert" raw="true" value="ognl:TreeHtml"></span>
+			<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+			<div id="gridDiv" style="height:100%;overflow:none"></div>
+			</td>
+		</tr>
+	</table>
+	
+	<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label="刷新"
+			style="display:none" id="RefurbishButton" listener="ognl:listeners.RefurbishButton"></span> 
+	<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+			style="display:none" id="SaveButton" listener="ognl:listeners.SaveButton"></span> 
+	<span jwcid="CopyButton@ZRcontrib:ImgButton" buttontype="" label="复制昨日数据"
+			style="display:none" id="CopyButton" listener="ognl:listeners.CopyButton"></span>
+	<span id="CHANGE" jwcid="CHANGE" style="display:none"></span> 
+	<span id="RIQI" jwcid ="RIQI" style="display:none" submitOnChange="true" type="text"></span>
+	<span id="diancTree_id" jwcid="TREEID" style="display:none"></span>
+	
+</form>
+</body>
+
+</html>

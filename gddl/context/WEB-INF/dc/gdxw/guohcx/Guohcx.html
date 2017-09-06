@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>chepbtmp过衡查询</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+   
+    <span jwcid="@Insert" raw="true" value="ognl:TreeScript1"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:ToolbarScript"></span>
+    diancTree_window.show();
+	diancTree_window.hide();
+});
+</script>
+</head>
+<body id="body" jwcid="@Body">
+<OBJECT id=WebBrowser classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2
+	height=0 width=0></OBJECT>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Reportjs"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<table border="0" cellspacing="0" cellpadding="0" width="100%"  height="100%">
+	<tr>
+		<td>
+		<div id=tbdiv></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table id='navigationBar' class=navigationBarpage border="0"
+			height="30" width="100%" cellspacing="0" cellpadding="0"
+			class=navigationBarpage>
+			<tr>
+				<td width="10%"><b>显示页<span id='pageNumber'></span>/<span
+					id='totalPage'></span></b></td>
+				<td align='left' style='cursor:hand'><a href="#"
+					jwcid="PrintSetLink"> <img id="PrintSet" jwcid="PrintSet"
+					alt="页面设置" onclick=document.all.WebBrowser.ExecWB(8,1) /></a> <a
+					href="#" jwcid="PrintPageLink"> <img id="PrintPage"
+					jwcid="PrintPage" alt="打印"
+					onclick="if(confirm('需要打印全部吗? 确定:打印所有页; 取消:打印当前页.')){allPrint('SelectFrmDiv');}else{print('SelectFrmDiv');}" /></a>
+				<a href="#" jwcid="ExportPageLink"> <img id="ExportPage"
+					jwcid="ExportPage" alt="导出Excel" onclick="exportExcel('SelectFrmDiv')"/></a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td style="font-size:9pt" align='right' width=50%><img
+					id="FirstPage" style="display:none;" jwcid="@Image"
+					image="ognl:assets.FirstPage" width="15" height="15" alt="首页"
+					onclick="navigatorClick('first')" /> <img id="FirstPage_disabled"
+					jwcid="@Image" image="ognl:assets.FirstPage_disabled" width="15"
+					height="15" alt="首页" /> <img id="PreviousPage"
+					style="display:none;" jwcid="@Image"
+					image="ognl:assets.PreviousPage" width="15" height="15" alt="上一页"
+					onclick="navigatorClick('previous')" /> <img
+					id="PreviousPage_disabled" jwcid="@Image"
+					image="ognl:assets.PreviousPage_disabled" width="15" height="15"
+					alt="上一页" /> <img id="NextPage" style="display:none;"
+					jwcid="@Image" image="ognl:assets.NextPage" width="15" height="15"
+					alt="下一页" onclick="navigatorClick('next')" /> <img
+					id="NextPage_disabled" jwcid="@Image"
+					image="ognl:assets.NextPage_disabled" width="15" height="15"
+					alt="下一页" /> <img id="LastPage" style="display:none;"
+					jwcid="@Image" image="ognl:assets.LastPage" width="15" height="15"
+					alt="尾页" onclick="navigatorClick('last')" /> <img
+					id="LastPage_disabled" jwcid="@Image"
+					image="ognl:assets.LastPage_disabled" width="15" alt="尾页"
+					height="15" /></td>
+				<td width="5%"></td>
+				<td width="5%"><b>转到页</b></td>
+				<td width="10%"><input size="5" id="GoPage" type="" /> <img
+					id="goButton" jwcid="@Image" image="ognl:assets.Go" width="15"
+					height="15" onclick="navigatorClick('go')" />
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr height=90%>
+		<td width="100%">
+		<div id="SelectFrmDiv"
+			style="HEIGHT: 100%;WIDTH:100%;BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto;width:897px; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;">
+		<span jwcid="PrintTable"></span></div>
+		</td>
+	</tr>
+	<tr>
+		<td><span jwcid="BRiq" style="display:none" id="BRiq"></span>
+	        <span jwcid="ERiq" style="display:none" id="ERiq"></span> 
+            <input readonly="true" class="text-position" width="60"  jwcid="GONGYS" id="GONGYS" submitOnChange="true" type="text" />
+            <td><input readonly="true" class="text-position" width="60"  jwcid="JIESLB" id="JIESLB" submitOnChange="true" type="text" /></td>
+            <span id="diancTree_id"  jwcid = "TREEID_DC" style="display:none"></span>
+             <span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype=""
+			id="RefurbishButton" style="display:none"
+			listener="ognl:listeners.RefurbishButton"></span> <span id="CHANGE"
+			jwcid="CHANGE" style="display:none"></span> <span
+			style="display:none;" jwcid="CurrentPage" id="CurrentPage"
+			type="text"></span> <span style="display:none;" jwcid="AllPages"
+			id="AllPages" type="text"></span></td>
+	</tr>
+    <input class = "text-position" style="display:none;" jwcid="CHECKED" id="CHECKED" type="text" />
+</table>
+</form>
+</body>
+<script>	
+	setNavigatorButton(); 
+	//document.getElementById("SelectFrmDiv").style.height = bodyHeight - 60;
+	document.getElementById("SelectFrmDiv").style.width = bodyWidth;
+</script>
+</html>

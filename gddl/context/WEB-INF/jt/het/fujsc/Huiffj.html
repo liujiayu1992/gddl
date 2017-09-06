@@ -1,0 +1,105 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>
+huifufujian
+</title>
+<style type="text/css">
+.fileupload {
+width: 300; 
+height: 22px;
+padding:1px 3px;
+background:transparent url(../images/default/grid/grid3-special-col-bg.gif) repeat-y -16px !important;
+border:1px solid #B5B8C8;
+font:normal 11px arial, tahoma, helvetica, sans-serif;
+    overflow:hidden;
+	zoom:1;
+    position:relative;
+}
+
+</style>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.Rmis"/>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss"/>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.onReady(function(){
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+		<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+		<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+
+	window.onbeforeunload = function(){
+		
+		if(eval(document.getElementById('zhuangt').value)==0){		
+					
+			var rec = gridDiv_ds.getModifiedRecords();
+	
+			if(rec.length>0){
+			
+				var msg = "rr";
+				return msg;
+			}
+		}
+	}
+	
+	window.onunload = function(){
+	
+		if(eval(document.getElementById('zhuangt').value)==0){
+		
+			window.opener.document.Form0.submit();
+			window.opener.document.body.onload;
+		}
+	}	
+});
+</script>
+</head>
+<body id="body" jwcid="@Body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+
+<table>
+	<tr>
+	<td><span class="fileupload" jwcid="FileStream" id="FileStream" style="display:none"/></td>
+
+	<td><span jwcid="UpLoadButton@ZRcontrib:ImgButton" id="UpLoadButton" buttontype=""
+		label="uploadandsave" listener="ognl:listeners.UpLoadButton" style="display: none"/></td>
+	<td>
+	<td><span jwcid="DeleteButton@ZRcontrib:ImgButton" id="DeleteButton" buttontype=""
+		label="delete" listener="ognl:listeners.DeleteButton" style="display: none"/></td>
+	<td>	
+	<span jwcid="ReturnButton@ZRcontrib:ImgButton" id="ReturnButton" buttontype=""
+	    label="return"	 listener="ognl:listeners.ReturnButton" style="display: none"></span>
+	<!-- span jwcid="SaveButton@ZRcontrib:ImgButton" id="SaveButton" buttontype=""
+	    label="save"	 listener="ognl:listeners.SaveButton" style="display: none"></span> -->
+	<span jwcid="ShowButton@ZRcontrib:ImgButton" id="ShowButton" buttontype=""
+	    label="look"	 listener="ognl:listeners.ShowButton" style="display: none"></span>         
+	</td>	
+	</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+	<tr>
+		<td><span id="CHANGE" jwcid="CHANGE" style="display: none"></span>
+			<input class="text-position" style="display:none;" id="zhuangt" value = "0" type="text" />
+		</td>
+		
+	</tr>
+	<tr height="100%">
+		<td>
+		<div id="gridDiv" style="width: 100%; height: 100%; overflow: none"></div>
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

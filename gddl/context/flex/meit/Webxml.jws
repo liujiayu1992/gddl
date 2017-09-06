@@ -1,0 +1,609 @@
+import java.util.Date;
+import com.zhiren.common.DateUtil;
+import com.zhiren.common.JDBCcon;
+import com.zhiren.common.ResultSetList;
+import java.text.DecimalFormat;
+import com.zhiren.common.CustomMaths;
+
+public class Webxml { 
+	public static String format(double strValue, String strFormat) {
+		DecimalFormat df = new DecimalFormat(strFormat);
+			return df.format(strValue);
+	}
+	
+	public static String getZhuzt(String dcmc,String year){
+		String date = DateUtil.FormatDate(new Date());
+		String[] strdate = date.split("-");
+		if(year.equals("null")){
+			year = strdate[0];
+		}
+		if(dcmc.equals("null")){
+			dcmc = "yuezj";
+		}
+		int nextyear = Integer.parseInt(year)+1;
+		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+					 "<ReportDataSourceDataSet>\n";
+		JDBCcon con=new JDBCcon();
+		String sql= 
+			"select y.yue,\n" + 
+			"       round_new(nvl(sj.haoml, 0)/10000,2) as fadhm,\n" + 
+			"       round_new(nvl(sj.fadl, 0)/10000,1) as huolfdl,\n" + 
+			"       round_new(nvl(cgl.caigl, 0)/10000,4) as caigl\n" + 
+			"  from (select '01' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '02' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '03' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '04' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '05' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '06' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '07' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '08' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '09' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '10' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '11' yue, '"+dcmc+"' as diancxxb_id\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '12' yue, '"+dcmc+"' as diancxxb_id from dual) y,\n" + 
+			"       (select decode(grouping(to_char(d.riq, 'MM')),\n" + 
+			"                      1,\n" + 
+			"                      'nianzj',\n" + 
+			"                      to_char(d.riq, 'MM')) as yuef,\n" + 
+			"               decode(grouping(dc.mingc), 1, 'yuezj', dc.mingc) as diancxxb_id,\n" + 
+			"               sum(d.meithyfd) / 2 as haoml,\n" + 
+			"               sum(d.fadl) / 2 as fadl\n" + 
+			"          from diaor01bb d, diancxxb dc\n" + 
+			"         where d.fenx = '本月'\n" + 
+			"           and d.diancxxb_id = dc.id\n" + 
+			"           and dc.fuid in (select max(id) from diancxxb where jib=2)\n" + 
+			"           and d.riq >= to_date('"+year+"-01-01', 'yyyy-MM-dd')\n" + 
+			"           and d.riq < to_date('"+nextyear+"-01-01', 'yyyy-MM-dd')\n" + 
+			"         group by rollup(to_char(d.riq, 'MM'), dc.mingc)\n" + 
+			"        ) sj,\n" + 
+			"       (select to_char(f.daohrq, 'MM') as yue,\n" + 
+			"               decode(grouping(dc.mingc), 1, 'yuezj', dc.mingc) as diancxxb_id,\n" + 
+			"               sum(f.laimsl) as caigl\n" + 
+			"          from fahb f, diancxxb dc\n" + 
+			"         where f.diancxxb_id = dc.id\n" + 
+			"           and dc.fuid in (select max(id) from diancxxb where jib=2)\n" + 
+			"           and to_char(f.daohrq, 'yyyy') = '"+year+"'\n" + 
+			"         group by rollup(to_char(f.daohrq, 'MM'), dc.mingc)) cgl\n" + 
+			" where y.yue = sj.yuef(+)\n" + 
+			"   and y.yue = cgl.yue(+)\n" + 
+			"   and y.diancxxb_id = sj.diancxxb_id(+)\n" + 
+			"   and y.diancxxb_id = cgl.diancxxb_id(+)\n" + 
+			" order by y.yue";
+
+		ResultSetList rs=con.getResultSetList(sql);
+		try{
+			while(rs.next()){
+				xml +=  "  <testDate>\n" + 
+						"    <month>"+rs.getString("yue")+"</month>\n" + 
+						"    <煤耗>"+rs.getString("fadhm")+"</煤耗>\n" + 
+						"    <发电量>"+rs.getString("huolfdl")+"</发电量>\n" + 
+						"    <采购量>"+rs.getString("caigl")+"</采购量>\n" + 
+						"  </testDate>\n";
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}finally{
+			con.Close();
+		}
+		xml += "</ReportDataSourceDataSet>\n";
+		return xml;
+	}
+	
+	public static String sqlExe(String year){
+		String date = DateUtil.FormatDate(new Date());
+		String[] strdate = date.split("-");
+		if(year.equals("null")){
+			year = strdate[0];
+		}
+		int byear = Integer.parseInt(year)-2;
+		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+					 "<ReportDataSourceDataSet>\n";
+		JDBCcon con=new JDBCcon();
+		String sql= 
+			"select to_char(to_number(y.yue)) as yue, round_new(nvl(sj.haoml, 0)/10000,2) as fadhm, round_new(nvl(sj.fadl, 0)/10000,2) as huolfdl\n" +
+			"  from (select '01' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '02' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '03' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '04' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '05' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '06' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '07' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '08' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '09' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '10' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '11' yue, 'yuezj' as leix\n" + 
+			"          from dual\n" + 
+			"        union\n" + 
+			"        select '12' yue, 'yuezj' as leix from dual) y,\n" + 
+			"       (select decode(grouping(to_char(d.riq, 'MM')),\n" + 
+			"                      1,\n" + 
+			"                      'nianzj',\n" + 
+			"                      to_char(d.riq, 'MM')) as yuef,\n" + 
+			"               decode(grouping(dc.mingc), 1, 'yuezj', dc.mingc) as diancxxb_id,\n" + 
+			"               sum(d.meithyfd) / 2 as haoml,\n" + 
+			"               sum(d.fadl) / 2 as fadl\n" + 
+			"          from diaor01bb d, diancxxb dc\n" + 
+			"         where d.fenx = '本月'\n" + 
+			"           and d.diancxxb_id = dc.id\n" + 
+			"           and dc.fuid in (select max(id) from diancxxb where jib=2)\n" + 
+			"           and d.riq >= to_date('"+byear+"-01-01', 'yyyy-MM-dd')\n" + 
+			"           and d.riq < to_date('"+year+"-01-01', 'yyyy-MM-dd')\n" + 
+			"         group by rollup(to_char(d.riq, 'MM'), dc.mingc)\n" + 
+			"         ) sj\n" + 
+			" where y.yue = sj.yuef(+)\n" + 
+			"   and y.leix = sj.diancxxb_id(+)\n" +
+			" order by to_number(yue)\n";
+		
+		ResultSetList rs=con.getResultSetList(sql);
+		try{
+			while(rs.next()){
+				xml +=  "  <testDate>\n" + 
+						"    <Month>"+rs.getString("yue")+"</Month>\n" + 
+						"    <Profit>"+rs.getString("fadhm")+"</Profit>\n" + 
+						"    <Expenses>"+rs.getString("huolfdl")+"</Expenses>\n" + 
+						"  </testDate>\n";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}finally{
+			con.Close();
+		}
+		xml += "</ReportDataSourceDataSet>\n";
+	
+		return xml;
+	}
+	
+	public static String sqlExe1(String year){
+		String date = DateUtil.FormatDate(new Date());
+		String[] strdate = date.split("-");
+		if(year.equals("null")){
+			year = strdate[0];
+		}
+		int byear = Integer.parseInt(year)-2;
+		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+					 "<ReportDataSourceDataSet>\n";
+		JDBCcon con=new JDBCcon();
+		String sql= 
+			"select bt.month,round_new(nvl(sj.caigl,0)/10000,2) as caigl,round_new(nvl(sj.kuc,0)/10000,2) as kuc\n" +
+			"from\n" + 
+			"(" ;
+		
+		double i = 1;
+		int xuh = 0;
+		String sformat = "0";
+		while(i<13){
+			if(xuh%4==0){
+				sformat="0";
+			}else if(xuh%2==0){
+				sformat="0.0";
+			}else{
+				sformat="0.00";
+			}
+			if(i == 1){
+				sql += "	select 0 as xuh,'"+format(i,sformat)+"' as month from dual\n";
+			} else {
+				sql += "	union\n" +
+					   "	select "+xuh+" as xuh, '"+format(i,sformat)+"' as month from dual\n";
+			}
+			i=i+0.25;
+			xuh++;
+		}
+			
+		sql +=	
+			") bt,\n" + 
+			//计划采购量、计划库存
+			"(select to_char(to_number(to_char(s.riq, 'MM')))||sj.riq as month,\n" +
+			"       decode(sum(nvl(s.fadl,0)),0,0,sum(nvl(s.haoyqkdr,0))/2) as caigl,\n" + 
+			"       sum(s.kuc) / 2 as kuc\n" + 
+			"  from shouhcrbb s,\n" + 
+			"       diancxxb dc,\n" + 
+			"       (select id, '' as riq\n" + 
+			"          from shouhcrbb\n" + 
+			"         where to_char(riq, 'dd') >= 1\n" + 
+			"           and to_char(riq, 'dd') < 8\n" + 
+			"        union\n" + 
+			"        select id, '.25' as riq\n" + 
+			"          from shouhcrbb\n" + 
+			"         where to_char(riq, 'dd') >= 7\n" + 
+			"           and to_char(riq, 'dd') < 15\n" + 
+			"        union\n" + 
+			"        select id, '.5' as riq\n" + 
+			"          from shouhcrbb\n" + 
+			"         where to_char(riq, 'dd') >= 15\n" + 
+			"           and to_char(riq, 'dd') < 22\n" + 
+			"        union\n" + 
+			"        select id, '.75' as riq\n" + 
+			"          from shouhcrbb\n" + 
+			"         where to_char(riq, 'dd') >= 22) sj\n" + 
+			" where s.riq >= to_date('"+byear+"-01-01', 'yyyy-MM-dd')\n" + 
+			"   and s.riq < to_date('"+year+"-01-01', 'yyyy-MM-dd')\n" + 
+			"   and dc.fuid in (select max(id) from diancxxb where jib = 2)\n" + 
+			"   and s.diancxxb_id = dc.id\n" + 
+			"   and s.id = sj.id\n" + 
+			" group by rollup(to_char(s.riq, 'MM'), sj.riq)\n" + 
+			" having not grouping(sj.riq)=1\n" + 
+			") sj\n" + 
+			"where bt.month = sj.month(+)\n" + 
+			"order by bt.xuh";
+		
+		ResultSetList rs=con.getResultSetList(sql);
+		try{
+			while(rs.next()){
+				xml +=  "  <testDate>\n" + 
+						"    <Month>"+rs.getString("month")+"</Month>\n" + 
+						"    <采购量>"+rs.getString("caigl")+"</采购量>\n" + 
+						"    <库存>"+rs.getString("kuc")+"</库存>\n" + 
+						"  </testDate>\n";
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}finally{
+			con.Close();
+		}
+		xml += "</ReportDataSourceDataSet>\n";
+		
+		return xml;
+	}
+	
+	public static String sqlYear(){
+	
+		String date = DateUtil.FormatDate(new Date());
+		String[] strdate = date.split("-");
+		int year = Integer.parseInt(strdate[0]);     
+		
+		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+					 "<ReportDataSourceDataSet>\n"; 
+		for(int i=year-2; i<year+2; i++){
+			xml +=  "  <ReportDataSource>\n" + 
+					"    <CompanyName>"+i+"</CompanyName>\n" + 
+					"  </ReportDataSource>\n";
+		}
+		xml += "</ReportDataSourceDataSet>\n";
+		return xml;
+	}
+	
+	public static String getDc(){
+		JDBCcon con=new JDBCcon();
+		String sql = "select id,mingc from diancxxb where jib = 3";
+		ResultSetList rs=con.getResultSetList(sql);
+		
+		
+		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+					 "<ReportDataSourceDataSet>\n"; 
+		try{
+			while(rs.next()){
+				xml +=  "  <testDate>\n" + 
+						"    <ID>"+rs.getString("id")+"</ID>\n" + 
+						"    <MINGC>"+rs.getString("mingc")+"</MINGC>\n" + 
+						"  </testDate>\n";
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}finally{
+			con.Close();
+		}
+		xml += "</ReportDataSourceDataSet>\n";
+		return xml;
+	}
+	
+	public static String sqlTable(String year,String month){
+		String date = DateUtil.FormatDate(new Date());
+		String[] strdate = date.split("-");
+		if(year.equals("null")){
+			year = strdate[0];
+		}
+		if(month.equals("null")){
+			month = strdate[1];
+		}
+		int byear = Integer.parseInt(year)-2;
+		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+					 "<ReportDataSourceDataSet>\n";
+		JDBCcon con=new JDBCcon();
+		String sql= 
+			"select decode(grouping(dc.mingc),\n" +
+			"              1,\n" + 
+			"              to_char(d.riq, 'MM') || '月总量',\n" + 
+			"              dc.mingc) as diancxxb_id,\n" + 
+			"       sum(d.meithyfd) / 2 as haoml,\n" + 
+			"       sum(d.fadl) / 2 as fadl\n" + 
+			"  from diaor01bb d, diancxxb dc\n" + 
+			" where d.fenx = '本月'\n" + 
+			"   and d.diancxxb_id = dc.id\n" + 
+			"   and dc.fuid in (select max(id) from diancxxb where jib=2)\n" + 
+			"   and d.riq >= to_date('"+byear+"-01-01', 'yyyy-MM-dd')\n" + 
+			"   and d.riq < to_date('"+year+"-01-01', 'yyyy-MM-dd')\n" + 	
+			"   and to_number(to_char(d.riq,'MM')) = '"+month+"'\n" + 
+			" group by rollup(to_char(d.riq, 'MM'), dc.mingc)\n" + 
+			" having not grouping(to_char(d.riq, 'MM')) + grouping(dc.mingc) = 2\n" + 
+			" order by grouping(dc.mingc) desc, dc.mingc";
+
+		ResultSetList rs=con.getResultSetList(sql);
+		try{
+			while(rs.next()){
+				xml +=  "  <testDate>\n" + 
+						"    <单位>"+rs.getString("diancxxb_id")+"</单位>\n" + 
+						"    <发电量>"+rs.getString("haoml")+"</发电量>\n" + 
+						"    <耗煤量>"+rs.getString("fadl")+"</耗煤量>\n" + 
+						"  </testDate>\n";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}finally{
+			con.Close();
+		}
+		xml += "</ReportDataSourceDataSet>\n";
+		return xml;
+	}
+	
+	public static String sqlTable1(String year,String month){
+		
+		String date = DateUtil.FormatDate(new Date());
+		String[] strdate = date.split("-");
+		if(year.equals("null")){
+			year = strdate[0];
+		}
+		if(month.equals("null")){
+			month = strdate[1];
+		}
+		int byear = Integer.parseInt(year)-2;
+		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+					 "<ReportDataSourceDataSet>\n";
+		JDBCcon con=new JDBCcon();
+		ResultSetList rs = null;
+		String main_sql = "";
+		String caigsj = "";//采购时间
+		double guok = 0.00;//前两年国矿采购量
+		double dik = 0.00;//前两年地矿采购量
+		double guokl = 0.00;//国矿比例
+		double dikl = 0.00;//地矿比例
+		double guok_jh = 0.00;//计划国矿采购量
+		double dik_jh = 0.00;//计划地矿采购量
+		double jihcgl = 0.00;//计划总采购量
+		
+		String[] sj = month.split("\\.");
+		
+		if(sj.length==1){
+			caigsj = sj[0]+"月1日至"+sj[0]+"月7日";
+		} else {
+			
+			if(sj[1].equals("25")){
+				caigsj = sj[0]+"月8日至"+sj[0]+"月14日";
+			}else if(sj[1].equals("5")){
+				caigsj = sj[0]+"月15日至"+sj[0]+"月21日";
+			}else{
+				caigsj = sj[0]+"月22日至"+sj[0]+"月底";
+			}
+		}
+		main_sql+= "select bt,zhi from(\n" +
+					"	select 1 as xuh,'采购时间' as bt,'"+caigsj+"' as zhi from dual\n" +
+					"	union\n";
+		
+		String sql = 
+			"--煤炭计划采购量（按计划口径算比例）\n" +
+			"select decode(grouping(decode(f.jihkjb_id,\n" + 
+			"                              1,\n" + 
+			"                              '国矿',\n" + 
+			"                              '地矿')),\n" + 
+			"              1,\n" + 
+			"              '',\n" + 
+			"              decode(f.jihkjb_id,\n" + 
+			"                     1,\n" + 
+			"                     '国矿',\n" + 
+			"                     '地矿')) as jihkjb_id,\n" + 
+			"       sum(nvl(f.laimsl,0)) as caigl\n" + 
+			"  from fahb f,\n" + 
+			"       diancxxb dc,\n" + 
+			"       (select id, '' as riq\n" + 
+			"          from fahb\n" + 
+			"         where to_char(daohrq, 'dd') >= 1\n" + 
+			"           and to_char(daohrq, 'dd') < 8\n" + 
+			"        union\n" + 
+			"        select id, '.25' as riq\n" + 
+			"          from fahb\n" + 
+			"         where to_char(daohrq, 'dd') >= 7\n" + 
+			"           and to_char(daohrq, 'dd') < 15\n" + 
+			"        union\n" + 
+			"        select id, '.5' as riq\n" + 
+			"          from fahb\n" + 
+			"         where to_char(daohrq, 'dd') >= 15\n" + 
+			"           and to_char(daohrq, 'dd') < 22\n" + 
+			"        union\n" + 
+			"        select id, '.75' as riq from fahb where to_char(daohrq, 'dd') >= 22) sj\n" + 
+			" where f.diancxxb_id = dc.id\n" + 
+			"   and dc.fuid in (select max(id) from diancxxb where jib = 2)\n" + 
+			"   and sj.id = f.id\n" + 
+			"   and to_char(to_number(to_char(f.daohrq, 'MM'))) || sj.riq = "+month+"\n" + 
+			"   and f.daohrq >= to_date('"+byear+"-01-01','yyyy-MM-dd')\n" + 
+			"   and f.daohrq < to_date('"+year+"-01-01','yyyy-MM-dd')\n" + 
+			" group by rollup(to_char(f.daohrq, 'MM'),\n" + 
+			"                 sj.riq,\n" + 
+			"                 decode(f.jihkjb_id,\n" + 
+			"                        1,\n" + 
+			"                        '国矿',\n" + 
+			"                        '地矿'),\n" + 
+			"                 dc.mingc)\n" + 
+			"having not grouping(to_char(f.daohrq, 'MM')) + grouping(sj.riq) + grouping(dc.mingc) + grouping(decode(f.jihkjb_id, 1, '国矿', '地矿')) in (0, 2, 3, 4)\n";
+		
+		rs = con.getResultSetList(sql);
+		while(rs.next()){
+			if(rs.getString("jihkjb_id").equals("国矿")){
+				guok = rs.getDouble("caigl");
+			} else {
+				dik = rs.getDouble("caigl");
+			}
+		}
+		if(guok+dik==0){
+			guokl = 0.5;
+			dikl = 0.5;
+		} else {
+			guokl = guok/(guok+dik);
+			dik   = dik/(guok+dik);
+		}
+		
+		sql = //查询本次计划采购量
+			"select decode(sum(nvl(s.fadl,0)),0,0,sum(nvl(s.haoyqkdr,0))/2) as caigl\n" + 
+			"  from shouhcrbb s,\n" + 
+			"       diancxxb dc,\n" + 
+			"       (select id, '' as riq\n" + 
+			"          from shouhcrbb\n" + 
+			"         where to_char(riq, 'dd') >= 1\n" + 
+			"           and to_char(riq, 'dd') < 8\n" + 
+			"        union\n" + 
+			"        select id, '.25' as riq\n" + 
+			"          from shouhcrbb\n" + 
+			"         where to_char(riq, 'dd') >= 7\n" + 
+			"           and to_char(riq, 'dd') < 15\n" + 
+			"        union\n" + 
+			"        select id, '.5' as riq\n" + 
+			"          from shouhcrbb\n" + 
+			"         where to_char(riq, 'dd') >= 15\n" + 
+			"           and to_char(riq, 'dd') < 22\n" + 
+			"        union\n" + 
+			"        select id, '.75' as riq\n" + 
+			"          from shouhcrbb\n" + 
+			"         where to_char(riq, 'dd') >= 22) sj\n" + 
+			" where s.riq >= to_date('"+byear+"-01-01', 'yyyy-MM-dd')\n" + 
+			"   and s.riq < to_date('"+year+"-01-01', 'yyyy-MM-dd')\n" + 
+			"   and dc.fuid in (select max(id) from diancxxb where jib = 2)\n" + 
+			"   and s.diancxxb_id = dc.id\n" + 
+			"   and s.id = sj.id\n" + 
+			"   and to_char(to_number(to_char(s.riq, 'MM')))||sj.riq = "+month+"\n" + 
+			" group by rollup(to_char(s.riq, 'MM'), sj.riq)\n" + 
+			" having not grouping(sj.riq)=1\n";
+		rs = con.getResultSetList(sql);
+		while(rs.next()){
+			jihcgl = rs.getDouble("caigl");
+			guok_jh = jihcgl*guokl;
+			dik_jh = jihcgl*dikl;
+		}
+		
+		main_sql+= 
+		"	select 2 as xuh,'本次需要采购煤炭总量' as bt,'"+CustomMaths.Round_new(jihcgl, 4)+"' as zhi from dual\n" +
+		"	union\n" +
+		"	select 3 as xuh,'本次国矿需要采购煤炭量' as bt,'"+CustomMaths.Round_new(guok_jh, 4)+"' as zhi from dual\n" +
+		"	union\n" +
+		"	select 4 as xuh,'本次地矿需要采购煤炭量' as bt,'"+CustomMaths.Round_new(dik_jh, 4)+"' as zhi from dual\n" +
+		"	union\n" +
+		
+		"--煤炭实际采购量（分计划口径）\n" + 
+		"select decode(jihkjb_id,'截止目前国矿煤炭采购总量',6,'截止目前地矿煤炭采购总量',7,5) as xuh,\n" + 
+		"       jihkjb_id as bt,\n" + 
+		"       to_char(caigl) as zhi\n" + 
+		"from(\n" + 
+		"select decode(grouping(decode(f.jihkjb_id,\n" + 
+		"                              1,\n" + 
+		"                              '截止目前国矿煤炭采购总量',\n" + 
+		"                              '截止目前地矿煤炭采购总量')),\n" + 
+		"              1,\n" + 
+		"              '截止目前煤炭采购总量',\n" + 
+		"              decode(f.jihkjb_id,\n" + 
+		"                     1,\n" + 
+		"                     '截止目前国矿煤炭采购总量',\n" + 
+		"                     '截止目前地矿煤炭采购总量')) as jihkjb_id,\n" + 
+		"       round_new(sum(f.laimsl)/10000,4) as caigl\n" + 
+		"  from fahb f,\n" + 
+		"       diancxxb dc,\n" + 
+		"       (select id, '' as riq\n" + 
+		"          from fahb\n" + 
+		"         where to_char(daohrq, 'dd') >= 1\n" + 
+		"           and to_char(daohrq, 'dd') < 8\n" + 
+		"        union\n" + 
+		"        select id, '.25' as riq\n" + 
+		"          from fahb\n" + 
+		"         where to_char(daohrq, 'dd') >= 7\n" + 
+		"           and to_char(daohrq, 'dd') < 15\n" + 
+		"        union\n" + 
+		"        select id, '.5' as riq\n" + 
+		"          from fahb\n" + 
+		"         where to_char(daohrq, 'dd') >= 15\n" + 
+		"           and to_char(daohrq, 'dd') < 22\n" + 
+		"        union\n" + 
+		"        select id, '.75' as riq from fahb where to_char(daohrq, 'dd') >= 22) sj\n" + 
+		" where f.diancxxb_id = dc.id\n" + 
+		"   and dc.fuid = 112\n" + 
+		"   and sj.id = f.id\n" + 
+		"   and to_char(to_number(to_char(f.daohrq, 'MM'))) || sj.riq = "+month+"\n" + 
+		"   and to_char(f.daohrq, 'yyyy') = '"+year+"'\n" + 
+		" group by rollup(to_char(f.daohrq, 'MM'),\n" + 
+		"                 sj.riq,\n" + 
+		"                 decode(f.jihkjb_id,\n" + 
+		"                        1,\n" + 
+		"                        '截止目前国矿煤炭采购总量',\n" + 
+		"                        '截止目前地矿煤炭采购总量'),\n" + 
+		"                 dc.mingc)\n" + 
+		"having not grouping(to_char(f.daohrq, 'MM')) + grouping(sj.riq) + grouping(dc.mingc) + grouping(decode(f.jihkjb_id, 1, '截止目前国矿煤炭采购总量', '截止目前地矿煤炭采购总量')) in (0, 3, 4)\n" + 
+		")\n" +
+		")\n" +
+		"order by xuh\n";
+
+		rs=con.getResultSetList(main_sql);
+		
+		try{
+			while(rs.next()){
+				xml +=  "  <testDate>\n" + 
+						"    <标题>"+rs.getString("bt")+"</标题>\n" + 
+						"    <值>"+rs.getString("zhi")+"</值>\n" + 
+						"  </testDate>\n";
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}finally{
+			con.Close();
+		}
+		xml += "</ReportDataSourceDataSet>\n";
+		
+		return xml;
+	}
+}

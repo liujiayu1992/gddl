@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>油罐维护</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+
+var grid="";
+
+function mohcx(fieldValue,data,ds){
+	var name_value=fieldValue;
+	var new_data_str="new_data=[";
+	if(name_value==null || name_value==''){
+		ds.loadData(data);
+	}else{
+	 	var s='var name_regex=new RegExp("'+name_value+'","");';
+	 	eval(s);
+	 	for(var i=0;i<data.length;i++){
+	 		var arr=data[i];
+	 		if(name_regex.test(arr[6])){
+	 			var recoName="[";
+	 			for(var j=0;j<arr.length;j++){
+	 				recoName+="'"+arr[j]+"'";
+	 				if(j!=arr.length-1){recoName+=",";}
+	 			}
+	 			recoName+="]";
+	 			new_data_str+=recoName;
+	 			new_data_str+=",";
+	 		}
+	 	}
+	 	new_data_str=new_data_str.substring(0,new_data_str.lastIndexOf(','));
+	 	if(new_data_str==null||new_data_str==""){
+	 		new_data_str+="new_data=[";
+		}
+	 	new_data_str+="];";
+	 	eval(new_data_str);
+		ds.loadData(new_data);
+	}
+}
+</script>
+<script type="text/javascript">
+
+var gridDiv_history = "";
+
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+</script>
+</head>
+<body id="body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml" />
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<table border="0" cellspacing="0" cellpadding="0" width="100%"
+	height="100%">
+	<tr>
+		<td><span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+			label="保存" style="display:none" id="SaveButton"
+			listener="ognl:listeners.SaveButton"></span> <span
+			jwcid="InsertButton@ZRcontrib:ImgButton" onclick="checkgongys()"
+			buttontype="" label="添加" style="display:none" id="InsertButton"></span>
+		<span jwcid="ZhuangtDropDown" id="ZhuangtDropDown" submitOnChange="true" type="text" style="display:none"/>
+		<span jwcid="InsertButtonMK@ZRcontrib:ImgButton" onclick=""
+			buttontype="" label="添加已有煤矿" style="display:none" id="InsertButtoMK"
+			listener="ognl:listeners.InsertButtoMK"></span> <span
+			jwcid="ReplyButton@ZRcontrib:ImgButton" onclick="" buttontype=""
+			label="批复" style="display:none" id="ReplyButton"
+			listener="ognl:listeners.ReplyButton"></span> <span
+			jwcid="ShengcBm@ZRcontrib:ImgButton" onclick="" buttontype=""
+			label="生成编码" style="display:none" id="ShengcBm"
+			listener="ognl:listeners.ShengcBm"></span> <span
+			jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype=""
+			style="display:none" label="刷新" id="RefreshButton"
+			listener="ognl:listeners.RefreshButton"></span> <span id="CHANGE"
+			jwcid="CHANGE" style="display:none"></span> <span id="diancTree_id"
+			jwcid="TREEID" style="display:none"></span></td>
+	</tr>
+	<tr height="100%">
+		<td>
+		<div id="gridDiv" style="width:100%;height:100%;overflow:none"></div>
+		</td>
+	</tr>
+</table>
+<input type="text" id="RowNumIndex" jwcid="RowNumIndex"
+	style="display:none" name="RowNumIndex" /> <input type="text"
+	id="LiuSBM" jwcid="LiuSBM" style="display:none" name="LiuSBM" /> <input
+	type="text" id="ShenQDW" jwcid="ShenQDW" style="display:none"
+	name="ShenQDW" />
+<input type="text" id="currentPage" jwcid="currentPage" style="display:none" name="currentPage" />	
+</form>
+
+<script type="text/javascript">
+
+window.onload=function(){
+
+<span jwcid="@Insert" raw=true value="ognl:LiuSBM_Msg"/>
+<span jwcid="@Insert" raw="true" value="ognl:SaveMsg"></span>
+}
+</script>
+</body>
+</html>

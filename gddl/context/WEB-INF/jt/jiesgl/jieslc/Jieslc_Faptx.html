@@ -1,0 +1,341 @@
+<html jwcid="@Shell" doctype=" " title="结算流程_发票填写"
+	stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.xthemegraycss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+	
+    var win;
+    <span jwcid="@Insert" raw="true" value="ognl:ToolbarScript"/>
+    <span jwcid="@Insert" raw="true" value="ognl:msg"></span> 
+    
+});
+</script>
+
+<body id="body" jwcid="@Body" class="bgs"
+	onkeydown="Pingb();if(event.keyCode==13)event.keyCode=9" bottommargin=0
+	topmargin=2 leftmargin=5 rightmargin=5>
+<script jwcid="Balancejs" />
+<script jwcid="Datejs" />
+<script jwcid="validatejs" />
+
+    
+<script>
+          function tissave(objid){
+          		var DivPrint = objid;
+				var msg="修改数据后请先保存。确认提交吗？";
+				if(confirm(msg)){
+            		msg="单价差为0,确认提交吗?";
+            		if(confirm(msg)){
+            			return;
+            		}else{
+						return false;
+					}
+            	}else{
+            		return false;
+            	}
+			}
+          function print(objid){
+				var obj = document.getElementById(objid);
+				var printStr = "<title>??</title>";
+				printStr += "<style media=\"print\">.noPrint {display:none;}<\/style>";
+				printStr += "<style>body{background:#FFFFFF;font-size:12px;}<\/style>";
+				printStr += "<style>\n";
+				printStr += ".tdLeft{padding-left:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);}\n";
+			   	printStr += ".tdRight{padding-right:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);}\n";
+				printStr += ".tdNormal{border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);}\\n";
+				printStr += ".tdNoneLeft{padding-left:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);}\n";
+			   	printStr += ".tdNoneRight{padding-right:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);}\n";
+			   	printStr += ".tdNone{border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);}\n";
+			   	printStr += "<\/style>\n";
+				   		
+				printStr += obj.innerHTML;
+				var a = window.open("about:blank",null,"width=700,height=500,toolbar=yes,left=0,top=0");
+				var abody = a.document.open();
+				abody.write(printStr);
+				abody.close();
+				a.print();
+				a.close();
+				printStr = null;
+				a = null;
+			}
+             
+           function jiaschange(){
+               var jiaktz = eval(document.all.item('oldjiakhj').value)-eval(document.all.item('JIAKHJ').value);
+               var shuiktz = eval(document.all.item('oldjiaksk').value)-eval(document.all.item('JIAKSK').value);
+               
+               if(jiaktz>=10 || jiaktz<=-10){
+                   alert("价款合计与调整前相差"+jiaktz+"，请确认！");
+                   
+               }
+               if(shuiktz>=10 || shuiktz<=-10){
+                   alert("税款与调整前相差"+shuiktz+"，请确认！");
+                   
+               }
+           }            
+                
+    </script>
+    
+
+<div id="isShow">
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<div id="shezhi"
+	style="display:none;border:0px solid gray; padding:2px; POSITION: absolute;z-index:1;BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid; OVERFLOW: none; HEIGHT: 150;width:250; left:126px; top:75px;background-color:#DBE4EE">
+<table width="100%" height="25" cellspacing="0" cellpadding="0"
+	style="font-size:9pt" bordercolordark="#DBE4EE" bgcolor="#808080">
+	<tr>
+		<td id="tiaojian" width="100%" style="color: #ffffff">&nbsp;<b>条件选择</b>:</td>
+		<td align="right"><image jwcid="@Image" image="ognl:assets.close"
+			width="15" height="15" onclick="HideTiaoj()" /></td>
+		<td>&nbsp; &nbsp;</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td></td>
+	</tr>
+</table>
+
+</div>
+<div id="hello-win" class="x-hidden"></div>
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign="center" height="15">
+		<td valign="center">
+            <div id ="container">
+		   	 	<div id="tbdiv"></div>
+			</div>
+			<table valign="middle" class="toolBar"  style="display:none">
+				<tr height="20">
+					<td><span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+						label="保存" onclick="return check()"
+						listener="ognl:listeners.SaveButton" /></td>
+					<div id="window-close" class="x-qux">
+					<div class="x-qux">取消</div>
+					<input class="" style="display:none;" jwcid="EditTableRow"
+						id="EditTableRow" type="text" />
+					<input style="display:none;" id="oldjiakhj" type="text" />
+					<input style="display:none;" id="oldjiaksk" type="text" />
+					<td width="10%"></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top jwcid="EditValues">
+            <td > 
+                <div id="SelectFrmDiv"   class = "" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+                      <table width="100%" style=" font-size:9pt">
+							<tr>
+						  		<td height="23" colspan="9"><div align="center" class="LittleTitleStyle"><font size="4" style="font-weight:bold"><span jwcid="@Insert" raw="true" value="ognl:Title"/></font></div></td>  
+							</tr>
+							<tr>
+								<td width="80">填制单位:</td>
+                                <td align="left"><input readonly ="true" class = "" style="width:80%;border:0" jwcid="Tianzdw" id="Tianzdw" type="text" /></td>
+								<td align="right">编号:
+									<input  class = "noeditinput" style="width:40%" jwcid="JIESBH" id="JIESBH" onblur="MatchStr(this,50)" type="text" /></td>
+							</tr>
+						</table>
+                      <table width="100%" border="1" cellspacing="0"  style=" font-size:9pt;	border: darkgray 1px solid;border-collapse: collapse;background-color: #DCE4ED;">
+					    <tr>
+                          <input  readonly ="true" style="display:none" jwcid="ID" id="ID" type="text" />
+					      <td class="Jsdtdborder" width="9%">供货单位:</td>
+                          <td colspan="2" class="Jsdtdborder" width="20%"> 
+                              <input  readonly ="true" class ="noeditinput" style="width:100%" jwcid="Fahdw" id="Fahdw"  type="text" /></td>
+                          <td  class="Jsdtdborder" width="9%">发站:</td>
+                          <td colspan="2" class="Jsdtdborder" width="20%"> 
+                              <input  readonly ="true" class ="noeditinput" style="width:100%" jwcid="Faz" id="Faz"  type="text" />
+                          </td>
+					      <td colspan="1" class="Jsdtdborder" width="8%">收款单位:</td>
+					      <td colspan="2" class="edit" width="25%"><input readonly="true"  class="editinput" onclick="dropdown(this,SHOUKDWSelect)" style="width:100%" jwcid="SHOUKDW" id="SHOUKDW" type="text" /></td>
+                          <input onchange="droponchange(0)" style="display:none" jwcid="SHOUKDWSelect" id="SHOUKDWSelect" onblur="MatchStr(this,50)" type="text" />
+					    </tr>
+					    <tr>
+					      <td class="Jsdtdborder" align="left">发货日期:</td>
+                          <td  colspan="2" class="edit">
+                          	<input style="width:43%" readonly ="true" class = "noeditinput" jwcid="FAHKSRQ" id="FAHKSRQ" type="text" />至
+                              <input style="width:43%" readonly ="true" class = "noeditinput" jwcid="FAHJZRQ" id="FAHJZRQ" type="text" /></td>
+					      <td class="Jsdtdborder">验收日期:</td>
+                          	<td  colspan="2" class="edit"><input style="width:43%" readonly ="true" class = "noeditinput" jwcid="YANSKSRQ" id="YANSKSRQ" type="text" />至
+                          <input readonly ="true" style="width:43%" class = "noeditinput" jwcid="YANSJZRQ" id="JIEZYSRQ" type="text" /></td>
+					      <td class="Jsdtdborder">开户银行:</td>
+					      <td colspan="2" class="edit" align="left"><input onfocus="editin(this,'onfocus')" class = "editinput" jwcid="KAIHYH" id="KAIHYH" onblur="MatchStr(this,50)" style="width:100%" type="text" /> </td>
+					    </tr>
+					    <tr>
+					      <td class="Jsdtdborder">货物名称:</td>
+                          <td colspan="2" class="Jsdtdborder">
+                              <input readonly ="true" class = "noeditinput" style="width:100%"  jwcid="PINZ" id="PINZ" type="text" /></td>
+					      <td class="Jsdtdborder">原收货人:</td><td colspan="2" class="Jsdtdborder"><input readonly="true" type="text" jwcid="YUANSHR" style="width:100%" id="YUANSHR" class="noeditinput" /></td>
+					      <td class="Jsdtdborder" >银行帐号:</td>
+					      <td colspan="2" class="edit"><input onfocus="editin(this,'onfocus')" class = "editinput" style="width:100%" jwcid="ZHANGH" id="ZHANGH" onblur="MatchStr(this,50)" type="text"/></td>
+					    </tr>
+					    <tr>
+					      <td height="20" class="Jsdtdborder">发运数量:</td>
+                          <td  colspan="2" class="Jsdtdborder">
+                          	<input class = "noeditinput" readonly="true" id="GONGFL" style="width:40%" type="text" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()"/>
+                              吨 <input style="width:40%" readonly="true" class = "noeditinput"  jwcid="CHES" id="CHES" type="text" />车</td>
+					      <td  class="Jsdtdborder">现收货人:</td><td colspan="2" class="Jsdtdborder"><input readonly="true" type="text" jwcid="XIANSHR" style="width:100%" id="XIANSHR" class="noeditinput" /></td>
+					      <td class="Jsdtdborder">发票编号:</td>
+					      <td colspan="2" class="edit"><input onfocus="editin(this,'onfocus')" class="editinput" style="width:100%" jwcid="FAPBH" id="FAPBH" onblur="MatchStr(this,50)" type="text" /></td>
+					    </tr>
+                        <tr>
+							<td height="20" class="Jsdtdborder">代表车号:</td>
+							<td colspan="2" class="Jsdtdborder">
+							<input readonly="true" type="text" jwcid="DAIBCC" id="DAIBCC" class="noeditinput" style="width:100%" /></td>
+							<td class="Jsdtdborder">验收编号:</td><td colspan="2" class="edit">
+                                <input readonly="true" type="text" jwcid="YANSBH" id="YANSBH" onblur="MatchStr(this,50)" class="noeditinput" style="width:100%" /></td>
+							<td class="Jsdtdborder" width="8%">付款方式:</td>
+                            <td colspan="2" class="edit">
+                            	<input readonly="true" type="text" jwcid="FUKFS" id="FUKFS" onblur="MatchStr(this,50)" class="noeditinput" style="width:100%" /></td>
+						</tr>
+					    <tr>
+					      <td height="30" 	class="Jsdtdborder" align="left">含税单价:<br><input readonly="true" class="noeditinput" style="width:100%" jwcid="HANSDJ" id="HANSDJ" onchange="MatchNum(this,/^[0-9]{0,5}\.[0-9]{0,4}$|^[0-9]{0,5}$|^\-[0-9]{0,5}\.[0-9]{0,4}$|^\-[0-9]{0,5}$/);colsCount()" type="text" /></td>
+                          <td width="10%"   class="Jsdtdborder" align="center">合同标准</td>
+					      <td width="10%"   class="Jsdtdborder" align="center">供方标准</td>
+					      <td width="8%"    class="Jsdtdborder" align="center">厂方验收</td>
+                          <td width="8%"    class="Jsdtdborder" align="center">结算标准</td>
+					      <td width="8%"    class="Jsdtdborder" align="center">相差数量</td>
+					      <td width="8%"    class="Jsdtdborder" align="center">折价标准<br>(元/吨)</td>
+					      <td colspan="2" class="Jsdtdborder" align="center">折合金额<br>(元)</td>
+					    </tr>
+					    <tr>
+					      <td class="Jsdtdborder">数量(吨)</td>
+                          <td class="Jsdtdborder"><input readonly="true" class="noeditinput" style="width:100%" jwcid="HETSL" id="HETSL" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);colsCount()" type="text" /></td>
+					      <td class="Jsdtdborder"><input readonly="true" class="noeditinput" style="width:100%" jwcid="GONGFSL" id="GONGFSL" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);colsCount()" type="text" /></td>
+					      <td class="Jsdtdborder"><input readonly="true" class="noeditinput" style="width:100%" jwcid="YANSSL" id="YANSSL" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);CountYanssl()" type="text" /></td>
+                          <td class="Jsdtdborder"><input readonly="true" class="noeditinput" style="width:100%" id="JIESSLJS" onchange="CountJiessl()" type="text" /></td>
+					      <td class="Jsdtdborder"><input readonly ="true"  class="noeditinput" style="width:100%" jwcid="YINGK" id="YINGK" type="text" /></td>
+					      <td class="Jsdtdborder"><input readonly ="true"  class="noeditinput" style="width:100%" jwcid="SHULZJBZ" id="SHULZJBZ" type="text" /></td>
+					      <td colspan="2" class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%" jwcid="SHULZJJE" id="SHULZJJE" type="text" /></td>
+					    </tr>
+                        <span jwcid="@Insert" raw="true" value="ognl:Jieszb"></span>
+					    <tr>
+					      <td class="Jsdtdborder" height="15">结算数量</td>
+					      <td class="Jsdtdborder">不含税单价</td>
+					      <td class="Jsdtdborder">金额</td>
+					      <td class="Jsdtdborder">补扣以前价款</td>
+					      <td class="Jsdtdborder">价款合计</td>
+					      <td class="Jsdtdborder">税率</td>
+					      <td class="Jsdtdborder">税款</td>
+					      <td colspan="2" class="Jsdtdborder">合计</td>
+					    </tr>
+					    <tr>
+					      <td class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%" jwcid="JIESSL" id="JIESSL" type="text" /></td>
+					      <td class="Jsdtdborder"><input  readonly ="true" class="noeditinput"   style="width:100%"  jwcid="BUHSDJ" id="BUHSDJ" type="text" /></td>
+					      <td class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%"  jwcid="JIAKJE" id="JIAKJE" type="text" /></td>
+					      <td class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%"  jwcid="BUKYQJK" id="BUKYQJK" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,14}$|^\-[0-9]{0,14}\.[0-9]{0,2}$|^\-[0-9]{0,14}$/);colsCount()"/></td>
+					      <td class="Jsdtdborder"><input  class="editinput" style="width:100%" jwcid="JIAKHJ" id="JIAKHJ" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,14}$|^\-[0-9]{0,14}\.[0-9]{0,2}$|^\-[0-9]{0,14}$/);Count2()"/></td>
+					      <td class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%"  jwcid="JIAKSL" id="JIAKSL" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,1}$|^\-[0-9]{0,1}\.[0-9]{0,2}$|^\-[0-9]{0,1}$/);colsCount()"/></td>
+					      <td class="Jsdtdborder"><input  class="editinput" style="width:100%"  jwcid="JIAKSK" id="JIAKSK" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,14}$|^\-[0-9]{0,14}\.[0-9]{0,2}$|^\-[0-9]{0,14}$/);Count2()" /></td>
+					      <td colspan="2" class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%" jwcid="JIASJE" id="JIASJE" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,14}$|^\-[0-9]{0,14}\.[0-9]{0,2}$|^\-[0-9]{0,14}$/);Count2()"/></td>
+					    </tr>
+                        <tr>
+					      <td 				class="Jsdtdborder">煤款合计大写</td>
+					      <td colspan="8" 	class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%" jwcid="MEIKHJDX" id="MEIKHJDX" type="text" /></td>
+					    </tr>
+					    <tr>
+					      <td class="Jsdtdborder">运费</td>
+					      <td class="Jsdtdborder">运杂费</td>
+                          <td class="Jsdtdborder">矿区运费</td>
+                          <td class="Jsdtdborder">矿区杂费</td>
+					      <td class="Jsdtdborder">补扣以前运费</td>
+					      <td class="Jsdtdborder">不含税运费</td>
+					      <td class="Jsdtdborder">税率</td>
+					      <td class="Jsdtdborder">税款</td>
+					      <td class="Jsdtdborder">运杂费合计</td>
+					    </tr>
+					    <tr>
+					      <td class="Jsdtdborder"><input readonly="true" class="noeditinput" style="width:100%" jwcid="TIELYF" id="TIELYF" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,19}$|^\-[0-9]{0,19}\.[0-9]{0,2}$|^\-[0-9]{0,19}$/);colsCount()"/></td>
+					      <td class="Jsdtdborder"><input readonly="true" class="noeditinput" style="width:100%" jwcid="TIELZF" 		 id="TIELZF" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,19}$|^\-[0-9]{0,19}\.[0-9]{0,2}$|^\-[0-9]{0,19}$/);colsCount()"/></td>
+                          <td class="Jsdtdborder"><input readonly="true" class="noeditinput" style="width:100%" jwcid="KUANGQYF"  id="KUANGQYF" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,19}$|^\-[0-9]{0,19}\.[0-9]{0,2}$|^\-[0-9]{0,19}$/);colsCount()"/></td>
+                          <td class="Jsdtdborder"><input readonly="true" class="noeditinput" style="width:100%" jwcid="KUANGQZF"  id="KUANGQZF" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,19}$|^\-[0-9]{0,19}\.[0-9]{0,2}$|^\-[0-9]{0,19}$/);colsCount()"/></td>
+                          <td class="Jsdtdborder"><input readonly="true" class="noeditinput" style="width:100%" jwcid="BUKYQYZF"  id="BUKYQYZF" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,19}$|^\-[0-9]{0,19}\.[0-9]{0,2}$|^\-[0-9]{0,19}$/);colsCount()"/></td>
+					      <td class="edit"><input  onfocus="editin(this,'onfocus')" class="editinput" style="width:100%"  jwcid="BUHSYF" id="BUHSYF" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,15}$|^\-[0-9]{0,15}\.[0-9]{0,3}$|^\-[0-9]{0,15}$/);Count2()" type="text" /></td>
+					      <td class="Jsdtdborder"><input  readonly="true"   class="noeditinput" style="width:100%" jwcid="YUNFSL" id="YUNFSL" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,1}$|^\-[0-9]{0,1}\.[0-9]{0,2}$|^\-[0-9]{0,1}$/);colsCount()"/></td>
+					      <td class="edit"><input  onfocus="editin(this,'onfocus')" class="editinput" style="width:100%" jwcid="YUNFSK" id="YUNFSK" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,15}$|^\-[0-9]{0,15}\.[0-9]{0,3}$|^\-[0-9]{0,15}$/);Count2()"/></td>
+					      <td class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%"  jwcid="YUNZFHJ" id="YUNZFHJ" type="text" onchange="MatchNum(this,/^[0-9]{0,14}\.[0-9]{0,2}$|^[0-9]{0,15}$|^\-[0-9]{0,15}\.[0-9]{0,3}$|^\-[0-9]{0,15}$/);Count2()"/>
+                          		<input  readonly ="true" class="noeditinput" style="display:none"  jwcid="KUANGQSK" id="KUANGQSK" type="text" />
+                              	<input  readonly ="true" class="noeditinput" style="display:none"  jwcid="KUANGQJK" id="KUANGQJK" type="text" />
+                          </td>
+					    </tr>
+                        <tr>
+					      <td 				class="Jsdtdborder">运杂费合计大写</td>
+					      <td colspan="8" 	class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%" jwcid="YUNZFHJDX" id="YUNZFHJDX" type="text" /></td>
+					    </tr>
+                        <span jwcid="@Insert" raw="true" value="ognl:Hejdxh"></span>
+					    <!--tr>
+					      <td 				class="Jsdtdborder">合计大写</td>
+					      <td colspan="5" 	class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%" jwcid="DAXHJ" id="DAXHJ" type="text" /></td>
+					      <td class="Jsdtdborder">合计小写</td>
+					      <td colspan="2"  class="Jsdtdborder"><input  readonly ="true" class="noeditinput" style="width:100%" jwcid="HEJ" id="HEJ" type="text" /></td>
+					    </tr-->
+					    <tr>
+					      <td class="Jsdtdborder">备注</td>
+					      <td colspan="4" class="edit">
+                              <input onfocus="editin(this,'onfocus')" class="editinput" style="width:100%" jwcid="BEIZ" id="BEIZ" type="text" onblur="MatchStr(this,2000)"/>
+                          </td>
+                          <td class="Jsdtdborder">拒付运费</td>
+						  <td class="Jsdtdborder">
+							  <input readonly ="true" onfocus="editin(this,'onfocus')" class="editinput" style="width: 100%" jwcid="JUFYF" id="JUFYF" type="text" onchange="MatchNum(this,/^[0-9]{0,12}\.[0-9]{0,2}$|^[0-9]{0,12}$|^\-[0-9]{0,12}\.[0-9]{0,2}$|^\-[0-9]{0,12}$/)"/>
+						  </td>
+						  <td class="Jsdtdborder">拒付杂费</td>
+						  <td class="Jsdtdborder">
+							  <input readonly ="true" onfocus="editin(this,'onfocus')" class="editinput" style="width: 100%" jwcid="JUFZF" id="JUFZF" type="text" onchange="MatchNum(this,/^[0-9]{0,12}\.[0-9]{0,2}$|^[0-9]{0,12}$|^\-[0-9]{0,12}\.[0-9]{0,2}$|^\-[0-9]{0,12}$/)"/>
+						  </td>
+					    </tr>
+					    <tr>
+					      <td class="Jsdtdborder">厂燃料经办人:</td>
+                          <td class="Jsdtdborder"><input align="right" readonly="true" class="noeditinput" style="width:100%" jwcid="RANLBMJBR" id="RANLBMJBR"  type="text" onblur="MatchStr(this,10)"/></td>
+					      <td colspan="2" class="Jsdtdborder">厂燃料经办日期:<input align="right" readonly="true" class = "noeditinput" style="width:50%"  jwcid="RANLBMJBRQ" id="RANLBMJBRQ" type="text" /></td>
+                          <td class="Jsdtdborder">过衡数量:</td>
+                          <td class="Jsdtdborder"><input readonly="true" onfocus="editin(this,'onfocus')" style="width:100%" class = "noeditinput"  jwcid="JINGZ" id="JINGZ" type="text" /></td>					
+                          <td class="Jsdtdborder"><span jwcid="@Insert" raw="true" value="ognl:JiesslcyText"/>:</td>
+                          <td class="Jsdtdborder"><input readonly="true" onfocus="editin(this,'onfocus')" style="width:100%" class = "noeditinput"  jwcid="JIESSLCY" id="JIESSLCY" type="text" /></td>					
+					    </tr>
+					</table>
+                </div>
+            </td>
+        </tr>
+</table>
+
+<span jwcid="NoticeMsg" id="NoticeMsg" style="display:none"></span>
+<span jwcid="Biaos" id="Biaos" style="display:none"></span> 
+</form>
+</div>
+ 
+
+
+</body>
+<script>
+<span jwcid="@Conditional" condition="ognl:noticeMsg.equals('noShow')"> 
+document.all.isShow.value=""; 
+Ext.Msg.alert("警告","只能选择一张结算单!",function(){window.close();});
+document.all.isShow.style.display="none";
+</span>
+
+window.onresize();</script>
+<script type="text/javascript">
+	function ev(){
+    
+   		  document.getElementById('Biaos').value='';
+    	  window.close();
+          window.opener.document.shuaxin.submit();
+     	  window.opener.document.body.onload;
+    
+    }
+    var biaosValue=document.getElementById('Biaos').value;
+  	
+    if(biaosValue!=null && biaosValue=='ok'){
+    	
+    	document.getElementById('Biaos').value="";
+      	setTimeout(ev,2000);
+    } 
+</script>
+</html>

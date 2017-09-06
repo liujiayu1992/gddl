@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>数量修改</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+var sqms  = new Ext.form.TextArea({width:450,height:220});
+var ValueForm = new Ext.form.FormPanel({width : 480, height:320, labelAlign: 'right', title: '修改原因', frame: true, layout : 'column', items:[sqms],buttons:[{text:'关闭',minwidth:75,handler:function(){Rpt_window.hide();}}]}); 
+var Rpt_window =new Ext.Window({width:480,height:320,closable:false,modal:true,layout:'fit',items:[ValueForm]});
+});
+</script>	
+</head>
+<body id="body" >
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%"  height="100%">
+	<tr id="trcondition" valign=middle height="20" style="display:none">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+                <td  width="35" style="font-size: 12px;">采样日期:</td>
+                <td width="50"> <span id="RIQI"  jwcid = "RIQI" style="display:none" submitOnChange="true" readonly="true" type="text"></span></td> 
+                <td  width="35" style="font-size: 12px;">至:</td>
+                <td width="50"> <span id="RIQ2"  jwcid = "RIQ2" style="display:none" submitOnChange="true" readonly="true" type="text"></span></td>
+            </tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top hight="100%">
+	   <td>
+			<span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+			<div id = "gridDiv" style="height:100%;overflow:none"></div>
+			<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+			<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none" label="刷新" id = "RefreshButton" listener="ognl:listeners.RefreshButton" ></span>
+			<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+			label="批准" style="display:none" 
+ 			id = "XiugButton" listener="ognl:listeners.SaveButton" ></span>
+            <span jwcid="HistoryButton@ZRcontrib:ImgButton" buttontype=""
+			label="历史" style="display:none" 
+ 			id = "XiugButton" listener="ognl:listeners.HistoryButton" ></span>
+			<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+	   </td>
+	</tr>
+    
+</table>
+</form>
+</body>
+
+</html>

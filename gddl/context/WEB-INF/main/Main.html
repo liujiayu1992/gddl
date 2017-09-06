@@ -1,0 +1,546 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss"/>
+<head>
+    <title>燃料管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta http-equiv="X-UA-Compatible" content="edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+
+    <style type="text/css">
+
+        .inputTxt {
+            height: 18px;
+            width: 130px;
+            border-top: 1px solid #707070;
+            border-right: 1px solid #FFFFFF;
+            border-bottom: 1px solid #FFFFFF;
+            border-left: 1px solid #707070;
+            font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+            font-size: 12px;
+            color: #204162;
+            text-decoration: none;
+            clip: rect(auto auto auto auto);
+        }
+
+        .inputPosition {
+            clip: rect(auto auto auto auto);
+            padding-top: 5px;
+            padding-left: 0px;
+        }
+
+    </style>
+    <link href="css/main_page.css" rel="stylesheet" type="text/css">
+    <script language="JavaScript" type="text/JavaScript">
+        var welcomeUrl = 'Welcome';
+        <span jwcid = "@Insert" value = "ognl:welcomeUrl" raw = "true" > </span>
+    </script>
+    <script language="JavaScript" type="text/JavaScript">
+        var lastTitle;
+        var lastTab;
+        function MM_swapImgRestore() { //v3.0
+            var i, x, a = document.MM_sr;
+            for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++) x.src = x.oSrc;
+        }
+
+        function MM_preloadImages() { //v3.0
+            var d = document;
+            if (d.images) {
+                if (!d.MM_p) d.MM_p = new Array();
+                var i, j = d.MM_p.length, a = MM_preloadImages.arguments;
+                for (i = 0; i < a.length; i++)
+                    if (a[i].indexOf("#") != 0) {
+                        d.MM_p[j] = new Image;
+                        d.MM_p[j++].src = a[i];
+                    }
+            }
+        }
+
+        function MM_findObj(n, d) { //v4.01
+            var p, i, x;
+            if (!d) d = document;
+            if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
+                d = parent.frames[n.substring(p + 1)].document;
+                n = n.substring(0, p);
+            }
+            if (!(x = d[n]) && d.all) x = d.all[n];
+            for (i = 0; !x && i < d.forms.length; i++) x = d.forms[i][n];
+            for (i = 0; !x && d.layers && i < d.layers.length; i++) x = MM_findObj(n, d.layers[i].document);
+            if (!x && d.getElementById) x = d.getElementById(n);
+            return x;
+        }
+
+        function MM_swapImage() { //v3.0
+            var i, j = 0, x, a = MM_swapImage.arguments;
+            document.MM_sr = new Array;
+            for (i = 0; i < (a.length - 2); i += 3)
+                if ((x = MM_findObj(a[i])) != null) {
+                    document.MM_sr[j++] = x;
+                    if (!x.oSrc) x.oSrc = x.src;
+                    x.src = a[i + 2];
+                }
+        }
+
+    </script>
+
+    <script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+    <script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+    <script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+    <script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+
+    <script language="JavaScript" type="text/JavaScript">
+        <span jwcid = "@Insert" raw = "true" value = "ognl:help"/>
+            <span jwcid = "@Insert" raw = "true" value = "ognl:ScriptImgPath"/>
+    </script>
+    <script language="JavaScript" type="text/JavaScript">
+        var isIE = !!window.ActiveXObject;
+        var isIE6 = isIE && !window.XMLHttpRequest;
+        var isIE8 = isIE && !!document.documentMode;
+        var isIE7 = isIE && !isIE6 && !isIE8;
+        //if (isIE){
+        //    if (isIE6){
+        //        alert("ie6");
+        //    }else if (isIE8){
+        //        alert("ie8");
+        //    }else if (isIE7){
+        //        alert("ie7");
+        //    }
+        //}
+        //mainFrame
+        var ifm = document.getElementById("mainFrame");
+        if (isIE8 || isIE6 || isIE7) {
+            ifm.removeAttribute('height');
+        } else {
+
+        }
+        function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+            if (init == true) with (navigator) {
+                if ((appName == "Netscape") && (parseInt(appVersion) == 4)) {
+                    document.MM_pgW = innerWidth;
+                    document.MM_pgH = innerHeight;
+                    onresize = MM_reloadPage;
+                }
+            }
+            else if (innerWidth != document.MM_pgW || innerHeight != document.MM_pgH) location.reload();
+        }
+        MM_reloadPage(true);
+
+        function MM_showHideLayers() { //v6.0
+            var i, p, v, obj, args = MM_showHideLayers.arguments;
+            MM_ChooseMenuDiv(args[1]);
+            for (i = 0; i < (args.length - 2); i += 3) if ((obj = MM_findObj(args[i])) != null) {
+                v = args[i + 2];
+                if (obj.style) {
+                    obj = obj.style;
+                    v = (v == 'show') ? 'visible' : (v == 'hide') ? 'hidden' : v;
+                }
+                obj.visibility = v;
+            }
+        }
+
+        function MM_ChooseMenuDiv(obj) {
+            if (obj == null || obj == "") {
+                return;
+            }
+            document.getElementById("jiantouid").width =
+                obj.parentElement.offsetLeft + obj.parentElement.offsetWidth / 2;
+            if (lastTitle != null) {
+                if (isIE8 || isIE6 || isIE7) {
+                    lastDivId = "Menu" + lastTitle.children[0].id;
+                } else {
+                    lastDivId = "Menu" + lastTitle.childNodes[0].id;
+                }
+
+                document.getElementById(lastDivId).style.display = "none";
+            }
+            var DivId = "Menu" + obj.id;
+            document.getElementById(DivId).style.display = "";
+            MM_ChangeBackGround(obj);
+        }
+
+        function MM_ChangeBackGround(obj) {
+            if (lastTitle != null) {
+
+                if (isIE8 || isIE6 || isIE7) {
+                    lastPrev = lastTitle.previousSibling;
+                    lastNext = lastTitle.nextSibling;
+                    lastPrev.children[0].src = getImageSrc("main_bar_line.gif");
+                    lastNext.children[0].src = getImageSrc("main_bar_line.gif");
+                    lastTitle.background = getImageSrc("main_bar_bg.gif");
+                } else {
+                    lastPrev = lastTitle.previousElementSibling;
+                    lastNext = lastTitle.nextElementSibling;
+                    lastPrev.childNodes[0].src = getImageSrc("main_bar_line.gif");
+                    lastNext.childNodes[0].src = getImageSrc("main_bar_line.gif");
+                    lastTitle.setAttribute('style', 'background-image:url("/gddl/imgs/main/blue/main_bar_bg.gif");');
+                }
+            }
+            lastTitle = obj.parentElement;
+            curr = obj.parentElement;
+            if (isIE8 || isIE6 || isIE7) {
+                prev = obj.parentElement.previousSibling;
+                next = obj.parentElement.nextSibling;
+                prev.children[0].src = getImageSrc("main_bar_line_on_L.gif");
+                next.children[0].src = getImageSrc("main_bar_line_on_R.gif");
+                curr.background = getImageSrc("main_bar_line_on_light.gif");
+            } else {
+                prev = obj.parentElement.previousElementSibling;
+                next = obj.parentElement.nextElementSibling;
+                prev.childNodes[0].src = getImageSrc("main_bar_line_on_L.gif");
+                next.childNodes[0].src = getImageSrc("main_bar_line_on_R.gif");
+                curr.setAttribute('style', 'background-image:url("/gddl/imgs/main/blue/main_bar_line_on_light.gif");');
+            }
+
+
+        }
+
+        function MM_openTab(obj) {
+
+            debugger;
+            if (isIE8 || isIE6 || isIE7) {
+                if (tab.children[0].rows(0).cells.length >= 11) {
+                    closeTab(tab.children[0].rows(0).cells(2).children[0].rows(0).cells(2).children[0]);
+                }
+            } else {
+                if (tab.childNodes[0].rows[0].cells.length >= 11) {
+                    closeTab(tab.childNodes[0].rows[0].cells[2].childNodes[0].rows[0].cells[2].childNodes[0]);
+                }
+            }
+
+            var url = '';
+            if (obj == null) {
+                var objt = document.createElement("a");
+                objt.id = 0;
+                url = welcomeUrl;
+                objt.innerText = "首页";
+                obj = objt;
+            }
+            url = idToUrl[obj.id];
+            if (url == null || url == '') {
+                return;
+            }
+            var tab_a = document.getElementById("tab_" + obj.id);
+            if (tab_a != null) {
+//		对象已经打开
+                setTab_Active(tab_a);
+                openFrame(tab_a.name);
+                MM_showHideLayers('menuLayer', null, 'hide');
+                return;
+            }
+            var TabHtml = "";
+            TabHtml += "<td><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" background=\"" + getImageSrc("main_TabActive_bg.gif") + "\">"
+                + "<tr><td align=\"left\">"
+                + "<img src=\"" + getImageSrc("main_TabActive_left.gif") + "\" width=\"16\" height=\"23\"></td>"
+                + "<td nowrap class=\"tabLinkText\"><a href=\"#\" id=\"tab_" + obj.id + "\" name=\"" + url + "\" onclick=\"showFrame(this);\">" + obj.innerText + "</a></td>"
+                + "<td align=\"right\" ><a href=\"#\" onMouseOut=\"MM_swapImgRestore()\" onMouseOver=\"MM_swapImage('Image41','','" + getImageSrc("main_TabActive_close.gif") + "',1)\" onClick=\"closeTab(this)\">"
+                + "<img src=\"" + getImageSrc("main_TabActive_closeOn.gif") + "\"  alt=\"关闭标签\" name=\"Image17\" width=\"27\" height=\"23\" border=\"0\"></a></td>"
+                + "</tr></table></td><td><img src=\"" + getImageSrc("spacer.gif") + "\" width=\"4\" height=\"1\"></td>"
+            var divHtmlBody = "";
+            if (tab.innerHTML == null || tab.innerHTML == "") {
+                divHtmlBody = TabHtml;
+            } else {
+                if (isIE8 || isIE6 || isIE7) {
+                    divHtmlBody = tab.children[0].rows(0).innerHTML + TabHtml;
+                } else {
+                    divHtmlBody = tab.childNodes[0].rows[0].innerHTML + TabHtml;
+                }
+
+            }
+            divHtmlHead = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>";
+            divHtmlFoot = "</tr></table>";
+            tab.innerHTML = divHtmlHead + divHtmlBody + divHtmlFoot;
+            if (lastTab != null) {
+                setTab_unActive(lastTab);
+            }
+            lastTab = document.getElementById("tab_" + obj.id);
+            openFrame(url);
+            MM_showHideLayers('menuLayer', null, 'hide');
+        }
+
+        function MM_openWelcome() {
+            var obj = document.createElement("a");
+            obj.id = 0;
+            obj.url = welcomeUrl;
+            obj.innerText = "首页";
+            var tab_a = document.getElementById("tab_" + obj.id);
+            if (tab_a != null) {
+//		对象已经打开
+                setTab_Active(tab_a);
+                openFrame(tab_a.name);
+                MM_showHideLayers('menuLayer', null, 'hide');
+                return;
+            }
+            var TabHtml = "";
+            TabHtml += "<td><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" background=\"" + getImageSrc("main_TabActive_bg.gif") + "\">"
+                + "<tr><td align=\"left\">"
+                + "<img src=\"" + getImageSrc("main_TabActive_left.gif") + "\" width=\"16\" height=\"23\"></td>"
+                + "<td nowrap class=\"tabLinkText\"><a href=\"#\" id=\"tab_" + obj.id + "\" name=\"" + obj.url + "\" onclick=\"showFrame(this);\">" + obj.innerText + "</a></td>"
+                + "<td align=\"right\" ><a href=\"#\" onMouseOut=\"MM_swapImgRestore()\" onMouseOver=\"MM_swapImage('Image41','','" + getImageSrc("main_TabActive_close.gif") + "',1)\" >"
+                + "<img src=\"" + getImageSrc("main_TabActive_right.gif") + "\"  name=\"Image17\" width=\"27\" height=\"23\" border=\"0\"></a></td>"
+                + "</tr></table></td><td><img src=\"" + getImageSrc("spacer.gif") + "\" width=\"4\" height=\"1\"></td>"
+            var divHtmlBody = "";
+            if (tab.innerHTML == null || tab.innerHTML == "") {
+                divHtmlBody = TabHtml;
+            } else {
+                if (isIE8 || isIE6 || isIE7) {
+                    divHtmlBody = tab.children[0].rows(0).innerHTML + TabHtml;
+                } else {
+                    divHtmlBody = tab.childNodes[0].rows[0].innerHTML + TabHtml;
+                }
+            }
+            divHtmlHead = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>";
+            divHtmlFoot = "</tr></table>";
+            tab.innerHTML = divHtmlHead + divHtmlBody + divHtmlFoot;
+            if (lastTab != null) {
+                setTab_unActive(lastTab);
+            }
+            lastTab = document.getElementById("tab_" + obj.id);
+            var url = idToUrl[obj.id];
+            openFrame(url);
+            MM_showHideLayers('menuLayer', null, 'hide');
+        }
+
+        function setTab_Active(obj) {
+            if (lastTab != null) {
+                setTab_unActive(lastTab);
+            }
+            if (obj == null) {
+                return;
+            }
+            var main_Tab_right = getImageSrc("main_TabActive_closeOn.gif");
+            var closed = "onClick=\"closeTab(this)\"";
+            var alt = "alt=\"关闭标签\"";
+            if (obj.id == "tab_0") {
+                main_Tab_right = getImageSrc("main_TabActive_right.gif");
+                closed = "";
+                alt = "";
+            }
+            lastTab = obj;
+            oTd = obj.parentElement;
+            oTr = oTd.parentElement;
+            oTb = oTr.parentElement;
+
+            prev = oTd.previousSibling;
+            if (isIE8 || isIE6 || isIE7) {
+                oTb.background = getImageSrc("main_TabActive_bg.gif");
+                oTd.background = getImageSrc("main_TabActive_bg.gif");
+                prev.children[0].src = getImageSrc("main_TabActive_left.gif");
+            } else {
+                oTb.setAttribute('style', 'background-image:url("/gddl/imgs/main/blue/main_TabActive_bg.gif");');
+                oTd.setAttribute('style', 'background-image:url("/gddl/imgs/main/blue/main_TabActive_bg.gif");');
+                prev.childNodes[0].src = getImageSrc("main_TabActive_left.gif");
+            }
+
+            next = oTd.nextSibling;
+            next.innerHTML = "<a href=\"#\" onMouseOut=\"MM_swapImgRestore()\" onMouseOver=\"MM_swapImage('Image41','','" + getImageSrc("main_TabActive_close.gif") + "',1)\" " + closed + ">"
+                + "<img src=\"" + main_Tab_right + "\"  " + alt + " name=\"Image17\" width=\"27\" height=\"23\" border=\"0\"></a>";
+        }
+
+        function setTab_unActive(obj) {
+            var main_Tab_right = getImageSrc("main_Tab_close_on.gif");
+            var closed = "onClick=\"closeTab(this)\"";
+            if (obj.id == "tab_0") {
+                main_Tab_right = getImageSrc("main_Tab_close.gif");
+                closed = "";
+            }
+            k = document.getElementById(obj.id);
+            oTd = k.parentElement;
+            oTr = oTd.parentElement;
+            oTb = oTr.parentElement;
+
+            prev = oTd.previousSibling;
+            if (isIE8 || isIE6 || isIE7) {
+                oTb.background = getImageSrc("main_Tab_bg.gif");
+                oTd.background = getImageSrc("main_Tab_bg.gif");
+                prev.children[0].src = getImageSrc("main_Tab_left.gif");
+            } else {
+                oTb.setAttribute('style', 'background-image:url("/gddl/imgs/main/blue/main_Tab_bg.gif");');
+                oTd.setAttribute('style', 'background-image:url("/gddl/imgs/main/blue/main_Tab_bg.gif");');
+                prev.childNodes[0].src = getImageSrc("main_Tab_left.gif");
+            }
+
+            next = oTd.nextSibling;
+            next.innerHTML = "<a href=\"#\" onMouseOut=\"MM_swapImgRestore()\" onMouseOver=\"MM_swapImage('Image41','','" + getImageSrc("main_TabActive_close.gif") + "',1)\" " + closed + ">"
+                + "<img src=\"" + main_Tab_right + "\" name=\"Image17\" width=\"27\" height=\"23\" border=\"0\"></a>";
+        }
+
+        function getImageSrc(name) {
+            var url = "http://" + document.location.host + document.location.pathname;
+            var end = url.indexOf("/app");
+            url = url.substring(0, end);
+            src = "/gddl/" + imgPath + "/" + name;
+            return src
+        }
+
+        function openFrame(name) {
+            var pageName;
+            if (name == null || name == "") {
+                pageName = welcomeUrl;
+            } else {
+                pageName = name;
+            }
+            var url;
+            if (pageName.indexOf("firefox.exe") > -1) {
+                url = pageName;
+                var objShell = new ActiveXObject("wscript.shell");
+                var a = objShell.run(url);
+            } else if (pageName.indexOf("tc_http:") > -1) {
+                url = pageName.replace('tc_http:', 'http:');
+                window.open(url);
+            } else if (pageName.indexOf("http:") > -1) {
+                url = pageName;
+                document.all.mainFrame.src = url;
+            } else {
+                url = "http://" + document.location.host + document.location.pathname;
+                url = url + "?service=page/" + pageName;
+                document.all.mainFrame.src = url;
+            }
+            if(!(isIE8 || isIE6 || isIE7)){
+                document.all.mainFrame.height = document.body.scrollHeight*0.9;
+            }
+
+        }
+
+        function showFrame(obj) {
+            debugger;
+            var pageName;
+            if (obj == null) {
+                pageName = welcomeUrl;
+            } else {
+                pageName = obj.name;
+            }
+            setTab_Active(obj);
+            openFrame(pageName);
+        }
+
+        function closeTab(obj) {
+            oTd = obj.parentElement;
+            lastoTd = oTd.previousSibling;
+            if (isIE8 || isIE6 || isIE7) {
+                lastobj = lastoTd.children(0);
+            } else {
+                lastobj = lastoTd.childNodes[0];
+            }
+            if (lastobj.name == welcomeUrl) {
+                alert("不能关闭首页");
+                return;
+            }
+            oTr = oTd.parentElement;
+            oTb = oTr.parentElement;
+            oTD = oTb.parentElement.parentElement;
+            oTR = oTD.parentElement;
+            ci = oTD.cellIndex;
+            //alert(lastTab.id +"--------"+ lastobj.id);
+            if (lastTab == lastobj) {
+                lastTab = null;
+                showFrame(document.getElementById("tab_0"));
+            }
+            oTR.deleteCell(ci);
+            oTR.deleteCell(ci);
+        }
+
+        var lindex = 1;
+        var rindex = 0;
+        function moveright(obj) {
+            MM_showHideLayers('menuLayer', null, 'hide');
+            var tr = obj.parentElement;
+            var len = tr.cells.length - 2;
+            var rwidth = 0;
+            var lwidth = 0;
+            if (rindex < len) {
+                rwidth = displayTd(tr, rindex, "");
+                rindex = rindex + 2;
+            } else {
+                return;
+            }
+
+            lwidth = displayTd(tr, lindex, "none");
+            lindex = lindex + 2;
+            i = 1;
+            while (lwidth + 24 < rwidth && i++ < 10) {
+                lwidth = lwidth + displayTd(tr, lindex, "none");
+                lindex = lindex + 2;
+            }
+        }
+        function displayTd(tr, index, displayed) {
+            tr.cells(index).style.display = displayed;
+            tdwidth = tr.cells(index).clientWidth;
+            tr.cells(index + 1).style.display = displayed;
+            tdwidth = tdwidth + tr.cells(index + 1).clientWidth;
+            return tdwidth;
+        }
+        function moveleft(obj) {
+            MM_showHideLayers('menuLayer', null, 'hide');
+            var tr = obj.parentElement;
+            var rwidth = 0;
+            var lwidth = 0;
+            if (lindex > 1) {
+                lindex = lindex - 2;
+                lwidth = displayTd(tr, lindex, "");
+            } else {
+                return;
+            }
+            rindex = rindex - 2;
+            rwidth = displayTd(tr, rindex, "none");
+
+            i = 1;
+            while (lwidth > rwidth + 24 && i++ < 10) {
+                rindex = rindex - 2;
+                rwidth = displayTd(tr, rindex, "none");
+
+            }
+        }
+        function initSbar() {
+            maxwidth = document.body.clientWidth - 120;
+            if (sollbar.clientWidth < maxwidth) {
+                sollbar.rows[0].deleteCell(0);
+                len = sollbar.rows[0].cells.length;
+                sollbar.rows[0].deleteCell(len - 1);
+                return;
+            }
+            var twidth = 0;
+            for (i = 0; i < sollbar.rows[0].cells.length - 1; i = i + 2) {
+                twidth = twidth + sollbar.rows[0].cells[i].clientWidth;
+                twidth = twidth + sollbar.rows[0].cells[i + 1].clientWidth;
+                rindex = i;
+                if (twidth > maxwidth) {
+                    break;
+                }
+            }
+            for (i = rindex; i < sollbar.rows[0].cells.length - 1; i++) {
+                sollbar.rows[0].cells[i].style.display = "none";
+            }
+        }
+        //function iFrameHeight() {
+        //    var ifm= document.getElementById("mainFrame");
+        //    var subWeb = document.frames ? document.frames["mainFrame"].document : ifm.contentDocument;
+        //    if(ifm != null && subWeb != null) {
+        //        ifm.height = subWeb.body.scrollHeight;
+        //    }
+        //}
+    </script>
+    <!--onLoad="MM_preloadImages('imgs/main/search_bt_on.gif','imgs/main/main_TabActive_closeOn.gif')"-->
+</head>
+<body bgcolor="#B3C8DD" leftmargin="0" topmargin="0" id="mainbody">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" value="ognl:MainHtml" raw="true"></span>
+</body>
+<script type="text/javascript">
+    <span jwcid = "@Insert" value = "ognl:IdToUrl" raw = "true"> </span>
+</script>
+<script type="text/javascript">
+    MM_showHideLayers('menuLayer', null, 'hide');
+    MM_openWelcome();
+    initSbar();
+    document.getElementById('mainWindowTb').height = bodyHeight - 136;
+    //function iFrameHeight() {
+    //    var ifm= document.getElementById("mainFrame");
+    //    var subWeb = document.frames ? document.frames["mainFrame"].document : ifm.contentDocument;
+    //    if(ifm != null && subWeb != null) {
+    //        ifm.height = subWeb.body.scrollHeight;
+    //    }
+    //}
+</script>
+</html>

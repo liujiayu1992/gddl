@@ -1,0 +1,243 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>二级审核</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+    
+var Mt_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var Aar_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var Star_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+
+var Mad_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var Aad_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var Vad_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var FCad_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var Qgrad_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var Stad_e = new Ext.form.TextField({width:100,height:21,readOnly:true});  
+var Kqdt_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var kqq_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+
+var gzjhf_e= new Ext.form.TextField({width:100,height:21,readOnly:true});
+var gzjql_e=new Ext.form.TextField({width:100,height:21,readOnly:true});
+
+var gzwhjhf_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var gzwhjgw_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var gzwhjql_e = new Ext.form.TextField({width:100,height:21,readOnly:true}); 
+var gzwhjq_e = new Ext.form.TextField({width:100,height:21,readOnly:true});
+var bilf = new Ext.form.NumberField({width:70});
+
+
+var ValueForm = new Ext.form.FormPanel({width :bodyWidth-380, height:320, labelAlign: 'right', title: '化验平均值', labelWidth: 60,frame: true, layout : 'column',
+items:[{columnWidth :.2, items:[{html:'',height:24},{html:'<div align=right valign=center style="width:90%"> 水分 M (%)</div>',height:23},{html:'<div align=right valign=center style="width:90%"> 灰分 A (%)</div>',height:22},{html:'<div align=right valign=center style="width:90%"> 挥发分 V (%)</div>',height:22},{html:'<div align=right valign=center style="width:90%"> 固定碳 FC (%)</div>',height:21},{html:'<div align=right valign=center style="width:90%"> 高位热 Qgr (MJ/kg)</div>',height:21},{html:'<div align=right valign=center style="width:90%">低位热 Qnet(MJ/kg)</div>',height:21},{html:'<div align=right valign=center style="width:90%"> 全硫 St (%)</div>',height:21},{html:'<div align=right valign=center style="width:90%"> 弹筒热值(MJ/kg)</div>',height:25}, {html:'<div align=right valign=center style="width:90%"> 氢Had (%)</div>',height:21}]},
+{columnWidth :.2, items:[{html:'收到基(ar)',height:22}, Mt_e, Aar_e,{html:'<div align=center valign=center style="width:100"><hr></div>',height:24}, {html:'<div align=center valign=center style="width:100"><hr></div>',height:21},{html:'<div align=center valign=center style="width:100"><hr></div>',height:21},  Star_e,{html:'<div align=center valign=center style="width:100"><hr></div>',height:21},{html:'<div align=center valign=center style="width:100"><hr></div>',height:25},{html:'<div align=center valign=center style="width:100"><hr></div>',height:21}]},
+{columnWidth :.2, items:[{html:'空气干燥基(ad)',height:22}, Mad_e, Aad_e, Vad_e, FCad_e, Qgrad_e, {html:'<div align=center valign=center style="width:100"><hr></div>',height:21}, Stad_e,Kqdt_e,kqq_e]},
+{columnWidth :.2, items:[{html:'干燥基(d)',height:22},{html:'<div align=center valign=center style="width:100"><hr></div>',height:22},gzjhf_e,{html:'<div align=center valign=center style="width:100"><hr></div>',height:25},{html:'<div align=center valign=center style="width:100"><hr></div>',height:21},{html:'<div align=center valign=center style="width:100"><hr></div>',height:21},{html:'<div align=center valign=center style="width:100"><hr></div>',height:21},gzjql_e,{html:'<div align=center valign=center style="width:100"><hr></div>',height:25},{html:'<div align=center valign=center style="width:100"><hr></div>',height:21}]},
+{columnWidth :.2, items:[{html:'干燥无灰基(daf)',height:22},{html:'<div align=center valign=center style="width:100"><hr></div>',height:21},{html:'<div align=center valign=center style="width:100"><hr></div>',height:21},gzwhjhf_e, {html:'<div align=center valign=center style="width:100"><hr></div>',height:24},gzwhjgw_e,{html:'<div align=center valign=center style="width:100"><hr></div>',height:22},gzwhjql_e,{html:'<div align=center valign=center style="width:100"><hr></div>',height:21},gzwhjq_e ]}],
+buttons:[{text:'关闭',minwidth:75,handler:function(){Rpt_window.hide();}}]}); var Rpt_window =new Ext.Window({width:600,height:430,closable:false,modal:true,layout:'fit',items:[ValueForm]});
+var Rpt_window =new Ext.Window({width:600,height:430,closable:false,modal:true,layout:'fit',items:[ValueForm]});
+
+
+var bilForm = new Ext.form.FormPanel({
+	frame: true, 
+	layout: 'table',
+	bodyStyle: 'padding:20px 0px 0px 30px',
+	items:[
+		{html:'<font size=2>请输入比率:&nbsp;</font>'}, 
+		bilf
+	]
+});
+
+var win = new Ext.Window({
+	el:'hello-win',
+	layout:'fit',
+	width:230,
+	height:150,
+	closeAction:'hide',
+	plain: true,
+	title:'提示',
+	modal:true,
+	items: [bilForm],
+	buttons: [
+		{
+		   	text:'确定',
+			handler:function(){
+				gridDiv_grid.getSelectionModel().getSelected().set('BIL',bilf.getValue());
+				bilf.reset()
+				win.hide();
+			}   
+		},
+		{
+	   		text: '取消',
+	   		handler: function(){
+				win.hide();
+	   		}
+	   	}
+	]
+});
+
+
+function ShowAvg(){
+	Rpt_window.show();
+	//得到数组
+	var recs = gridDiv_sm.getSelections();
+	if( recs.length> 0 ){
+		Aarsum= 0.0;
+		Mtsum = 0.0;
+		Starsum=0.0;
+		Madsum=0.0;
+		Aadsum=0.0;
+		Vadsum=0.0;
+		FCadsum=0.0;
+		Qgradsum=0.0;
+		Stadsum=0.0;
+		Kqdtsum=0.0;
+		kqqsum=0.0;
+		gzjhfsum=0.0;
+		gzjqlsum=0.0;
+		gzwhjhfsum=0.0;
+		gzwhjgwsum=0.0;
+		gzwhjqlsum=0.0;
+		gzwhjqsum=0.0;
+		for(i = 0; i < recs.length; i++){
+			rec = recs[i];
+			Mtsum += eval(rec.get('MT')||0.0);
+			Aarsum += eval(rec.get('AAR')||0.0);
+			Starsum+= eval(rec.get('QNET_AR')||0.0);
+			Madsum += eval(rec.get('MAD')||0.0);
+			Aadsum += eval(rec.get('AAD')||0.0);
+			Vadsum+= eval(rec.get('VAD')||0.0);
+            FCadsum += eval(rec.get('FCAD')||0.0);
+			Qgradsum += eval(rec.get('QGRAD')||0.0);
+			Stadsum+= eval(rec.get('STAD')||0.0);
+			Kqdtsum += eval(rec.get('QBAD')||0.0);
+			kqqsum += eval(rec.get('HAD')||0.0);
+			gzjhfsum+= eval(rec.get('AD')||0.0);
+			gzjqlsum += eval(rec.get('STD')||0.0);
+			gzwhjhfsum += eval(rec.get('VDAF')||0.0);
+			gzwhjgwsum+= eval(rec.get('QGRAD_DAF')||0.0);
+            gzwhjqlsum += eval(rec.get('SDAF')||0.0);
+			gzwhjqsum += eval(rec.get('HDAF')||0.0);
+			}
+		Mtsum = Format(Mtsum/recs.length,1);
+		Mt_e.setValue(Mtsum ); 
+		Aarsum = Format(Aarsum/recs.length,2);
+		Aar_e.setValue(Aarsum ); 
+		Starsum = Format(Starsum/recs.length,3);
+		Star_e.setValue(Starsum );
+		Madsum = Format(Madsum/recs.length,2);
+		Mad_e.setValue(Madsum ); 
+		Aadsum = Format(Aadsum/recs.length,2);
+		Aad_e.setValue( Aadsum );
+		Vadsum = Format(Vadsum/recs.length,2);
+		Vad_e.setValue( Vadsum );
+		FCadsum = Format(FCadsum/recs.length,2);
+		FCad_e.setValue( FCadsum );
+		Qgradsum = Format(Qgradsum/recs.length,3);
+		Qgrad_e.setValue(Qgradsum );
+		Stadsum = Format(Stadsum/recs.length,2);
+		Stad_e.setValue(Stadsum );
+		Kqdtsum = Format(Kqdtsum/recs.length,2);
+		Kqdt_e.setValue(Kqdtsum );
+		kqqsum = Format(kqqsum/recs.length,2);
+		kqq_e.setValue(kqqsum );
+		gzjhfsum = Format(gzjhfsum/recs.length,2);
+		gzjhf_e.setValue(gzjhfsum );
+		gzjqlsum = Format(gzjqlsum/recs.length,2);
+		gzjql_e.setValue(gzjqlsum );
+		gzwhjhfsum = Format(gzwhjhfsum/recs.length,2);
+		gzwhjhf_e.setValue(gzwhjhfsum );
+		gzwhjgwsum = Format(gzwhjgwsum/recs.length,3);
+		gzwhjgw_e.setValue(gzwhjgwsum );
+		gzwhjqlsum = Format(gzwhjqlsum/recs.length,2);
+		gzwhjql_e.setValue(gzwhjqlsum );
+		gzwhjqsum = Format(gzwhjqsum/recs.length,2);
+		gzwhjq_e.setValue(gzwhjqsum );
+      }
+
+}
+
+function Format(value, decimalLength){
+	value = Math.round(value * Math.pow(10, decimalLength));
+
+
+	value = value / Math.pow(10, decimalLength);
+
+	var v = value.toString().split(".");
+	if (v[0]==""){
+		v[0]="0";
+	}
+
+	if (v.length > 1) {
+		var len = v[1].length;
+		if (len > decimalLength) {
+			v[1] = v[1].substring(0, decimalLength);
+		}
+		else {
+			 for (var i=v[1].length; i<decimalLength; i++) {
+				v[1] += "0";
+			}
+		}
+	}
+	else {
+		v[1] = "";
+		for (var i=v[1].length; i<decimalLength; i++) {
+			v[1] += "0";
+		}
+	}
+
+	if (decimalLength > 0) {
+		return v[0] + "." + v[1];
+	}
+	else {
+		return v[0];
+	}	
+}
+
+
+});
+</script>	
+</head>
+<body id="body" jwcid="@Body" class="bgs">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%"  height="100%">
+	<tr id="SelectData" valign=top hight="100%">
+	   <td>
+           
+	    <div id = "gridDiv" style="height:100%;overflow:none"></div>
+        <span id="RIQI"  jwcid = "RIQI" style="display:none" submitOnChange="true" readonly="true" type="text"></span>
+        <span id="RIQ2"  jwcid = "RIQ2" style="display:none" submitOnChange="true" type="text"></span>
+        <span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+        <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" style="display:none" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+        <span jwcid="AvgButton@ZRcontrib:ImgButton" buttontype="" label="查看平均值" style="display:none" id="AvgButton" listener="ognl:listeners.AvgButton"></span>
+        <span jwcid="HuitButton@ZRcontrib:ImgButton" buttontype=""label="回退" style="display:none" id = "HuitButton" listener="ognl:listeners.HuitButton"></span>
+        <span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label="刷新" style="display:none" id = "RefurbishButton" listener="ognl:listeners.RefurbishButton"></span>
+        <span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+        <span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+        <div id="hello-win" class="x-hidden"></div>
+	   </td>
+	</tr>
+    
+</table>
+<input type="text" id="BilTotal" jwcid="BilTotal" style="display:none" name="BilTotal" />
+</form>
+</body>
+
+</html>

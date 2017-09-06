@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>合同时间段的煤矿运输</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var Tree_history = "";
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	
+	<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:NavTreeScript"></span>  
+
+    var nav = new Ext.Panel({
+        title: '合同时间段',
+        region: 'west',
+        split: true,
+        width: '20%',
+        height: '100%',
+        collapsible: true,
+        items: [NavTree_treePanel]
+    });
+    
+    var urlpage = "http://"+document.location.host+document.location.pathname + "?service=page/Mkydbb" 
+	var contentPanel = new Ext.Panel({
+        region: 'center', 
+        width: '80%',
+        height: '100%',
+        defaults:{autoScroll:true},
+        html: '<iframe name ="myhFrame" src="' + urlpage + '" style="width:100%; height:100%;" scrolling="no"></iframe>'
+    });
+	
+
+	
+	var mn = new Ext.Panel({
+    	el:'panelDiv',
+        title: 'main',
+        header:false,
+        width: bodyWidth,
+        height: bodyHeight,
+        collapsible: false,
+        layout:'border',
+        items:[nav,contentPanel],
+        tbar: <span jwcid="@Insert" raw="true" value="ognl:ToolbarScript"></span>
+    });
+    mn.render();
+    
+    <span jwcid="@Insert" raw="true" value="ognl:ClickEveScript"> </span>
+    
+   diancTree_window.show();
+   diancTree_window.hide();
+});
+</script>	
+</head>
+<body id="body" jwcid="@Body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<table border="0" cellspacing="0" cellpadding="0" width="100%"  height="100%">
+	<tr>
+		<td>
+			<div id = "panelDiv"></div>
+		</td>
+		
+		<td>
+		<span id="diancTree_id"  jwcid = "TREEID_DC" style="display:none"></span>
+		<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+		label="刷新" id = "RefreshButton" listener="ognl:listeners.RefreshButton" ></span>
+		</td>
+</tr>
+<!--  
+<span id="Briq"  jwcid = "Briq" style="display:none"></span>
+<span id="Eriq"  jwcid = "Eriq" style="display:none"></span>
+-->
+</table>
+<div id="Tree"></div>
+<div id="NavTree"></div>
+</form>
+</body>
+</html>

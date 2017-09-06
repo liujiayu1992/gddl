@@ -1,0 +1,397 @@
+
+<html jwcid="@Shell" doctype=" " title="数量管理"
+	stylesheet="ognl:assets.Rmis">
+<body id="body" jwcid="@Body"
+	onkeydown="if(event.keyCode==13)event.keyCode=9" class="bgs">
+<div id="waitshez"
+	style="border:0px solid gray; padding:2px; POSITION: absolute;z-index:1; OVERFLOW: none; HEIGHT: 119px;width:228px; left:284px; top:200px">
+<object classid="clsid:D27CDB6E-AE6D-11CF-96B8-444553540000" id="obj1"
+	codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+	border="0" width="210" height="85">
+	<param name="movie" jwcid="@Any" value="ognl:assets.tiaoj_waiting" />
+	<param name="quality" value="high" />
+	<embed jwcid="@Any" src="ognl:assets.tiaoj_waiting"
+		pluginspage="http://www.macromedia.com/go/getflashplayer"
+		type="application/x-shockwave-flash" name="obj1" width="210"
+		height="85" quality="High" /></object></div>
+<script>
+    	var submited=false;
+        function Showwait(){
+			if(document.all.item("waitshez").style.display=="none"){
+        		 document.all.item("shezhi").style.display="none";
+                 document.all.item("waitshez").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+</script>
+<style type="text/css">
+.style1 {
+	letter-spacing: 20px;
+}
+</style>
+<script jwcid="Reportjs" />
+    
+<script jwcid="Datejs" />
+    
+<script jwcid="Validatejs" /> 
+    
+<script jwcid="EditSelectionjs" />
+    
+<script jwcid="Balancebilljs" />
+	
+<script>
+		var oldbianh=-1;
+		function Tiaojsz(strAction){
+			
+			if(strAction=='xians'){//显示查询条件设置框
+				document.getElementById('shezhi').style.pixelLeft=126;
+				document.getElementById('shezhi').style.pixelTop=75;
+				oldbianh = document.all.item("JiesbhSel1").value;
+				document.all.item("shezhi").style.display="";
+				document.all.item("Zhuangt").value=1;
+				SetDisabled('tablemain',true);  
+					
+			}else if(strAction=='qued'){//查询条件设置框的<确定>
+                document.all.item("JiesbhSel").value=document.all.item("JiesbhSel1").value;
+				document.all.item("shezhi").style.display="none";
+				document.all.item("Zhuangt").value=2;
+				SetDisabled('tablemain',false);  
+			}else if(strAction=='qux'){
+				Tiaojszqx(strAction);
+			}
+		}
+		function Tiaojszqx(strAction){
+			if(strAction=='qux'){//查询条件设置框的<取消>
+				document.all.item("shezhi").style.display="none";
+				SetDisabled('tablemain',false);  
+				document.all.item("Zhuangt").value=2;
+				document.all.item("JiesbhSel1").value=oldbianh;//设置下拉为"请选择"
+			}
+		}
+                
+        function changeBianh(obj1,obj2){
+                
+            if(document.all.item(obj1).value!=document.all.item(obj2).value){
+                
+                document.all.item(obj2).value = document.all.item(obj1).value;
+            }
+            return true;
+		}
+</script>
+<script>
+    <span jwcid="@Insert" raw="true" value="ognl:WindowScript"></span>
+</script>    
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><script><span jwcid="@Insert" value="ognl:PageHome" /></script>
+<span jwcid="@ZRcontrib:ModalDialog" message="ognl:Msg"> </span> <OBJECT
+	id=WebBrowser classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2
+	height=0 width=0></OBJECT> <!--显示报表内容开始-->
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign=middle height="50">
+		<td>
+		<table width="100%" class="toolBar">
+			<tr>
+				<td style="font-size:9pt" align="left" width="90%">
+                    结算编号:
+                    <input
+					style="height:21" size="18" jwcid="JiesbhSel"
+					onclick="showMultiSel(this,'Jiesbh',BianhDropDown)"
+					onchange="changeBianh(this.id,'JiesbhSel1');Showwait();javascript:this.form.submit();"
+					id="JiesbhSel" type="text" /> 
+                <span CLASS="myselect"
+					jwcid="BianhDropDown" style="display:none;" id="BianhDropDown" />
+				<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype=""
+					label="刷新" onclick="Showwait();"
+					listener="ognl:listeners.RefurbishButton" /> 
+                <span
+					jwcid="TiaojszButton@ZRcontrib:ImgButton"
+					buttontype="nosubmitbuttons" label="条件设置"
+					onclick="Tiaojsz('xians')" /> 
+                
+                <!--span jwcid="YansmxButton@ZRcontrib:ImgButton" style=""
+					buttontype="" label="验收明细" 
+                	listener="ognl:listeners.YansmxButton"/-->
+                <!--span jwcid="@Conditional" condition="ognl:Shouldsh">
+	            <span jwcid="ShouldButton@ZRcontrib:ImgButton" style=""
+						buttontype="" label="收料单" 
+	                	listener="ognl:listeners.ShouldButton"/>
+                </span-->
+                报表查看:<input style="height:21"  jwcid="baobmcSelect"  id="baobmcSelect"/>
+                </td>
+                
+				<td style="display:none;"><span
+					jwcid="PrintButton@ZRcontrib:ImgButton" buttontype="print"
+					label="打印" listener="ognl:listeners.PrintButton"
+					onclick="Showwait()" /></td>
+			</tr>
+		</table>
+		<table id='navigationBar' height="30" width="100%"
+			class=navigationBarpage>
+			<tr>
+				<td width="10%" style="font-size:9pt"><b>显示页<span
+					id='pageNumber'></span>/<span id='totalPage'></span></b></td>
+				<td align='left' style='cursor:hand'><a href="#"
+					jwcid="PrintSetLink"> <image id="PrintSet" jwcid="PrintSet"
+					alt="页面设置" onclick=document.all.WebBrowser.ExecWB(8,1) /></a> <a
+					href="#" jwcid="PrintPageLink"> <image id="PrintPage"
+					jwcid="PrintPage" buttontype="" alt="打印"
+					onclick="allPrint('SelectFrmDiv');javascript:document.all.item('PrintButton').click()" /></a>
+				<a href="#" jwcid="ExportPageLink"> <image id="ExportPage"
+					jwcid="ExportPage" alt="导出Excel" onclick="exportExcel('SelectFrmDiv')"/></a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td style="font-size:9pt" align='right' width=50%><image
+					id="FirstPage" style="display:none;" jwcid="@Image"
+					image="ognl:assets.FirstPage" width="15" height="15" alt="首页"
+					onclick="navigatorClick('first')" /> <image id="FirstPage_disabled"
+					jwcid="@Image" image="ognl:assets.FirstPage_disabled" width="15"
+					height="15" alt="首页" /> <image id="PreviousPage"
+					style="display:none;" jwcid="@Image"
+					image="ognl:assets.PreviousPage" width="15" height="15" alt="上一页"
+					onclick="navigatorClick('previous')" /> <image
+					id="PreviousPage_disabled" jwcid="@Image"
+					image="ognl:assets.PreviousPage_disabled" width="15" height="15"
+					alt="上一页" /> <image id="NextPage" style="display:none;"
+					jwcid="@Image" image="ognl:assets.NextPage" width="15" height="15"
+					alt="下一页" onclick="navigatorClick('next')" /> <image
+					id="NextPage_disabled" jwcid="@Image"
+					image="ognl:assets.NextPage_disabled" width="15" height="15"
+					alt="下一页" /> <image id="LastPage" style="display:none;"
+					jwcid="@Image" image="ognl:assets.LastPage" width="15" height="15"
+					alt="尾页" onclick="navigatorClick('last')" /> <image
+					id="LastPage_disabled" jwcid="@Image"
+					image="ognl:assets.LastPage_disabled" width="15" alt="尾页"
+					height="15" /></td>
+				<td width="5%"></td>
+				<td width="5%" style="font-size:9pt"><b>转到页</b></td>
+				<td width="10%"><input size="5" id="GoPage" type="" /> <image
+					id="goButton" jwcid="@Image" image="ognl:assets.Go" width="15"
+					height="15" onclick="navigatorClick('go')" /> <input
+					jwcid="Zhuangt" style="display:none;" id="Zhuangt" type="text" />
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top>
+		<td><span style="cursor:move">
+		<div id="SelectFrmDiv" class=""
+			style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto;width:897px; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		<span jwcid="PrintTable" /></div>
+		</span></td>
+		<td style="display:none;">
+		<div id="MinxDiv" class=""
+			style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto;width:897px; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		<!--span jwcid="getPrintmx"/--></div>
+		</td>
+	</tr>
+	<input class="text-position" style="display:none;" jwcid="CurrentPage"
+		id="CurrentPage" type="text" />
+	<input class="text-position" style="display:none;" jwcid="AllPages"
+		id="AllPages" type="text" />
+</table>
+<!--显示报表内容结束--> <!--报表条件设置开始-->
+<div id="shezhi"
+	style="border:0px solid gray; padding:2px; POSITION: absolute;z-index:1;BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid; OVERFLOW: none; HEIGHT: 300;width:500; left:126px; top:75px;background-color:#DBE4EE">
+<table width="100%" height="25" cellspacing="0" cellpadding="0"
+	style="font-size:9pt" bordercolordark="#DBE4EE" bgcolor="#808080">
+	<tr>
+		<td id="tiaojian" width="100%" style="color: #ffffff">&nbsp;<b>查询条件</b>:</td>
+		<td align="right"><image jwcid="@Image" image="ognl:assets.close"
+			width="15" height="15" onclick="Tiaojsz('qux')" /></td>
+		<td>&nbsp; &nbsp;</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td></td>
+	</tr>
+</table>
+<table border="1" bordercolor="#0099FF" style="border-width: 1px">
+	<tr>
+		<td width="100%" style="border-style: none; border-width: medium">
+		<div style="width:485;HEIGHT: 350">
+		<table>
+			<tr>
+				<td></td>
+				<td><font size="2">请选择查询条件：</font></td>
+			</tr>
+			<tr height="10">
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<!--需要改动的开始；条件格式分为两列，７行；<tr>个数为１４对！-->
+		<table>
+			<!--开始日期-->
+			<tr>
+				<!--第一列-->
+				<td></td>
+				<td><image id="parameter" jwcid="@Image"
+					image="ognl:assets.parameter" width="14" height="14" /> <font
+					size="2">开始日期：</font></td>
+				<td width="50"></td>
+				<!--第二列-->
+				<td></td>
+				<td><image id="parameter" jwcid="@Image"
+					image="ognl:assets.parameter" width="14" height="14" /> <font
+					size="2">供应商名称：</font></td>
+				<td width="50"></td>
+			</tr>
+			<tr>
+				<!--第一列-->
+				<td></td>
+				<td>&nbsp; <input readonly="true" class="text-position"
+					style="width:80px" style="width:150;height:21"
+					jwcid="riqDateSelect" id="riqDateSelect" type="text" /></td>
+				<td width="50"></td>
+				<!--第二列-->
+				<td></td>
+				<td>&nbsp; <span id='diqumc' style="width:150;height:21"
+					jwcid="GongysDropDown" submitOnChange="true" type="text"></span></td>
+				<td width="50"></td>
+			</tr>
+			<!--结束日期-->
+			<tr>
+				<!--第一列-->
+				<td></td>
+				<td><image id="parameter" jwcid="@Image"
+					image="ognl:assets.parameter" width="14" height="14" /> <font
+					size="2">结束日期：</font></td>
+				<td width="50"></td>
+				<!--第二列-->
+				<td></td>
+				<td><image id="parameter" jwcid="@Image"
+					image="ognl:assets.parameter" width="14" height="14" /> <font
+					size="2">打印状态：</font></td>
+				<td width="50"></td>
+			</tr>
+			<tr>
+				<!--第一列-->
+				<td></td>
+				<td>&nbsp; <input readonly="true" class="text-position"
+					style="width:80px" style="width:150;height:21"
+					jwcid="EndriqDateSelect" id="EndriqDateSelect" type="text" /></td>
+				<td width="50"></td>
+				<!--第二列-->
+				<td></td>
+				<td>&nbsp; <span id='dayzt' style="width:150;height:21"
+					jwcid="PrintSelect" submitOnChange="true" type="text"></span></td>
+				<td width="50"></td>
+			</tr>
+			<!--公司名称-->
+			<tr>
+				<!--第一列-->
+				<td></td>
+                <td>
+					<span jwcid="@Conditional" condition="ognl:Editable">
+						<image id="parameter" jwcid="@Image"
+							image="ognl:assets.parameter" width="14" height="14" /> 
+	                    	<font size="2">公司名称：</font>
+					</span>
+                </td>
+				<td width="50"></td>
+				<!--第二列-->
+				<td></td>
+                <td>
+					<span jwcid="@Conditional" condition="ognl:Editable2">
+						<image id="parameter" jwcid="@Image"
+							image="ognl:assets.parameter" width="14" height="14" /> 
+                        	<font size="2">电厂名称：</font>
+					</span>
+                </td>
+				<td width="50"></td>
+			</tr>
+			<tr>
+				<!--第一列-->
+				<td></td>
+                <td>&nbsp;
+					<span jwcid="@Conditional" condition="ognl:Editable">
+						<span id='gongsmc' style="width:150;height:21"
+							jwcid="GongsmcDropDown" submitOnChange="true" type="text">
+		                </span>
+	                </span>
+                </td>
+				<td width="50"></td>
+				<!--第二列-->
+				<td></td>
+                <td>&nbsp; 
+					<span jwcid="@Conditional" condition="ognl:Editable2">
+						<span id='diancmc' style="width:150;height:21"
+							jwcid="DiancmcDropDown" submitOnChange="true" type="text">
+	                    </span>
+					</span>
+                </td>
+				<td width="50"></td>
+			</tr>
+			<!--电厂名称-->
+			<tr>
+				<!--第一列-->
+				<td></td>
+				<td><image id="parameter" jwcid="@Image"
+					image="ognl:assets.parameter" width="14" height="14" /> <font
+					size="2">结算编号：</font></td>
+				<td width="50"></td>
+				<!--第二列-->
+			</tr>
+			<tr>
+				<!--第一列-->
+				<td></td>
+				<td>&nbsp; <input style="height:21" size="20"
+					jwcid="JiesbhSel1"
+					onclick="showMultiSel(this,'Jiesdbh1',BianhDropDown1)"
+					onchange="changeBianh(this.id,'JiesbhSel');Showwait();javascript:this.form.submit();"
+					id="JiesbhSel1" type="text" /> <span id='jiesbh1'
+					CLASS="myselect1" style="display:none;" jwcid="BianhDropDown1"
+					type="text"></span></td>
+				<td width="50"></td>
+				<!--第二列-->
+			</tr>
+			<!--地区名称-->
+			<tr>
+				<!--第一列-->
+
+				<!--第二列-->
+			</tr>
+			<tr>
+				<!--第一列-->
+
+				<!--第二列-->
+			</tr>
+		</table>
+		<!--需要改动的结束--></div>
+		</td>
+	</tr>
+</table>
+<table width="100%">
+	<tr align="center" width="100%">
+		<td>
+		<table>
+			<td align="center" style="width:50%"><input style="width:80"
+				jwcid="QuedButton@ZRcontrib:ImgButton" buttontype="qued" type=""
+				label="确定"
+				onclick="if(Showwait()){Tiaojsz('qued');} else {return false;}"
+				listener="ognl:listeners.QuedButton" /></td>
+			<td align="center" style="width:50%"><span style="width:80"
+				jwcid="Qux@ZRcontrib:ImgButton" buttontype="nosubmitbuttons" type=""
+				label="关闭" onclick="Tiaojsz('qux')"></span></td>
+			<td width="10%"></td>
+		</table>
+		</td>
+	</tr>
+</table>
+</div>
+<!--报表条件设置结束--></form>
+</body>
+<script>	
+    var url = "http://"+document.location.host;
+    var l=document.getElementsByName("img_qianz").length;
+    for(i=0;i<l;i++){
+        document.getElementsByName("img_qianz")[i].width=document.getElementsByName("img_qianz")[i].parentElement.width-2;
+        document.getElementsByName("img_qianz")[i].height=50;
+        document.getElementsByName("img_qianz")[i].src=url+'/ftp/name/'+document.getElementsByName("img_qianz")[i].mingc+'.jpg';
+    }
+	setNavigatorButton(); Shezhi();window.onresize();document.all.item("waitshez").style.display="none";
+</script>
+</html>

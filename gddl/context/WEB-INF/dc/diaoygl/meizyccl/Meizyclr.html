@@ -1,0 +1,172 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title></title>
+	<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+	<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.ExtLovCombocss" />
+	<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.lovcombocss" />
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+	<script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>
+	<script type="text/javascript" src="ext/zr/select/Selectcombo.js"></script>
+	<script type="text/javascript">
+Ext.onReady(function(){
+Ext.QuickTips.init();
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif'; 
+    
+    <span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:Data"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw=true value="ognl:ToolbarScript"></span>
+    
+    // 煤质异常供煤单位和运输单位情况
+    var gongmdw_yunsdw = new Ext.form.FieldSet({   
+        title:'煤质异常供煤单位和运输单位情况',  
+        height:200,
+        layout : 'column',
+        collapsible: true,  
+        items : [
+        	{columnWidth : .5,
+            items : [{html:'供煤单位'}, cb1_cbgmdw, {html:'<br>'}, {html:'运输单位'}, cb3_yunsdw, 
+                     {html:'<br>'}, {html:'运输车辆车号(含火车)'}, t1x_yunsclch_hhc]},
+			{columnWidth : .5,
+            items : [{html:'供煤矿点'}, cb2_gongmkd, {html:'<br>'}, {html:'到厂时间'}, t2x_daocsj, 
+                     {html:'<br>'}, {html:'实收重量'}, nx1_shiszl]}]
+    });
+	
+	// 煤质查处过程
+	var meizccgc = new Ext.form.FieldSet({  
+        title:'煤质查处过程',  
+        height:400,
+        layout : 'column',
+        collapsible: true,  
+        items : [
+        	{columnWidth : .5,
+            items : [{html:'异常情况'}, cb4_yicqk, {html:'<br>'}, {html:'异常描述'}, t4x_yicms, {html:'<br>'}, 
+                     {html:'异常吨数'}, nx2_yicds, {html:'<br>'}, {html:'发现人'}, t7x_faxr, {html:'<br>'}, 
+                     {html:'煤质主管意见'}, t9x_meizzgyj, {html:'<br>'}, {html:'领导意见'}, t11x_lingdyj, 
+                     {html:'<br>'}, {html:'领导确认扣吨'}, nx3_lingdqrkd]},
+			{columnWidth : .5,
+            items : [{html:'燃料部签字'}, t3x_ranlbqz, {html:'<br>'}, {html:'环保部签字'}, t5x_huanbbqz, 
+            		 {html:'<br>'}, {html:'供煤单位签字'}, t6x_gongmdwqz, {html:'<br>'}, 
+            		 {html:'运输单位或司机'}, t8x_yunsdwhsj, {html:'<br>'}, {html:'煤质主管签字'}, t10x_meizzgqz, 
+            		 {html:'<br>'}, {html:'领导签字'}, t12x_lingdqz]}]
+    })
+    
+    var form_ext = new Ext.form.FormPanel({
+	    defaultType: 'textfield',
+	    autoScroll:true,
+	    labelAlign: 'left',
+	    title: '煤质异常情况录入',
+	    labelWidth: 370,
+	    height: bodyHeight - 40,
+	    frame: true,
+	    defaults: {
+	        msgTarget: 'side'
+	    },
+	    items: [gongmdw_yunsdw, meizccgc]
+	    /*
+	    ,
+	    buttons: [{
+	        text: '确认',
+	        minWidth : 65
+	    }]
+	    */
+	});
+	form_ext.render("form_ext"); 
+	/* 
+	form_ext.buttons[0].on("click",function(){
+		info = "cb1_cbgmdw~" + cb1_cbgmdw.getValue() + ";"
+            + "cb2_gongmkd~" + cb2_gongmkd.getValue() + ";"
+			+ "cb3_yunsdw~" + cb3_yunsdw.getValue() + ";"
+			+ "t1x_yunsclch_hhc~" + t1x_yunsclch_hhc.getValue() + ";"
+			+ "nx1_shiszl~" + nx1_shiszl.getValue() + ";"
+			+ "t2x_daocsj~" + t2x_daocsj.value + ";"
+			+ "cb4_yicqk~" + cb4_yicqk.getRawValue() + ";"
+			+ "t3x_ranlbqz~" + t3x_ranlbqz.getValue() + ";"
+			+ "t4x_yicms~" + t4x_yicms.getValue() + ";"
+			+ "t5x_huanbbqz~" + t5x_huanbbqz.getValue() + ";"
+			+ "nx2_yicds~" + nx2_yicds.getValue() + ";"
+			+ "t6x_gongmdwqz~" + t6x_gongmdwqz.getValue() + ";"
+			+ "t7x_faxr~" + t7x_faxr.getValue() + ";"
+			+ "t8x_yunsdwhsj~" + t8x_yunsdwhsj.getValue() + ";"
+			+ "t9x_meizzgyj~" + t9x_meizzgyj.getValue() + ";"
+			+ "t10x_meizzgqz~" + t10x_meizzgqz.getValue() + ";"
+			+ "t11x_lingdyj~" + t11x_lingdyj.getValue() + ";"
+			+ "t12x_lingdqz~" + t12x_lingdqz.getValue();
+
+		var Cobj = document.getElementById("CHANGE");
+		Cobj.value = info ;
+		//alert(Cobj.value);
+		document.getElementById("SaveButton").click();
+	});
+	*/
+	function SaveCheck(){
+		
+		if(t1x_yunsclch_hhc.getValue() == null || t1x_yunsclch_hhc.getValue() == '') {
+	    	Ext.MessageBox.alert("提示信息", "请输入运输车辆车号(含火车)!");
+	    	return false;
+	    }
+	    if(t2x_daocsj.getValue() == null || t2x_daocsj.getValue() == '') {
+	    	Ext.MessageBox.alert("提示信息", "请输入到厂时间!");
+	    	return false;
+	    }
+	    
+	    
+	    return true;
+	}
+	
+});
+</script>
+</head>
+<body id="body" jwcid="@Body">
+
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+       
+    <table style="width:100%">
+		<tr>
+			<td>
+				<div id = container>
+		    		<div id = tbdiv></div>
+		    	</div>
+			</td>
+		</tr>
+	</table>
+       
+    <span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+	<span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+	<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="refurbish" id = "RefurbishButton" 
+		  listener="ognl:listeners.RefurbishButton" label="刷新" style="display:none"/>
+	<span jwcid="InsertButton@ZRcontrib:ImgButton" buttontype="insert" id = "InsertButton" 
+		  listener="ognl:listeners.InsertButton" label="添加" style="display:none"/>
+	<span jwcid="DeleteButton@ZRcontrib:ImgButton" buttontype="delete" id = "DeleteButton" 
+		  listener="ognl:listeners.DeleteButton" label="删除" style="display:none"/>
+	<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="save" label="保存" style="display:none" 
+		id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+	
+	<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+	<input id="GONGMDW" jwcid="GONGMDW" style="display:none"></input>
+	<input id="GONGMKD" jwcid="GONGMKD" style="display:none"></input>
+	<input id="YUNSDW" jwcid="YUNSDW" style="display:none"></input>
+	<input id="YICQK" jwcid="YICQK" style="display:none"></input>
+	<span id="RIQI" jwcid ="RIQI" style="display:none"></span>
+	<input readonly="true"  width="60"  jwcid="NIANF" id="NIANF" style="display:none"/>
+	<input readonly="true"  width="50" jwcid="YUEF" id="YUEF" style="display:none"/>
+	<input readonly="true"  width="70" jwcid="BIANH" id="BIANH" style="display:none"/>
+	<span id="MEIZYCB_ID"  jwcid = "MEIZYCB_ID" style="display:none"></span>
+</form>
+<table style="width:100%">
+	<tr>
+		<td>
+			<div id = "form_ext" style="width:100%;height:100%;"></div>
+		</td>
+	</tr>
+</table>	
+</body>
+</html>

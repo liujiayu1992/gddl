@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>元素分析</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+});
+</script>
+</head>
+<body id="body" class="bgs">
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0" width="100%"  height="100%">
+	<tr id="trcondition" valign=middle height="20" style="display:none">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+				<td width="35" style="font-size: 12px;">年份:</td>
+				<td width="50"><input readonly="true" class="text-position"
+					jwcid="NIANF" id="NIANF" type="text" submitOnChange="true" /></td>
+				<td width="35" style="font-size: 12px;display:none">供应商:</td>
+				<td width="120" style="display:none"><span
+					style="width:150;height:21" jwcid="MeikmcDropDown"
+					submitOnChange="true" id='MeikmcDropDown' type="text" /></td>
+				<td width="35" style="font-size:12px:display:none">项目名称</td>
+				<td width="120" style="display:none"><span
+					submitOnChange="true" style="width:150;height:21"
+					jwcid="YuansxmmcDropDown" id='YuansxmmcDropDown' type="text" /></td>
+				<!---->
+			</tr>
+		</table>
+	<tr id="SelectData" valign=top hight="100%">
+		<td>
+		 <span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+		<div id="gridDiv" style="height:100%;overflow:none"></div>
+		<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span> <span
+			jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+			style="display:none" id="SaveButton"
+			listener="ognl:listeners.SaveButton"></span> 
+			<!-- 
+			<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="刷新" id = "RefreshButton" listener="ognl:listeners.RefreshButton" ></span>
+			 -->
+			 <span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span> 
+			<span id="CHANGE"
+			jwcid="CHANGE" style="display:none"></span></td>
+	</tr>
+</table>
+</form>
+</body>
+
+</html>

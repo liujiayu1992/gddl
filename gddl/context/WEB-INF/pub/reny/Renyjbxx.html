@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title>人员信息修改</title>
+	<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+	<script type="text/javascript">
+	Ext.onReady(function(){
+Ext.QuickTips.init();
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	<span jwcid="@Insert" raw="true" value="ognl:Msg"></span>
+	//inxingm = "王磊";inbum = "企划";inzhiw = "企宣";inxingb = "男";inlianxdz = "北京中关村";inyouzbm = "100086";inchuanz = "010-62632033-666";inyiddh = "15904050413";inguddh = "010-62632033-605";inEmail = "wl@zhiren.net";
+	<span jwcid="@Insert" raw="true" value="ognl:InitData"></span>
+	xdata = [['男','男'],['女','女']];
+	var store = new Ext.data.SimpleStore({
+	    fields: ['abbr', 'state'],
+	    data : xdata  // from states.js
+	});
+    var form = new Ext.form.FormPanel({
+    defaultType: 'textfield',
+    labelAlign: 'right',
+    title: '基本信息',
+    labelWidth: 370,
+    frame: true,
+    defaults: {
+        msgTarget: 'side'
+    },
+    //width: 300,
+    items: [{
+        fieldLabel: '姓名',
+        value: inxingm,
+        width: 150
+    },{
+		fieldLabel: '部门',
+		value: inbum,
+		width :150
+    },{
+		fieldLabel: '职位',
+		value: inzhiw,
+       width :150
+    },
+     new Ext.form.ComboBox({
+        fieldLabel: '性别',
+        value: inxingb,
+        hiddenName:'性别',
+        store: store,
+        valueField:'abbr',
+        editable: false,
+        displayField:'state',
+        typeAhead: true,
+        mode: 'local',
+        triggerAction: 'all',
+        selectOnFocus:true,
+        width:150
+    }),
+    new Ext.form.TextArea({
+		fieldLabel: '联系地址',
+		value: inlianxdz,
+       width :150
+    }),{
+		fieldLabel: '邮政编码',
+		value: inyouzbm,
+       width :150
+    },{
+		fieldLabel: '传真',
+		value: inchuanz,
+       width :150
+    },{
+		fieldLabel: '移动电话',
+		value: inyiddh,
+       width :150
+    },{
+		fieldLabel: '固定电话',
+		value: inguddh,
+       width :150
+    },{
+		fieldLabel: 'E-mail',
+		vtype:'email',
+		value: inEmail,
+       width :150
+    }],
+    buttons: [{
+        text: '确认',
+        minWidth : 65
+    }]
+});
+form.render("form");
+	form.buttons[0].on("click",function(){
+		texts	=	form.items;
+		xingm	=	texts.itemAt(0).getValue();
+		bum		=	texts.itemAt(1).getValue();
+		zhiw	=	texts.itemAt(2).getValue();
+		xingb	=	texts.itemAt(3).getRawValue();
+		lianxdz=	texts.itemAt(4).getValue();
+		youzbm	=	texts.itemAt(5).getValue();
+		chuanz	=	texts.itemAt(6).getValue();
+		yiddh	=	texts.itemAt(7).getValue();
+		guddh	=	texts.itemAt(8).getValue();
+		email	=	texts.itemAt(9).getValue();
+		newInfo = xingm + ";" +
+				bum+ ";" +
+				zhiw+ ";" +
+				xingb+ ";" +
+				lianxdz+ ";" +
+				youzbm+ ";" +
+				chuanz+ ";" +
+				yiddh+ ";" +
+				guddh+ ";" +
+				email;
+		var Cobj = document.getElementById("CHANGE");
+		Cobj.value = newInfo;
+		document.getElementById("SaveButton").click();
+	});
+
+var formpwd = new Ext.form.FormPanel({
+    defaultType: 'textfield',
+    labelAlign: 'right',
+    labelWidth: 370,
+    title: '密码修改',
+    height: 190,
+    frame: true,
+    defaults: {
+        msgTarget: 'side'
+    },
+    items: [{
+        fieldLabel: '原密码',
+        inputType: 'password',
+        vtype:'alphanum',
+        allowBlank: false,
+        //validator: valioldPwd,
+        width :150
+    },{
+		fieldLabel: '新密码',
+		inputType: 'password',
+		vtype:'alphanum',
+		allowBlank: false,
+		//validator: valinewPwd,
+		width :150
+    },{
+		fieldLabel: '重新输入',
+		vtype:'alphanum',
+		inputType: 'password',
+		allowBlank: false,
+        width :150
+    }],
+    buttons: [{
+        text: '修改密码',
+        minWidth : 65
+    }]
+});
+formpwd.render("formpwd");
+	formpwd.buttons[0].on("click",function(){
+		texts = formpwd.items;
+		if(!texts.itemAt(0).isValid() || !texts.itemAt(1).isValid()){
+			Ext.MessageBox.alert("提示信息","密码不符合验证规则!");
+		//	Ext.MessageBox.alert("提示信息","<span style='letter-spacing: 1pt'><font size='3'><strong>密码不符合验证规则!</strong></font></span>");
+			return;
+		}
+		/*if(!texts.itemAt(0).validate() || !texts.itemAt(1).validate()){
+			Ext.MessageBox.alert("提示信息","<span style='letter-spacing: 1pt'><font size='3'><strong>密码中只能包含英文字符和数字!</strong></font></span>");
+			return;
+		}
+		if(oldpwd == ""){
+			Ext.MessageBox.alert("提示信息","<span style='letter-spacing: 1pt'><font size='3'><strong>请输入原密码!</strong></font></span>");
+			return;
+		}
+		
+		if(newpwd == ""){
+			Ext.MessageBox.alert("提示信息","<span style='letter-spacing: 1pt'><font size='3'><strong>新密码不能为空,请重新输入!</strong></font></span>");
+			return;
+		}*/
+		oldpwd = texts.itemAt(0).getValue();
+		newpwd = texts.itemAt(1).getValue();
+		newpwd1 = texts.itemAt(2).getValue();
+		if(newpwd != newpwd1){
+			Ext.MessageBox.alert("提示信息","两次密码输入不一致,请重新输入!");
+		//	Ext.MessageBox.alert("提示信息","<span style='letter-spacing: 1pt'><font size='3'><strong>两次密码输入不一致,请重新输入!</strong></font></span>");
+			return;
+		}
+		pwds = oldpwd+","+newpwd;
+		var Cobj = document.getElementById("CHANGE");
+		Cobj.value = pwds;
+		document.getElementById("ReSetPwdButton").click();
+	});
+	/*function valioldPwd(){
+		opwd = formpwd.items.itemAt(0);
+		if(valiPwd(opwd.getValue())){
+			return true;
+		}else{
+			return "密码中只能包含英文和数字";
+		}
+	}
+	function valinewPwd(){
+		opwd = formpwd.items.itemAt(1);
+		if(valiPwd(opwd.getValue())){
+			return true;
+		}else{
+			return "密码中只能包含英文和数字";
+		}
+	}
+	function valiPwd(value){
+		regx = /[A-Za-z0-9]/ig;
+		if(value){
+			for( i = 0 ; i < value.length ; i++){
+				if(!value.charAt(i).match(regx)){
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}*/
+
+});
+</script>
+</head>
+<body>
+<div id = "formpwd" style="width:100%;height:200"></div>
+<div id = "form" style="width:100%;height:100%"></div>
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<!-- 
+	<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+	-->
+	<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+		label="保存" style="display:none" 
+		id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+	<span jwcid="ReSetPwdButton@ZRcontrib:ImgButton" buttontype=""
+		label="修改密码" style="display:none" 
+		id = "ReSetPwdButton" listener="ognl:listeners.ReSetPwdButton" ></span>
+	<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+</form>
+</body>
+</html>

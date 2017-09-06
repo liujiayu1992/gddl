@@ -1,0 +1,183 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>结算审核</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+
+
+
+
+
+
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+Ext.QuickTips.init();
+
+var yj_tab=new Ext.TabPanel({
+
+		renderTo:'tabs',
+        resizeTabs:true, // turn on tab resizing
+        minTabWidth: 250,
+        tabWidth:250,
+        activeTab:0,
+    	autoScroll:true,
+      enableTabScroll:true,
+        width:800,
+     	tabMargin:0,
+        height:400,
+        defaults: {autoScroll:true},
+    <span jwcid="@Conditional" condition="ognl:liuczt.equals('我的任务')">
+       items:[{ contentEl:'DivMy_opinion',title:"我的意见",id:'dd' },{ contentEl:'DivHi_opinion',title:"历史意见",id:'hh'}],
+     
+        buttons:[{
+       text:'确认',
+       type:'submit',listeners:{
+       click:function(bt,e){
+      	
+     
+      	 Ext.Msg.progress("数据提交中","正在提交数据...","");
+      	  Ext.getDom('form0').submit();
+      	  
+     
+        
+      	}
+       }
+      	
+       },{text:'取消',type:'button',listeners:{
+       click:function(bt,e){
+       
+      
+       	window.close();
+       }
+       }
+       }]
+      
+	 </span>
+     
+     
+      <span jwcid="@Conditional" condition="ognl:!liuczt.equals('我的任务')">
+          
+          items:[{ contentEl:'DivHi_opinion',title:"历史意见",id:'hh'}],
+     
+        buttons:[{text:'确认',type:'button',listeners:{
+       click:function(bt,e){
+       
+      
+       	window.close();
+       }
+       }
+       }]
+          
+      </span>
+});
+
+
+});
+
+
+
+
+</script>	
+<body id="body" jwcid="@Body" class="bgs">
+
+
+<form listener="ognl:listeners.Submit" jwcid="@Form" delegate="ognl:beans.delegate" id="form0">
+
+<div id="tabs" >
+	
+		
+</div>
+
+	  <!-- Auto create tab 1 -->
+        <span jwcid="@Conditional" condition="ognl:liuczt.equals('我的任务')">
+		    <div id="DivMy_opinion" class="x-hide-display"  style="height:100%;width:100%;">
+		        <textarea  style="width: 100%; height: 61%; border: 0px; overflow: auto  " id="My_opinion" jwcid="My_opinion" name="My_opinion"></textarea>
+		    </div>
+         </span>
+	    <!-- Auto create tab 2 -->
+		    <div id="DivHi_opinion" class="x-hide-display"  style="height:100%;width:100% ;">
+		        <textarea  style="width: 100%; height: 61%; border: 0px; overflow: auto" readonly="true" id="Histry_opinion" jwcid="Histry_opinion" name="Histry_opinion"></textarea>
+
+		    </div>
+	  
+<!-- 
+
+<input style="display:none"  id="My_opinion" name="My_opinion" jwcid="My_opinion1" type="text"/><br>
+<input style="display:none"  id="Histry_opinion" name="Histry_opinion" jwcid="Histry_opinion1" type="text"/><br>
+
+<span id="ShenHeYJChange" jwcid="ShenHeYJChange" name="ShenHeYJChange" style="display:none"></span>
+ -->
+ 
+
+
+</form>
+
+<form jwcid="@Form" style="display:none">
+    <span jwcid="biaos" id="biaos" style="display:none"></span>
+    <span jwcid="gengXinTiShi" id="gengXinTiShi" style="display:none"></span>
+    </form>
+
+
+
+<script type="text/javascript">
+	
+    function ev(){
+    
+   		 document.all.biaos.value='';
+    	 window.close();
+          window.opener.document.shuaxin.submit();
+     	  window.opener.document.body.onload;
+    
+    }
+    var biaosValue=document.all.biaos.value;
+  	
+    
+    if(biaosValue!=null && biaosValue=='ok'){
+    	
+    		
+    		document.all.biaos.value="";
+    		var gengXinValue=document.all.gengXinTiShi.value;
+    		
+    		if(gengXinValue!=null && gengXinValue.length>0){
+   				
+    			
+    			Ext.Msg.show({
+    			
+    			title:"提示",
+    			msg:"信息不完整，不能更新的结算表:<br>"+gengXinValue,
+    			buttons:false,
+    			icon: Ext.MessageBox.WARNING
+    			});
+    			
+    		 }else{
+                    
+                Ext.Msg.show({
+    			
+    			title:"提示",
+    			msg:"信息更新成功!",
+    			buttons:false,
+    			icon: Ext.MessageBox.INFO
+    			});
+                    }
+    			
+    		
+      	   setTimeout(ev,0);
+    
+    } 
+    
+    
+       
+</script>
+
+
+</body>
+</html>

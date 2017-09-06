@@ -1,0 +1,3646 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>工业分析</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.portalcss" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.samplecss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.portaljs"></script>
+<script jwcid="@Any" type="text/javascript"
+	src="ognl:assets.portalcolumnjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.portletjs"></script>
+<script type="text/javascript">
+var bool = false;
+var hiddenMT = false;
+var hiddenAad = false;
+var hiddenSd = false;
+var hiddenMad = false;
+var hiddenVad = false;
+var hiddenQar = false;
+
+Ext.onReady(function(){
+var win;
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL =url+'/ext/resources/images/s.gif';
+/*public*/
+function fdChange(own,nv,ov){
+	document.all.item(own.name,1).value=nv;
+    //alert(own.name);
+    //alert(document.getElementById(own.name).value);
+}
+function getSign(nName){
+	okey = nName.split('$');
+	return okey[1];
+}
+
+function getMinNoZero(m1,m2){
+	d1 = eval(m1||0);
+	d2 = eval(m2||0);
+	if(d1 > 0 && d2 > 0){
+		if(d1 > d2){
+			//alert(d2);
+			return d2;
+		}else{
+			//alert(d1);
+			return d1;
+		}
+	}else 
+		if(d1> 0) return d1;
+		else return d2;
+}
+function gotoNextField(curObj,toName){
+	xuh = getSign(curObj.name);
+	if(typeof(xuh)=="undefined"){
+		Ext.getDom(toName).focus();
+	}else{
+		Ext.getDom(toName+"$"+xuh).focus();
+	}
+}
+function gotoN(toName){
+	Ext.getDom(toName).focus();
+}
+
+function countAVG(tName,tName1,tName2,tName3,type,bit){
+	value1 = Ext.getDom(tName).value;
+	value2 = Ext.getDom(tName1).value;
+	value3 = Ext.getDom(tName2).value;
+	value4 = Ext.getDom(tName3).value;
+	i = 4;
+	var avgzhi;
+	avgzhi = Ext.getDom("AVG"+type);
+	if(value1 == 0){
+		i = i-1;
+	}
+	if(value2 == 0){
+		i = i-1;
+	}
+	if(value3 == 0){
+		i = i-1;
+	}
+	if(value4 == 0){
+		i = i-1;
+	}
+	//alert();
+	avgzhi.value = Round_new((eval(value1||0) + eval(value2||0) + eval(value3||0) + eval(value4||0)) / i,bit);
+    document.all.item(avgzhi.name,1).value=avgzhi.value;
+}
+
+function gotoNext(own,e,type,xuh){
+	//alert(own.name);
+	name = "QIMBH_"+type+"$"+xuh;
+	gotoN(name);
+}
+
+function countQimmyzl(curObj,type){
+	xuh = getSign(curObj.name);
+	meiyzl = 0;
+	qimzl = 0;
+	var qimmyzl;
+	if(typeof(xuh)=="undefined"){
+		meiyzl = Ext.getDom("MEIYZL_"+type).value;
+		qimzl = Ext.getDom("QIMZL_"+type).value;
+		qimmyzl = Ext.getDom("QIMMYZL_"+type);
+	}else{
+		meiyzl = Ext.getDom("MEIYZL_"+type+"$"+xuh).value;
+		qimzl = Ext.getDom("QIMZL_"+type+"$"+xuh).value;
+		qimmyzl = Ext.getDom("QIMMYZL_"+type+"$"+xuh);
+	}
+	zhi = eval(meiyzl||0) + eval(qimzl||0);
+	qimmyzl.value = Round_new(zhi,4);
+    document.all.item(qimmyzl.name,1).value=qimmyzl.value;
+}
+
+function countSqzl(curObj,type){
+	xuh = getSign(curObj.name);
+	jc=0;
+	hh=0;
+	qimmyzl = 0;
+	var shiqzl;
+	if(typeof(xuh)=="undefined"){
+		jc = Ext.getDom("HONGHZL1_"+type).value;
+		hh = Ext.getDom("ZUIZHHZL_"+type).value;
+		qimmyzl = Ext.getDom("QIMMYZL_"+type).value;
+		shiqzl = Ext.getDom("SHIQZL_"+type);
+	}else{
+		jc = Ext.getDom("HONGHZL1_"+type+"$"+xuh).value;
+		hh = Ext.getDom("ZUIZHHZL_"+type+"$"+xuh).value;
+		qimmyzl = Ext.getDom("QIMMYZL_"+type+"$"+xuh).value;
+		shiqzl = Ext.getDom("SHIQZL_"+type+"$"+xuh);
+	}
+	zhi = getMinNoZero(hh,jc);
+	shiqzl.value = Round_new(qimmyzl - zhi,4);
+    document.all.item(shiqzl.name,1).value=shiqzl.value;
+}
+
+function countBaifl(curObj,type,bit){
+	xuh = getSign(curObj.name);
+	shiqzl=0;
+	meiyzl = 0;
+	var baifl;
+	if(typeof(xuh)=="undefined"){
+		meiyzl = Ext.getDom("MEIYZL_"+type).value;
+		shiqzl = Ext.getDom("SHIQZL_"+type).value;
+		baifl = Ext.getDom(type+"BFL");
+	}else{
+		meiyzl = Ext.getDom("MEIYZL_"+type+"$"+xuh).value;
+		shiqzl = Ext.getDom("SHIQZL_"+type+"$"+xuh).value;
+		baifl = Ext.getDom(type+"BFL$"+xuh);
+	}
+	baifl.value = Round_new(shiqzl /meiyzl * 100,bit);
+    document.all.item(baifl.name,1).value=baifl.value;
+}
+/*全水分*/
+function countQSFQimmyzl(own,e){
+	countQimmyzl(own,"QSF");
+}
+
+function gotoQSFFNext(own,e){
+	countSqzl(own,"QSF");
+	countBaifl(own,"QSF",1);
+	gotoNext(own,e,"QSF","0");
+	countAVG("QSFBFL","QSFBFL$0","QSFBFL$1","QSFBFL$2","QSF",1);
+}
+function gotoQSFSNext(own,e){
+	countSqzl(own,"QSF");
+	countBaifl(own,"QSF",1);
+	gotoNext(own,e,"QSF","1");
+	countAVG("QSFBFL","QSFBFL$0","QSFBFL$1","QSFBFL$2","QSF",1);
+}
+function gotoQSFTNext(own,e){
+	countSqzl(own,"QSF");
+	countBaifl(own,"QSF",1);
+	gotoNext(own,e,"QSF","2");
+	countAVG("QSFBFL","QSFBFL$0","QSFBFL$1","QSFBFL$2","QSF",1);
+}
+function gotoQSFENDNext(own,e){
+	countSqzl(own,"QSF");
+	countBaifl(own,"QSF",1);
+	countAVG("QSFBFL","QSFBFL$0","QSFBFL$1","QSFBFL$2","QSF",1);
+	Ext.MessageBox.alert('提示信息','已到达数据末尾！');
+	return;
+}
+
+function goQIMZL_QSF(own,e){
+	name = "QIMZL_QSF";
+	countQSFQimmyzl(own,"QSF");
+	gotoNextField(own,name);
+	countSqzl(own,"QSF");
+	countBaifl(own,"QSF",1);
+}
+function goMEIYZL_QSF(own,e){
+	name = "MEIYZL_QSF";
+	countQSFQimmyzl(own,"QSF");
+	gotoNextField(own,name);
+	countSqzl(own,"QSF");
+	countBaifl(own,"QSF",1);
+}
+function goZUIZHHZL_QSF(own,e){
+	name = "ZUIZHHZL_QSF";
+	gotoNextField(own,name);
+	countQSFQimmyzl(own,"QSF");
+	countSqzl(own,"QSF");
+	countBaifl(own,"QSF",1);
+	//countQSFQimmyzl(own,"QSF");
+}
+function goHONGHZL1_QSF(own,e){
+	name = "HONGHZL1_QSF";
+	gotoNextField(own,name);
+	countQSFQimmyzl(own,"QSF");
+	countSqzl(own,"QSF");
+	countBaifl(own,"QSF",1);
+}
+
+/*水分*/
+
+function countSFQimmyzl(own,e){
+	countQimmyzl(own,"SF");
+}
+
+function gotoSFFNext(own,e){
+	countSqzl(own,"SF");
+	countBaifl(own,"SF",2);
+	gotoNext(own,e,"SF","0");
+	countAVG("SFBFL","SFBFL$0","SFBFL$1","SFBFL$2","SF",2);
+}
+function gotoSFSNext(own,e){
+	countSqzl(own,"SF");
+	countBaifl(own,"SF",2);
+	gotoNext(own,e,"SF","1");
+	countAVG(own,"SF");
+}
+function gotoSFTNext(own,e){
+	countSqzl(own,"SF");
+	countBaifl(own,"SF",2);
+	gotoNext(own,e,"SF","2");
+	countAVG(own,"SF");
+}
+function gotoSFENDNext(own,e){
+	countSqzl(own,"SF");
+	countBaifl(own,"SF",2);
+	countAVG(own,"SF");
+	Ext.MessageBox.alert('提示信息','已到达数据末尾！');
+	return;
+}
+
+function goQIMZL_SF(own,e){
+	name = "QIMZL_SF";
+	gotoNextField(own,name);
+	countSFQimmyzl(own,"SF");
+	countSqzl(own,"SF");
+	countBaifl(own,"SF",2);
+}
+function goMEIYZL_SF(own,e){
+	name = "MEIYZL_SF";
+	countSFQimmyzl(own,"SF");
+	gotoNextField(own,name);
+	countSqzl(own,"SF");
+	countBaifl(own,"SF",2);
+}
+function goZUIZHHZL_SF(own,e){
+	name = "ZUIZHHZL_SF";
+	gotoNextField(own,name);
+	countSFQimmyzl(own,"SF");
+	countSqzl(own,"SF");
+	countBaifl(own,"SF",2);
+	//countQSFQimmyzl(own,"QSF");
+}
+function goHONGHZL1_SF(own,e){
+	name = "HONGHZL1_SF";
+	gotoNextField(own,name);
+	countSFQimmyzl(own,"SF");
+	countSqzl(own,"SF");
+	countBaifl(own,"SF",2);
+}
+/*灰分*/
+
+function countHFQimmyzl(own,e){
+	countQimmyzl(own,"HF");
+}
+
+function gotoHFFNext(own,e){
+	countHFBaifl(own,"HF");
+	gotoNext(own,e,"HF","0");
+	countAVG("HFBFL","HFBFL$0","HFBFL$1","HFBFL$2","HF",2);
+}
+function gotoHFSNext(own,e){
+	countHFBaifl(own,"HF");
+	gotoNext(own,e,"HF","1");
+	countAVG("HFBFL","HFBFL$0","HFBFL$1","HFBFL$2","HF",2);
+}
+function gotoHFTNext(own,e){
+	countHFBaifl(own,"HF");
+	gotoNext(own,e,"HF","2");
+	countAVG("HFBFL","HFBFL$0","HFBFL$1","HFBFL$2","HF",2);
+}
+function gotoHFENDNext(own,e){
+	countHFBaifl(own,"HF");
+	countAVG("HFBFL","HFBFL$0","HFBFL$1","HFBFL$2","HF",2);
+	Ext.MessageBox.alert('提示信息','已到达数据末尾！');
+	return;
+}
+
+function goQIMZL_HF(own,e){
+	name = "QIMZL_HF";
+	countHFQimmyzl(own,"HF");
+	gotoNextField(own,name);
+	countHFBaifl(own,"HF");
+}
+function goMEIYZL_HF(own,e){
+	name = "MEIYZL_HF";
+	countHFQimmyzl(own,"HF");
+	gotoNextField(own,name);
+	countHFBaifl(own,"HF");
+}
+function goZUIZHHZL_HF(own,e){
+	name = "ZUIZHHZL_HF";
+	gotoNextField(own,name);
+	countHFQimmyzl(own,"HF");
+	countHFBaifl(own,"HF");
+}
+function goHONGHZL1_HF(own,e){
+	name = "HONGHZL1_HF";
+	gotoNextField(own,name);
+	countHFQimmyzl(own,"HF");
+	countHFBaifl(own,"HF");
+}
+
+function countHFBaifl(curObj,type){
+	xuh = getSign(curObj.name);
+	jc=0;
+	hh=0;
+	qimzl = 0;
+	var canlwzl;
+	var baifl;
+	meiyzl = 0;
+	if(typeof(xuh)=="undefined"){
+		jc = Ext.getDom("HONGHZL1_"+type).value;
+		hh = Ext.getDom("ZUIZHHZL_"+type).value;
+		qimzl = Ext.getDom("QIMZL_"+type).value;
+		baifl = Ext.getDom(type+"BFL");
+		canlwzl = Ext.getDom("SHENGYZL_"+type);
+		meiyzl = Ext.getDom("MEIYZL_"+type).value;
+	}else{
+		jc = Ext.getDom("HONGHZL1_"+type+"$"+xuh).value;
+		hh = Ext.getDom("ZUIZHHZL_"+type+"$"+xuh).value;
+		qimzl = Ext.getDom("QIMZL_"+type+"$"+xuh).value;
+		baifl = Ext.getDom(type+"BFL$"+xuh);
+		canlwzl = Ext.getDom("SHENGYZL_"+type+"$"+xuh);
+		meiyzl = Ext.getDom("MEIYZL_"+type+"$"+xuh).value;
+	}
+	zhi = getMinNoZero(hh,jc);
+	canlwzl.value = Round_new(zhi - qimzl,4);
+    document.all.item(canlwzl.name,1).value=canlwzl.value;
+	baifl.value = Round_new( eval(canlwzl.value||0) / meiyzl * 100,2);
+    document.all.item(baifl.name,1).value=baifl.value;
+}
+/*挥发分*/
+function countHFFSqzl(curObj,type){
+	xuh = getSign(curObj.name);
+	hh=0;
+	qimmyzl = 0;
+	var shiqzl;
+	if(typeof(xuh)=="undefined"){
+		hh = Ext.getDom("ZUIZHHZL_"+type).value;
+		qimmyzl = Ext.getDom("QIMMYZL_"+type).value;
+		shiqzl = Ext.getDom("SHIQZL_"+type);
+	}else{
+		hh = Ext.getDom("ZUIZHHZL_"+type+"$"+xuh).value;
+		qimmyzl = Ext.getDom("QIMMYZL_"+type+"$"+xuh).value;
+		shiqzl = Ext.getDom("SHIQZL_"+type+"$"+xuh);
+	}
+	//zhi = getMinNoZero(hh,jc);
+	shiqzl.value = Round_new(qimmyzl - hh,4);
+    document.all.item(shiqzl.name,1).value=shiqzl.value;
+}
+function countHFFQimmyzl(own,e){
+	countQimmyzl(own,"HFF");
+}
+
+function gotoHFFFNext(own,e){
+	countHFFSqzl(own,"HFF");
+	countHFFBaifl(own,"HFF");
+	gotoNext(own,e,"HFF","0");
+	countAVG("HUIFF","HUIFF$0","HUIFF$1","HUIFF$2","HFF",2);
+}
+function gotoHFFSNext(own,e){
+	countHFFSqzl(own,"HFF");
+	countHFFBaifl(own,"HFF");
+	gotoNext(own,e,"HFF","1");
+	countAVG("HUIFF","HUIFF$0","HUIFF$1","HUIFF$2","HFF",2);
+}
+function gotoHFFTNext(own,e){
+	countHFFSqzl(own,"HFF");
+	countHFFBaifl(own,"HFF");
+	gotoNext(own,e,"HFF","2");
+	countAVG("HUIFF","HUIFF$0","HUIFF$1","HUIFF$2","HFF",2);
+}
+function gotoHFFENDNext(own,e){
+	countHFFSqzl(own,"HFF");
+	countHFFBaifl(own,"HFF");
+	countAVG("HUIFF","HUIFF$0","HUIFF$1","HUIFF$2","HFF",2);
+	Ext.MessageBox.alert('提示信息','已到达数据末尾！');
+	return;
+}
+
+function goQIMZL_HFF(own,e){
+	name = "QIMZL_HFF";
+	countHFFQimmyzl(own,"HFF");
+	gotoNextField(own,name);
+	countHFFSqzl(own,"HFF");
+	countHFFBaifl(own,"HFF");
+}
+function goMEIYZL_HFF(own,e){
+	name = "MEIYZL_HFF";
+	countSFQimmyzl(own,"HFF");
+	gotoNextField(own,name);
+	countHFFSqzl(own,"HFF");
+	countHFFBaifl(own,"HFF");
+}
+function goZUIZHHZL_HFF(own,e){
+	name = "ZUIZHHZL_HFF";
+	gotoNextField(own,name);
+	countHFFQimmyzl(own,"HFF");
+	countHFFSqzl(own,"HFF");
+	countHFFBaifl(own,"HFF");
+	//countQSFQimmyzl(own,"QSF");
+}
+function goHONGHZL1_HFF(own,e){
+	name = "HONGHZL1_HFF";
+	gotoNextField(own,name);
+	countHFFSqzl(own,"HFF");
+	countHFFBaifl(own,"HFF");
+}
+function countHFFBaifl(curObj,type){
+	xuh = getSign(curObj.name);
+	shiqzl=0;
+	meiyzl = 0;
+	var baifl;
+	sfbfl = 0;
+	hfbfl = 0;
+	var hff;
+	if(typeof(xuh)=="undefined"){
+		meiyzl = Ext.getDom("MEIYZL_"+type).value;
+		shiqzl = Ext.getDom("SHIQZL_"+type).value;
+		sfbfl = Ext.getDom("SFBFL").value;
+		hfbfl = Ext.getDom("HFBFL").value;
+		baifl = Ext.getDom(type+"BFL");
+		hff = Ext.getDom("HUIFF");
+	}else{
+		meiyzl = Ext.getDom("MEIYZL_"+type+"$"+xuh).value;
+		shiqzl = Ext.getDom("SHIQZL_"+type+"$"+xuh).value;
+		sfbfl = Ext.getDom("SFBFL$"+xuh).value;
+		hfbfl = Ext.getDom("HFBFL$"+xuh).value;
+		baifl = Ext.getDom(type+"BFL$"+xuh);
+		hff = Ext.getDom("HUIFF$"+xuh);
+	}
+	if(sfbfl==0){
+		Ext.MessageBox.alert('提示信息','请先录入水分Mad数据！');
+		return;
+	}
+	baifl.value = Round_new(shiqzl /meiyzl * 100 - sfbfl,2);
+    document.all.item(baifl.name,1).value=baifl.value;
+	hff.value = Round_new((eval(baifl.value||0) * 100 / (100 - sfbfl - hfbfl)), 2);
+    document.all.item(hff.name,1).value=hff.value;
+}
+/*硫分*/
+
+function countLFQimmyzl(own,e){
+	countQimmyzl(own,"LF");
+}
+function gotoLFFNext(own,e){
+	countLF(own,bool);
+	gotoNext(own,e,"LF","0");
+	//countAVG(own,"LF");
+}
+function gotoLFSNext(own,e){
+	countLF(own,bool);
+	gotoNext(own,e,"LF","1");
+	//countAVG(own,"LF");
+}
+function gotoLFTNext(own,e){
+	gotoNext(own,e,"LF","2");
+	countLF(own,bool);
+	//countAVG(own,"LF");
+}
+function gotoLFENDNext(own,e){
+	Ext.MessageBox.alert('提示信息','已到达数据末尾！');
+	return;
+}
+
+function goQIMZL_LF(own,e){
+	name = "QIMZL_LF";
+	countLFQimmyzl(own,"LF");
+	gotoNextField(own,name);
+}
+function goMEIYZL_LF(own,e){
+	name = "MEIYZL_LF";
+	countLFQimmyzl(own,"LF");
+	gotoNextField(own,name);
+}
+function goLFBFL(own,e){
+	if(bool){
+		name = "LFBFL";
+	}else{
+		name = "LIUF";
+	}
+	gotoNextField(own,name);
+	countLFQimmyzl(own,"LF");
+}
+function countLF(curObj,bool){
+	xuh = getSign(curObj.name);
+	var lfbfl;
+	var liuf;
+	sfbfl = 0;
+	if(typeof(xuh)=="undefined"){
+		lfbfl = Ext.getDom("LFBFL");
+		liuf = Ext.getDom("LIUF");
+		sfbfl = Ext.getDom("SFBFL").value;
+	}else{
+		lfbfl = Ext.getDom("LFBFL$"+xuh);
+		liuf = Ext.getDom("LIUF$"+xuh);
+		sfbfl = Ext.getDom("SFBFL$"+xuh).value;
+	}
+	if(bool==true){
+		liuf.value = Round_new(eval(lfbfl.value||0 ) * 100 / (100 - sfbfl),2);
+    	document.all.item(liuf.name,1).value=liuf.value;	
+	}else{
+		lfbfl.value = Round_new((100 - sfbfl) * eval(liuf.value||0)/100,2);
+    	document.all.item(lfbfl.name,1).value=lfbfl.value;	
+	}
+}
+
+/*发热量*/
+
+function countDTQimmyzl(own,e){
+	countQimmyzl(own,"DT");
+}
+
+function gotoFRLFNext(own,e){
+	gotoNext(own,e,"DT","0");
+	countAVG(own,"DT");
+}
+function gotoFRLSNext(own,e){
+	gotoNext(own,e,"DT","1");
+	countAVG(own,"DT");
+}
+function gotoFRLTNext(own,e){
+	gotoNext(own,e,"DT","2");
+	countAVG(own,"DT");
+}
+function gotoFRLENDNext(own,e){
+	countBaifl(own,"DT");
+	countAVG(own,"DT");
+	Ext.MessageBox.alert('提示信息','已到达数据末尾！');
+	return;
+}
+
+function goQIMZL_DT(own,e){
+	name = "QIMZL_DT";
+	countDTQimmyzl(own,"DT");
+	gotoNextField(own,name);
+	countSqzl(own,"DT");
+	countBaifl(own,"DT");
+}
+function goMEIYZL_DT(own,e){
+	name = "MEIYZL_DT";
+	countDTQimmyzl(own,"DT");
+	gotoNextField(own,name);
+	countSqzl(own,"DT");
+	countBaifl(own,"DT");
+}
+function goDANTR(own,e){
+	name = "DANTR";
+	gotoNextField(own,name);
+	countDTQimmyzl(own,"DT");
+	countBaifl(own,"DT");
+}
+
+function countREZ(curObj,name){
+	xuh = getSign(curObj.name);
+}
+
+   
+	var quansf = new Ext.Panel({
+		layout:"table",
+		layoutConfig:{
+		  columns:5
+		},
+		defaults:{
+			
+		},
+		items:[{
+			width:150,
+			html:"<font size=1></font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第一次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第二次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第三次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第四次</font>"
+		  },{
+		    html:"<font size=1>称量瓶(盘)号</font>"
+		  },{
+		   		xtype:"textfield",
+		        width:80,
+            	name:"QIMBH_QSF",
+	            selectOnFocus:true,
+                value:Ext.getDom("QIMBH_QSF").value,
+	            listeners :{
+	            	change:fdChange,
+            		specialkey:goQIMZL_QSF
+            	}
+		   },{
+		        xtype:"textfield",
+		        width:80,
+            	name:"QIMBH_QSF$0",
+            	selectOnFocus:true,
+		        value:Ext.getDom("QIMBH_QSF$0").value,
+	            listeners :{
+	            	change:fdChange,
+            		specialkey:goQIMZL_QSF
+  	            }
+		  },{
+		        xtype:"textfield",
+		        width:80,
+            	name:"QIMBH_QSF$1",
+            	selectOnFocus:true,
+		        value:Ext.getDom("QIMBH_QSF$1").value,
+	            listeners :{
+	            	change:fdChange,
+            		specialkey:goQIMZL_QSF	            }
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,
+            	name:"QIMBH_QSF$2",
+            	selectOnFocus:true,
+		        value:Ext.getDom("QIMBH_QSF$2").value,
+	            listeners :{
+	            	change:fdChange,
+            		specialkey:goQIMZL_QSF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>称量瓶(盘)质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QIMZL_QSF",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_QSF").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goMEIYZL_QSF	            
+             	}
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QIMZL_QSF$0",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_QSF$0").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goMEIYZL_QSF	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QIMZL_QSF$1",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_QSF$1").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goMEIYZL_QSF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QIMZL_QSF$2",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_QSF$2").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goMEIYZL_QSF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>称重瓶(盘)质量+试样质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QIMMYZL_QSF",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_QSF").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:function(own,e){
+	            		Ext.getDom("ZUIZHHZL_QSF").focus();
+					}
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QIMMYZL_QSF$0",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_QSF$0").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:function(own,e){
+	            		Ext.getDom("ZUIZHHZL_QSF$0").focus();
+					}
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QIMMYZL_QSF$1",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_QSF$1").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:function(own,e){
+	            		Ext.getDom("ZUIZHHZL_QSF$1").focus();
+					}
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QIMMYZL_QSF$2",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_QSF$2").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:function(own,e){
+	            		Ext.getDom("ZUIZHHZL_QSF$2").focus();
+					}
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>试样质量m(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"MEIYZL_QSF",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_QSF").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goZUIZHHZL_QSF,
+             		mouseout:goZUIZHHZL_QSF
+             		
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"MEIYZL_QSF$0",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_QSF$0").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goZUIZHHZL_QSF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"MEIYZL_QSF$1",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_QSF$1").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goZUIZHHZL_QSF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"MEIYZL_QSF$2",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_QSF$2").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goZUIZHHZL_QSF
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>烘干后总质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"ZUIZHHZL_QSF",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_QSF").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goHONGHZL1_QSF	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"ZUIZHHZL_QSF$0",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_QSF$0").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goHONGHZL1_QSF	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"ZUIZHHZL_QSF$1",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_QSF$1").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goHONGHZL1_QSF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"ZUIZHHZL_QSF$2",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_QSF$2").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:goHONGHZL1_QSF
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>检查性试验后总质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"HONGHZL1_QSF",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_QSF").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:gotoQSFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"HONGHZL1_QSF$0",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_QSF$0").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:gotoQSFSNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"HONGHZL1_QSF$1",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_QSF$1").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:gotoQSFTNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"HONGHZL1_QSF$2",
+             	selectOnFocus:true,
+             	decimalPrecision:4,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+		        value:Ext.getDom("HONGHZL1_QSF$2").value,
+	            listeners :{
+	            	change:fdChange,
+             		specialkey:gotoQSFENDNext
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>干燥后煤样减少的质量m1(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"SHIQZL_QSF",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_QSF").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"SHIQZL_QSF$0",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_QSF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"SHIQZL_QSF$1",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_QSF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"SHIQZL_QSF$2",
+             	selectOnFocus:true,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_QSF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>全水分Mt=m1/m*100(%)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QSFBFL",
+             	selectOnFocus:true,
+             	maxValue:99.9,
+             	minValue:0,
+             	maxLength:4,
+             	decimalPrecision:1,
+		        value:Ext.getDom("QSFBFL").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QSFBFL$0",
+             	selectOnFocus:true,
+             	maxValue:99.9,
+             	minValue:0,
+             	maxLength:4,
+             	decimalPrecision:1,
+		        value:Ext.getDom("QSFBFL$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QSFBFL$1",
+             	selectOnFocus:true,
+             	maxValue:99.9,
+             	minValue:0,
+             	maxLength:4,
+             	decimalPrecision:1,
+		        value:Ext.getDom("QSFBFL$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+             	name:"QSFBFL$2",
+             	selectOnFocus:true,
+             	maxValue:99.9,
+             	minValue:0,
+             	maxLength:4,
+             	decimalPrecision:1,
+		        value:Ext.getDom("QSFBFL$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>平均值Mt(%)</font>"
+		  },{
+            colspan: 4,
+		    items:[{
+             	decimalPrecision:1,
+		        xtype:"numberfield",
+             	name:"AVGQSF",
+             	maxValue:99.9,
+             	minValue:0,
+             	maxLength:4,
+             	minLength:0,
+             	selectOnFocus:true,
+		        width:160,
+		        value:Ext.getDom("AVGQSF").value
+		     }]
+		  }/*,
+          {
+		    html:"<font size = 1>化验员</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    html:"<font size = 1>审核</font>"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  }*/
+             ]
+		});
+		
+	var shuif = new Ext.Panel({
+		layout:"table",
+		layoutConfig:{
+		  columns:5
+		},
+		defaults:{
+			
+		},
+		items:[{
+			width:150,
+			html:"<font size=1></font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第一次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第二次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第三次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第四次</font>"
+		  },{
+		    html:"<font size=1>称量瓶(盘)号</font>"
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,
+             	name:"QIMBH_SF",
+             	selectOnFocus:true,
+		        value:Ext.getDom("QIMBH_SF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_SF
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,
+             	name:"QIMBH_SF$0",
+             	selectOnFocus:true,
+		        value:Ext.getDom("QIMBH_SF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_SF
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+             	name:"QIMBH_SF$1",
+		        value:Ext.getDom("QIMBH_SF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+             	name:"QIMBH_SF$2",
+		        value:Ext.getDom("QIMBH_SF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_SF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>称量瓶(盘)质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+             	name:"QIMZL_SF",
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_SF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+             	name:"QIMZL_SF$0",
+             	decimalPrecision:4,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+		        value:Ext.getDom("QIMZL_SF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+             	name:"QIMZL_SF$1",
+             	decimalPrecision:4,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+		        value:Ext.getDom("QIMZL_SF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+             	name:"QIMZL_SF$2",
+             	decimalPrecision:4,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+		        value:Ext.getDom("QIMZL_SF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_SF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>称重瓶(盘)质量+试样质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_SF",
+             	decimalPrecision:4,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+		        value:Ext.getDom("QIMMYZL_SF").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_SF$0",
+             	decimalPrecision:4,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+		        value:Ext.getDom("QIMMYZL_SF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_SF$1",
+             	decimalPrecision:4,
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+		        value:Ext.getDom("QIMMYZL_SF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+		        selectOnFocus:true,
+		        name:"QIMMYZL_SF$2",
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_SF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>试样质量m(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,
+		        selectOnFocus:true,
+		        name:"MEIYZL_SF",
+             	maxValue:99.9999,
+             	minValue:0,
+             	maxLength:7,
+             	decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_SF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_SF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_SF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_SF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_SF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_SF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_SF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_SF
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>烘干后总质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_SF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_SF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goHONGHZL1_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_SF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_SF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goHONGHZL1_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_SF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_SF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goHONGHZL1_SF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_SF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_SF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goHONGHZL1_SF
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>检查性试验后总质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HONGHZL1_SF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_SF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoSFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HONGHZL1_SF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_SF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoSFSNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HONGHZL1_SF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_SF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoSFTNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HONGHZL1_SF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_SF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoSFENDNext
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>干燥后煤样减少的质量m1(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHIQZL_SF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_SF").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHIQZL_SF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_SF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHIQZL_SF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_SF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHIQZL_SF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_SF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>水分Mad=m1/m*100(%)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SFBFL",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("SFBFL").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SFBFL$0",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("SFBFL$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SFBFL$1",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("SFBFL$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SFBFL$2",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("SFBFL$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>平均值Mad(%)</font>"
+		  },{
+		    colspan: 4,
+		    items:[{
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        xtype:"numberfield",
+		        width:160,
+             	name:"AVGSF",
+		        value:Ext.getDom("AVGSF").value
+		     }]
+		  }/*,{
+		    html:"<font size = 1>化验员</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    html:"<font size = 1>审核</font>"
+		  },{
+			xtype:"textfield",
+			width:80,selectOnFocus:true,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,selectOnFocus:true,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,selectOnFocus:true,
+			name:"txt_value"
+		  },{
+		   xtype:"textfield",
+		   width:80,selectOnFocus:true,
+			name:"txt_value"
+		  }*/]
+		});
+
+	var huif = new Ext.Panel({
+		layout:"table",
+		layoutConfig:{
+		  columns:5
+		},
+		defaults:{
+			
+		},
+		items:[{
+			width:150,
+			html:"<font size=1></font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第一次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第二次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第三次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第四次</font>"
+		  },{
+		    html:"<font size=1>灰皿号</font>"
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_HF",
+		        value:Ext.getDom("QIMBH_HF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_HF
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_HF$0",
+		        value:Ext.getDom("QIMBH_HF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_HF
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_HF$1",
+		        value:Ext.getDom("QIMBH_HF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_HF$2",
+		        value:Ext.getDom("QIMBH_HF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_HF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>灰皿质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_HF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_HF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_HF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_HF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_HF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_HF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_HF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_HF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_HF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>灰皿质量+试样质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_HF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_HF").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_HF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_HF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_HF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_HF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_HF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_HF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>试样质量m(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_HF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_HF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_HF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_HF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_HF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_HF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_HF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_HF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_HF
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>加热后总质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_HF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_HF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goHONGHZL1_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_HF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_HF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goHONGHZL1_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_HF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_HF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goHONGHZL1_HF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_HF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_HF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goHONGHZL1_HF
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>检查性试验后总质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HONGHZL1_HF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_HF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoHFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HONGHZL1_HF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_HF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoHFSNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HONGHZL1_HF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_HF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoHFTNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HONGHZL1_HF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HONGHZL1_HF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoHFENDNext
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>残留物的质量m1(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHENGYZL_HF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHENGYZL_HF").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHENGYZL_HF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHENGYZL_HF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHENGYZL_HF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHENGYZL_HF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHENGYZL_HF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHENGYZL_HF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>灰分Aad</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HFBFL",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HFBFL").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HFBFL$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HFBFL$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HFBFL$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HFBFL$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HFBFL$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("HFBFL$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>平均值Aad(%)</font>"
+		  },{
+		    colspan: 4,
+		    items:[{
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        xtype:"numberfield",
+		        width:160,
+             	name:"AVGHF",
+		        value:Ext.getDom("AVGHF").value
+		     }]
+		  }/*,{
+		    html:"<font size = 1>化验员</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    html:"<font size = 1>审核</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  }*/]
+		});
+
+	var huiff = new Ext.Panel({
+		layout:"table",
+		layoutConfig:{
+		  columns:5
+		},
+		defaults:{
+			
+		},
+		items:[{
+			width:150,
+			html:"<font size=1></font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第一次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第二次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第三次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第四次</font>"
+		  },{
+		    html:"<font size=1>坩埚号</font>"
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_HFF",
+		        value:Ext.getDom("QIMBH_HFF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_HFF
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_HFF$0",
+		        value:Ext.getDom("QIMBH_HFF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_HFF
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_HFF$1",
+		        value:Ext.getDom("QIMBH_HFF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_HFF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_HFF$2",
+		        value:Ext.getDom("QIMBH_HFF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_HFF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>坩埚质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_HFF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_HFF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_HFF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_HFF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_HFF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_HFF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_HFF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_HFF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_HFF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_HFF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_HFF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_HFF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>坩埚质量+试样质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_HFF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_HFF").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_HFF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_HFF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_HFF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_HFF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_HFF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_HFF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>试样质量m(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_HFF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_HFF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_HFF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_HFF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_HFF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_HFF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_HFF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_HFF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_HFF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_HFF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_HFF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goZUIZHHZL_HFF
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>加热后总质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_HFF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_HFF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoHFFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_HFF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_HFF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoHFFSNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_HFF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_HFF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoHFFTNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"ZUIZHHZL_HFF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("ZUIZHHZL_HFF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoHFFENDNext
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>煤样加热后减少的质量m1(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHIQZL_HFF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_HFF").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHIQZL_HFF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_HFF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHIQZL_HFF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_HFF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"SHIQZL_HFF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("SHIQZL_HFF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>挥发分Vad=m1/m*100-Mad(%)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HFFBFL",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("HFFBFL").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HFFBFL$0",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("HFFBFL$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HFFBFL$1",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("HFFBFL$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HFFBFL$2",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("HFFBFL$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>挥发分Vdaf(%)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HUIFF",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("HUIFF").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HUIFF$0",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("HUIFF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HUIFF$1",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("HUIFF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"HUIFF$2",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("HUIFF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>平均值Vdaf(%)</font>"
+		  },{
+		    colspan: 4,
+		    items:[{
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        xtype:"numberfield",
+		        width:160,
+             	name:"AVGHFF",
+		        value:Ext.getDom("AVGHFF").value
+		     }]
+		  }/*,{
+		    html:"<font size = 1>化验员</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    html:"<font size = 1>审核</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  }*/]
+		});
+	
+	var liuf = new Ext.Panel({
+		layout:"table",
+		layoutConfig:{
+		  columns:5
+		},
+		defaults:{
+			
+		},
+		items:[{
+			width:150,
+			html:"<font size=1></font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第一次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第二次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第三次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第四次</font>"
+		  },{
+		    html:"<font size=1>器皿号</font>"
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_LF",
+		        value:Ext.getDom("QIMBH_LF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_LF
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_LF$0",
+		        value:Ext.getDom("QIMBH_LF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_LF
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_LF$1",
+		        value:Ext.getDom("QIMBH_LF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_LF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_LF$2",
+		        value:Ext.getDom("QIMBH_LF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goQIMZL_LF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>器皿质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_LF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_LF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_LF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_LF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_LF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_LF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_LF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMZL_LF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_LF
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_LF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMBH_LF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goMEIYZL_LF
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>器皿质量+试样质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_LF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_LF").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_LF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_LF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_LF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_LF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_LF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("QIMMYZL_LF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>试样质量m(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_LF",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_LF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:goLFBFL
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_LF$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_LF$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_LF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_LF$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_LF$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+		        value:Ext.getDom("MEIYZL_LF$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>全硫St,ad(%)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"LFBFL",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("LFBFL").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoLFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"LFBFL$0",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("LFBFL$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoLFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"LFBFL$1",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("LFBFL$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoLFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"LFBFL$2",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        value:Ext.getDom("LFBFL$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoLFFNext
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>全硫St,d(%)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"LIUF",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+             	value:Ext.getDom("LIUF").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoLFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"LIUF$0",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+             	value:Ext.getDom("LIUF$0").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoLFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"LIUF$1",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+             	value:Ext.getDom("LIUF$1").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoLFFNext
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"LIUF$2",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+             	value:Ext.getDom("LIUF$2").value,
+	            listeners :{
+	            	change:fdChange,
+	            	specialkey:gotoLFFNext
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>平均值St,d(%)</font>"
+		  },{
+            colspan: 4,
+		    items:[{
+		        maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        xtype:"numberfield",
+		        width:160,
+             	name:"AVGLF",
+		        value:Ext.getDom("AVGLF").value
+		     }]
+		  }/*,{
+		    html:"<font size = 1>化验员</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    html:"<font size = 1>审核</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  }*/]
+		});
+		
+	var farl = new Ext.Panel({
+		layout:"table",
+		layoutConfig:{
+		  columns:5
+		},
+		defaults:{
+			
+		},
+		items:[{
+			width:150,
+			html:"<font size=1></font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第一次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第二次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第三次</font>"
+		  },{
+		  	width:80,
+		    html:"<font size=1>第四次</font>"
+		  },{
+		    html:"<font size=1>坩埚号</font>"
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_DT",
+             	value:Ext.getDom("QIMBH_DT").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_DT$0",
+             	value:Ext.getDom("QIMBH_DT$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		      }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_DT$1",
+             	value:Ext.getDom("QIMBH_DT$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"textfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMBH_DT$2",
+             	value:Ext.getDom("QIMBH_DT$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>坩埚质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_DT",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("QIMZL_DT").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_DT$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("QIMZL_DT$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_DT$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("QIMZL_DT$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMZL_DT$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("QIMZL_DT$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>坩埚质量+试样质量(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_DT",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("QIMMYZL_DT").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_DT$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("QIMMYZL_DT$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_LF$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("QIMMYZL_DT$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"QIMMYZL_DT$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("QIMMYZL_DT$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>试样质量m(g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_DT",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("MEIYZL_DT").value,
+             	
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_DT$0",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("MEIYZL_DT$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_DT$1",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("MEIYZL_DT$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"MEIYZL_DT$2",
+             	maxValue:99.9999,minValue:0,maxLength:7,decimalPrecision:4,
+             	value:Ext.getDom("MEIYZL_DT$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>Qb,ad(J/g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"DANTR",
+             	maxLength:5,
+             	value:Ext.getDom("DANTR").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"DANTR$0",
+             	maxLength:5,
+             	value:Ext.getDom("DANTR$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"DANTR$1",
+             	maxLength:5,
+             	value:Ext.getDom("DANTR$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"DANTR$2",
+             	maxLength:5,
+             	value:Ext.getDom("DANTR$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size=1>Qgr,ad(J/g)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"GAOWR",
+             	maxLength:5,
+             	value:Ext.getDom("GAOWR").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"GAOWR$0",
+             	maxLength:5,
+             	value:Ext.getDom("GAOWR$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"GAOWR$1",
+             	maxLength:5,
+             	value:Ext.getDom("GAOWR$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"GAOWR$2",
+             	maxLength:5,
+             	value:Ext.getDom("GAOWR$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>Qnet,ar(MJ/kg)</font>"
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"DIWR",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+             	value:Ext.getDom("DIWR").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"DIWR$0",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+             	value:Ext.getDom("DIWR$0").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"DIWR$1",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+             	value:Ext.getDom("DIWR$1").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    items:[{
+		        xtype:"numberfield",
+		        width:80,selectOnFocus:true,
+		        name:"DIWR$2",
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+             	value:Ext.getDom("DIWR$2").value,
+	            listeners :{
+	            	change:fdChange
+	            }
+		     }]
+		  },{
+		    html:"<font size = 1>平均值Qnet,ar(MJ/kg)</font>"
+		  },{
+		    colspan: 4,
+		    items:[{
+             	maxValue:99.99,minValue:0,maxLength:5,decimalPrecision:2,
+		        xtype:"numberfield",
+		        width:160,
+             	name:"AVGDT",
+		        value:Ext.getDom("AVGDT").value
+		     }]
+		  }/*,{
+		    html:"<font size = 1>化验员</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    html:"<font size = 1>审核</font>"
+		  },{
+			xtype:"textfield",
+			width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		    xtype:"textfield",
+		    width:80,
+			name:"txt_value"
+		  },{
+		   xtype:"textfield",
+		   width:80,
+			name:"txt_value"
+		  }*/]
+		});
+	
+	var Mt = {
+					hidden:hiddenMT,
+                    title: '全水分Mt',
+                    items: quansf
+                };
+    var Aad = {
+    				hidden:hiddenAad,
+                    title: '灰分Aad',
+                    items: huif
+                };
+    var Sd = {
+    				hidden:hiddenSd,
+                    title: '全硫',
+                    items: liuf
+                };
+    var Mad = {
+    				hidden:hiddenMad,
+                    title: '水分Mad',
+                    items: shuif
+                };
+    var Vad = {
+    				hidden:hiddenVad, 
+                    title: '挥发分Vad',
+                    items: huiff
+                };
+    var Qar = {
+    				hidden:hiddenQar,
+                    title: '发热量',
+                    items: farl
+                };
+    var viewport = new Ext.Viewport({
+        layout:'border',
+        items:[
+          {
+            xtype:'portal',
+            region:'center',
+            margins:'24 0 0 0',
+            items:[{
+                columnWidth:.49,
+                style:'padding:10px 0 10px 10px',
+             	<span jwcid="@Insert" raw="true" value="ognl:Var"></span>
+            },{
+                columnWidth:.49,
+                style:'padding:10px 0 10px 10px',
+                <span jwcid="@Insert" raw="true" value="ognl:var1"></span>
+            }]
+        }]     
+    });
+    <span jwcid="@Insert" raw="true" value="ognl:Round_new"></span>
+    var panel1 = new Ext.Panel({
+    items:[viewport]
+    });
+    panel1.render('formDiv');
+    <span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:ToolbarScript"></span>;
+    gongysTree_window.show();
+	gongysTree_window.hide();
+});   
+</script>
+</head>
+<body id="body" jwcid="@Body">
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><span
+	jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"> </span> <span
+	jwcid="RefurbishButton@ZRcontrib:ImgButton" style="display:none"
+	buttontype="refurbish" label="刷新"
+	listener="ognl:listeners.RefurbishButton"></span> <span
+	jwcid="SaveButton@ZRcontrib:ImgButton" style="display:none"
+	buttontype="Save" label="保存" listener="ognl:listeners.SaveButton"></span>
+<span jwcid="DeleteButton@ZRcontrib:ImgButton" style="display:none"
+	buttontype="delete" label="删除" listener="ognl:listeners.DeleteButton"></span>
+<span jwcid="SubmitButton@ZRcontrib:ImgButton" style="display:none"
+	buttontype="submit" label="提交" listener="ognl:listeners.SubmitButton"></span>
+<span jwcid="RbishButton@ZRcontrib:ImgButton" style="display:none"
+	buttontype="refurbish" label=" " listener="ognl:listeners.RbishButton"></span>
+<input style="display:none" jwcid="VALUE" id="VALUE" type="text" />
+<table cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td>
+		<div id="tbarDiv"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<div id="formDiv"></div>
+		</td>
+	</tr>
+</table>
+<table style="display:none">
+	<tr>
+		<td><!--全水分-->
+		<table style="display:none">
+			<tr>
+				<td jwcid="List">
+				<table>
+					<tr>
+						<td><input style="display:none" jwcid="QIMBH_QSF"
+							id="QIMBH_QSF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="QIMZL_QSF"
+							id="QIMZL_QSF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="QIMMYZL_QSF"
+							id="QIMMYZL_QSF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="MEIYZL_QSF"
+							id="MEIYZL_QSF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="ZUIZHHZL_QSF"
+							id="ZUIZHHZL_QSF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="HONGHZL1_QSF"
+							id="HONGHZL1_QSF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="SHIQZL_QSF"
+							id="SHIQZL_QSF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="QSFBFL" id="QSFBFL"
+							type="text" /></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+		<td><!--水分-->
+		<table style="display:none">
+			<tr>
+				<td jwcid="List3">
+				<table>
+					<tr>
+						<td><input style="display:none" jwcid="QIMBH_SF"
+							id="QIMBH_SF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="QIMZL_SF"
+							id="QIMZL_SF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="QIMMYZL_SF"
+							id="QIMMYZL_SF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="MEIYZL_SF"
+							id="MEIYZL_SF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="ZUIZHHZL_SF"
+							id="ZUIZHHZL_SF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="HONGHZL1_SF"
+							id="HONGHZL1_SF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="SHIQZL_SF"
+							id="SHIQZL_SF" type="text" /></td>
+					</tr>
+					<tr>
+						<td><input style="display:none" jwcid="SFBFL" id="SFBFL"
+							type="text" /></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td jwcid="List5">
+		<table>
+			<tr>
+				<td><input style="display:none" jwcid="QIMBH_HFF"
+					id="QIMBH_HFF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="QIMZL_HFF"
+					id="QIMZL_HFF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="QIMMYZL_HFF"
+					id="QIMMYZL_HFF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="MEIYZL_HFF"
+					id="MEIYZL_HFF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="ZUIZHHZL_HFF"
+					id="ZUIZHHZL_HFF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="SHIQZL_HFF"
+					id="SHIQZL_HFF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="HFFBFL" id="HFFBFL"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="HUIFF" id="HUIFF"
+					type="text" /></td>
+			</tr>
+		</table>
+		</td>
+		<td jwcid="List4">
+		<table>
+			<tr>
+				<td><input style="display:none" jwcid="QIMBH_HF" id="QIMBH_HF"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="QIMZL_HF" id="QIMZL_HF"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="QIMMYZL_HF"
+					id="QIMMYZL_HF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="MEIYZL_HF"
+					id="MEIYZL_HF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="ZUIZHHZL_HF"
+					id="ZUIZHHZL_HF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="HONGHZL1_HF"
+					id="HONGHZL1_HF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="SHENGYZL_HF"
+					id="SHENGYZL_HF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="HFBFL" id="HFBFL"
+					type="text" /></td>
+			</tr>
+
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td jwcid="List1">
+		<table>
+			<tr>
+				<td><input style="display:none" jwcid="QIMBH_LF" id="QIMBH_LF"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="QIMZL_LF" id="QIMZL_LF"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="QIMMYZL_LF"
+					id="QIMMYZL_LF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="MEIYZL_LF"
+					id="MEIYZL_LF" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="LFBFL" id="LFBFL"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="LIUF" id="LIUF"
+					type="text" /></td>
+			</tr>
+		</table>
+		</td>
+		<td jwcid="List2">
+		<table>
+			<tr>
+				<td><input style="display:none" jwcid="QIMBH_DT" id="QIMBH_DT"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="QIMZL_DT" id="QIMZL_DT"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="QIMMYZL_DT"
+					id="QIMMYZL_DT" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="MEIYZL_DT"
+					id="MEIYZL_DT" type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="DANTR" id="DANTR"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="GAOWR" id="GAOWR"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td><input style="display:none" jwcid="DIWR" id="DIWR"
+					type="text" /></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+<input style="display:none" jwcid="AVGQSF" id="AVGQSF" type="text" /> <input
+	style="display:none" jwcid="AVGLF" id="AVGLF" type="text" /> <input
+	style="display:none" jwcid="AVGSF" id="AVGSF" type="text" /> <input
+	style="display:none" jwcid="AVGHF" id="AVGHF" type="text" /> <input
+	style="display:none" jwcid="AVGHFF" id="AVGHFF" type="text" /> <input
+	style="display:none" jwcid="AVGDT" id="AVGDT" type="text" /> <span
+	id="HuayTree_id" jwcid="TREEID" style="display:none"></span></form>
+</body>
+</html>

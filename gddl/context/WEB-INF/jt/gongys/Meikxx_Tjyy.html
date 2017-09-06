@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>煤矿修改</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+
+<script type="text/javascript">
+
+function mohcx(fieldValue,data,ds){
+        	var name_value=fieldValue;
+        	var new_data_str="new_data=[";
+        	if(name_value==null || name_value=='')
+        	{
+        		ds.loadData(data);
+        	}else{
+        	
+        	for(var i=0;i<data.length;i++){
+        		var arr=data[i];
+                var s='var name_regex=new RegExp("'+name_value+'","");';
+        		eval(s);
+        		if(name_regex.test(arr[4])){
+        			var recoName="[";
+        			for(var j=0;j<arr.length;j++){
+        				recoName+="'"+arr[j]+"'";
+        				if(j!=arr.length-1){recoName+=",";}
+        				}
+        				recoName+="]";
+        				new_data_str+=recoName;
+        				new_data_str+=",";
+        		}
+        	}
+        	new_data_str=new_data_str.substring(0,new_data_str.lastIndexOf(','));
+        	if(new_data_str==null||new_data_str==""){
+        		new_data_str+="new_data=[";
+        	}
+        	new_data_str+="];";  
+        	eval(new_data_str);
+    	ds.loadData(new_data);
+        }
+}
+
+</script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var grid_div;
+var Meikdwmc;
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+});
+</script>
+</head>
+<body id="body" jwcid="@Body" class="bgs">
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%" height="100%">
+	<tr id="trcondition" valign=middle height="20" style="display:none">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top hight="100%">
+		<td>
+		<div id="gridDiv" style="height:100%;overflow:none"></div>
+		<span id="CHANGE" jwcid="CHANGE" style="display:none"></span></td>
+       <span id="PARAMETERS"  jwcid ="PARAMETERS" style="display:none"></span>
+       
+	</tr>
+
+</table>
+
+<input type="submit" id="FanHBt" jwcid="@Submit" listener="ognl:listeners.FanHBt" style="display:none"/>
+<input type="submit" id="MoHCHBt" jwcid="@Submit" listener="ognl:listeners.MoHCHBt" style="display:none"/>
+<input type="submit" id="TianjBt" jwcid="@Submit" listener="ognl:listeners.TianjBt" style="display:none"/>
+<input id="Meikdwmc_value"  style="display:none" type="text" jwcid="Meikdwmc_value"/>
+<input id="DataSource" style="display:none" type="text" jwcid="DataSource"/>
+<input id="MsgAdd" style="display:none" type="text" name="MsgAdd"/>
+</form>
+
+<script type="text/javascript">
+
+
+</script>
+</body>
+
+</html>

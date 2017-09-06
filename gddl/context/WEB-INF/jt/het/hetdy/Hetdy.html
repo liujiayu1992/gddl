@@ -1,0 +1,67 @@
+ <html jwcid="@Shell" doctype=" " title="合同打印"  stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>    
+ <script jwcid="Reportjs"/>
+ <script jwcid="Hetdyjs"/>
+<script>
+	Ext.onReady(function(){
+		var url = "http://"+document.location.host+document.location.pathname;
+		var end = url.indexOf("/app");
+		url = url.substring(0,end);
+		Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+		<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+		<span jwcid="@Insert" raw="true" value="ognl:ToolbarScript"></span>
+	});
+ </script>
+<body id="body"  jwcid="@Body"  class="bgs"bottommargin=0 topmargin=2 leftmargin=5 rightmargin=5>   
+    <script>
+        function chax(){
+        	var url = "http://"+document.location.host+document.location.pathname;
+            var end = url.indexOf(";");
+			url = url.substring(0,end);
+       	    url = url + "?service=page/" + "Hetwb&hetb_id="+Ext.get('HetbhDropDown').getValue();
+		    document.all.Hetwb.src = url;
+        }
+    </script>
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+     <!--span jwcid="@Insert" raw=true value="ognl:TreeHtml"/-->  
+    <span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span> 
+    <!--显示报表内容开始-->    
+    <table id="tablemain"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+        <tr  id="trcondition"  valign=middle  height ="50">
+            <td> 
+                <div id = container>
+			    	 <div id = tbdiv></div>
+			    </div>
+            	<table border="0"  cellspacing="0"  cellpadding="0"class="toolBar"style="display:none">
+					<tr>
+                        <td width='60'align="right">签订年份:</td><td width='80'><input submitOnChange="true"style="width:100%"jwcid="NianfDropDown" id="NianfDropDown" type="text"/></td>               
+						<td width='60'align="right"id="danw">需方单位:</td><td width='120'><input onchange="this.form.submit()"style="width:100%"jwcid="xufSelect"id="xufSelect" type="text" /></td> 
+                 		<td id="gongys"width='60'align="right">供方单位:</td><td width='120'><input onchange="this.form.submit()" style="width:100%"jwcid="gongfSelect"  id="gongfSelect" type="text" /></td> 
+				        <td width='60'align="right">合同位置:</td><td width='120'><input readonly="true" onchange="this.form.submit()"style="width:100%" jwcid="weiz" id="weiz"type="text" /></td>
+                        <td width='60'align="right">合同类型:</td><td width='120'><input readonly="true" onchange="this.form.submit()"style="width:100%" jwcid="LEIX" id="LEIX"type="text" /></td>
+                        <td width='60'align="right">合同编号:</td><td width='120'><input style="width:100%"jwcid="HetbhDropDown"id="HetbhDropDown" type="text" submitOnChange="false" /></td>
+						<td width='40'align="left"><span jwcid="QueryButton@ZRcontrib:ImgButton"onclick="chax()"style="width:100%"	buttontype="nosubmitbuttons" label="查询" /></td>  			
+                        <td></td>
+					</tr>	
+				</table>
+            </td> 
+        </tr>
+		<!-- 报表工具条结束 -->
+        <tr id="SelectData" valign=top>
+            <td > 
+                <div id="SelectFrmDiv">
+            	<span jwcid="@Iframe"id="Hetwb" page="Hetwb"width="100%"height="95%"></span>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!--报表条件设置结束-->    
+    </form>
+</body>
+<script>window.onresize();</script>
+</html>

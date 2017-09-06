@@ -1,0 +1,739 @@
+<html jwcid="@Shell" doctype=" " title="数量管理"
+	stylesheet="ognl:assets.Rmis">
+<body id="body" jwcid="@Body" class="bgs">
+<style>
+.menu2-text {
+	padding-top: 5px;
+	color: #888888;
+}
+
+.navtabrow {
+	width: 25px;
+}
+
+.tabbar td {
+	font-size: 12px;
+	text-decoration: none;
+	color: #888888;
+}
+
+.blue td textarea {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: blue
+}
+
+.red {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: red
+}
+</style>
+<script jwcid="Diancxxjs" />
+
+<script jwcid="Validatejs" />   
+
+<script jwcid="Datejs" />
+
+<div id="wait"
+	style="POSITION: absolute; BORDER-RIGHT: gray 0px solid; z-index: 1; PADDING-RIGHT: 2px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid; HEIGHT: 218; width: 330">
+<iframe jwcid="@Iframe" page="Waiting" height="100%"
+	oncontextmenu="self.event.returnValue=false" name="mainFrame"
+	style="background: ThreeDLowwer" width="100%" align="middle"
+	frameborder="0" scrolling="no"> </iframe></div>
+<script>
+		document.all.item("wait").style.posTop=(body.clientHeight-document.all.item("wait").clientHeight)/2;
+		document.all.item("wait").style.posLeft=(body.clientWidth-document.all.item("wait").clientWidth )/2;
+     	function Showwait(){
+			if(document.all.item("wait").style.display=="none"){
+                 document.all.item("wait").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+        function blurfocus(){
+	    	if(document.all.item("wait").style.display==""){
+				for(i = 0; i < document.all.length; i++){
+					document.all(i).disabled = true;
+				}
+			}
+			return true;	
+    	}
+    </script>
+<script>
+    	function MatchNum(obj1,str){
+			var Numr, Numre;
+			var Nums = obj1.value;
+			if(Nums.substring(0,1)=='.'){			//将首字符为'.'的数值替换为'0.'
+				Nums= 0 + Nums;	
+			}
+			Numre = str;  							// 创建正则表达式对象。
+			Numr = Nums.match(Numre);               // 在字符串 s 中查找匹配。
+			if(Nums!= Numr){						// 如果不等
+				alert("数值超出合理范围！");
+				obj1.value=0;						// 输入框付值为0
+				obj1.focus();						// 输入框取得焦点
+		   		return false;
+			}else{									// 否则判断是否超过上下限						
+				obj1.value = Nums;						// 如果没超过上下限，将改正的数值返回到原输入框
+				return true;
+			}
+		}
+		function MatchStr(obj,long){
+			var Strs = obj.value;
+			var s = Strs.replace(/[^\x00-\xff]/g,"aa");		// 将汉字和全角字符替换为aa
+			if(s.length > long){							// 判断字符串是否超过指定长度
+				alert("输入字符串过长，请重新输入！");
+				obj.value="";
+				obj.focus();
+				return false;	
+			}		
+			return true;	
+		}
+    </script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><span
+	jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"> </span>
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign=middle height="20">
+		<td>
+		<table valign="middle">
+			<tr>
+				<td>
+				<table>
+					<tr>
+                        <td class="text-position">电厂:</td>
+						<td><input class="text-position" style=""
+							jwcid="DIANCSelect" submitOnChange="true"
+							id="LUJXXB_IDSelect" type="text" /></td>
+						<td><span jwcid="RefurbishButton@ZRcontrib:ImgButton"
+							buttontype="refurbish" label="刷新" onclick="return Showwait();"
+							onblur="return blurfocus();"
+							listener="ognl:listeners.RefurbishButton" /></td>
+						<td><span jwcid="SaveButton@ZRcontrib:ImgButton"
+							buttontype="save" onblur="return blurfocus();" label="保存"
+							listener="ognl:listeners.SaveButton" /></td>
+						<input class="text-position" style="display: none;"
+							jwcid="EditTableRow" id="EditTableRow" type="text" />
+						<input class="text-position" style="display: none;"
+							jwcid="TabbarSelect" id="TabbarSelect" type="text" />
+					</tr>
+				</table>
+				</td>
+			</tr>
+            <tr>
+				<td colspan="5">
+				<table id="page" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td><span jwcid="FirstPageButton@ZRcontrib:ImgButton"
+							buttontype="" label="第一页"
+							listener="ognl:listeners.FirstPageButton" id="FirstPageButton" /></td>
+						<td><span jwcid="UpPageButton@ZRcontrib:ImgButton"
+							buttontype="" label="上一页" listener="ognl:listeners.UpPageButton"
+							id="UpPageButton" /></td>
+						<td><span jwcid="DownPageButton@ZRcontrib:ImgButton"
+							buttontype="" label="下一页"
+							listener="ognl:listeners.DownPageButton" id="DownPageButton" /></td>
+						<td><span jwcid="LastPageButton@ZRcontrib:ImgButton"
+							buttontype="" label="最后一页"
+							listener="ognl:listeners.LastPageButton" id="LastPageButton" /></td>
+						<td>&nbsp;</td>
+						<td><span style="width: 75px; text-align: center"
+							class="text-position" id="pageno" name="pageno"></span></td>
+						<td align="right">&nbsp; <span class="text-position">转到页：</span>
+						<input
+							style="width: 50px; text-align: center; font: normal bolder Verdana"
+							class="text-position"
+							onblur="MatchNum(this,/(^[1-9]{1}[0-9]{0,3}$)/gi);"
+							jwcid="GoPage" id="GoPage" type="text" /></td>
+						<td align="left">&nbsp; <span
+							jwcid="GoPageButton@ZRcontrib:ImgButton" buttontype=""
+							label="Go>>" style="font: normal bolder Verdana"
+							onclick="return IllegalPage();"
+							listener="ognl:listeners.GoPageButton" id="GoPageButton" /></td>
+						<td><input class="text-position" style="display: none;"
+							jwcid="TotalPages" id="TotalPages" type="text" /> <input
+							class="text-position" style="display: none;" jwcid="CurrentPage"
+							id="CurrentPage" type="text" /></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top>
+		<td>
+		<div id="SelectFrmDiv" class="text-position"
+			style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid; HEIGHT: 100%">
+		<div id="SelectHeadDiv"
+			style="OVERFLOW: hidden; background-color: #FFFFFF">
+		<table id="EditHeadTabel" bordercolordark="#ffffff" cellpadding="1"
+			bordercolor="#ffffff"
+			style="font-family: Geneva, Arial, Helvetica, sans-serif; font-size: 11px; color: #525252; padding: 3px;"
+			bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+			class="edittablehead" jwcid="@Any"
+			background="ognl:assets.background" width="3800">
+			<tr width="3800" align="center">
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:55px">序号</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">编码</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">简称</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">全称</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">拼音</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">省份</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">上级单位</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">到站</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">到港</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">地址</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">邮政编码</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">总机</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">燃料处电话</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">装机容量(MW)</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">最大库存(吨)</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">正常储备(吨)</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">限负荷库存(吨)</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">日均耗煤(吨)</label></th>
+				<th jwcid="@Any" width="120" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:115px">经济储煤上限(吨)</label></th>
+				<th jwcid="@Any" width="120" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:115px">经济储煤下限(吨)</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">冬储煤指标(吨)</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">法定代表人</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">委托代理人</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">开户银行</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">帐号</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">电话</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">税号</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">接卸方式</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">接卸线</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">接卸能力</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">采样方式</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">计量方式</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">燃料负责人</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">联系地址</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">警戒存煤(吨)</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">级别</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">备注</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">电厂类别</label></th>
+
+			</tr>
+		</table>
+		</div>
+		<div id="SelectDataDiv" onscroll="_onscroll(this,SelectHeadDiv)"
+			style="POSITION: absolute; BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+		<table id="oData" class="edittable" border="0" cellpadding="0"
+			cellspacing="0"
+			style="font-family: Geneva, Arial, Helvetica, sans-serif; font-size: 11px; color: #525252;"
+			width="3800">
+			<tr Height="21" onclick="classchange(this,'onclick');SelectRow(this)"
+				onmouseout="classchange(this,'onmouseout')"
+				onmouseover="classchange(this,'onmouseover')" width="3800"
+				jwcid="EditValues" class="edittableTrOut">
+				<td width="60"><input readonly="true" class="text-position"
+					style="width:58px" jwcid="XUH" id="XUH" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="BIANM" id="BIANM" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="MINGC" id="MINGC" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="QUANC" id="QUANC" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="PINY" id="PINY" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="SHENGFB_ID" id="SHENGFB_ID" type="text" />
+				</td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="FUID" id="FUID" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="DAOZ" id="DAOZ" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="DAOG" id="DAOG" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="DIZ" id="DIZ" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="YOUZBM" id="YOUZBM" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="ZONGJ" id="ZONGJ" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="RANLCDH" id="RANLCDH" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="ZHUANGJRL" id="ZHUANGJRL" type="text" />
+				</td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="ZUIDKC" id="ZUIDKC" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="ZHENGCCB" id="ZHENGCCB" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="XIANFHKC" id="XIANFHKC" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="RIJHM" id="RIJHM" type="text" /></td>
+				<td width="120"><input readonly="true" class="text-position"
+					style="width:118px" jwcid="JINGJCMSX" id="JINGJCMSX" type="text" />
+				</td>
+				<td width="120"><input readonly="true" class="text-position"
+					style="width:118px" jwcid="JINGJCMXX" id="JINGJCMXX" type="text" />
+				</td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="DONGCMZB" id="DONGCMZB" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="FADDBR" id="FADDBR" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="WEITDLR" id="WEITDLR" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="KAIHYH" id="KAIHYH" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="ZHANGH" id="ZHANGH" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="DIANH" id="DIANH" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="SHUIH" id="SHUIH" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="JIEXFS" id="JIEXFS" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="JIEXX" id="JIEXX" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="JIEXNL" id="JIEXNL" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="CAIYFS" id="CAIYFS" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="JILFS" id="JILFS" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="RANLFZR" id="RANLFZR" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="LIANXDZ" id="LIANXDZ" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="JINGJCML" id="JINGJCML" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="JIB" id="JIB" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="BEIZ" id="BEIZ" type="text" /></td>
+				<td width="100"><input readonly="true" class="text-position"
+					style="width:98px" jwcid="DIANCLBB_ID" id="DIANCLBB_ID" type="text" />
+				</td>
+
+			</tr>
+		</table>
+		</div>
+		</div>
+		</td>
+	</tr>
+	<tr valign="top" id="tabbar">
+		<!--导航信息-->
+		<td>
+		<table cellspacing="0" cellpadding="0" width="100%" border="0"
+			class="tabbar ">
+			<tr>
+				<td jwcid="@Any" background="ognl:assets.img_formtab_bg">
+				<table cellspacing="0" cellpadding="0" border="0" jwcid="@Any"
+					background="ognl:assets.img_formtab_bg">
+					<tr>
+						<td align="right" class="navtabrow"><img width="25"
+							height="21" id="imgbtn0" alt="" jwcid="@Image"
+							image="ognl:assets.img_formtab_first_leftoff" border="0" /></td>
+						<td id="TDBtn0" jwcid="@Any"
+							background="ognl:assets.img_formtab_back_off" class="menu2-text"
+							width="56" style="cursor: hand" onclick="_Modulebar(0)"><b>基本信息</b></td>
+						<td align="right" class="navtabrow"><img width="25"
+							height="21" id="imgbtn0" alt="" jwcid="@Image"
+							image="ognl:assets.img_formtab_middle_off" border="0" /></td>
+						<td id="TDBtn0" jwcid="@Any"
+							background="ognl:assets.img_formtab_back_off" class="menu2-text"
+							width="56" style="cursor: hand" onclick="_Modulebar(1)"><b>资源信息</b></td>
+						<td align="right" class="navtabrow"><img width="25"
+							height="21" id="imgbtn0" alt="" jwcid="@Image"
+							image="ognl:assets.img_formtab_middle_off" border="0" /></td>
+						<td id="TDBtn0" jwcid="@Any"
+							background="ognl:assets.img_formtab_back_off" class="menu2-text"
+							width="56" style="cursor: hand" onclick="_Modulebar(2)"><b>合同信息</b></td>
+						<td align="right" class="navtabrow"><img width="25"
+							height="21" id="imgbtn0" alt="" jwcid="@Image"
+							image="ognl:assets.img_formtab_last_rightoff" border="0" /></td>
+						<td class="navtabrow" width="138"></td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="selectTab" style="display: none;" valign="top">
+		<td>
+		<div id="div" width="800" height="370"
+			style="border: 1px solid gray; padding: 3px"><!--合同量-->
+		<table id="table1" valign="middle" align="center" class="EditTablediv"
+			width="100%">
+			<tr width="100%">
+				<td align="right">电厂编码</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="BIANMedit"
+					type="text" /></td>
+				<td align="right">简称</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="MINGCedit" type="text" />
+				</td>
+				<td align="right">全称</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="QUANCedit" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right">所属省</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="SHENGFB_IDedit" type="text" />
+				</td>
+				<td align="right">上级单位</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120;" id="FUIDedit"
+					type="text" /></td>
+				<td align="right">到站</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onchange="droponchange('DAOZ',this,0)" class="text-position"
+					id="DAOZedit" style="width: 120;" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right">燃料电话</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="RANLCDHedit"
+					type="text" /></td>
+				<td align="right">邮编</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120;" id="YOUZBMedit"
+					type="text" /></td>
+				<td align="right">地址</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="DIZedit" type="text" />
+				</td>
+
+			</tr>
+			<tr>
+
+			</tr>
+			<tr>
+				<td align="right">燃料负责人</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="RANLFZRedit"
+					type="text" /></td>
+				<td align="right">联系地址</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="LIANXDZedit"
+					type="text" /></td>
+				<td align="right">联系电话</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="LIANXDHedit"
+					type="text" /></td>
+			</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	<tr id="selectTab" style="display: none;" valign="top">
+		<td>
+		<div id="div" width="800" height="370"
+			style="border: 1px solid gray; padding: 3px"><!--合同量-->
+		<table id="table2" valign="middle" align="center" class="EditTablediv"
+			width="100%">
+			<tr>
+				<td align="right">接卸方式</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width:120;" id="JIEXFSedit"
+					type="text" /></td>
+
+				<td align="right">接卸线</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="JIEXXedit" type="text" /></td>
+
+				<td align="right">接卸能力(车/小时)</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="JIEXNLedit" type="text" /></td>
+			</tr>
+			<tr>
+				<td align="right">采样方式</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width:120;" id="CAIYFSedit"
+					type="text" /></td>
+
+				<td align="right">计量方式</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="JILFSedit" type="text" /></td>
+
+				<td align="right">到港</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onchange="droponchange('DAOG',this,0)" class="text-position"
+					id="DAOGedit" style="width: 120;" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right">到港泊位吨数(吨)</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="daogbwdsedit" type="text" /></td>
+				<td align="right">备注</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="BEIZedit" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right">机组情况</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width:120;" id="jizqkedit" type="text" />
+				</td>
+				<td align="right">设计煤种</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="shejmzedit" type="text" /></td>
+
+				<td align="right">煤种要求</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="meizyqedit" type="text" /></td>
+			</tr>
+			<tr>
+				<td align="right">装机容量(千瓦时)</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120;" id="ZHUANGJRLedit"
+					type="text" /></td>
+				<td align="right">最大库存(吨)</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="ZUIDKCedit"
+					type="text" /></td>
+				<td align="right">警戒存煤量(吨)</td>
+				<td><input readonly="true"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="JINGJCMLedit"
+					type="text" /></td>
+			</tr>
+			<tr>
+				<td align="right">正常储备(吨)</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="ZHENGCCBedit"
+					type="text" /></td>
+				<td align="right">限负荷库存(吨)</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120;" id="XIANFHKCedit"
+					type="text" /></td>
+				<td align="right">日均耗煤(吨)</td>
+				<td><input onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width: 120" id="RIJHMedit" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<td align="right">经济存煤上限(吨)</td>
+				<td><input readonly="true" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur');" onchange="ChangeSelectRow(this)"
+					class="text-position" class="text-position" style="width: 120"
+					id="JINGJCMSXedit" type="text" /></td>
+				<td align="right">经济存煤下限(吨)</td>
+				<td><input readonly="true" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur');" onchange="ChangeSelectRow(this)"
+					class="text-position" class="text-position" style="width: 120;"
+					id="JINGJCMXXedit" type="text" /></td>
+				<td align="right">备冬储煤指标(吨)</td>
+				<td><input style="width: 120" readonly="true"
+					onclick="editin(this,'onclick')" onblur="editin(this,'onblur');"
+					onchange="ChangeSelectRow(this)" class="text-position"
+					id="DONGCMZBedit" type="text" /></td>
+			</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	<tr id="selectTab" style="display: none;" valign="top">
+		<td>
+		<div id="div" width="800" height="370"
+			style="border: 1px solid gray; padding: 3px"><!--合同量-->
+		<table id="table3" valign="middle" align="center" class="EditTablediv"
+			width="100%">
+			<tr>
+				<td align="right">法定代表人</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="faddbredit" type="text" /></td>
+				<td align="right">委托代理人</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="weitdlredit" type="text" /></td>
+				<td align="right">总机</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="ZONGJedit" type="text" /></td>
+			</tr>
+			<tr>
+				<td align="right">开户银行</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" style="width:120;" id="kaihyhedit"
+					type="text" /></td>
+
+				<td align="right">帐号</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="zhanghedit" type="text" /></td>
+
+				<td align="right">税号</td>
+				<td><input style="width: 120"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					onfocus="editin(this,'onfocus')" onclick="editin(this,'onclick')"
+					onblur="editin(this,'onblur')" onchange="ChangeSelectRow(this)"
+					class="text-position" id="shuihedit" type="text" /></td>
+			</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+<script>window.onresize();document.all.item("wait").style.display="none";  </script>
+<script>   	
+     var _rr=eval(document.all.item("TabbarSelect").value);
+    _Modulebar(_rr);  
+    setRow1();
+</script>
+</html>

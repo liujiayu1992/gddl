@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+	<!-- 启用springMVC注解功能，完成初始化 -->
+	<!--<mvc:annotation-driven />
+	&lt;!&ndash; 注解式事务处理 &ndash;&gt;
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<mvc:default-servlet-handler />
+
+
+	&lt;!&ndash;==================================================分割线============================================================ &ndash;&gt;
+	&lt;!&ndash;方法1:定时任务扫描注解配置 &ndash;&gt;
+&lt;!&ndash;	 <task:annotation-driven/> <context:annotation-config/> <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>&ndash;&gt;
+	&lt;!&ndash;*************************************************************************************************************** &ndash;&gt;
+	&lt;!&ndash;方法2：定时任务配置 &ndash;&gt;
+	 <task:scheduled-tasks>
+
+		<task:scheduled ref="shuldrJob" method="execute" cron="0 0/20 * * * ?" />
+
+		<task:scheduled ref="zidongrkJob" method="execute" cron="0 0 20 * * ?" />				
+
+		<task:scheduled ref="rijsJob" method="execute" cron="0 0/20 * * * ?" />
+
+		<task:scheduled ref="gongyspfJob" method="execute" cron="0 0 23 * * ?" />
+
+		<task:scheduled ref="kucsjdrJob" method="execute" cron="0 0/25 * * * ?" />
+
+		<task:scheduled ref="xmldatasuploadJob" method="execute" cron="0 0/21 * * * ?" />
+		
+	</task:scheduled-tasks>
+	&lt;!&ndash;============================================================================================================== &ndash;&gt;
+	&lt;!&ndash; 拦截器 &ndash;&gt;
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*/*" />
+			<bean class="com.zhiren.gddlds.interceptor.LoginInterceptor">
+				<property name="excludedUrls">
+					<list>
+						<value>/login/</value>
+						<value>/logon/</value>
+						<value>/logout/</value>
+						<value>/login/</value>
+					</list>
+				</property>
+
+			</bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/*/*/*" />
+			<bean class="com.zhiren.gddlds.interceptor.LoginInterceptor">
+				<property name="excludedUrls">
+					<list>
+						<value>/login/</value>
+						<value>/logon/</value>
+						<value>/logout/</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/*/*/*/" />
+			<bean class="com.zhiren.gddlds.interceptor.LoginInterceptor">
+				<property name="excludedUrls">
+					<list>
+						<value>/login/</value>
+						<value>/logon/</value>
+						<value>/logout/</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.zhiren.gddlds.interceptor.EncodeInterceptor">
+            </bean>
+        </mvc:interceptor>
+	</mvc:interceptors>-->
+
+	<!-- 启用自动扫描 -->
+<!--	<context:component-scan base-package="com" use-default-filters="false">
+		<context:include-filter type="regex" expression="com.zhiren.gddlds.service.*" />
+		<context:include-filter type="regex" expression="com.zhiren.gddlds.scheduler.*" />
+		<context:include-filter type="regex" expression="com.zhiren.gddlds.webService.*" />
+        <context:include-filter type="regex" expression="com.zhiren.gddlds.controller.*" />
+	</context:component-scan>-->
+	<!-- 定义首页 -->
+	<mvc:view-controller path="/" view-name="redirect:app" />
+
+	<!-- 页面转向路径配置，前缀prefix， 后缀suffix -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+
+</beans>

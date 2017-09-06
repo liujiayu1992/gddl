@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='GB2312' ?>
+<化验信息>
+    <化验>
+        <电厂名称>良村热电</电厂名称>
+        <厂别ID>123</厂别ID>
+        <samcode>1323214234</samcode>
+        <Huaybh>16111064</Huaybh>
+        <Caiysj>2016/11/10 22:58:35</Caiysj>
+        <Bianh>16111019</Bianh>
+        <Lury1>化验管理员</Lury1>
+        <Caiyry></Caiyry>
+        <Caiyfs>1</Caiyfs>
+        <Huaysj>2016/11/10 0:00:00</Huaysj>
+        <Qnetar>17.991</Qnetar>
+        <Aar>38.54</Aar>
+        <Ad>40.65</Ad>
+        <Vdaf>21.67</Vdaf>
+        <Mt>5.20</Mt>
+        <Stad>3.34</Stad>
+        <Aad>40.14</Aad>
+        <Mad>1.26</Mad>
+        <Qbad>19.8890</Qbad>
+        <Had>3.34</Had>
+        <Vad>12.7</Vad>
+        <Std>3.38</Std>
+        <Qgrd>19.8</Qgrd>
+        <Huayy>张居奎;袁芳;</Huayy>
+        <Lury2></Lury2>
+        <Shenhzt>3</Shenhzt>
+        <Shenhry>化验管理员</Shenhry>
+        <Fcad>45.90</Fcad>
+        <Shangjshzt>0</Shangjshzt>
+        <Hdaf>5.70</Hdaf>
+        <Qgrad>19.551</Qgrad>
+        <Qgrdaf>33.36</Qgrdaf>
+        <Shenhrq>2016-11-10</Shenhrq>
+        <Shangjshry></Shangjshry>
+        <Shangjshrq></Shangjshrq>
+        <Sdaf>5.70</Sdaf>
+    </化验>
+</化验信息>

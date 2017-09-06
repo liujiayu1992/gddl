@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>细度</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.XGridPluginjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+
+Ext.override(Ext.grid.RowSelectionModel, {   
+               onEditorKey : function(field, e) {                       
+               //alert('go');   
+                   var k = e.getKey(), newCell, g = this.grid, ed = g.activeEditor;   
+                   var shift = e.shiftKey;   
+                    //Ext.log('k:' + k);   
+                    if (k == e.ENTER) {   
+                        e.stopEvent();   
+                        ed.completeEdit();   
+                      if (shift) {   
+                           newCell = g.walkCells(ed.row, ed.col - 1, -1,   
+                                  this.acceptsNav, this);   
+                      } else {   
+                           // alert('go');   
+                           newCell = g.walkCells(ed.row, ed.col + 1, 1,   
+                                   this.acceptsNav, this);   
+                       }   
+                   } else if (k == e.TAB) {   
+                       e.stopEvent();   
+                       ed.completeEdit();   
+                       if (this.moveEditorOnEnter !== false) {   
+                          if (shift) {   
+                              newCell = g.walkCells(ed.row - 1, ed.col, -1,   
+                                      this.acceptsNav, this);   
+                            } else {   
+                              // alert('go');   
+                               newCell = g.walkCells(ed.row + 1, ed.col, 1,   
+                                      this.acceptsNav, this);   
+                            }   
+                      }   
+                   } else if (k == e.ESC) {   
+                        ed.cancelEdit();   
+                }   
+                   if (newCell) {   
+                       g.startEditing(newCell[0], newCell[1]);   
+                    }   
+              }   
+           }); 
+});
+</script>	
+</head>
+<body id="body" >
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+<div id = "gridDiv" style="height:100%;overflow:none"></div>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+label="保存" style="display:none" 
+id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+<span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span> 
+<span id="RIQI"  jwcid = "RIQI" style="display:none" ></span>
+</form>
+</body>
+<script type="text/javascript" >
+document.getElementById("gridDiv").style.height = bodyHeight-73;
+</script>
+</html>

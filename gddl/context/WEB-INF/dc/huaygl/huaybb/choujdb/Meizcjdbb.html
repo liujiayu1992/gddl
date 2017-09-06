@@ -1,0 +1,115 @@
+<html jwcid="@Shell" doctype=" " title="月报数据查询"
+	stylesheet="ognl:assets.Rmis">
+<body id="body" jwcid="@Body" class="bgs">
+<div id="wait"
+	style="POSITION: absolute;BORDER-RIGHT: gray 0px solid;z-index:1; PADDING-RIGHT: 2px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;HEIGHT: 218;width:330">
+<iframe jwcid="@Iframe" page="Waiting" height="100%"
+	oncontextmenu="self.event.returnValue=false" name="mainFrame"
+	style="background:ThreeDLowwer" width="100%" align="middle"
+	frameborder="0" scrolling="no"> </iframe></div>
+<script>
+		document.all.item("wait").style.posTop=(body.clientHeight-document.all.item("wait").clientHeight)/2;
+		document.all.item("wait").style.posLeft=(body.clientWidth-document.all.item("wait").clientWidth )/2;
+     	function Showwait(){
+			if(document.all.item("wait").style.display=="none"){
+                 document.all.item("wait").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+ </script>
+<script jwcid="Rucmzjyybjs" />
+ 
+
+<script jwcid="Datejs" />
+ 
+
+<script jwcid="reportjs" />
+    
+
+
+
+<script jwcid="Validatejs" />
+    
+
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><script><span jwcid="@Insert" value="ognl:PageHome" /></script>
+<OBJECT id=WebBrowser classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2
+	height=0 width=0></OBJECT>
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign=middle height="20">
+		<td>
+		<table valign="middle">
+			<tr>
+				<td id="Changb" class="text-position"><font style="font-size:10pt;">厂别:</td>
+				<td><input class="text-position" jwcid="CHANGBSelect"
+					id="CHANGBSelect" type="text" /></td>
+                <td id="Yunsfs" class="text-position"style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;">运输方式:</td>
+                <td><input class="text-position" jwcid="YUNSFSSelect"
+                    id="YUNSFSSelect" type="text"/></td>
+				<td id="Jisfs" class="text-position"style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;" >计算方式:</td>
+		        <td><input  style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;" jwcid="CumStyleDropDown"  id="CumStyleDropDown" type="text" /></td> 
+				<td id="Xiaosw" class="text-position"><font style="font-size:10pt;">小数位:</td>
+                    <td><input  class = "text-position" jwcid="Radix" id="Radix" type="text" submitOnChange="false"/></td> 
+				<td class="text-position"><font style="font-size:10pt;">日期:</td>
+				<td><input readonly="true" class="text-position"
+					style="width:80px" jwcid="Date" id="Date" type="text" /></td>
+				<td class="text-position"><font style="font-size:10pt;">至:</td>
+				<td><input readonly="true" class="text-position"
+					style="width:80px" jwcid="DateAfter" id="DateAfter" type="text" /></td>
+				  <td><span jwcid="QueryButton@rmis:ImgButton"
+					buttontype="submit" label="查询"
+					listener="ognl:listeners.QueryButton" /></td>
+		</table>
+		<table id='navigationBar' width=100% class="navigationBar">
+			<tr>
+				<td width=10%>显示页<span id='pageNumber'></span>/<span
+					id='totalPage'></span></td>
+				<td align='right' width=90%><span
+					jwcid="PrintSetButton@rmis:ImgButton" buttontype="nosubmitbuttons"
+					label="页面设置" onclick="document.all.WebBrowser.ExecWB(8,1);" /> <span
+					jwcid="PrintButton@rmis:ImgButton" buttontype="nosubmitbuttons"
+					label="打印" onclick="print('SelectFrmDiv');" /> <span
+					jwcid="ExcelButton@rmis:ImgButton" buttontype="nosubmitbuttons"
+					label="导出" onclick="exportExcel('SelectFrmDiv');" /> <span
+					jwcid="firstButton@rmis:ImgButton" buttontype="nosubmitbuttons"
+					label="首页" onclick="navigatorClick('first');" /> <span
+					jwcid="previousButton@rmis:ImgButton" buttontype="nosubmitbuttons"
+					label="上一页" onclick="navigatorClick('previous');" /> <span
+					jwcid="nextButton@rmis:ImgButton" buttontype="nosubmitbuttons"
+					label="下一页" onclick="navigatorClick('next');" /> <span
+					jwcid="lastButton@rmis:ImgButton" buttontype="nosubmitbuttons"
+					label="尾页" onclick="navigatorClick('last');" /> <span
+					jwcid="goButton@rmis:ImgButton" buttontype="nosubmitbuttons"
+					label="转到:" onclick="navigatorClick('go');" /> <input size="5"
+					id="GoPage" type="" />页</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top>
+		<td>
+		<div id="SelectFrmDiv" class=""
+			style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto;width:897px; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		<span jwcid="PrintTable" /></div>
+		</td>
+	</tr>
+	<input class="text-position" style="display:none;" jwcid="CurrentPage"
+		id="CurrentPage" type="text" />
+	<input class="text-position" style="display:none;" jwcid="AllPages"
+		id="AllPages" type="text" />
+	<input class="text-position" style="display:none;" jwcid="Flag"
+		id="Falg" type="text" />
+     <input class="text-position" style="display:none;" jwcid="Flag1"
+		id="Falg1" type="text" />
+     <input class = "text-position" style="display:none;" jwcid="XIANSZT" id="XIANSZT" type="text" />
+</table>
+</form>
+</body>
+<script>
+	setNavigatorButton();
+</script>
+<script>window.onresize();document.all.item("wait").style.display="none";</script>
+</html>

@@ -1,0 +1,81 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Expires" content="0"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+
+<title>文件管理</title>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/examples.css"/>
+<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<script src="ext/zr/data/PagingMemoryProxy.js" type="text/javascript"></script>
+<script>
+Ext.onReady(function() {
+    <span jwcid="@Insert" value="ognl:GridData"></span>
+                                  
+	function loadPanel1()
+	{ 
+		var store = new Ext.data.Store({
+			proxy : new Ext.zr.data.PagingMemoryProxy(fabData),
+			pruneModifiedRecords:true,
+			reader: new Ext.data.ArrayReader({}, [
+					{name:'wenjb_id'},{name:'reny'},{name:'shij'},{name:'wenjm'},{name:'jiesdw'},{name:'youxsj'}])});
+        var cmGrid=new Ext.grid.ColumnModel([
+                  new Ext.grid.RowNumberer(),
+                  {header: "人员", width: 100, sortable: true, resizable: false,dataIndex:'reny'},
+                  {header: "时间", width: 100, sortable: true, resizable: false,dataIndex:'shij'},
+                  {header: "文件名称", width: 100, sortable: true, resizable: false,dataIndex:'wenjm'},	  
+				  {id:'aec',header: "接收单位", width: 100, sortable: true, resizable: false,dataIndex:'jiesdw'},
+                  {id:'aec',header: "有效日期", width: 100, sortable: true, resizable: false,dataIndex:'youxsj'}
+                  ]);
+	    one= new Ext.grid.GridPanel({
+                     frame:true,
+       		 	     store: store,
+                	 cm:cmGrid,
+					 sm:singleSeMo=new Ext.grid.RowSelectionModel({singleSelect:true}),
+			        stripeRows: false,
+			        autoExpandColumn: 'aec',
+                    tbar:[
+                    {text:'发布日期'},
+                     new Ext.form.DateField({format:'Y-m-d',value:document.getElementById('riq').value,listeners:{change :function(obj,newv,oldv){document.getElementById('riq').value=newv.dateFormat('Y-m-d');}}}),
+                     new Ext.form.DateField({format:'Y-m-d',value:document.getElementById('riq1').value,listeners:{change :function(obj,newv,oldv){document.getElementById('riq1').value=newv.dateFormat('Y-m-d');}}}),
+                     {icon:'imgs/btnicon/refurbish.gif',cls:'x-btn-text-icon',minWidth:75,text:'刷新',handler : function(){ document.getElementById("shuax").click(); }},
+                    {icon:'imgs/btnicon/delete.gif',cls:'x-btn-text-icon',minWidth:75,text:'删除',handler : function(){
+                    	if(singleSeMo.getCount()==0){
+                    		Ext.MessageBox.minWidth=200;
+		             		Ext.MessageBox.alert('系统提示：','请选择要删除的对象!');
+		             		return;
+                   		 }
+                    	document.getElementById("CHANGE").value=singleSeMo.getSelected().get('wenjb_id');
+                        document.getElementById("shanc").click(); 
+                    
+                    }}]
+		         })
+          store.load();          
+	    return  one;
+	};
+    var port=new Ext.Viewport({
+    		  layout:"fit",
+           items:[
+              loadPanel1()
+           ]
+    });                               
+});
+</script>
+
+</head>
+<body id="body" >
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<span jwcid="@TextField" id="riq"value="ognl:riq"style="display:none"></span>
+<span jwcid="@TextField" id="riq1"value="ognl:riq1"style="display:none"></span>
+<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+<span jwcid="@ZRcontrib:ImgButton" id="shanc"buttontype=""style="display:none"label="删除" listener="ognl:listeners.DelButton" ></span>
+<span jwcid="@ZRcontrib:ImgButton" id="shuax"buttontype=""style="display:none"label="刷新" listener="ognl:listeners.shuaxButton" ></span>
+</form>
+</body>
+</html>

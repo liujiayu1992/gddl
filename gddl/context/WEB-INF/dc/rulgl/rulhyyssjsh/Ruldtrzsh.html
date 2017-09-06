@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>入炉弹筒热值</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+});
+</script>	
+</head>
+<body id="body" jwcid="@Body" class="bgs">
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%"  height="100%">
+	<tr id="trcondition" valign=middle height="20" style="display:none">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+                <td  width="35" style="font-size: 12px;">采样日期:</td>
+                <td width="50"> <span id="RIQI"  jwcid = "RIQI" style="display:none" submitOnChange="true" readonly="true" type="text"></span></td> 
+                 <td  width="35" style="font-size: 12px;">至:</td>
+                <td width="50"> <span id="RIQ2"  jwcid = "RIQ2" style="display:none" submitOnChange="true" type="text"></span></td>
+                <td width="120" style="display:none"><span  style="width:150;height:21" jwcid="HuaybhDropDown" id='HuaybhDropDown'  submitOnChange="true"  type="text"/></td>
+              </tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top hight="100%">
+	   <td>
+	    <div id = "gridDiv" style="height:100%;overflow:none"></div>
+        
+        <span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+         <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="审核" style="display:none" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+          <span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label="刷新"
+	style="display:none" id="RefurbishButton"></span>
+        <span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+
+
+	   </td>
+	</tr>
+    
+</table>
+</form>
+</body>
+
+</html>

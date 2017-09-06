@@ -1,0 +1,102 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>合同审核流程</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+
+	var gridDiv_history = "";
+	Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	
+	var window_panel = new Ext.Window({
+		title:'查看',
+	    el:'hello-win',
+	    layout:'fit',
+	    width:500,
+	    height:300,
+	    minWidth: 300,
+	    minHeight: 200,
+	    closeAction:'hide', 
+	    plain: true,
+	    modal:true,            
+	    items: new Ext.TabPanel({
+	    	el: 'hello-tabs',
+	        autoTabs:true,
+	        activeTab:0,
+	        deferredRender:false,
+	        border:false
+	       
+	    }),
+	
+	    	buttons: [{
+	        	text:'确定',handler:function(){
+	            	window_panel.hide();
+	        	}	
+	        }]
+	});
+
+
+	<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+	});
+</script>	
+<body id="body" jwcid="@Body" class="bgs">
+<form listener="ognl:listeners.submit" jwcid="@Form"delegate="ognl:beans.delegate" id="wdqx" name="wdqx">
+
+    <input style="display: none" submitOnChange="true" jwcid="LiucSelectx" id="LiucSelectx" type="text"/>
+    <input style="display: none" submitOnChange="true" jwcid="WeizSelectx" id="WeizSelectx" type="text"/>
+    <table width="100%" height="100%" border="0">
+        <tr>
+            <td>
+			    <div id = "gridDiv" style="height:100%;overflow:none"></div>
+                <span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+			    <span jwcid="@Insert" raw="true" value="ognl:TreeHtml"></span>
+                
+				<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+                <span id="diancTree_id" jwcid="TREEID" style="display: none"></span> 
+                <span id="ShenHeYJChange" jwcid="ShenHeYJChange" style="display:none"></span>
+                <span id="MenuId" jwcid="MenuId" style="display:none"></span>
+                <span id="Histry_opinion" jwcid="Histry_opinion" style="display:none"></span>
+                <span id="My_opinion" jwcid="My_opinion" style="display:none"></span>
+                <span id="OpenWindow" jwcid="OpenWindow" style="display:none"></span>
+                <span jwcid="@Submit" id="DzclButton" listener="ognl:listeners.DzclButton" style="display:none" onclick=""></span>
+            </td>    
+        </tr>
+   	</table>         
+
+	<span style="display:none;" jwcid="EditTableRow"  id="EditTableRow"></span>
+</form>
+
+<div id="hello-win" class="x-hidden">
+	<div class="x-window-header">查看</div>
+		<div id="hello-tabs" style="height:100%;width:100%">
+
+	    <!-- Auto create tab  -->
+		    <div class="x-tab" title="历史意见" style="height:100%;width:100%">
+			  <textarea style="width: 100%; height: 61%; border: 0px; overflow: auto" readonly="true" id="tab"></textarea>
+		    </div>
+		</div>
+</div>
+
+<form action="" jwcid="@Form" style="display:none" id="shuaxin" name="shuaxin" listener="ognl:listeners.Shuaxin">
+</form>
+
+<script type="text/javascript">
+
+	var OpenWindowValue = document.all.OpenWindow.value;
+	document.all.OpenWindow.value = "";
+	if (OpenWindowValue != null && OpenWindowValue.length > 0) {			
+	    eval(OpenWindowValue);  	
+	}
+		
+</script>
+</body>
+</html>

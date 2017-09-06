@@ -1,0 +1,539 @@
+<html jwcid="@Shell" doctype=" " title="汽车衡检斤"
+      stylesheet="ognl:assets.Rmis">
+<style>
+    .ShowText td{
+        vertical-align: middle;
+        background-color: #E3E3E3;
+        font-family: "Geneva", "Arial", "Helvetica", "sans-serif";
+        color: #464646;
+        height: 50px;
+        width:110px;
+    }
+    .ShowText input{
+        background-color: #E3E3E3;
+        font-family: "Geneva", "Arial", "Helvetica", "sans-serif";
+        color: #464646;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 0px;
+        border-bottom: 0px;
+        border:0px;
+        font-size:34pt;
+        text-align: center;
+        height: 50px;
+        width:110px;
+    }
+</style>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+    var gridDiv_history = "";
+    var win;
+    Ext.onReady(function(){
+        var url = "http://"+document.location.host+document.location.pathname;
+        var end = url.indexOf("/app");
+        url = url.substring(0,end);
+        Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+            <span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+    });
+</script>
+<script>
+
+    <span jwcid="@Insert" raw="true" value="ognl:ArrayScript"/>
+
+
+</script>
+<body id="body" jwcid="@Body" class="bgs"
+      onkeyup="if(event.keyCode==32)caij()">
+<object classid="clsid:648A5600-2C6E-101B-82B6-000000000014" width=0
+        height=0 style="display:none" id="MSComm1">
+    <param name="_ExtentX" value="1005">
+    <param name="_ExtentY" value="1005">
+    <param name="_Version" value="393216">
+    <param name="CommPort" value="1">
+    <param name="DTREnable" value="-1">
+    <param name="Handshaking" value="0">
+    <param name="InBufferSize" value="1024">
+    <param name="InputLen" value="0">
+    <param name="NullDiscard" value="0">
+    <param name="OutBufferSize" value="512">
+    <param name="ParityReplace" value="63">
+    <param name="RThreshold" value="0">
+    <param name="RTSEnable" value="0">
+    <param name="BaudRate" id="4800">
+    <param name="ParitySetting" value="0">
+    <param name="DataBits" id="8">
+    <param name="StopBits" value="0">
+    <param name="SThreshold" value="0">
+    <param name="EOFEnable" value="0">
+    <param name="InputMode" value="0">
+</object>
+<div id="wait"
+     style="POSITION: absolute;BORDER-RIGHT: gray 0px solid;z-index:1; PADDING-RIGHT: 2px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;HEIGHT: 218;width:330">
+    <iframe jwcid="@Iframe" page="Waiting" height="100%"
+            oncontextmenu="self.event.returnValue=false" name="mainFrame"
+            style="background:ThreeDLowwer" width="100%" align="middle"
+            frameborder="0" scrolling="no"> </iframe></div>
+<script jwcid="Qichjjjs" />
+<script jwcid="Datejs" />
+<script>
+    <span jwcid="contextPath" />
+</script>
+<script>
+    function printq(){
+        var docObj = document.getElementById( 'printjjd' );
+        if ( docObj ){
+            //var pwin = window.open( "", "print", "height=400,width=900,top=200" );
+            //pwin.document.write( docObj.innerHTML );
+            //pwin.print( );
+            //pwin.location.reload( );
+            //pwin.close( );
+        }
+    }
+</script>
+<script jwcid="Connectjs" />
+<script>
+    document.all.item("wait").style.posTop=(body.clientHeight-document.all.item("wait").clientHeight)/2;
+    document.all.item("wait").style.posLeft=(body.clientWidth-document.all.item("wait").clientWidth )/2;
+    function Showwait(){
+        if(document.all.item("wait").style.display=="none"){
+            document.all.item("wait").style.display="";
+            //alert(document.all.length);
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+<form  onsubmit="DisabledForms(this.document);return Showwait();" listener="ognl:listeners.submit" jwcid="@Form"
+       onkeydown="if(event.keyCode==13 && event.srcElement.tagName!='TEXTAREA'){event.keyCode=9}"
+       delegate="ognl:beans.delegate">
+
+    <script jwcid="validate"/>
+    <table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+           width="100%">
+        <tr id="trcondition" valign=top height="20">
+            <td>
+                <!--font-weight:bold -->
+                <table valign="top">
+                    <tr>
+                        <td class="text-position"><b> <font id="DTfont" size="5" color="#0054a6"
+                                                            face="楷体_GB2312">动态<br>重量</font></b></td>
+                        <td class="ShowText"><input readonly="true" id="dongtzl" label="动态重量" size="5"></input></td>
+                        <td>&nbsp;&nbsp;<span jwcid="CaijButton@ZRcontrib:ImgButton"
+                                              onclick="return caij()" buttontype="nosubmitbuttons" label="采集(空格)>>"
+                                              style="font-size: 12pt; font-family:楷体_GB2312; font-weight:bold" /></td>
+                        <td class="text-position"><b><font size="5"
+                                                           face="楷体_GB2312" color="#0054a6">采集<br>重量</font></b></td>
+                        <td class="ShowText"><input readonly="true" label="采集重量" id="caijzl" size="5"/></td>
+                        <td>
+                            <table><tr><td>
+                    <span jwcid="SaveMaozButton@ZRcontrib:ImgButton" buttontype="save"
+                          onclick="if(saveMaozClick()){return true;}else{return false;}"
+                          label="保存毛重" listener="ognl:listeners.SaveMaozButton" />
+                            </td></tr><tr><td>
+                	<span jwcid="ShowTypeButton@ZRcontrib:ImgButton" buttontype="nosubmitbuttons"
+                          label="显示参数" onclick="ShowMessOrPara(this)" disabled="ognl:disabled"/>
+                            </td></tr></table></td>
+                        <td width=200>
+                            <div id="Message" height="35">
+                                <fieldset><legend  class="text-position">当日信息</legend>
+                                    <marquee onmouseover="this.stop()" onmousedown="this.start()" scrollamount="1"  scrolldelay="30" direction="up" height="33">
+                                        <font size="3"
+                                              face="楷体_GB2312" color="#000000"><span jwcid="@Insert" value="ognl:Info" /></font></marquee></fieldset></div>
+                            <div id="Param" height="35" style="display:none;">
+                                <table><tr><td class="text-position">毛重判定<span jwcid="MaozJudge" /></td><td class="text-position">皮重判定<span jwcid="PizJudge" /></td></tr>
+                                    <tr><td class="text-position">替换提示<span jwcid="ShowMsg" /></td><td class="text-position">皮重免称<span jwcid="AutoPiz" /></td></tr></table>
+                            </div></td>
+                        <input class="text-position" style="display:none;"
+                               jwcid="CommPort" id="CommPort" type="text" />
+                        <input class="text-position" style="display:none;"
+                               jwcid="BaudRate" id="BaudRate" type="text" />
+                        <input class="text-position" style="display:none;"
+                               jwcid="DataBits" id="DataBits" type="text" />
+                        <input class="text-position" style="display:none;"
+                               jwcid="StopBits" id="StopBits" type="text" />
+                        <input class="text-position" style="display:none;"
+                               jwcid="ParitySetting" id="ParitySetting" type="text" />
+                        <input class="text-position" style="display:none;"
+                               jwcid="Jilhh" id="Jilhh" type="text" />
+                        <input style="display:none;" id="Lastzl" type="text" />
+
+                        <input style="display:none;" id="zhonglybc" jwcid="zhonglybc" type="text" />
+                        <input style="display:none;" id="ShowDialog" jwcid="ShowDialog" type="text" />
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="Selectdata_M" valign=top>
+            <td>
+                <div id="SelectFrmDiv_M" class="text-position"
+                     style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+                    <div id="SelectHeadDiv_M"
+                         style="OVERFLOW: hidden; background-color:#FFFFFF">
+                        <table id="EditHeadTabel_M" bordercolordark="#ffffff" cellpadding="1"
+                               bordercolor="#ffffff"
+                               style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;"
+                               bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+                               class="edittablehead" jwcid="@Any"
+                               background="ognl:assets.background" width="1490">
+                            <tr width="1490" align="center">
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="50" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:45px">盘煤</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="100" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">车号</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="100" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">发货单位</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="100" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">煤矿单位</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="120" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:115px">承运单位</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="100" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">品种</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="100" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">计划口径</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="100" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">发货量</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="60" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:55px">扣吨</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="100" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">盘点煤场</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="100" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">煤场</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="100" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">检质员</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="120" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:115px">厂别</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="120" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:115px">收货人</label></th>
+                                <th style="POSITION: relative;top:0px;" jwcid="@Any" width="120" height="23" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:115px">备注</label></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="SelectdataDiv_M" onscroll="_onscroll(this,SelectHeadDiv_M)"
+                         style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; overflow-x:auto; overflow-y:none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+
+                        <table id="oData_M" class="edittable" border="0" cellpadding="0"
+                               cellspacing="0"
+                               style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"
+                               width="1490">
+                            <tr Height="21" onclick="classchange_M(this,'onclick')"
+                                onmouseout="classchange_M(this,'onmouseout')"
+                                onmouseover="classchange_M(this,'onmouseover')" width="1490"
+                                jwcid="EditValues_M" class="edittableTrOut">
+                                <td width="50"><input readonly="true"
+                                                      class="bigtext-position" style="width:48px" jwcid="SELECTED_M"
+                                                      id="SELECTED_M" type="text" /></td>
+                                <td width="100"><input readonly="true"
+                                                       onfocus="editclick(this,EditInput_M)"
+                                                       class="bigtext-position" style="width:98px" jwcid="CHEPH_M"
+                                                       id="CHEPH_M" type="text" /></td>
+                                <!--onclick="editin(this,'onclick');dropdown(this,FAHDWB_IDSelect);"
+                                    onclick="editin(this,'onclick');dropdown(this,MEIKXXB_IDSelect);"
+                              readonly="true"  -->
+                                <td width="100"><input
+                                        onfocus="show(0,0,this.name)" title="this.value"
+                                        onkeyup="onfilter(0,this)"
+                                        class="bigtext-position" style="width:98px" jwcid="MEIKDQMC_M"
+                                        id="MEIKDQMC_M" type="text" /></td>
+                                <td width="100"><input
+                                        onfocus="show(1,0,this.name)"
+                                        onkeyup="onfilter(1,this)"
+                                        onchange="JihkjChange(this);"
+                                        class="bigtext-position" style="width:98px" jwcid="MEIKDWMC_M"
+                                        id="MEIKDWMC_M" type="text" /></td>
+                                <td width="120"><input readonly="true"
+                                                       onclick="editin(this,'onclick');dropdown(this,CHENGYDW_Select);"
+                                                       class="bigtext-position" style="width:118px" jwcid="CHENGYDW_M"
+                                                       id="CHENGYDW_M" type="text" /></td>
+                                <td width="100"><input readonly="true"
+                                                       onclick="editin(this,'onclick');dropdown(this,RANLPZB_IDSelect);"
+                                                       class="bigtext-position" style="width:98px" jwcid="PINZ_M"
+                                                       id="PINZ_M" type="text" /></td>
+                                <td width="100"><input readonly="true"
+                                                       onclick="editin(this,'onclick');dropdown(this,JIHKJB_IDSelect);"
+                                                       class="bigtext-position" style="width:98px" jwcid="JIHKJ_M"
+                                                       id="JIHKJ_M" type="text" /></td>
+                                <td width="100"><input readonly="true"
+                                                       onfocus="editclick(this,EditInput_M)"
+                                                       class="bigtext-position" style="width:98px" jwcid="FAHL_M"
+                                                       id="FAHL_M" type="text" /></td>
+                                <td width="60"><input readonly="true"
+                                                      onfocus="editclick(this,EditInput_M)"
+                                                      class="bigtext-position" style="width:58px" jwcid="KOUD_M"
+                                                      id="KOUD_M" type="text" /></td>
+                                <td width="100"><input readonly="true"
+                                                       onclick="editin(this,'onclick');dropdown(this,PANDMC_Select);"
+                                                       class="bigtext-position" style="width:98px;" jwcid="PANDMC_M" id="PANDMC_M"
+                                                       type="text" /></td>
+                                <td width="100"><input readonly="true"
+                                                       onclick="editin(this,'onclick');dropdown(this,MEIC_Select);"
+                                                       class="bigtext-position" style="width:98px" jwcid="MEIC_M" id="MEIC_M"
+                                                       type="text" /></td>
+                                <td width="100"><input readonly="true"
+                                                       onclick="editin(this,'onclick');dropdown(this,MEIGY_Select);"
+                                                       class="bigtext-position" style="width:98px" jwcid="MEIGY_M"
+                                                       id="MEIGY_M" type="text" /></td>
+                                <td width="120"><input readonly="true"
+                                                       onclick="editin(this,'onclick');dropdown(this,CHANGB_Select);"
+                                                       class="bigtext-position" style="width:118px" jwcid="CHANGB_M"
+                                                       id="CHANGB_M" type="text" /></td>
+                                <td width="120"><input readonly="true"
+                                                       onfocus="editclick(this,EditInput_M)"
+                                                       class="bigtext-position" style="width:118px" jwcid="SHOUHR_M"
+                                                       id="SHOUHR_M" type="text" /></td>
+                                <td width="120"><input readonly="true"
+                                                       onfocus="editclick(this,EditInput_M)"
+                                                       class="bigtext-position" style="width:118px" jwcid="BEIZ_M" id="BEIZ_M"
+                                                       type="text" /></td>
+                                <input readonly="true" style="display:none" jwcid="MAOZ_M"
+                                       id="MAOZ_M" type="text" />
+                                <input readonly="true" style="display:none"
+                                       id="PIZ" type="text" />
+                                <input readonly="true" style="display:none"
+                                       id="JINGZ" type="text" />
+                            </tr>
+                            <input onchange="editchange(0)" style="display:none;"
+                                   class="bigtext-position" id="EditInput_M" type="text" />
+                            <input onchange="droponchange(0);javascript:this.form.submit();"
+                                   class="bigtext-position" style="display:none;"
+                                   jwcid="FAHDWB_IDSelect" id="FAHDWB_IDSelect" type="text" />
+                            <input onchange="droponchange(0)" class="bigtext-position"
+                                   style="display:none;" jwcid="MEIKXXB_IDSelect" id="MEIKXXB_IDSelect"
+                                   type="text" />
+                            <input onchange="droponchange(0)" class="bigtext-position"
+                                   style="display:none;" jwcid="RANLPZB_IDSelect" id="RANLPZB_IDSelect"
+                                   type="text" />
+                            <input onchange="droponchange(0)" class="bigtext-position"
+                                   style="display:none;" jwcid="JIHKJB_IDSelect" id="JIHKJB_IDSelect"
+                                   type="text" />
+                            <input onchange="droponchange(0)" class="bigtext-position"
+                                   style="display:none;" jwcid="MEIGY_Select" id="MEIGY_Select"
+                                   type="text" />
+                            <input onchange="droponchange(0)" class="bigtext-position"
+                                   style="display:none;" jwcid="MEIC_Select" id="MEIC_Select"
+                                   type="text" />
+                            <input onchange="droponchange(0)" class="bigtext-position"
+                                   style="display:none;" jwcid="PANDMC_Select" id="PANDMC_Select"
+                                   type="text" />
+                            <input onchange="droponchange(0)" class="bigtext-position"
+                                   style="display:none;" jwcid="CHENGYDW_Select" id="CHENGYDW_Select"
+                                   type="text" />
+                            <input onchange="droponchange(0)" class="bigtext-position"
+                                   style="display:none;" jwcid="CHANGB_Select" id="CHANGB_Select"
+                                   type="text" />
+
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr id="trcondition_P" valign=middle height="20">
+            <td>
+                <table valign="middle">
+                    <tr>
+                        <td><span  jwcid="ToFirstPageButton@ZRcontrib:ImgButton" buttontype=""
+                                   label="首页" listener="ognl:listeners.ToFirstPageButton" /></td>
+                        <td><span  jwcid="ToPreviousPageButton@ZRcontrib:ImgButton" buttontype=""
+                                   label="前一页" listener="ognl:listeners.ToPreviousPageButton" /></td>
+                        <td><span  jwcid="ToNextPageButton@ZRcontrib:ImgButton" buttontype=""
+                                   label="后一页" listener="ognl:listeners.ToNextPageButton" /></td>
+                        <td><span  jwcid="ToLastPageButton@ZRcontrib:ImgButton" buttontype=""
+                                   label="末页" listener="ognl:listeners.ToLastPageButton" /></td>
+                        <td><span style="width:75px;text-align:center" class="text-position"
+                                  id = "pageno" name = "pageno"></span></td>
+                        <td>&nbsp;<span class="text-position">转到页：</span>
+                            <input style="width:50px;text-align:center;font:normal bolder Verdana"
+                                   class = "text-position" onblur="MatchNum(this,/(^[1-9]{1}[0-9]{0,3}$)/gi);"
+                                   jwcid="GoPageNumber" id="GoPageNumber" type="text" /></td>
+                        <td>&nbsp;<span jwcid="GoPageButton@ZRcontrib:ImgButton" buttontype=""
+                                        label="Go>>" style="font:normal bolder Verdana"
+                                        onclick="return GopageValidate();"
+                                        listener="ognl:listeners.GoPageButton" id = "GoPageButton"/></td><input class="text-position" style="display:none;"
+                                                                                                                id="EditTableRow" type="text" />
+                        <input  class = "text-position" style="display:none;"
+                                jwcid="CurrentPageNumber" id="CurrentPageNumber" type="text" />
+                        <input  class = "text-position" style="display:none;"
+                                jwcid="TotalPageNumber" id="TotalPageNumber" type="text" />
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="Selectdata_P"  valign=top>
+            <td>
+                <div id="SelectFrmDiv_P" class="text-position"
+                     style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+                    <div id="SelectHeadDiv_P"
+                         style="OVERFLOW: hidden; background-color:#FFFFFF">
+                        <table id="EditHeadTabel_P" bordercolordark="#ffffff" cellpadding="1"
+                               bordercolor="#ffffff"
+                               style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;"
+                               bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+                               class="edittablehead" jwcid="@Any"
+                               background="ognl:assets.background" width="800">
+                            <tr width="800" align="center">
+                                <!--<th jwcid="@Any" background="ognl:assets.background" width="30"
+                                    height="29" align="center"><label id="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:25px"> <input readonly="true" id="AllCheck"
+                                    class="text-position" type="Checkbox" /></label></th>-->
+                                <th jwcid="@Any" width="100" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">车号</label></th>
+                                <th jwcid="@Any" width="100" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">发货单位</label></th>
+                                <th jwcid="@Any" width="100" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:95px">煤矿单位</label></th>
+                                <th jwcid="@Any" width="120" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:115px">承运单位</label></th>
+                                <th jwcid="@Any" width="70" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:65px">品种</label></th>
+                                <th jwcid="@Any" width="70" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:65px">计划口径</label></th>
+                                <th jwcid="@Any" width="70" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:65px">发货量</label></th>
+                                <th jwcid="@Any" width="70" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:65px">毛重</label></th>
+                                <!--<th jwcid="@Any" width="70" height="29" align="center"><label
+                                    id="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:65px">皮重</label></th>-->
+                                <th jwcid="@Any" width="70" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:65px">扣吨</label></th>
+                                <!--<th jwcid="@Any" width="120" height="29" align="center"><label
+                                    id="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:115px">承运单位</label></th>
+                                <th jwcid="@Any" width="100" height="29" align="center"><label
+                                    id="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:95px">检质员</label></th>-->
+                                <th jwcid="@Any" width="70" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:65px">盘点煤场</label></th>
+                                <th jwcid="@Any" width="80" height="29" align="center"><label
+                                        id="tittleHead" class="text-position"
+                                        style="position:relative;left:0;width:75px">煤场</label></th>
+                                <!--<th jwcid="@Any" width="100" height="29" align="center"><label
+                                    id="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:95px">收货人</label></th>
+                                <th jwcid="@Any" width="100" height="29" align="center"><label
+                                    id="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:95px">厂别</label></th>
+                                <th jwcid="@Any" width="100" height="29" align="center"><label
+                                    id="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:95px">备注</label></th>-->
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="SelectdataDiv_P" onscroll="_onscroll(this,SelectHeadDiv_P)"
+                         style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+                        <table id="oData_P" class="edittable" border="0" cellpadding="0" cellspacing="0"
+                               style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"
+                               width="800">
+                            <tr Height="21" id="trid" onclick="classchange_P(this,'onclick')"
+                                width="800" jwcid="EditValues_P" class="edittableTrOut">
+                                <!--<td width="30" align="center"><input readonly="true"
+                                    class="text-position" style="width:28px" jwcid="SELECTED_P"
+                                    id="SELECTED_P" type="text" /></td>-->
+                                <td width="100" class="tdText"><input readonly="true"
+                                                                      class="bigtext-position" style="width:98px" jwcid="CHEPH_P"
+                                                                      id="CHEPH_P" type="text" /></td>
+                                <td width="100" class="tdText"><input readonly="true"
+                                                                      class="bigtext-position" style="width:98px" jwcid="MEIKDQMC_P"
+                                                                      id="MEIKDQMC_P" type="text" /></td>
+                                <td width="100" class="tdText"><input readonly="true"
+                                                                      class="bigtext-position" style="width:98px" jwcid="MEIKDWMC_P"
+                                                                      id="MEIKDWMC_P" type="text" /></td>
+                                <td width="120" class="tdText"><input readonly="true"
+                                                                      class="bigtext-position" style="width:118px" jwcid="CHENGYDW_P"
+                                                                      id="CHENGYDW_P" type="text" /></td>
+                                <td width="70" class="tdText"><input readonly="true"
+                                                                     class="bigtext-position" style="width:68px" jwcid="PINZ_P"
+                                                                     id="PINZ_P" type="text" /></td>
+                                <td width="70" class="tdText"><input readonly="true"
+                                                                     class="bigtext-position" style="width:68px" jwcid="JIHKJ_P"
+                                                                     id="JIHKJ_P" type="text" /></td>
+                                <td width="70" class="tdText"><input readonly="true"
+                                                                     class="bigtext-position" style="width:68px" jwcid="FAHL_P"
+                                                                     id="FAHL_P" type="text" /></td>
+                                <td width="70" class="tdText"><input readonly="true"
+                                                                     class="bigtext-position" style="width:68px" jwcid="MAOZ_P"
+                                                                     id="MAOZ_P" type="text" /></td>
+                                <!--<td width="70" class="tdText"><input readonly="true"
+                                    class="bigtext-position" style="width:68px" jwcid="PIZ_P"
+                                    id="PIZ_P" type="text" /></td>-->
+                                <td width="70" class="tdText"><input readonly="true"
+                                                                     class="bigtext-position" style="width:68px" jwcid="KOUD_P"
+                                                                     id="KOUD_P" type="text" /></td>
+                                <!-- onfocus="editin(this,'onclick');editclick(this,EditInput)" -->
+                                <!--<td width="120" class="tdText"><input readonly="true"
+                                    class="bigtext-position" style="width:118px" jwcid="CHENGYDW_P"
+                                    id="CHENGYDW_P" type="text" /></td>
+                                <td width="100" class="tdText"><input readonly="true"
+                                    class="bigtext-position" style="width:98px" jwcid="MEIGY_P"
+                                    id="MEIGY_P" type="text" /></td>-->
+                                <td width="70" class="tdText"><input readonly="true"
+                                                                     class="bigtext-position" style="width:68px" jwcid="PANDMC_P"
+                                                                     id="MEIC_P" type="text" /></td>
+                                <td width="80" class="tdText"><input readonly="true"
+                                                                     class="bigtext-position" style="width:78px" jwcid="MEIC_P"
+                                                                     id="MEIC_P" type="text" /></td>
+                                <!--<td width="100" class="tdText"><input readonly="true"
+                                    class="bigtext-position" style="width:98px" jwcid="SHOUHR_P"
+                                    id="SHOUHR_P" type="text" /></td>
+                                <td width="100" class="tdText"><input readonly="true"
+                                    class="bigtext-position" style="width:98px" jwcid="CHANGB_P"
+                                    id="CHANGB_P" type="text" /></td>
+                                <td width="100" class="tdText"><input readonly="true"
+                                    class="bigtext-position" style="width:98px" jwcid="BEIZ_P"
+                                    id="BEIZ_P" type="text" /></td>-->
+                            </tr>
+                            <input onchange="editchange(1)" style="display:none;"
+                                   class="bigtext-position" id="EditInputUpdateAll" type="text" />
+                            <input onchange="editchange(0)" style="display:none;"
+                                   class="bigtext-position" id="EditInput" type="text" />
+                            <input readonly="true"  style="display:none;"
+                                   jwcid="SCALE"
+                                   id="SCALE" type="text" />
+                            <input readonly="true"  style="display:none;"
+                                   jwcid="RULEFORROUNDING"
+                                   id="RULEFORROUNDING" type="text" />
+                            <input readonly="true"  style="display:none;"
+                                   jwcid="AUTOCOPY"
+                                   id="AUTOCOPY" type="checkbox" />
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</form>
+
+</body>
+<script>window.onresize();</script>
+</html>

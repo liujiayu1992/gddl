@@ -1,0 +1,121 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>
+月入厂标煤单价维护
+</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+    <span jwcid="@Insert" raw="true" value="ognl:TreedcScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+
+function validateCK(gridDiv_ds){
+	for(i=2;i<gridDiv_ds.getCount();i=i+1){
+		var JIESL =eval(gridDiv_ds.getAt(i).get('JIESL')||0);
+		var JIESRL=eval(gridDiv_ds.getAt(i).get('JIESRL')||0);
+		var JIESMJ=eval(gridDiv_ds.getAt(i).get('JIESMJ')||0);
+		var JIESMJS=eval(gridDiv_ds.getAt(i).get('JIESMJS')||0);
+		var JIESYJ=eval(gridDiv_ds.getAt(i).get('JIESYJ')||0);
+		var JIESYJS=eval(gridDiv_ds.getAt(i).get('JIESYJS')||0);
+		var JIESZF=eval(gridDiv_ds.getAt(i).get('JIESZF')||0);
+		var JIESZFS=eval(gridDiv_ds.getAt(i).get('JIESZFS')||0);
+		var GUSL=eval(gridDiv_ds.getAt(i).get('GUSL')||0);
+		var GUSRL=eval(gridDiv_ds.getAt(i).get('GUSRL')||0);
+		var GUSMJ=eval(gridDiv_ds.getAt(i).get('GUSMJ')||0);
+		var GUSMJS=eval(gridDiv_ds.getAt(i).get('GUSMJS')||0);
+		var GUSYJ=eval(gridDiv_ds.getAt(i).get('GUSYJ')||0);
+		var GUSYJS=eval(gridDiv_ds.getAt(i).get('GUSYJS')||0);
+		var GUSZF=eval(gridDiv_ds.getAt(i).get('GUSZF')||0);
+		var GUSZFS=eval(gridDiv_ds.getAt(i).get('GUSZFS')||0);
+		var RUCSL=eval(gridDiv_ds.getAt(i).get('RUCSL')||0);
+		
+		if(RUCSL!=(JIESL+GUSL)){
+			Ext.MessageBox.alert('提示信息','第'+(i+1)+'行估收、结算信息与入厂数量信息不匹配！');
+			return true;
+		}
+		
+		if(RUCSL<0||JIESL <0||JIESRL<0|| JIESMJ<0||JIESMJS<0||JIESYJ<0||JIESYJS<0||JIESZF<0||JIESZFS<0||GUSL<0||GUSRL<0||GUSMJ<0||GUSMJS<0||GUSYJ<0||GUSYJS<0||GUSZF<0||GUSZFS<0){
+			Ext.MessageBox.alert('提示信息','第'+(i+1)+'行出现负数信息！');
+			return true;
+		}
+		if(JIESL==0&&(JIESRL>0|| JIESMJ>0||JIESMJS>0||JIESYJ>0||JIESYJS>0||JIESZF>0||JIESZFS>0)){
+			Ext.MessageBox.alert('提示信息','第'+(i+1)+'行结算信息不完整！');
+			return true;
+		}
+		
+		if(GUSL==0&&(GUSRL>0|| GUSMJ>0||GUSMJS>0||GUSYJ>0||GUSYJS>0||GUSZF>0||GUSZFS>0)){
+			Ext.MessageBox.alert('提示信息','第'+(i+1)+'行估收信息不完整！');
+			return true;
+		}
+
+		if(JIESL>0&&(JIESRL==0|| JIESMJ==0)){
+			Ext.MessageBox.alert('提示信息','第'+(i+1)+'行结算信息不完整！');
+			return true;
+		}
+		
+		if(GUSL>0&&(GUSRL==0|| GUSMJ==0)){
+			Ext.MessageBox.alert('提示信息','第'+(i+1)+'行估收信息不完整！');
+			return true;
+		}
+		
+		if(JIESMJ==0&&(JIESMJS>0||JIESYJ>0||JIESYJS>0||JIESZF>0||JIESZFS>0)){
+			Ext.MessageBox.alert('提示信息','第'+(i+1)+'行结算煤价信息缺失！');
+			return true;
+		}
+		
+		if(GUSMJ==0&&(GUSMJS>0||GUSYJ>0||GUSYJS>0||GUSZF>0||GUSZFS>0)){
+			Ext.MessageBox.alert('提示信息','第'+(i+1)+'行估收煤价信息缺失！');
+			return true;
+		}
+		
+    }
+    return false;
+}
+</script>	
+</head>
+<body id="body">
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>    
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%" >
+	<tr>
+		<td>
+			<span id = "RIQ1" jwcid="RIQ1" style="display:none"  submitOnChange="true" type="text"></span>
+			<span id = "RIQ2" jwcid="RIQ2" style="display:none"  submitOnChange="true" type="text"></span>
+			<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="保存" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+			<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="刷新" id = "RefreshButton" listener="ognl:listeners.RefreshButton" ></span>
+			<span jwcid="CreateButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="生成" id = "CreateButton" listener="ognl:listeners.CreateButton" ></span>
+			<span jwcid="DelButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="删除" id = "DelButton" listener="ognl:listeners.DelButton" ></span>
+			<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+            <span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+		</td>
+	</tr>
+	<tr height="100%">
+		<td>
+		<div id="gridDiv" style="width:100%;height:100%;overflow:none"></div>
+		</td>
+	</tr>
+</table>
+</form>
+
+</body>
+</html>

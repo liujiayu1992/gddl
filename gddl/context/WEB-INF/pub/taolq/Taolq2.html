@@ -1,0 +1,60 @@
+<html jwcid="@Shell" doctype=" " title="讨论区" >
+<link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="ext/resources/css/examples.css"/>
+<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<script src="ext/zr/data/PagingMemoryProxy.js" type="text/javascript"></script>
+<script>
+Ext.onReady(function() {
+	function loadToolbar()
+	{ 
+	    var one = new Ext.Toolbar({
+	    el:'tbdiv',
+	      //  width:500,
+	        region:"north",
+	        height:20,
+	        items:[ {text: '回复帖子', handler:  function(){
+	    		var url1 = 'http://'+document.location.host+document.location.pathname;
+	    		var end1 = url1.indexOf(';');url1 = url1.substring(0,end1);
+	    		window.open(url1+'?service=page/Tiez&fuid='+document.all.item("fuid").innerText,'ddd','toolbar=0,resizable=0,status=1,width=600,height=430,scrollbar=1,left='+(window.screen.width-600)/2+',top='+(window.screen.height-430)/2);
+	              		//document.getElementById("shuax").click();//调用新建文件
+	        }}
+	        ]	     
+	     });
+	    return  one;
+	};
+                                  
+	function loadPanel1()
+	{ 
+        var one= new Ext.Panel({
+             region:"center",
+	        layout:'Column',
+	  	    labelAlign: 'top',
+	        frame:true,
+	        width: 600,
+	    	height:400,
+            autoScroll: true,
+	        html: <span jwcid="@Insert" raw="true"value="ognl:html"></span>
+        });
+	    return  one;
+	};
+	
+    var port=new Ext.Viewport({
+    		  layout:"border",
+              frame:true,
+              items:[
+	              loadToolbar(),
+	              loadPanel1()
+              ]
+    });    
+});
+</script>
+
+<body id="body" >
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+   <span id='fuid'> <span  jwcid="@Insert" value="ognl:fuid"style='display:none;'></span></span>
+<span jwcid="@ZRcontrib:ImgButton" id="shuax"buttontype=""style="display:none"label="刷新" listener="ognl:listeners.shuax" ></span>
+</form>
+</body>
+</html>

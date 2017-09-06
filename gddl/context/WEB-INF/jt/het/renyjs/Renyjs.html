@@ -1,0 +1,37 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>Renyjs</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+});
+</script>	
+</head>
+<body id="body" >
+<div id = "gridDiv" style="height:100%;overflow:none"></div>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+label="保存" style="display:none" 
+id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+
+<span jwcid="RefreshButton@ZRcontrib:ImgButton" buttontype="" style="display:none" 
+			label="刷新" id = "RefreshButton" listener="ognl:listeners.RefreshButton" ></span>
+<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+<span id="Shouhry" jwcid="Shouhry" style="display:none"></span>
+</form>
+</body>
+
+</html>

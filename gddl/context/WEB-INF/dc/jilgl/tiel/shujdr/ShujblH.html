@@ -1,0 +1,224 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>数据补录</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+
+<script type="text/javascript"> 
+
+    function zongjRow(gridDiv_ds,gridDiv_plant,diancTree_treePanel ){//页面初始化  加载汇总数据
+    
+    if(gridDiv_ds.getCount()<=0){return; }
+         
+    var maoz_zjr=0;
+    var piz_zjr=0;
+    var biaoz_zjr=0;
+    var koud_zjr=0;
+    var kous_zjr=0;
+    var kouz_zjr=0;
+    var jingz_zjr=0;
+    var sanfsl_zjr=0;
+    
+    var rows_zjr=gridDiv_ds.getCount()-1;
+    var ds_zjr=gridDiv_ds.getAt(gridDiv_ds.getCount()-1);
+    if(ds_zjr==null || ds_zjr.get('ID')!='-999' ) rows_zjr=gridDiv_ds.getCount();
+        
+    for(var i=0;i<rows_zjr;i++){
+        var rec_zjr=gridDiv_ds.getAt(i);
+        maoz_zjr+=parseFloat(rec_zjr.get('MAOZ')||'0');
+        piz_zjr+=parseFloat(rec_zjr.get('PIZ')||'0');
+        biaoz_zjr+=parseFloat(rec_zjr.get('BIAOZ')||'0');
+        koud_zjr+=parseFloat(rec_zjr.get('KOUD')||'0');
+        kous_zjr+=parseFloat(rec_zjr.get('KOUS')||'0');
+        kouz_zjr+=parseFloat(rec_zjr.get('KOUZ')||'0');
+        jingz_zjr+=parseFloat(rec_zjr.get('JINGZ')||'0');
+        sanfsl_zjr+=parseFloat(rec_zjr.get('SANFSL')||'0');
+        
+        }
+       
+    var chep_zjr="";
+    if(diancTree_treePanel.getSelectionModel().getSelectedNode().isLeaf()){chep_zjr="总计";}    
+    
+    var plant = new gridDiv_plant({DIANCXXB_ID: '总计',CHEPH: chep_zjr+'',MAOZ: maoz_zjr+'',PIZ: piz_zjr+'',BIAOZ: biaoz_zjr+'',
+    KOUD: koud_zjr+'',KOUS: kous_zjr+'',KOUZ: kouz_zjr+'',JINGZ: jingz_zjr+'',SANFSL: sanfsl_zjr+'',CHEC: '',ID: '-999',GONGYSB_ID: '',
+    MEIKXXB_ID: '',FAZ_ID: '',JIHKJB_ID: '',PINZB_ID: '',XIECFSB_ID: '',YUNSDWB_ID: '',
+    FAHRQ: '',DAOHRQ: '',CAIYRQ: '',JIANJFS: '',CHEBB_ID: '',
+    GUOHSJ: '',BIANM: '',ZHONGCJJY: '',DAOZ_ID: '',YUANDZ_ID: '',YUANSHDWB_ID: '',
+    YUANMKDW: '',DAOZCH: '',BEIZ: '',CHES: '',BULSJ: '1',ZHONGCHH: '',ZHONGCSJ: ''});
+    
+    
+    if(ds_zjr==null || ds_zjr.get('ID')!='-999' )
+	gridDiv_ds.insert(gridDiv_ds.getCount(),plant);
+    else 
+    { gridDiv_ds.remove(ds_zjr); gridDiv_ds.insert(gridDiv_ds.getCount(),plant); }
+    
+    
+    }   
+        
+    function zongjCol(gridDiv_ds,field ){//编辑表格数据
+    
+    if(gridDiv_ds.getCount()<=0){return; }
+         
+	if(field=='MAOZ' || field=='PIZ' || field=='BIAOZ' || field=='KOUD' || field=='KOUS' || field=='KOUZ' || field=='JINGZ' || field=='SANFSL' )
+        null ;
+    else return;
+        
+    var col_zjr=0;
+    var col_jinz_zjr=0;
+        
+    for(var i=0;i<gridDiv_ds.getCount()-1;i++){
+        var rec_zjr=gridDiv_ds.getAt(i);
+        col_zjr+=parseFloat(rec_zjr.get(field+'')||'0');
+        col_jinz_zjr+=parseFloat(rec_zjr.get('JINGZ')||'0');
+        
+        }
+    
+    
+    var ds_zjr=gridDiv_ds.getAt(gridDiv_ds.getCount()-1);
+  	ds_zjr.set(field+'',col_zjr+'');
+ 	ds_zjr.set('JINGZ',col_jinz_zjr+'');
+    
+    }   
+    
+   function replaceRec(gridDiv_ds,field,value,row){//多行替换
+       
+         
+        if( SelectLike.checked && (field=='DIANCXXB_ID' || field=='GONGYSB_ID' || field=='MEIKXXB_ID' || field=='FAZ_ID' || field=='JIHKJB_ID' 
+        || field=='PINZB_ID' || field=='XIECFSB_ID' || field=='YUNSDWB_ID' || field=='JIANJFS' || field=='CHEBB_ID' || field=='DAOZ_ID'
+        || field=='YUANDZ_ID' || field=='YUANSHDWB_ID' || field=='FAHRQ' || field =='DAOHRQ' || field=='CHEC' || field=='BIAOZ' || field=='CAIYRQ') ){
+        
+        for(var i=row;i<gridDiv_ds.getCount()-1;i++){
+       	 var rec=gridDiv_ds.getAt(i);
+         if(rec.get('ID')=='-999') continue;
+         rec.set(field+'',value);
+        }
+             
+             
+        
+        }
+    }
+            
+   function replaceRecTree(gridDiv_ds,cks){
+          
+              if(!SelectLike.checked) return;
+              for(var i=row;i<gridDiv_ds.getCount()-1;i++){
+                   var rec=gridDiv_ds.getAt(i);
+    		       if(rec.get('ID')=='-999') continue;
+                  
+        			if(cks.getDepth()==4){
+            			rec.set('GONGYSB_ID', cks.parentNode.parentNode.parentNode.text);
+                        rec.set('MEIKXXB_ID', cks.parentNode.parentNode.text);
+                        rec.set('YUANMKDW', cks.parentNode.parentNode.text);
+                        rec.set('FAZ_ID', cks.parentNode.text);
+                        rec.set('JIHKJB_ID', cks.text);
+            		}
+        			if(cks.getDepth()==3){
+            			rec.set('GONGYSB_ID', cks.parentNode.parentNode.text);
+                        rec.set('MEIKXXB_ID', cks.parentNode.text);
+                        rec.set('YUANMKDW', cks.parentNode.text);
+                        rec.set('FAZ_ID', cks.text);
+         		    }
+        			if(cks.getDepth()==2){
+            			rec.set('GONGYSB_ID', cks.parentNode.text);
+                        rec.set('MEIKXXB_ID', cks.text);
+                        rec.set('YUANMKDW', cks.text);
+       			    }
+        			if(cks.getDepth()==1){
+            			rec.set('GONGYSB_ID', cks.text);
+           			} 
+                  
+                  
+                  }
+      
+     }
+            
+</script>
+
+
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript1"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+	function copylastrec(last, cur){
+	if(last.get('DIANCXXB_ID') != null){
+		cur.set('DIANCXXB_ID',last.get('DIANCXXB_ID'));
+	}
+		cur.set('GONGYSB_ID',last.get('GONGYSB_ID'));
+		cur.set('MEIKXXB_ID',last.get('MEIKXXB_ID'));
+		cur.set('FAZ_ID',last.get('FAZ_ID'));
+		cur.set('PINZB_ID',last.get('PINZB_ID'));
+		cur.set('JIHKJB_ID',last.get('JIHKJB_ID'));
+		cur.set('BIANM',last.get('BIANM'));
+		cur.set('ZHONGCJJY',last.get('ZHONGCJJY'));
+		cur.set('XIECFSB_ID',last.get('XIECFSB_ID'));
+		cur.set('YUNSDWB_ID',last.get('YUNSDWB_ID'));
+		cur.set('FAHRQ',last.get('FAHRQ'));
+		cur.set('DAOHRQ',last.get('DAOHRQ'));
+		cur.set('CAIYRQ',last.get('CAIYRQ'));
+		cur.set('JIANJFS',last.get('JIANJFS'));
+		cur.set('CHEC',last.get('CHEC'));
+		cur.set('CHEBB_ID',last.get('CHEBB_ID'));
+		cur.set('DAOZ_ID',last.get('DAOZ_ID'));
+		cur.set('YUANDZ_ID',last.get('YUANDZ_ID'));
+		cur.set('YUANSHDWB_ID',last.get('YUANSHDWB_ID'));
+		cur.set('YUANMKDW',last.get('YUANMKDW'));
+	}
+	gongysTree_window.show();
+	gongysTree_window.hide();
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+
+});
+</script>
+
+
+
+
+</head>
+<body id="body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<table id="tablemain" border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+		<tr style="display:none">
+			<td>
+				<span id="RIQ" jwcid="RIQ"
+				style="display:none" submitOnChange="true" type="text"></span>
+				<input readonly="true" class="text-position"
+				submitOnChange="true" jwcid="HOUR" id="HOUR" type="text" />
+				<input readonly="true" class="text-position"
+				submitOnChange="true" jwcid="MIN" id="MIN" type="text" />
+				<input readonly="true" class="text-position"
+				submitOnChange="true" jwcid="SEC" id="SEC" type="text" />
+				<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+				style="display:none" id="SaveButton" listener="ognl:listeners.SaveButton"></span>
+                <span jwcid="DaorButton@ZRcontrib:ImgButton" buttontype="" label="导入数据"
+				style="display:none" id="DaorButton" listener="ognl:listeners.DaorButton"></span>
+			 	<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+			 <span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+			</td>
+		</tr>
+		<tr id="SelectData" hight="100%">
+			<td>
+			<div id="gridDiv" style="height:100%;overflow:none"></div>
+			</td>
+		</tr>	
+	</table>
+   <input readonly="true" class="text-position"
+				submitOnChange="true" jwcid="WenjmSelect" id="WenjmSelect" type="text" />
+</form>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>组维护</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var grid1_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+	var grid1_sm =new Ext.grid.RowSelectionModel();
+	
+	var grid1_Plant = Ext.data.Record.create([
+		{name: 'id', type: 'string' },
+		{name: 'mingc', type: 'string'},
+		{name: 'beiz', type: 'string' }           
+	]);
+
+	var grid1_cm = new Ext.grid.ColumnModel([
+	    new Ext.grid.RowNumberer(),
+	    {header:'编号',dataIndex:'id',sortable:true,hidden :true},
+	    {header:'组名',dataIndex:'mingc',width:150,sortable:true,
+	    editor: new Ext.form.TextField({
+	              allowBlank: false
+	          })
+	    },
+	    {header:'描述',dataIndex:'beiz',width:250,
+	    editor: new Ext.form.TextField({
+	              allowBlank: false
+	          })}
+	]);
+	/*
+	var grid1_data = [['1','组1','组1的描述'],
+	['2','组2','组2的描述'],
+	['3','组3','组3的描述'],
+	['4','组4','组4的描述']];*/
+
+<span jwcid="@Insert" raw="true" value="ognl:GridData"></span>
+
+	var grid1_ds = new Ext.data.Store({
+	    proxy : new Ext.zr.data.PagingMemoryProxy(grid1_data),
+	    reader: new Ext.data.ArrayReader({}, [
+	        {name: 'id'},
+	        {name: 'mingc'},
+	        {name: 'beiz'}
+	    ])
+	});
+
+	var grid1_pag = new Ext.PagingToolbar({
+        pageSize: 18,
+        store: grid1_ds,
+        displayInfo: true,
+        displayMsg: '显示第 {0} 条到 {1} 条记录，一共 {2} 条',
+        emptyMsg: "没有记录"
+    });
+	
+    var grid1_iBtn = new Ext.Toolbar.Button({
+    	text: '添加',
+        handler : function(){
+	        var plant = new grid1_Plant({
+	      		id :'0',
+	      		mingc : '',
+	      		beiz : ''
+			});
+			grid1_ds.insert(grid1_ds.getCount(),plant);
+		}
+    });
+    
+    var grid1_dBtn = new Ext.Toolbar.Button({
+    	text: '删除',
+        handler : function(){
+			for(i=0;i<grid1_sm.getSelections().length;i++){
+				grid1_rcd = grid1_sm.getSelections()[i];
+				if(grid1_rcd.get("id") != "0"){
+					grid1_history += "D,"+grid1_rcd.get("id");
+				}
+				grid1_ds.remove(grid1_sm.getSelections()[i--]);
+			}
+		}
+    });
+
+    var grid1_sBtn = new Ext.Toolbar.Button({
+    	text: '保存',
+        handler : function(){
+	        var	grid1_Mrcd = grid1_ds.getModifiedRecords();
+	        var grid1_sh = "";
+	        var hasnull = false;
+	        for(mi = 0; mi< grid1_Mrcd.length; mi++){
+	        	id = grid1_Mrcd[mi].get("id");
+	        	mingc = grid1_Mrcd[mi].get("mingc");
+	        	beiz = grid1_Mrcd[mi].get("beiz");
+	        	if(mingc == null || mingc == ""){
+	        		hasnull = true;
+	        	}else{
+	        		grid1_sh += "U," + id + "," + mingc + "," + beiz + ";";
+	        	}
+			}
+			grid1_history += grid1_sh;
+			if(hasnull){
+				Ext.MessageBox.confirm('提示信息', '组名为空的记录将不被保存,是否继续?', function(btn){
+					if(btn == "yes"){
+						var Cobj = document.getElementById("CHANGE");
+						Cobj.value = grid1_history;
+						document.getElementById("SaveButton").click();
+					}
+				});
+			}else{
+				if(grid1_history==""){
+					Ext.MessageBox.alert("提示信息","没有进行改动无需保存");
+				}else{
+					var Cobj = document.getElementById("CHANGE");
+					Cobj.value = grid1_history;
+					document.getElementById("SaveButton").click();
+				}
+			}
+		}
+    });
+//	添加一取消按钮
+	var grid1_cBtn = new Ext.Toolbar.Button({
+		text: '取消',
+		handler : function(){
+			grid1_ds.rejectChanges();
+		}
+	});    
+    
+    var grid1_pBtn = new Ext.Toolbar.Button({
+    	text: '设置权限',
+        handler : function(){
+			if(grid1_sm.getSelections().length <= 0 
+				|| grid1_sm.getSelections().length > 1){
+        		Ext.MessageBox.alert("提示信息","请选中一个分组设置权限");
+        		return;
+        	}
+        	grid1_rcd = grid1_sm.getSelections()[0];
+        	if(grid1_rcd.get("id") == "0"){
+        		Ext.MessageBox.alert("提示信息","在设置权限之前请先保存!");
+        		return;
+        	}
+        	grid1_history = grid1_rcd.get("id");
+			var Cobj = document.getElementById("CHANGE");
+			Cobj.value = grid1_history;
+			document.getElementById("PowerButton").click();
+		}
+    });
+    
+    var grid1_egp = new Ext.grid.EditorGridPanel({
+    	el: 'editMainDiv',
+		ds: grid1_ds,
+    	cm: grid1_cm,
+    	sm: grid1_sm,
+    	stripeRows: true,
+    	clicksToEdit:1,
+    	frame:true,
+    	tbar: [grid1_iBtn,grid1_dBtn,grid1_sBtn,grid1_cBtn,grid1_pBtn],
+	    bbar: grid1_pag
+	});
+	grid1_egp.render();
+	grid1_ds.load({params:{start:0, limit:18}});
+	
+	grid1_ds.on("datachanged",function(){
+		grid1_history = "";
+	}); 
+
+	
+});
+</script>
+<SCRIPT LANGUAGE="JavaScript"> 
+	<!-- Hide 
+	function killErrors() { 
+		return true; 
+	} 
+	window.onerror = killErrors; 
+	 --> 
+</SCRIPT>
+<body id="body" jwcid="@Body">
+    <div id="editMainDiv" style="width:100%;height:100%"></div>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+		<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+		<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+			label="保存" style="display:none" 
+			id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+		<span jwcid="PowerButton@ZRcontrib:ImgButton" buttontype=""
+			label="权限" style="display:none" 
+			id = "PowerButton" listener="ognl:listeners.PowerButton" ></span>
+		<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+	</form>
+</body>
+</html>

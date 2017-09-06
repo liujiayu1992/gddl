@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>汽车检斤录入</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.showtext" />
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var gridDivPiz_history = "";
+var grid;
+var gridp;
+var Mode;
+var DataIndex;
+var jingzXt;
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScriptPiz"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+<span jwcid="@Insert" raw="true" value="ognl:jingzXt"></span>
+grid = gridDiv_grid;
+gridp = gridDivPiz_grid;
+});
+
+</script>
+</head>
+<body id="body" jwcid="@Body" onkeyup="if(event.keyCode==32)caij1();">
+<object classid="clsid:648A5600-2C6E-101B-82B6-000000000014" width=0
+	height=0 style="display:none" id="MSComm1">
+	<param name="_ExtentX" value="1005">
+	<param name="_ExtentY" value="1005">
+	<param name="_Version" value="393216">
+	<param name="CommPort" value="1">
+	<param name="DTREnable" value="-1">
+	<param name="Handshaking" value="0">
+	<param name="InBufferSize" value="1024">
+	<param name="InputLen" value="0">
+	<param name="NullDiscard" value="0">
+	<param name="OutBufferSize" value="512">
+	<param name="ParityReplace" value="63">
+	<param name="RThreshold" value="0">
+	<param name="RTSEnable" value="0">
+	<param name="BaudRate" id="4800">
+	<param name="ParitySetting" value="0">
+	<param name="DataBits" id="8">
+	<param name="StopBits" value="0">
+	<param name="SThreshold" value="0">
+	<param name="EOFEnable" value="0">
+	<param name="InputMode" value="0">
+</object>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Setting"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+        <tr height="20%">
+            <td>
+                <table valign="top" align="center">
+					<tr>
+					<td class="text-position"><b> <font id="DTfont" size="7" color="#0054a6"
+						face="楷体_GB2312">动态<br>重量</font></b></td>
+					<td class="ShowText"><input readonly="true" id="dongtzl" label="动态重量" size="5"></input></td>
+					<td>&nbsp;&nbsp;<span jwcid="CaijButton@ZRcontrib:ImgButton"
+						onclick="return caij1();" buttontype="nosubmitbuttons" label="采集(空格)>>"
+						style="font-size: 12pt; font-family:楷体_GB2312; font-weight:bold" ></span></td>
+					<td class="text-position"><b><font size="7"
+						face="楷体_GB2312" color="#0054a6">采集<br>重量</font></b></td>
+					<td class="ShowText"><input readonly="true" label="采集重量" id="caijzl" size="5"/></td>
+	              	<td>
+	                <input style="display:none;" id="Lastzl" type="text"></input>
+                    </td>
+			        </tr>
+			    </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+				<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label="刷新"
+					style="display:none" id="RefurbishButton"
+					listener="ognl:listeners.RefurbishButton"></span>
+				<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+					style="display:none" id="SaveButton"
+					listener="ognl:listeners.SaveButton"></span>
+				<span jwcid="SavePizButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+					style="display:none" id="SavePizButton"
+					listener="ognl:listeners.SavePizButton"></span>
+                <span jwcid="ShowButton@ZRcontrib:ImgButton" buttontype="" label="查看"
+					style="display:none" id="ShowButton"
+					listener="ognl:listeners.ShowButton"></span>
+                
+                <span jwcid="AutoSaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+					style="display:none" id="AutoSaveButton"
+					listener="ognl:listeners.AutoSaveButton"></span>
+                
+                
+				<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+            </td>
+        </tr>
+        <tr height="20%">
+            <td>
+                <div id="gridDiv" style="height:100%;overflow:none"></div>
+                </td>
+            </tr>
+        <tr height="60%">
+            <td>
+                <div id="gridDivPiz" style="height:100%;overflow:none"></div>
+                </td>
+            </tr>
+    </table>
+</form>
+</body>
+</html>

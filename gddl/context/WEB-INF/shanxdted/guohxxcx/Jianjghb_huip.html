@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>检斤过衡表_回皮</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+<span jwcid="@Insert" raw="true" value="ognl:Msg"></span>
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+});
+</script>	
+</head>
+<body id="body" jwcid="@Body" class="bgs">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%"  height="100%">
+	<tr id="trcondition" valign=middle height="20" style="display:none">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+                <td  width="35" style="font-size: 12px;">起始日期:</td>
+                <td width="50"> <span id="RIQI"  jwcid = "RIQI" style="display:none" submitOnChange="true" readonly="true" type="text"></span></td> 
+                 <td  width="35" style="font-size: 12px;">截止日期:</td>
+                <td width="50"> <span id="RIQ2"  jwcid = "RIQ2" style="display:none" submitOnChange="true" type="text"></span></td>
+                <td width="120" style="display:none"><span  style="width:150;height:21" jwcid="GongysDropDown" id='GongysDropDown'  submitOnChange="true"  type="text"/></td>
+              </tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top hight="100%">
+	   <td>
+	    <div id = "gridDiv" style="height:100%;overflow:none"></div>
+        
+        <span jwcid="@Insert" raw="true" value="ognl:TreeHtml"></span>
+        <span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>       
+         <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" style="display:none" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+         <span jwcid="shuaxin@ZRcontrib:ImgButton" buttontype="" label="刷新" style="display:none" id = "ShuaxinButton" listener="ognl:listeners.ShuaxinButton" ></span>
+          <span jwcid="InsertButton@ZRcontrib:ImgButton" onclick="checkgongys()" buttontype="" label="添加" style="display:none" id = "InsertButton"  ></span>
+          <span jwcid="deleteButton@ZRcontrib:ImgButton" buttontype="" label="删除" style="display:none" id = "deleteButton"  ></span>
+        <span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+        <span id="GONGYSXX"  jwcid = "GONGYSXX" style="display:none"></span>
+        <span id="diancTree_id" jwcid="TREEID" style="display:none"></span>
+
+	   </td>
+	</tr>
+    
+</table>
+</form>
+</body>
+
+</html>

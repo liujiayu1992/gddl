@@ -1,0 +1,165 @@
+import com.zhiren.common.ErrorMessage;
+import com.zhiren.common.JDBCcon;
+import com.zhiren.common.ResultSetList;
+import com.zhiren.common.SysConstant;
+import java.sql.SQLException;
+import com.zhiren.dc.jilgl.Jilcz;
+import com.zhiren.webservice.QichsjppInterface;
+
+public class QicInterface_gdds {
+
+	public String Qicsjpp_jws(String daohrq) throws SQLException {
+
+		String strArray[][] = null; // diancxxb_id,insertSql,chepbtmp_id
+		strArray = QichsjppInterface.Qicsjpp(daohrq);
+		String ReValue = "";
+
+		if (strArray != null) {
+
+			JDBCcon con = new JDBCcon();
+			con.setAutoCommit(false);
+
+			for (int i = 0; i < strArray.length; i++) {
+				// 先进行chpetmp的更新，如果成功了再调用save方法
+				if (strArray[i][2] != null) {
+					// 得到了匹配好的数据
+					if (QichsjppInterface.UpdateChepbtmp(con, strArray[i][2])) {
+						// 插入成功
+						ReValue = Jilcz.SaveJilData(strArray[i][1], Long
+								.parseLong(strArray[i][0]),
+								SysConstant.YUNSFS_QIY, SysConstant.HEDBZ_YJJ,
+								null, this.getClass().getName(), Jilcz.SaveMode_JK);
+
+						if (ReValue.equals(ErrorMessage.SaveSuccessMessage)) {
+
+							con.commit();
+							ReValue = "导入成功";
+						} else {
+
+							con.rollBack();
+						}
+					} else {
+
+						ReValue = "更新导入状态失败";
+						con.rollBack();
+					}
+				} else {
+
+					ReValue = "匹配信息为找到或信息不完整";
+				}
+			}
+			con.Close();
+		} else {
+
+			ReValue = "没有未导入的汽车数据";
+		}
+		return ReValue;
+	}
+	
+	/**
+	 * 
+	 * @param qingcsj 轻车时间
+	 * @param cheh    车号
+	 * @param sender  修改后的供应商名称（衡器）
+	 * @param goods   品种（衡器）
+	 * @return 
+	 * 		-1 发生错误
+	 * 		0  未发现车皮
+	 * 		1  更换车皮发货
+	 * 		2  删除车皮，需要接口程序重新导入
+	 */
+	public  int  DeleteModifyData(String qingcsj, String cheh, String sender, String goods, double maoz, double piz, double koud) {
+		JDBCcon con = new JDBCcon();
+		ResultSetList rsl2  = null;
+		long fahb_id = 0;
+		long c_fahb_id = 0;
+		long chepb_id = 0;
+		int flag = 0;
+		boolean isHasData = false;
+		
+		con.setAutoCommit(false);
+		String sql = 
+			"SELECT * FROM chepb\n" +
+			"WHERE qingcsj=to_date('" + qingcsj + "','yyyy-mm-dd hh24:mi:ss')\n" + 
+			"AND cheph='" + cheh + "'";
+		ResultSetList rsl = con.getResultSetList(sql);
+		
+		if (rsl.next()) {
+			isHasData = true;
+			fahb_id = rsl.getLong("fahb_id");
+			chepb_id = rsl.getLong("id");
+		}
+		rsl.close();
+		if (isHasData && fahb_id>0 && chepb_id>=0) {
+			/*
+			 * 1 在修改以前的车皮发货单位时，先判断修改后的发货单位存不存在，
+			 * 如果存在，将修改的车皮保存到该发货单位的最后一个批次中
+			 * 
+			 * 2 如果修改后以前没有该发货单位的批次，则删除改车皮，由汽车衡接口程序重新导入
+			 * 
+			 * 3 此方案是为防止修改化验已结束的车皮，如果超过500吨产生新的采样而丢失该车皮的化验数据
+			 * 例如：5月4号已化验完，5月6号发现一车的供货单位有错，当将该车修改其正确的供货单位后，
+			 * 该车净重与最后批次相加大于采样吨数500吨，而将其单分出一个发货，生成一个新的采样，
+			 * 此时该车皮与已化验的采样批次无任何关联而丢失化验数据
+			 * 
+			 */
+			sql = 
+				"SELECT f.ID FROM fahb f,qichjcsjppb q \n" +
+				"WHERE daohrq=to_date(to_char(to_date('" + qingcsj + "','yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd'),'yyyy-mm-dd')\n" +
+				"AND f.gongysb_id=q.gongysb_id\n" + 
+				"AND f.meikxxb_id=q.meikxxb_id\n" + 
+				"AND f.pinzb_id=q.pinzb_id\n" + 
+				"AND q.gongysmc='" + sender + "'\n" + 
+				"AND q.pinz='" + goods + "'\n" + 
+				"ORDER BY ID DESC";
+
+			rsl2 = con.getResultSetList(sql);
+			// 当更改发货单位时，将车皮保存在更改的最后一个批次中
+			if (rsl2.next()) {
+				c_fahb_id = rsl2.getLong("id");
+				sql = "update chepb set maoz=" + maoz + ",piz=" + piz + ",biaoz=" + (maoz-piz-koud) + ",koud=" + koud + ",zongkd=" + koud + ",fahb_id=" + c_fahb_id + " where id=" + chepb_id;
+				flag = con.getUpdate(sql);
+				if (flag == -1) {
+					con.rollBack();
+					return -1;
+				}
+				flag = Jilcz.updateFahb(con, String.valueOf(fahb_id));
+				if (flag == -1) {
+					con.rollBack();
+					con.Close();
+					return -1;
+				}
+				flag = Jilcz.updateFahb(con, String.valueOf(c_fahb_id));
+				if (flag == -1) {
+					con.rollBack();
+					con.Close();
+					return -1;
+				}
+				con.commit();
+				con.Close();
+				return 1;
+				
+			// 更改的车皮后的发货单位没有，则删除车皮信息，重新导入
+			} else {
+				sql = "delete from chepb where id =" + chepb_id;
+				flag = con.getDelete(sql);
+				if (flag == -1) {
+					con.rollBack();
+					return -1;
+				}
+				flag = Jilcz.updateFahb(con, String.valueOf(fahb_id));
+				if (flag == -1) {
+					con.rollBack();
+					con.Close();
+					return -1;
+				}
+				con.commit();
+				con.Close();			
+				return 2;
+			}
+			
+		} else {
+			return 0;
+		}
+	}
+}

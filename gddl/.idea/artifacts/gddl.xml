@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="gddl">
+    <output-path>$PROJECT_DIR$/out/artifacts/gddl</output-path>
+    <root id="archive" name="gddl.war">
+      <element id="artifact" artifact-name="gddl:Web exploded" />
+    </root>
+  </artifact>
+</component>

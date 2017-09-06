@@ -1,0 +1,999 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title>综合查询数量</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+//<!-- *************right************** -->
+var rpttype = 'SL_HZ';
+var mx=new Ext.form.Radio({
+	boxLabel:'明细',
+	listeners:{
+		check:function(own,ck){
+			if(ck){
+				rpttype = 'SL_MX';
+				ch_ck.setDisabled(false);
+				ch_ta.setDisabled(false);
+                gm_ck.setDisabled(false);
+                gridDiv_grid3.show();
+                gridDiv_grid2.hide();
+			}else{
+				rpttype = 'SL_HZ'
+				ch_ck.setValue(false);
+				ch_ck.setDisabled(true);
+				ch_ta.setDisabled(true);
+                gm_ck.setValue(false);
+                gm_ck.setDisabled(true);
+                gridDiv_grid2.show();
+                gridDiv_grid3.hide();
+			}
+		}
+	},
+	name:'daoh'
+});
+var hz=new Ext.form.Radio({
+	boxLabel:'汇总',
+	checked:true,
+	name:'daoh'
+});
+var cx_pan = new Ext.Panel({
+	height:30,
+	layout:'table',
+	items : [{html:'报表格式&nbsp;<span style="white-space:nowrap; word-spacing:10">  </span>&nbsp;' },mx,
+	{html: '&nbsp;<span style="white-space:nowrap; word-spacing:50">  </span>&nbsp;'},hz]
+});
+
+var dc_ck = new Ext.form.Checkbox({
+	boxLabel:'电<span style="white-space:nowrap; word-spacing:20">   </span>厂',
+	width:'auto'
+});
+var dc_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'CHANGB',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true
+});
+var dc_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [dc_ck,{html:'&nbsp;' },dc_cb]
+});
+
+var js_ck = new Ext.form.Checkbox({
+	boxLabel:'结算情况',
+	width:'auto'
+});
+var js_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'JIESQK',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true
+});
+var js_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [js_ck,{html:'&nbsp;' },js_cb]
+});
+
+var dh_ck=new Ext.form.Checkbox({
+	boxLabel:'到货日期',
+	checked:true,
+	width:'auto'
+});
+var dh_df_s = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var dh_df_e = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var dh_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [dh_ck,{html:'&nbsp;' },dh_df_s,{html: '&nbsp;至&nbsp;'},dh_df_e]
+});
+
+var fh_ck=new Ext.form.Checkbox({
+	boxLabel:'发货日期',
+	width:'auto'
+});
+var fh_df_s = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var fh_df_e = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var fh_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [fh_ck,{html:'&nbsp;' },fh_df_s,{html: '&nbsp;至&nbsp;'},fh_df_e]
+});
+
+var pz_ck = new Ext.form.Checkbox({
+	boxLabel:'燃料品种',
+	width:'auto'
+});
+var ys_ysdw = new Ext.form.Checkbox({
+        boxLabel:'运输单位',
+        width:'100%'
+    });
+var ysdw_c = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'YUNSDW',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true,
+	width:200
+});
+var pz_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'PINZ',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true
+});
+var pz_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [pz_ck,{html:'&nbsp;' },pz_cb]
+});
+
+var ys_ck = new Ext.form.Checkbox({
+	boxLabel:'运输方式',
+	width:'auto'
+});
+var ys_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'YSFS',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true
+});
+var ys_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [ys_ck,{html:'&nbsp;' },ys_cb]
+});
+
+var ysdw_pan = new Ext.Panel({
+        height:40,
+        layout:'table',
+        items : [ys_ysdw,{html:'&nbsp;' },ysdw_c]
+    });
+var kj_ck = new Ext.form.Checkbox({
+	boxLabel:'计划口径',
+	width:'auto'
+});
+var kj_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'JHKJ',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true
+});
+var kj_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [kj_ck,{html:'&nbsp;' },kj_cb]
+});
+
+var sh_ck = new Ext.form.Checkbox({
+	boxLabel:'审核情况',
+	width:'auto'
+});
+var sh_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'SHCB',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true
+});
+var sh_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [sh_ck,{html:'&nbsp;' },sh_cb]
+});
+
+
+var ch_ck = new Ext.form.Checkbox({
+	boxLabel:'车<span style="white-space:nowrap; word-spacing:18"></span>号',
+	width:'auto',
+	disabled:true
+});
+var ch_ta = new Ext.form.TextArea({
+	width:240,
+	disabled:true
+});
+var ch_pan = new Ext.Panel({
+	height:80,
+	layout:'table',
+	items : [ch_ck,{html:'&nbsp;' },ch_ta,{html:'<font color=red>(不同车号间<br>使用逗号","分隔)</font>'}]
+});
+
+var gm_ck=new Ext.form.Checkbox({
+	boxLabel:'检毛日期',
+	width:'auto',
+    disabled:true
+});
+var gm_df_s = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var gm_df_e = new Ext.form.DateField({
+	allowBlank:true,
+	value:new Date(),
+	format:'Y-m-d'
+});
+var gm_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [gm_ck,{html:'&nbsp;' },gm_df_s,{html: '&nbsp;至&nbsp;'},gm_df_e]
+});
+var hour_s_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'HOUR',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true,
+    width:50
+
+});
+var min_s_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'MIN',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true,
+    width:50
+});
+var hour_e_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'HOUR1',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true,
+    width:50
+});
+ var min_e_cb = new Ext.form.ComboBox({
+	selectOnFocus:true,
+	transform:'MIN1',
+	lazyRender:true,
+	triggerAction:'all',
+	typeAhead:true,
+	forceSelection:true,
+    width:50
+});
+var hour_pan = new Ext.Panel({
+	height:40,
+	layout:'table',
+	items : [{html:'&nbsp;时' },hour_s_cb,{html:'&nbsp;分&nbsp;'},min_s_cb,{html: '&nbsp;至&nbsp;时'},hour_e_cb,{html:'&nbsp;分&nbsp;'},min_e_cb]
+});
+var form = new Ext.form.FormPanel({
+	defaultType: 'textfield',
+	autoScroll:true,
+	labelAlign: 'left',
+	title: '综合查询基本设置',
+	labelWidth: 370,
+	height: bodyHeight - 10,
+	frame: true,
+	defaults: {
+	msgTarget: 'side'
+	},
+	items: [cx_pan, dc_pan, js_pan, dh_pan, fh_pan, ysdw_pan,pz_pan, ys_pan, kj_pan, sh_pan, ch_pan, gm_pan,hour_pan],
+	buttons: [{
+	style: {
+        marginBottom: '15px'
+    },
+	text: '确认',
+	handler:getSQL,
+	minWidth : 65
+	}]
+});
+	form.render("form");
+
+//<!-- *************left up************** -->
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+gongysTree_window.show();
+gongysTree_window.hide();
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+
+var gridDiv_sm = new Ext.grid.RowSelectionModel();
+var gridDiv_cm = new Ext.grid.ColumnModel([
+	{header:'供应商ID',dataIndex:'GONGYSB_ID',hidden :true},
+	{header:'供应商',dataIndex:'GONGYS',width:150,hidden :false},
+	{header:'煤矿单位ID',dataIndex:'MEIKXXB_ID',hidden :true},
+	{header:'煤矿单位',dataIndex:'MEIKMC',width:150,hidden :false},
+	{header:'发站ID',dataIndex:'FAZ_ID',hidden :true},
+	{header:'发站',dataIndex:'FAZ',hidden :false},
+    {header:'运输单位ID',dataIndex:'YUNSDW_ID',hidden :true},
+   /* {header:'运输单位',dataIndex:'YUNSDW',hidden :false},*/
+{
+        header: '运输单位', dataIndex: 'YUNSDW', editor: ysdw_c, hidden: false
+    }
+
+]);
+
+
+gridDiv_cm.defaultSortable=true;
+
+var gridDiv_ds = new Ext.data.Store({
+proxy : new Ext.zr.data.PagingMemoryProxy([]),
+pruneModifiedRecords:true,
+reader: new Ext.data.ArrayReader({}, [{name:'GONGYSB_ID'},{name:'GONGYS'},{name:'MEIKXXB_ID'},{name:'MEIKMC'},{name:'FAZ_ID'},{name:'FAZ'},{name:'YUNSDW_ID'},{name:'YUNSDW'}])
+});
+
+
+    var gridDiv_plant = Ext.data.Record.create([
+        {name: 'GONGYSB_ID', type: 'string'},
+        {name: 'GONGYS',type: 'string'},
+        {name: 'MEIKXXB_ID', type: 'string'},
+        {name: 'MEIKMC', type: 'string'},
+        {name: 'FAZ_ID', type: 'string'},
+        {name: 'FAZ', type: 'string'},
+        {name: 'YUNSDW_ID', type: 'string'},
+        {name: 'YUNSDW', type: 'string'}
+        ]);
+    var gridDiv_grid = new Ext.grid.EditorGridPanel({
+//el:'gridDiv',
+cm:gridDiv_cm,
+sm:gridDiv_sm,
+ds:gridDiv_ds,
+title:'供货信息',
+clicksToEdit:1,
+frame:true,
+        tbar: [{
+            text: ' 添加', icon: 'imgs/btnicon/insert.gif', cls: 'x-btn-text-icon', minWidth: 75, handler: function () {
+                var plant = new gridDiv_plant({
+                    GONGYSB_ID: '',
+                    GONGYS: '',
+                    MEIKXXB_ID: '',
+                    MEIKMC: '',
+                    FAZ_ID: '',
+                    FAZ: '',
+                    YUNSDW_ID: '',
+                    YUNSDW: ''
+                });
+                gridDiv_ds.insert(gridDiv_ds.getCount(), plant);
+            }
+        },
+{text:' 删除',icon:'imgs/btnicon/delete.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+for(i=0;i<gridDiv_sm.getSelections().length;i++){
+	record = gridDiv_sm.getSelections()[i];
+	gridDiv_ds.remove(gridDiv_sm.getSelections()[i--]);}}}
+],
+height:bodyHeight/3-10,  //由2变到3
+clicksToEdit:1,frame:true,
+stripeRows:true
+});
+gridDiv_grid.render('gridDiv');
+
+gridDiv_ds.load({params:{start:0, limit:18}});
+
+gridDiv_grid.on('cellclick',
+function(own, irow, icol, e){
+	row = irow;
+	if('GONGYS' == gridDiv_grid.getColumnModel().getDataIndex(icol)){
+		gongysTree_window.show();
+	}
+
+});
+
+
+//<!-- *************left middle************** -->
+
+var gridDiv_sm1 = new Ext.grid.RowSelectionModel()
+var gridDiv_cm1 = new Ext.grid.ColumnModel([
+new Ext.grid.RowNumberer(),
+{header:'ID',dataIndex:'ID',hidden :true},
+
+{header:'项目',dataIndex:'XIANGM',editor: new Ext.form.ComboBox({
+               typeAhead: true,
+               triggerAction: 'all',
+               transform:'XM',
+               lazyRender:true}),hidden :false},
+{header:'条件',dataIndex:'TIAOJ',editor: new Ext.form.ComboBox({
+               typeAhead: true,
+               triggerAction: 'all',
+               transform:'TJ',
+               lazyRender:true}),hidden :false},
+{header:'值',dataIndex:'ZHI',editor :new Ext.form.NumberField({
+	decimalPrecision:3,
+	selectOnFocus:true}),hidden :false},
+{header:'组别',dataIndex:'ZUB',editor :new Ext.form.TextField({
+	maxLength:20,
+	width:'auto',
+	selectOnFocus:true}),hidden :false}
+]);
+
+//新添加的<!-- *************left down************** -->
+xdata = [['1','合计'],['2','供应商'],['3','煤矿单位']];
+var gridDiv_sm2 = new Ext.grid.RowSelectionModel()
+
+var store1 = new Ext.data.SimpleStore({
+	    fields: ['abbre', 'mingch'],
+	    data : xdata
+});
+
+var gridDiv_cm2 = new Ext.grid.ColumnModel([
+new Ext.grid.RowNumberer(),
+{header:'ID',dataIndex:'ID',hidden :true},
+
+{header:'项目',dataIndex:'XIANGM2',editor: new Ext.form.ComboBox({
+               store:store1 ,
+               displayField:'mingch',
+               typeAhead: true,
+               mode:'local',
+               triggerAction: 'all'
+               }),hidden :false}
+]);
+
+//添加明细汇总行Grid
+xdata2 = [['1','供应商'],['2','煤矿'],['3','发站'],['4','品种'],['5','到货日期'],['6','编码']];
+var gridDiv_sm3 = new Ext.grid.RowSelectionModel()
+
+var store2 = new Ext.data.SimpleStore({
+	    fields: ['abbre', 'mingch'],
+	    data : xdata2
+});
+
+var gridDiv_cm3 = new Ext.grid.ColumnModel([
+new Ext.grid.RowNumberer(),
+{header:'ID',dataIndex:'ID',hidden :true},
+
+{header:'项目',dataIndex:'XIANGM3',editor: new Ext.form.ComboBox({
+               store:store2,
+               displayField:'mingch',
+               typeAhead: true,
+               mode:'local',
+               triggerAction: 'all'
+               }),hidden :false}
+]);
+
+//添加完成
+
+
+//<!-- defaultSortable默认排序的列有没有指定排序（默认为false ）-->
+gridDiv_cm1.defaultSortable=true;
+
+var gridDiv_ds1 = new Ext.data.Store({
+proxy : new Ext.zr.data.PagingMemoryProxy([]),
+pruneModifiedRecords:true,
+reader: new Ext.data.ArrayReader({}, [
+{name:'ID'},{name:'XIANGM'},{name:'TIAOJ'},{name:'ZHI'},{name:'ZUB'}])});
+
+var gridDiv_plant1 = Ext.data.Record.create([{name: 'ID', type:'string'},{name: 'XIANGM'},{name: 'TIAOJ'},{name: 'ZHI', type:'float'},{name: 'ZUB', type:'string'}]);
+var gridDiv_grid1 = new Ext.grid.EditorGridPanel({
+//el:'gridDiv',
+cm:gridDiv_cm1,
+sm:gridDiv_sm1,
+ds:gridDiv_ds1,
+title:'数量设置',
+clicksToEdit:1,frame:true,tbar: [{text:' 添加',icon:'imgs/btnicon/insert.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+var plant1 = new gridDiv_plant1({ID: '0',XIANGM: '',TIAOJ: '',ZHI: '',ZUB: '1'});
+gridDiv_ds1.insert(gridDiv_ds1.getCount(),plant1);}},
+{text:' 删除',icon:'imgs/btnicon/delete.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+for(i=0;i<gridDiv_sm1.getSelections().length;i++){
+	record = gridDiv_sm1.getSelections()[i];
+	gridDiv_ds1.remove(gridDiv_sm1.getSelections()[i--]);}}}
+],
+height:bodyHeight/3,  //从2变到3
+clicksToEdit:1,frame:true,
+stripeRows:true});
+gridDiv_grid1.render('gridDiv1');
+// gridDiv_ds1.load({params:{start:0, limit:18}});
+
+//新添加的 汇总行
+var gridDiv_ds2 = new Ext.data.Store({
+proxy : new Ext.zr.data.PagingMemoryProxy([]),
+pruneModifiedRecords:true,
+reader: new Ext.data.ArrayReader({}, [
+{name:'ID'},{name:'XIANGM2'}])});
+
+var gridDiv_plant2 = Ext.data.Record.create([{name: 'ID', type:'string'},{name: 'XIANGM2'}]);
+var gridDiv_grid2 = new Ext.grid.EditorGridPanel({
+//el:'gridDiv',
+cm:gridDiv_cm2,
+sm:gridDiv_sm2,
+ds:gridDiv_ds2,
+title:'汇总行',
+clicksToEdit:1,frame:true,tbar: [{text:' 添加',icon:'imgs/btnicon/insert.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+var plant2 = new gridDiv_plant2({ID: '0',XIANGM2: ''});
+gridDiv_ds2.insert(gridDiv_ds2.getCount(),plant2);}},
+{text:' 删除',icon:'imgs/btnicon/delete.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+for(i=0;i<gridDiv_sm2.getSelections().length;i++){
+	record = gridDiv_sm2.getSelections()[i];
+	gridDiv_ds2.remove(gridDiv_sm2.getSelections()[i--]);}}}
+],
+height:bodyHeight/3,
+clicksToEdit:1,frame:true,
+stripeRows:true});
+gridDiv_grid2.render('gridDiv2');
+gridDiv_ds2.load({params:{start:0, limit:18}});
+
+//添加完成
+
+//新添加的 明细汇总行
+var gridDiv_ds3 = new Ext.data.Store({
+proxy : new Ext.zr.data.PagingMemoryProxy([]),
+pruneModifiedRecords:true,
+reader: new Ext.data.ArrayReader({}, [
+{name:'ID'},{name:'XIANGM3'}])});
+
+var gridDiv_plant3 = Ext.data.Record.create([{name: 'ID', type:'string'},{name: 'XIANGM3'}]);
+var gridDiv_grid3 = new Ext.grid.EditorGridPanel({
+//el:'gridDiv',
+cm:gridDiv_cm3,
+sm:gridDiv_sm3,
+ds:gridDiv_ds3,
+title:'明细汇总行',
+clicksToEdit:1,frame:true,tbar: [{text:' 添加',icon:'imgs/btnicon/insert.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+var plant3 = new gridDiv_plant3({ID: '0',XIANGM3: ''});
+gridDiv_ds3.insert(gridDiv_ds3.getCount(),plant3);}},
+{text:' 删除',icon:'imgs/btnicon/delete.gif',cls:'x-btn-text-icon',minWidth:75,handler:function() {
+for(i=0;i<gridDiv_sm3.getSelections().length;i++){
+	record = gridDiv_sm3.getSelections()[i];
+	gridDiv_ds3.remove(gridDiv_sm3.getSelections()[i--]);}}}
+],
+height:bodyHeight/3,
+clicksToEdit:1,frame:true,
+stripeRows:true});
+gridDiv_grid3.render('gridDiv2');
+gridDiv_ds3.load({params:{start:0, limit:18}});
+
+//添加完成
+
+//添加发货日期与到货日期的变量
+    var fahrq="";
+    var daohrq="";
+
+function getSQL(){
+	var tmp = "";
+    fahrq="";
+    daohrq="";
+	if(dh_ck.checked){
+		tmp = " and daohrq >= to_date('"+dh_df_s.getValue().format('Y-m-d')
+		+ "','yyyy-mm-dd') and daohrq < to_date('"
+		+dh_df_e.getValue().format('Y-m-d')+"','yyyy-mm-dd') %2B 1";
+  	    daohrq=dh_df_s.getValue().format('Y-m-d') +" "+dh_df_e.getValue().format('Y-m-d');
+	}
+	if(fh_ck.checked){
+		tmp += " and fahrq >= to_date('"+fh_df_s.getValue().format('Y-m-d')
+		+ "','yyyy-mm-dd') and fahrq < to_date('"
+		+fh_df_e.getValue().format('Y-m-d')+"','yyyy-mm-dd') %2B 1";
+        fahrq=fh_df_s.getValue().format('Y-m-d')+" "+fh_df_e.getValue().format('Y-m-d');
+	}
+
+    if(dc_ck.checked){
+		tmp += " and fahb.diancxxb_id = " + Ext.getDom('CHANGB').value;
+	}
+    if(js_ck.checked){
+		if(Ext.getDom('JIESQK').value=='未结算'){
+    		tmp += " and fahb.jiesb_id = 0";
+    	} else {
+    		tmp += " and fahb.jiesb_id != 0";
+    	}
+	}
+
+	if(pz_ck.checked){
+		tmp += " and fahb.pinzb_id=" + Ext.getDom('PINZ').value;
+	}
+  /*  if(ysdw_pan.checked){
+        tmp += " and fahb.yunsdw_id=" + Ext.getDom('YUNSDW').value;
+    }*/
+    if(ys_ysdw.checked&&(Ext.getDom('YUNSDW').value!=-1)){
+        tmp += " and chepb.yunsdwb_id=" + Ext.getDom('YUNSDW').value;
+    }
+	if(ys_ck.checked){
+		tmp += " and fahb.yunsfsb_id=" + Ext.getDom('YSFS').value;
+	}
+	if(kj_ck.checked){
+		tmp += " and fahb.jihkjb_id=" + Ext.getDom('JHKJ').value;
+	}
+	if(sh_ck.checked){
+		tmp += " and fahb.liucztb_id=" + (Ext.getDom('SHCB').value=='未审核'?0:1);
+	}
+	if(ch_ck.checked){
+		if(ch_ta.getValue() != ""){
+			tmp += " and cheph in ('" +ch_ta.getValue().replace(new RegExp(",","gm"),"','")+"')";
+		}
+	}
+    if(gm_ck.checked){
+        tmp += " and zhongcsj >= to_date('"+gm_df_s.getValue().format('Y-m-d')
+		+" "+ hour_s_cb.getValue() +":"+ min_s_cb.getValue()+ "','yyyy-mm-dd hh24:mi') and zhongcsj < to_date('"
+		+gm_df_e.getValue().format('Y-m-d')+ " "+hour_e_cb.getValue() +":"+ min_e_cb.getValue()+"','yyyy-mm-dd hh24:mi') %2B 1";
+    }
+//	判断选择的供应商\煤矿\发站的信息
+	var dw = "";
+	var pd = false;
+	dwds = gridDiv_ds.getModifiedRecords();
+	dwlen = dwds.length;
+	if(dwlen >1){
+		pd = true;
+	}
+	for(i=0;i<dwlen ;i++){
+		if(i == 0){
+			dw += " and ";
+		}
+		if(pd ){
+			if(i == 0){
+				dw += "((";
+			}else{
+				dw += " or (";
+			}
+		}
+		rec = dwds [i];
+		if(rec.get('GONGYSB_ID')){
+			dw += " gongysb_id = " +  rec.get('GONGYSB_ID');
+		}
+		if(rec.get('MEIKXXB_ID')){
+			dw += " and meikxxb_id = " +  eval((rec.get('MEIKXXB_ID') - rec.get('GONGYSB_ID'))||0);
+		}
+		if(rec.get('FAZ_ID')){
+			dw += " and faz_id = " +  eval((rec.get('FAZ_ID')-rec.get('MEIKXXB_ID'))||0);
+		}
+		if(pd ){
+			if(i+1 == dwlen ){
+				dw+="))";
+			}else{
+				dw += ")";
+			}
+		}
+	}
+	tmp += dw;
+//	判断选择的重量的约束
+	dwds = gridDiv_ds1.getModifiedRecords();
+	dwlen = dwds.length;
+	if(dwlen >1){
+		pd = true;
+	}
+	group = "1";
+	dw = "";
+	for(i =0;i<dwlen;i++){
+		rec = dwds [i];
+		if(i==0){
+			dw = " and (("
+		}else{
+			if(group != rec.get('ZUB')){
+				dw += " ) or (";
+			}else{
+				dw += " and ";
+			}
+		}
+		group = rec.get('ZUB');
+		zid = "";
+		if(mx.checked){
+			zid = "chepb.";
+		}
+		if(rec.get('XIANGM') == '毛重'){
+			zid += "MAOZ";
+		}else if(rec.get('XIANGM') == '皮重'){
+			zid += "PIZ";
+		}else if(rec.get('XIANGM') == '票重'){
+			zid += "BIAOZ";
+		}
+		dw += zid + rec.get('TIAOJ') + rec.get('ZHI') + "";
+
+	}
+	if(dw){
+		dw += "))";
+		tmp += dw;
+	}
+
+
+    //在记录时判断重复的名称，对重复的记录按单一记录算
+
+	dwds2 = gridDiv_ds2.getModifiedRecords();
+	dwlen2 = dwds2.length;
+
+	dwds3 = gridDiv_ds3.getModifiedRecords();
+	dwlen3 = dwds3.length;
+	var tmp3=tmp2="";
+
+	if(!mx.checked){ //判断传递哪一个类型的参数
+		if(dwlen2 >=1){
+			for(i =0;i<dwlen2;i++){
+				if(tmp3.indexOf(dwds2[i].get('XIANGM2'))==-1){
+				tmp3+=dwds2[i].get('XIANGM2');
+		            if(dwds2 [i].get('XIANGM2') == '合计')
+			        {tmp2+="1";}
+			      	else if(dwds2 [i].get('XIANGM2') == '供应商')
+			        {tmp2+="2";}
+			        else if(dwds2 [i].get('XIANGM2') == '煤矿单位')
+			        {tmp2+="3";}
+		        tmp2 = tmp2+",";}
+			}
+		}
+	}
+		else{
+		if(dwlen3 >=1){
+			for(i =0;i<dwlen3;i++){
+				if(tmp3.indexOf(dwds3[i].get('XIANGM3'))==-1){
+				tmp3+=dwds3[i].get('XIANGM3');
+		        	if(dwds3 [i].get('XIANGM3') == '供应商')
+		        	{tmp2+="1";}
+		        	else if(dwds3 [i].get('XIANGM3') == '煤矿')
+		        	{tmp2+="2";}
+		        	else if(dwds3 [i].get('XIANGM3') == '发站')
+		        	{tmp2+="3";}
+		        	else if(dwds3 [i].get('XIANGM3') == '品种')
+		        	{tmp2+="4";}
+                	else if(dwds3 [i].get('XIANGM3') == '到货日期')
+		        	{tmp2+="5";}
+		        	else if(dwds3 [i].get('XIANGM3') == '编码')
+		        	{tmp2+="6";}
+                tmp2 = tmp2+",";}
+				}
+		}
+    }
+
+
+    var openUrl = 'http://'+document.location.host+document.location.pathname;
+	var end = openUrl.indexOf(';');
+	openUrl = openUrl.substring(0,end);
+	openUrl = openUrl + '?service=page/' + "Zonghcxbb&sql= "+tmp +"&sql2="+tmp2+"&fahrq="+fahrq+"&daohrq="+daohrq+ "&lx= "+rpttype;
+	window.open(openUrl ,'_blank','resizable=1, width=800,height=600');
+};
+ gridDiv_grid3.hide();//明细栏初始化隐藏
+});
+//var a = "jkdls=aaa";
+
+
+
+</script>
+</head>
+
+<body id="body">
+
+<div style="width:100%;height:100%;">
+<div style="float:left; width:49%;height:100%;">
+	<div id="gridDiv"></div>
+	<div id="gridDiv1"></div>
+    <div id="gridDiv2"></div>
+</div>
+<div style="float:right; width:50%;height:100%;">
+	<div id = "form"></div>
+</div>
+</div>
+<form jwcid="@Form">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+	style="display:none" id="SaveButton" listener="ognl:listeners.SaveButton"></span>
+<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+<span id="PINZ"  jwcid = "PINZ" style="display:none"></span>
+<span id="YUNSDW"  jwcid = "YUNSDW" style="display:none"></span>
+
+<span id="YSFS"  jwcid = "YSFS" style="display:none"></span>
+<span id="JHKJ"  jwcid = "JHKJ" style="display:none"></span>
+<span id="CHANGB"  jwcid = "CHANGB" style="display:none"></span>
+<select style='display:none' id = JIESQK name = "JIESQK">
+<option value='未结算'>未结算</option>
+<option value='已结算'>已结算</option>
+</select>
+<select style='display:none' id = SHCB name = "SHCB">
+<option value='未审核'>未审核</option>
+<option value='已审核'>已审核</option>
+</select>
+<select style='display:none' id = HOUR name = "HOUR">
+<option value='0'>0</option>
+<option value='1'>1</option>
+<option value='2'>2</option>
+<option value='3'>3</option>
+<option value='4'>4</option>
+<option value='5'>5</option>
+<option value='6'>6</option>
+<option value='7'>7</option>
+<option value='8'>8</option>
+<option value='9'>9</option>
+<option value='10'>10</option>
+<option value='11'>11</option>
+<option value='12'>12</option>
+<option value='13'>13</option>
+<option value='14'>14</option>
+<option value='15'>15</option>
+<option value='16'>16</option>
+<option value='17'>17</option>
+<option value='18'>18</option>
+<option value='19'>19</option>
+<option value='20'>20</option>
+<option value='21'>21</option>
+<option value='22'>22</option>
+<option value='23'>23</option>
+</select>
+<select style='display:none' id = HOUR1 name = "HOUR1">
+<option value='0'>0</option>
+<option value='1'>1</option>
+<option value='2'>2</option>
+<option value='3'>3</option>
+<option value='4'>4</option>
+<option value='5'>5</option>
+<option value='6'>6</option>
+<option value='7'>7</option>
+<option value='8'>8</option>
+<option value='9'>9</option>
+<option value='10'>10</option>
+<option value='11'>11</option>
+<option value='12'>12</option>
+<option value='13'>13</option>
+<option value='14'>14</option>
+<option value='15'>15</option>
+<option value='16'>16</option>
+<option value='17'>17</option>
+<option value='18'>18</option>
+<option value='19'>19</option>
+<option value='20'>20</option>
+<option value='21'>21</option>
+<option value='22'>22</option>
+<option selected value='23'>23</option>
+</select>
+<select style='display:none' id = MIN name = "MIN">
+<option value='0'>0</option>
+<option value='1'>1</option>
+<option value='2'>2</option>
+<option value='3'>3</option>
+<option value='4'>4</option>
+<option value='5'>5</option>
+<option value='6'>6</option>
+<option value='7'>7</option>
+<option value='8'>8</option>
+<option value='9'>9</option>
+<option value='10'>10</option>
+<option value='11'>11</option>
+<option value='12'>12</option>
+<option value='13'>13</option>
+<option value='14'>14</option>
+<option value='15'>15</option>
+<option value='16'>16</option>
+<option value='17'>17</option>
+<option value='18'>18</option>
+<option value='19'>19</option>
+<option value='20'>20</option>
+<option value='21'>21</option>
+<option value='22'>22</option>
+<option value='23'>23</option>
+<option value='24'>24</option>
+<option value='25'>25</option>
+<option value='26'>26</option>
+<option value='27'>27</option>
+<option value='28'>28</option>
+<option value='29'>29</option>
+<option value='30'>30</option>
+<option value='31'>31</option>
+<option value='32'>32</option>
+<option value='33'>33</option>
+<option value='34'>34</option>
+<option value='35'>35</option>
+<option value='36'>36</option>
+<option value='37'>37</option>
+<option value='38'>38</option>
+<option value='39'>39</option>
+<option value='40'>40</option>
+<option value='41'>41</option>
+<option value='42'>42</option>
+<option value='43'>43</option>
+<option value='44'>44</option>
+<option value='45'>45</option>
+<option value='46'>46</option>
+<option value='47'>47</option>
+<option value='48'>48</option>
+<option value='49'>49</option>
+<option value='50'>50</option>
+<option value='51'>51</option>
+<option value='52'>52</option>
+<option value='53'>53</option>
+<option value='54'>54</option>
+<option value='55'>55</option>
+<option value='56'>56</option>
+<option value='57'>57</option>
+<option value='58'>58</option>
+<option value='59'>59</option>
+</select>
+<select style='display:none' id = MIN1 name = "MIN1">
+<option value='0'>0</option>
+<option value='1'>1</option>
+<option value='2'>2</option>
+<option value='3'>3</option>
+<option value='4'>4</option>
+<option value='5'>5</option>
+<option value='6'>6</option>
+<option value='7'>7</option>
+<option value='8'>8</option>
+<option value='9'>9</option>
+<option value='10'>10</option>
+<option value='11'>11</option>
+<option value='12'>12</option>
+<option value='13'>13</option>
+<option value='14'>14</option>
+<option value='15'>15</option>
+<option value='16'>16</option>
+<option value='17'>17</option>
+<option value='18'>18</option>
+<option value='19'>19</option>
+<option value='20'>20</option>
+<option value='21'>21</option>
+<option value='22'>22</option>
+<option value='23'>23</option>
+<option value='24'>24</option>
+<option value='25'>25</option>
+<option value='26'>26</option>
+<option value='27'>27</option>
+<option value='28'>28</option>
+<option value='29'>29</option>
+<option value='30'>30</option>
+<option value='31'>31</option>
+<option value='32'>32</option>
+<option value='33'>33</option>
+<option value='34'>34</option>
+<option value='35'>35</option>
+<option value='36'>36</option>
+<option value='37'>37</option>
+<option value='38'>38</option>
+<option value='39'>39</option>
+<option value='40'>40</option>
+<option value='41'>41</option>
+<option value='42'>42</option>
+<option value='43'>43</option>
+<option value='44'>44</option>
+<option value='45'>45</option>
+<option value='46'>46</option>
+<option value='47'>47</option>
+<option value='48'>48</option>
+<option value='49'>49</option>
+<option value='50'>50</option>
+<option value='51'>51</option>
+<option value='52'>52</option>
+<option value='53'>53</option>
+<option value='54'>54</option>
+<option value='55'>55</option>
+<option value='56'>56</option>
+<option value='57'>57</option>
+<option value='58'>58</option>
+<option selected value='59'>59</option>
+</select>
+
+<select style='display:none' id = XM>
+<option value='毛重'>毛重</option>
+<option value='皮重'>皮重</option>
+<option value='票重'>票重</option>
+</select>
+<select style='display:none' id = TJ>
+<option value='='>=</option>
+<option value='>'>&gt</option>
+<option value='>='>&gt=</option>
+<option value='&lt'>&lt</option>
+<option value='&lt='>&lt=</option>
+</select>
+
+</form>
+</body>
+</html>

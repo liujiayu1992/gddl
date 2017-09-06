@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>预付款冲抵</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+var gridDiv_Yfk_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript_Yfk"></span>
+	var tabs = new Ext.Panel({
+            region: 'center',
+            split: true,
+	        width: bodyWidth,
+            height:bodyHeight,
+	        collapsible: true,
+	        margins:'3 0 3 3',
+	        cmargins:'3 3 3 3',
+	        items:gridDiv_Yfk_grid
+	});
+
+        // Panel for the west
+    var nav = new Ext.Panel({
+            
+	        title: '结算单',
+	        region: 'west',
+	        split: true,
+	        width: bodyWidth/7*5,
+            height:bodyHeight-65,
+            //autoScroll:true,
+	        collapsible: true,
+	        margins:'3 0 3 3',
+	        cmargins:'3 3 3 3',
+	        items:gridDiv_grid
+    });
+
+	var win = new Ext.Panel({
+            
+            layout: 'border',
+            width:bodyWidth,
+            height:bodyHeight,	
+            autoScroll:true,
+            items: [nav, tabs]
+	});        
+	gridDiv_grid.setWidth(nav.width);    
+    gridDiv_grid.setHeight(nav.height);    
+    gridDiv_Yfk_grid.setWidth(bodyWidth);    
+    gridDiv_Yfk_grid.setHeight(bodyHeight);             
+	win.render('body_panl');
+            
+	nav.on('resize',function(own,newwidth,newheight,oldwidth,oldheight){
+			
+		if(newwidth==null){
+			
+			gridDiv_Yfk_grid.setWidth(bodyWidth);
+			
+		}else{
+			
+			gridDiv_grid.setWidth(newwidth);        	    
+    		gridDiv_Yfk_grid.setWidth(bodyWidth-newwidth); 
+		}  
+    });
+    
+    nav.on('collapse',function(own){		
+				
+		own.fireEvent('resize');
+	});
+            
+	var row='';
+    var i;
+	for(i=0;i<gridDiv_Yfk_ds.getCount();i++){
+		if(gridDiv_Yfk_ds.getAt(i).get('ID')>0){
+			row=row+','+i;
+		}
+	}
+	
+	gridDiv_Yfk_sm.selectRows(row.split(','),true);            
+});
+</script>	
+</head>
+<body id="body" jwcid="@Body" class="bgs">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%"  height="100%">
+	<tr id="trcondition" valign=middle height="20" style="display:none">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+                <td  width="35" style="font-size: 12px;">起始日期:</td>
+                <td width="50"> <span id="RIQ1"  jwcid = "RIQ1" style="display:none" readonly="true" type="text"></span></td> 
+                <td  width="35" style="font-size: 12px;">截止日期:</td>
+                <td width="50"> <span id="RIQ2"  jwcid = "RIQ2" style="display:none" type="text"></span></td>
+                <td width="120" style="display:none"><span  style="width:150;height:21" jwcid="JiesdbhDropDown" id='JiesdbhDropDown'  submitOnChange="true"  type="text"/></td>
+                <td width="120" style="display:none"><span  style="width:150;height:21" jwcid="GongysDropDown" id='GongysDropDown'  submitOnChange="true"  type="text"/></td>
+                <td width="120" style="display:none"><span  style="width:150;height:21" jwcid="FencbDropDown" id='FencbDropDown'  submitOnChange="true"  type="text"/></td>
+              </tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top hight="100%">
+	   <td>
+           <div id="body_panl">
+				<div id="left_panl">
+					<div id="gridDiv" style="height: 100%; overflow: none"></div>
+				</div>
+				<div id="right_panl">
+                    <div id="gridDiv_Yfk" style="height: 100%; overflow: none"></div>
+                </div>
+			</div>
+        	<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+            <span jwcid="@Insert" raw="true" value="ognl:GridHtml_Yfk"></span>
+         	<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" style="display:none" id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+          	<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label="刷新" style="display:none" id = "Refurbish" listener="ognl:listeners.RefurbishButton" ></span>
+        	<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+            <span id="Parameters"  jwcid = "Parameters" style="display:none"></span>
+	   </td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

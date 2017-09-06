@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>入场化验(Ruchy)</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+var diancTree_window_out;
+var diancTree_treePanel_out;
+Ext.onReady(function(){
+ <span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+diancTree_window_out=diancTree_window;
+diancTree_treePanel_out=diancTree_treePanel;
+});
+
+</script>
+
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Ruchyjs"></script>
+
+</head>
+<body id="body">
+    
+
+
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Validatejs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+        	<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+	<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+		<tr>
+			<td>
+				<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="RefurbishButton"
+					listener="ognl:listeners.RefurbishButton"></span>
+                <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="SaveButton"
+					listener="ognl:listeners.SaveButton"></span>
+                <span jwcid="UpdateButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="UpdateButton"
+					listener="ognl:listeners.UpdateButton"></span>
+                <span jwcid="DelButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="DelButton"
+					listener="ognl:listeners.DelButton"></span>
+		        <span jwcid="RIQ" style="display:none" id="RIQ"></span>
+                <span jwcid="RIQE" style="display:none" id="RIQE"></span>
+				<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+			</td>
+		</tr>
+		<tr height="100%">
+			<td>
+			<div id="gridDiv" style="width:100%;height:100%;overflow:none"></div>
+			</td>
+		</tr>
+	</table>
+        				<span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+</form>
+</body>
+</html>

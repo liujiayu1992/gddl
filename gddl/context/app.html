@@ -1,0 +1,1116 @@
+<!-- Application: gddl -->
+<!-- Page: Qichmz -->
+<!-- Generated: Sat Jul 22 20:56:48 GMT+08:00 2017 -->
+<html>
+<head>
+    <meta name="generator" content="Tapestry Application Framework, version 3.0.3"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=GB2312"/>
+    <title>&#27773;&#36710;&#34913;&#26816;&#26020;</title>
+    <link rel="stylesheet" type="text/css" href="/gddl/css/rmis.css"/>
+</head>
+<style>
+    .ShowText td{
+        vertical-align: middle;
+        background-color: #E3E3E3;
+        font-family: "Geneva", "Arial", "Helvetica", "sans-serif";
+        color: #464646;
+        height: 50px;
+        width:110px;
+    }
+    .ShowText input{
+        background-color: #E3E3E3;
+        font-family: "Geneva", "Arial", "Helvetica", "sans-serif";
+        color: #464646;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 0px;
+        border-bottom: 0px;
+        border:0px;
+        font-size:34pt;
+        text-align: center;
+        height: 50px;
+        width:110px;
+    }
+</style>
+<script type="text/javascript"></script>
+<script type="text/javascript"></script>
+<script type="text/javascript"></script>
+<script type="text/javascript"></script>
+<script type="text/javascript" name="Main" src="css/main_page.css"/>
+<script type="text/javascript" name="Mainjs" src="js/public/Main.js"/>
+<script type="text/javascript">
+    var gridDiv_history = "";
+    var win;
+    Ext.onReady(function(){
+        var url = "http://"+document.location.host+document.location.pathname;
+        var end = url.indexOf("/app");
+        url = url.substring(0,end);
+        Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+    });
+</script>
+<script>
+    drop = new Array();
+    drop1 = new Array();
+    drop1[0] = new Array("0","9323","博源新型能源","0");
+    drop1[1] = new Array("0","19725434639","厂内转煤","0");
+    drop1[2] = new Array("0","9102","鄂尔多斯市隆旭煤炭有限责任公司","0");
+    drop1[3] = new Array("0","19725396048","鄂尔多斯市伊化矿业资源有限责任公司","0");
+    drop1[4] = new Array("0","19714203","鄂尔多斯市伊化矿业资源有限责任公司","0");
+    drop1[5] = new Array("0","9143","鄂托克旗勇创煤业有限责任公司","0");
+    drop1[6] = new Array("0","8956","鄂托克前旗长城煤矿","0");
+    drop1[7] = new Array("0","8830","福建超大畜牧业有限公司","0");
+    drop1[8] = new Array("0","9107","福州金惠煤炭贸易有限公司","0");
+    drop1[9] = new Array("0","8942","固原昌鑫煤业有限公司","0");
+    drop1[10] = new Array("0","19714403","江苏晋和电力燃料有限公司","0");
+    drop1[11] = new Array("0","19725435668","江苏晋和电力燃料有限公司","0");
+    drop1[12] = new Array("0","19725404544","金凤","0");
+    drop1[13] = new Array("0","8941","灵武市广盛源煤炭运销有限公司","0");
+    drop1[14] = new Array("0","8930","内蒙古福城矿业有限公司","0");
+    drop1[15] = new Array("0","8939","内蒙古上海庙矿业有限责任公司","0");
+    drop1[16] = new Array("0","9166","宁夏鼎诺煤业有限公司","0");
+    drop1[17] = new Array("0","9363","宁夏福夏飞达贸易有限公司","0");
+    drop1[18] = new Array("0","9083","宁夏浩鑫昌工贸有限公司","0");
+    drop1[19] = new Array("0","9063","宁夏和萌工贸有限公司","0");
+    drop1[20] = new Array("0","19714243","宁夏宏兴鸿工贸有限公司","0");
+    drop1[21] = new Array("0","19725409829","宁夏宏兴鸿工贸有限公司","0");
+    drop1[22] = new Array("0","19725431399","宁夏华邦贸易有限公司","0");
+    drop1[23] = new Array("0","19714323","宁夏华邦贸易有限公司","0");
+    drop1[24] = new Array("0","19714423","宁夏吉瑞恒图贸易有限公司","0");
+    drop1[25] = new Array("0","19725436790","宁夏吉瑞恒图贸易有限公司","0");
+    drop1[26] = new Array("0","9123","宁夏金玉荣工贸有限公司","0");
+    drop1[27] = new Array("0","9703","宁夏京盛煤业有限责任公司","0");
+    drop1[28] = new Array("0","19725394344","宁夏巨盛源新型建材有限公司","0");
+    drop1[29] = new Array("0","19725394346","宁夏融浩达工贸有限公司","0");
+    drop1[30] = new Array("0","19725391455","宁夏瑞茂通供应链管理有限公司","0");
+    drop1[31] = new Array("0","9006","宁夏盛火源煤炭销售有限公司","0");
+    drop1[32] = new Array("0","9226","宁夏天润恒峰贸易有限公司","0");
+    drop1[33] = new Array("0","9043","宁夏万峰工贸","0");
+    drop1[34] = new Array("0","9382","宁夏小矿","0");
+    drop1[35] = new Array("0","19714383","宁夏银河奇迹科技投资有限公司","0");
+    drop1[36] = new Array("0","19725434649","宁夏银河奇迹科技投资有限公司","0");
+    drop1[37] = new Array("0","8834","宁夏银星煤业有限公司","0");
+    drop1[38] = new Array("0","9303","宁夏英力特物流有限责任公司","0");
+    drop1[39] = new Array("0","8947","宁夏中煤实业有限公司","0");
+    drop1[40] = new Array("0","9163","宁夏芮铭达煤炭运销有限公司","0");
+    drop1[41] = new Array("0","9243","瑞源国际资源投资有限公司","0");
+    drop1[42] = new Array("0","19725432524","陕西锦岩实业","0");
+    drop1[43] = new Array("0","19714343","陕西锦岩实业有限公司","0");
+    drop1[44] = new Array("0","9045","深圳市庆华成供应链管理有限公司","0");
+    drop1[45] = new Array("0","8802","神华宁夏煤业集团有限责任公司","0");
+    drop1[46] = new Array("0","19725394833","乌海市鸿伟信泰商贸有限公司","0");
+    drop1[47] = new Array("0","19725430243","乌海市锦达物流有限责任公司","0");
+    drop1[48] = new Array("0","19714303","乌海市锦达物流有限责任公司","0");
+    drop1[49] = new Array("0","9782","乌审旗蒙大矿业有限责任公司","0");
+    drop1[50] = new Array("0","9642","吴忠市高闸煤矿有限公司","0");
+    drop1[51] = new Array("0","8949","盐池县同飞煤业有限公司","0");
+    drop1[52] = new Array("0","9223","中电投铝业国际贸易有限公司西北分公司","0");
+    drop1[53] = new Array("0","19725425122","中国石油天然气","0");
+    drop1[54] = new Array("0","9263","中铝重庆国际贸易有限公司","0");
+    drop1[55] = new Array("0","19714263","中煤西北能源有限公司","0");
+    drop1[56] = new Array("0","19725413878","中煤西北能源有限公司","0");
+    drop1[57] = new Array("0","19725415396","中煤西北能源有限公司1","0");
+    drop1[58] = new Array("0","19714283","中煤西北能源有限公司1","0");
+    drop1[59] = new Array("0","19725407299","重庆市农业生产资料有限公司","0");
+    drop1[60] = new Array("0","19714223","重庆市农业生产资料有限公司","0");
+    drop1[61] = new Array("0","9024","兖矿铝业国际贸易有限公司 ","0");
+    drop[0] = new Array('MEIKDQMC_M',drop1);
+    drop2 = new Array();
+    drop2[0] = new Array("null","8943","安徽安粮国际发展公司","0");
+    drop2[1] = new Array("null","8958","安粮国际","0");
+    drop2[2] = new Array("null","9482","北京北美汉达煤炭有限公司","0");
+    drop2[3] = new Array("null","9522","北京市恒物天瑞电力物资有限责任公司","0");
+    drop2[4] = new Array("null","9324","博源新型能源","0");
+    drop2[5] = new Array("null","8947","昌鑫煤业","0");
+    drop2[6] = new Array("null","8959","长城煤矿","0");
+    drop2[7] = new Array("null","8965","厂内转煤","0");
+    drop2[8] = new Array("null","8967","厂内转煤泥","0");
+    drop2[9] = new Array("null","8938","超大畜牧业","0");
+    drop2[10] = new Array("null","9542","鄂尔多斯市艾德煤炭有限责任公司","0");
+    drop2[11] = new Array("null","9103","鄂尔多斯市隆旭煤炭有限责任公司","0");
+    drop2[12] = new Array("null","19714203","鄂尔多斯市伊化矿业资源有限责任公司","0");
+    drop2[13] = new Array("null","9144","鄂托克旗勇创煤业有限责任公司","0");
+    drop2[14] = new Array("null","65","福城","0");
+    drop2[15] = new Array("null","8954","福城矿业","0");
+    drop2[16] = new Array("null","81","福建超大","0");
+    drop2[17] = new Array("null","8948","福源工贸","0");
+    drop2[18] = new Array("null","9108","福州金惠煤炭贸易有限公司","0");
+    drop2[19] = new Array("null","78","福州新电","0");
+    drop2[20] = new Array("null","9562","甘肃金禹商贸有限公司","0");
+    drop2[21] = new Array("null","8946","广盛源","0");
+    drop2[22] = new Array("null","8945","广祥商贸","0");
+    drop2[23] = new Array("null","9","红柳","0");
+    drop2[24] = new Array("null","8952","红山石","0");
+    drop2[25] = new Array("null","6","红石湾","0");
+    drop2[26] = new Array("null","70","济宁鑫达","0");
+    drop2[27] = new Array("null","19714403","江苏晋和电力燃料有限公司","0");
+    drop2[28] = new Array("null","7","金凤","0");
+    drop2[29] = new Array("null","49","君威通达","0");
+    drop2[30] = new Array("null","48","凯霸","0");
+    drop2[31] = new Array("null","8963","灵新","0");
+    drop2[32] = new Array("null","9722","麦垛山","0");
+    drop2[33] = new Array("null","4","梅花井","0");
+    drop2[34] = new Array("null","8949","煤炭运销","0");
+    drop2[35] = new Array("null","9402","内蒙古亿利能源股份有限公司宏斌煤矿","0");
+    drop2[36] = new Array("null","9167","宁夏鼎诺煤业有限公司","0");
+    drop2[37] = new Array("null","9364","宁夏福夏飞达贸易","0");
+    drop2[38] = new Array("null","9084","宁夏浩鑫昌工贸有限公司","0");
+    drop2[39] = new Array("null","9064","宁夏和萌工贸","0");
+    drop2[40] = new Array("null","19714243","宁夏宏兴鸿工贸有限公司","0");
+    drop2[41] = new Array("null","19714323","宁夏华邦贸易有限公司","0");
+    drop2[42] = new Array("null","19714423","宁夏吉瑞恒图贸易有限公司","0");
+    drop2[43] = new Array("null","9583","宁夏金汇煤业集团有限公司","0");
+    drop2[44] = new Array("null","9582","宁夏金汇煤业集团有限公司","0");
+    drop2[45] = new Array("null","9124","宁夏金玉荣工贸有限公司","0");
+    drop2[46] = new Array("null","9704","宁夏京盛煤业有限责任公司","0");
+    drop2[47] = new Array("null","9942","宁夏巨盛源新型建材有限公司","0");
+    drop2[48] = new Array("null","9602","宁夏俊鹏兴旺煤业有限公司","0");
+    drop2[49] = new Array("null","9902","宁夏宁电物流有限公司","0");
+    drop2[50] = new Array("null","19714103","宁夏宁东万顺达工贸有限公司","0");
+    drop2[51] = new Array("null","9822","宁夏平罗县星昌煤炭有限公司","0");
+    drop2[52] = new Array("null","9842","宁夏融浩达工贸有限公司","0");
+    drop2[53] = new Array("null","9742","宁夏瑞茂通供应链管理有限公司","0");
+    drop2[54] = new Array("null","9007","宁夏盛火源","0");
+    drop2[55] = new Array("null","9882","宁夏盛能工贸有限公司","0");
+    drop2[56] = new Array("null","9462","宁夏天禄通商贸有限公司","0");
+    drop2[57] = new Array("null","9044","宁夏万峰工贸","0");
+    drop2[58] = new Array("null","19714383","宁夏银河奇迹科技投资有限公司","0");
+    drop2[59] = new Array("null","9383","宁夏银铁平汝实业有限公司","0");
+    drop2[60] = new Array("null","9304","宁夏英力特物流有限责任公司","0");
+    drop2[61] = new Array("null","9164","宁夏芮铭达煤炭运销有限公司","0");
+    drop2[62] = new Array("null","9385","宁夏泓鑫源工贸有限公司","0");
+    drop2[63] = new Array("null","9524","平罗县元大仟煤炭有限公司","0");
+    drop2[64] = new Array("null","8955","其它","0");
+    drop2[65] = new Array("null","9247","青海国贸","0");
+    drop2[66] = new Array("null","10","清水营","0");
+    drop2[67] = new Array("null","9046","庆华成供应链管理","0");
+    drop2[68] = new Array("null","44","权泷","0");
+    drop2[69] = new Array("null","43","热点","0");
+    drop2[70] = new Array("null","8936","热点煤业","0");
+    drop2[71] = new Array("null","5","任家庄","0");
+    drop2[72] = new Array("null","9244","瑞源国际","0");
+    drop2[73] = new Array("null","19714343","陕西锦岩实业","0");
+    drop2[74] = new Array("null","8935","商贸通","0");
+    drop2[75] = new Array("null","64","上海庙","0");
+    drop2[76] = new Array("null","8944","上海庙矿","0");
+    drop2[77] = new Array("null","26","上海证大","0");
+    drop2[78] = new Array("null","25","深圳商贸通","0");
+    drop2[79] = new Array("null","12","石槽村","0");
+    drop2[80] = new Array("null","13","石沟驿","0");
+    drop2[81] = new Array("null","9622","石嘴山市隆湖鑫泰煤业有限公司","0");
+    drop2[82] = new Array("null","8960","双丰源","0");
+    drop2[83] = new Array("null","8","双马","0");
+    drop2[84] = new Array("null","63","双欣","0");
+    drop2[85] = new Array("null","41","太发","0");
+    drop2[86] = new Array("null","8941","太发工贸","0");
+    drop2[87] = new Array("null","9227","天润恒峰","0");
+    drop2[88] = new Array("null","8988","天鑫","0");
+    drop2[89] = new Array("null","8953","同飞煤业","0");
+    drop2[90] = new Array("null","40","万乐祥","0");
+    drop2[91] = new Array("null","39","文全","0");
+    drop2[92] = new Array("null","38","文忠宏","0");
+    drop2[93] = new Array("null","9862","乌海市鸿伟信泰商贸有限公司","0");
+    drop2[94] = new Array("null","9147","乌海市鸿裕物流有限责任公司","0");
+    drop2[95] = new Array("null","19714303","乌海市锦达物流有限责任公司","0");
+    drop2[96] = new Array("null","9802","乌审旗蒙大矿业有限责任公司","0");
+    drop2[97] = new Array("null","37","乌源","0");
+    drop2[98] = new Array("null","9643","吴忠市高闸煤矿有限公司","0");
+    drop2[99] = new Array("null","11","五公里","0");
+    drop2[100] = new Array("null","8950","五矿物流","0");
+    drop2[101] = new Array("null","17","西安广祥","0");
+    drop2[102] = new Array("null","18","西安恒业","0");
+    drop2[103] = new Array("null","16","兴和鑫华","0");
+    drop2[104] = new Array("null","35","盐池鲁中","0");
+    drop2[105] = new Array("null","34","盐池一顺","0");
+    drop2[106] = new Array("null","15","盐池恺隆","0");
+    drop2[107] = new Array("null","3","羊场湾","0");
+    drop2[108] = new Array("null","9342","羊场湾二矿","0");
+    drop2[109] = new Array("null","8942","银星煤业","0");
+    drop2[110] = new Array("null","28","榆林明辉","0");
+    drop2[111] = new Array("null","33","元嘉电力","0");
+    drop2[112] = new Array("null","2","枣泉","0");
+    drop2[113] = new Array("null","9502","枣庄通晟实业有限公司","0");
+    drop2[114] = new Array("null","9662","章丘市龙飞经贸有限公司","0");
+    drop2[115] = new Array("null","8937","证大能源","0");
+    drop2[116] = new Array("null","8933","中国石油天然气","0");
+    drop2[117] = new Array("null","9224","中铝国贸西北分公司","0");
+    drop2[118] = new Array("null","9422","中铝内蒙古国贸有限公司","0");
+    drop2[119] = new Array("null","9264","中铝重庆国际贸易有限公司","0");
+    drop2[120] = new Array("null","8951","中煤实业","0");
+    drop2[121] = new Array("null","19714263","中煤西北能源有限公司","0");
+    drop2[122] = new Array("null","19714283","中煤西北能源有限公司1","0");
+    drop2[123] = new Array("null","19714223","重庆市农业生产资料有限公司","0");
+    drop2[124] = new Array("null","9025","兖矿铝业 ","0");
+    drop2[125] = new Array("null","23","昊达","0");
+    drop2[126] = new Array("null","8940","鑫达煤化","0");
+    drop2[127] = new Array("null","36","鑫尔特","0");
+    drop2[128] = new Array("null","30","鑫隆昌","0");
+    drop[1] = new Array('MEIKDWMC_M',drop2);
+    drop3 = new Array();
+    mkkj = new Array();
+    mkkj[0] = new Array("null","市场采购");
+    mkkj[1] = new Array("null","市场采购");
+    mkkj[2] = new Array("null","市场采购");
+    mkkj[3] = new Array("null","市场采购");
+    mkkj[4] = new Array("null","市场采购");
+    mkkj[5] = new Array("null","市场采购");
+    mkkj[6] = new Array("null","市场采购");
+    mkkj[7] = new Array("null","市场采购");
+    mkkj[8] = new Array("null","市场采购");
+    mkkj[9] = new Array("null","市场采购");
+    mkkj[10] = new Array("null","市场采购");
+    mkkj[11] = new Array("null","市场采购");
+    mkkj[12] = new Array("null","市场采购");
+    mkkj[13] = new Array("null","重点订货");
+    mkkj[14] = new Array("null","重点订货");
+    mkkj[15] = new Array("null","市场采购");
+    mkkj[16] = new Array("null","无");
+    mkkj[17] = new Array("null","市场采购");
+    mkkj[18] = new Array("null","重点订货");
+    mkkj[19] = new Array("null","重点订货");
+    mkkj[20] = new Array("null","重点订货");
+    mkkj[21] = new Array("null","重点订货");
+    mkkj[22] = new Array("null","重点订货");
+    mkkj[23] = new Array("null","重点订货");
+    mkkj[24] = new Array("null","重点订货");
+    mkkj[25] = new Array("null","重点订货");
+    mkkj[26] = new Array("null","重点订货");
+    mkkj[27] = new Array("null","重点订货");
+    mkkj[28] = new Array("null","重点订货");
+    mkkj[29] = new Array("null","市场采购");
+    mkkj[30] = new Array("null","市场采购");
+    mkkj[31] = new Array("null","市场采购");
+    mkkj[32] = new Array("null","市场采购");
+    mkkj[33] = new Array("null","市场采购");
+    mkkj[34] = new Array("null","市场采购");
+    mkkj[35] = new Array("null","重点订货");
+    mkkj[36] = new Array("null","市场采购");
+    mkkj[37] = new Array("null","市场采购");
+    mkkj[38] = new Array("null","市场采购");
+    mkkj[39] = new Array("null","市场采购");
+    mkkj[40] = new Array("null","市场采购");
+    mkkj[41] = new Array("null","市场采购");
+    mkkj[42] = new Array("null","市场采购");
+    mkkj[43] = new Array("null","市场采购");
+    mkkj[44] = new Array("null","市场采购");
+    mkkj[45] = new Array("null","市场采购");
+    mkkj[46] = new Array("null","重点订货");
+    mkkj[47] = new Array("null","市场采购");
+    mkkj[48] = new Array("null","市场采购");
+    mkkj[49] = new Array("null","市场采购");
+    mkkj[50] = new Array("null","市场采购");
+    mkkj[51] = new Array("null","市场采购");
+    mkkj[52] = new Array("null","市场采购");
+    mkkj[53] = new Array("null","市场采购");
+    mkkj[54] = new Array("null","市场采购");
+    mkkj[55] = new Array("null","市场采购");
+    mkkj[56] = new Array("null","市场采购");
+    mkkj[57] = new Array("null","市场采购");
+    mkkj[58] = new Array("null","市场采购");
+    mkkj[59] = new Array("null","市场采购");
+    mkkj[60] = new Array("null","市场采购");
+    mkkj[61] = new Array("null","市场采购");
+    mkkj[62] = new Array("null","市场采购");
+    mkkj[63] = new Array("null","市场采购");
+    mkkj[64] = new Array("null","无");
+    mkkj[65] = new Array("null","市场采购");
+    mkkj[66] = new Array("null","市场采购");
+    mkkj[67] = new Array("null","市场采购");
+    mkkj[68] = new Array("null","市场采购");
+    mkkj[69] = new Array("null","市场采购");
+    mkkj[70] = new Array("null","市场采购");
+    mkkj[71] = new Array("null","市场采购");
+    mkkj[72] = new Array("null","市场采购");
+    mkkj[73] = new Array("null","市场采购");
+    mkkj[74] = new Array("null","市场采购");
+    mkkj[75] = new Array("null","市场采购");
+    mkkj[76] = new Array("null","市场采购");
+    mkkj[77] = new Array("null","市场采购");
+    mkkj[78] = new Array("null","重点订货");
+    mkkj[79] = new Array("null","市场采购");
+    mkkj[80] = new Array("null","市场采购");
+    mkkj[81] = new Array("null","市场采购");
+    mkkj[82] = new Array("null","市场采购");
+    mkkj[83] = new Array("null","市场采购");
+    mkkj[84] = new Array("null","市场采购");
+    mkkj[85] = new Array("null","市场采购");
+    mkkj[86] = new Array("null","市场采购");
+    mkkj[87] = new Array("null","市场采购");
+    mkkj[88] = new Array("null","市场采购");
+    mkkj[89] = new Array("null","市场采购");
+    mkkj[90] = new Array("null","市场采购");
+    mkkj[91] = new Array("null","市场采购");
+    mkkj[92] = new Array("null","市场采购");
+    mkkj[93] = new Array("null","重点订货");
+    mkkj[94] = new Array("null","市场采购");
+    mkkj[95] = new Array("null","市场采购");
+    mkkj[96] = new Array("null","市场采购");
+    mkkj[97] = new Array("null","市场采购");
+    mkkj[98] = new Array("null","市场采购");
+    mkkj[99] = new Array("null","市场采购");
+    mkkj[100] = new Array("null","市场采购");
+    mkkj[101] = new Array("null","市场采购");
+    mkkj[102] = new Array("null","市场采购");
+    mkkj[103] = new Array("null","市场采购");
+    mkkj[104] = new Array("null","市场采购");
+    mkkj[105] = new Array("null","市场采购");
+    mkkj[106] = new Array("null","市场采购");
+    mkkj[107] = new Array("null","市场采购");
+    mkkj[108] = new Array("null","市场采购");
+    mkkj[109] = new Array("null","市场采购");
+    var commport = 1;
+    var BaudRate = 4800;
+    var jiojy = 'n';
+    var shujw = 8;
+    var tingzw = 1;
+    var isTest = 0;
+    var zhonglc = 2;
+    var jilhh = 'A';
+    var arrBianh = new Array(4);
+
+</script>
+
+<body id="body" onkeyup="if(event.keyCode==32)caij()" class="bgs">
+
+<object classid="clsid:648A5600-2C6E-101B-82B6-000000000014" width=0
+        height=0 style="display:none" id="MSComm1">
+    <param name="_ExtentX" value="1005">
+    <param name="_ExtentY" value="1005">
+    <param name="_Version" value="393216">
+    <param name="CommPort" value="1">
+    <param name="DTREnable" value="-1">
+    <param name="Handshaking" value="0">
+    <param name="InBufferSize" value="1024">
+    <param name="InputLen" value="0">
+    <param name="NullDiscard" value="0">
+    <param name="OutBufferSize" value="512">
+    <param name="ParityReplace" value="63">
+    <param name="RThreshold" value="0">
+    <param name="RTSEnable" value="0">
+    <param name="BaudRate" id="4800">
+    <param name="ParitySetting" value="0">
+    <param name="DataBits" id="8">
+    <param name="StopBits" value="0">
+    <param name="SThreshold" value="0">
+    <param name="EOFEnable" value="0">
+    <param name="InputMode" value="0">
+</object>
+<div id="wait"
+     style="POSITION: absolute;BORDER-RIGHT: gray 0px solid;z-index:1; PADDING-RIGHT: 2px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;HEIGHT: 218;width:330">
+    <iframe src="/gddl/app?service=page/Waiting" oncontextmenu="self.event.returnValue=false" frameborder="0" height="100%" style="background:ThreeDLowwer" scrolling="no" name="mainFrame" width="100%" align="middle"></iframe></div>
+<script src="/gddl/js/DatePicker.js" language="JavaScript" type="text/javascript"></script>
+<script>
+    var  targetPath='http://localhost:80/gddl/app?service=page/Baocts';
+    var showTimdh = 0;
+</script>
+<script>
+    function printq(){
+        var docObj = document.getElementById( 'printjjd' );
+        if ( docObj ){
+            //var pwin = window.open( "", "print", "height=400,width=900,top=200" );
+            //pwin.document.write( docObj.innerHTML );
+            //pwin.print( );
+            //pwin.location.reload( );
+            //pwin.close( );
+        }
+    }
+</script>
+<script>
+    document.all.item("wait").style.posTop=(body.clientHeight-document.all.item("wait").clientHeight)/2;
+    document.all.item("wait").style.posLeft=(body.clientWidth-document.all.item("wait").clientWidth )/2;
+    function Showwait(){
+        if(document.all.item("wait").style.display=="none"){
+            document.all.item("wait").style.display="";
+            //alert(document.all.length);
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+<form method="post" name="Form0" action="/gddl/app" onkeydown="if(event.keyCode==13 &amp;&amp; event.srcElement.tagName!='TEXTAREA'){event.keyCode=9}" onsubmit="DisabledForms(this.document);return Showwait();">
+    <input type="hidden" name="service" value="direct/1/Qichmz/$Form"/>
+    <input type="hidden" name="sp" value="S0"/>
+    <input type="hidden" name="Form0" value="CaijButton,SaveMaozButton,ShowTypeButton,MaozJudge,PizJudge,ShowMsg,AutoPiz,CommPort,BaudRate,DataBits,StopBits,ParitySetting,Jilhh,zhonglybc,ShowDialog,SELECTED_M,CHEPH_M,MEIKDQMC_M,MEIKDWMC_M,CHENGYDW_M,PINZ_M,JIHKJ_M,FAHL_M,KOUD_M,PANDMC_M,MEIC_M,MEIGY_M,CHANGB_M,SHOUHR_M,BEIZ_M,MAOZ_M,FAHDWB_IDSelect,MEIKXXB_IDSelect,RANLPZB_IDSelect,JIHKJB_IDSelect,MEIGY_Select,MEIC_Select,PANDMC_Select,CHENGYDW_Select,CHANGB_Select,ToFirstPageButton,ToPreviousPageButton,ToNextPageButton,ToLastPageButton,GoPageNumber,GoPageButton,CurrentPageNumber,TotalPageNumber,CHEPH_P,MEIKDQMC_P,MEIKDWMC_P,CHENGYDW_P,PINZ_P,JIHKJ_P,FAHL_P,MAOZ_P,KOUD_P,PANDMC_P,MEIC_P,CHEPH_P$0,MEIKDQMC_P$0,MEIKDWMC_P$0,CHENGYDW_P$0,PINZ_P$0,JIHKJ_P$0,FAHL_P$0,MAOZ_P$0,KOUD_P$0,PANDMC_P$0,MEIC_P$0,CHEPH_P$1,MEIKDQMC_P$1,MEIKDWMC_P$1,CHENGYDW_P$1,PINZ_P$1,JIHKJ_P$1,FAHL_P$1,MAOZ_P$1,KOUD_P$1,PANDMC_P$1,MEIC_P$1,SCALE,RULEFORROUNDING,AUTOCOPY"/>
+
+    <script src="/gddl/js/validate.js" language="JavaScript" type="text/javascript"></script> <table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+                                                                                                     width="100%">
+    <tr id="trcondition" valign=top height="20">
+        <td>
+            <!--font-weight:bold -->
+            <table valign="top">
+                <tr>
+                    <td class="text-position"><b> <font id="DTfont" size="5" color="#0054a6"
+                                                        face="楷体_GB2312">动态<br>重量</font></b></td>
+                    <td class="ShowText"><input readonly="true" id="dongtzl" label="动态重量" size="5"></input></td>
+                    <td>&nbsp;&nbsp;<input name="CaijButton" type="button" class="btn_mouseout" onmouseout="this.className='btn_mouseout'" onmouseover="this.className='btn_mouseover'" onmousedown="this.className='btn_mousedown'" onmouseup="this.className='btn_mouseup'" value="&#37319;&#38598;(&#31354;&#26684;)&gt;&gt;" onclick="return caij()" style="font-size: 12pt; font-family:&#26999;&#20307;_GB2312; font-weight:bold"/></td>
+                    <td class="text-position"><b><font size="5"
+                                                       face="楷体_GB2312" color="#0054a6">采集<br>重量</font></b></td>
+                    <td class="ShowText"><input readonly="true" label="采集重量" id="caijzl" size="5"/></td>
+                    <td>
+                        <table><tr><td>
+                            <input name="SaveMaozButton" type="submit" class="btn_mouseout" onmouseout="this.className='btn_mouseout'" onmouseover="this.className='btn_mouseover'" onmousedown="this.className='btn_mousedown'" onmouseup="this.className='btn_mouseup'" value="&#20445;&#23384;&#27611;&#37325;" onclick="if(saveMaozClick()){return true;}else{return false;}"/> </td></tr><tr><td>
+                            <input name="ShowTypeButton" type="button" class="btn_mouseout" onmouseout="this.className='btn_mouseout'" onmouseover="this.className='btn_mouseover'" onmousedown="this.className='btn_mousedown'" onmouseup="this.className='btn_mouseup'" value="&#26174;&#31034;&#21442;&#25968;" onclick="ShowMessOrPara(this)"/> </td></tr></table></td>
+                    <td width=200>
+                        <div id="Message" height="35">
+                            <fieldset><legend  class="text-position">当日信息</legend>
+                                <marquee onmouseover="this.stop()" onmousedown="this.start()" scrollamount="1"  scrolldelay="30" direction="up" height="33">
+                                    <font size="3"
+                                          face="楷体_GB2312" color="#000000">  &#20170;&#26085;&#26242;&#26080;&#26816;&#26020;&#12290;</font></marquee></fieldset></div>
+                        <div id="Param" height="35" style="display:none;">
+                            <table><tr><td class="text-position">毛重判定<input type="checkbox" name="MaozJudge"/></td><td class="text-position">皮重判定<input type="checkbox" name="PizJudge"/></td></tr>
+                                <tr><td class="text-position">替换提示<input type="checkbox" name="ShowMsg"/></td><td class="text-position">皮重免称<input type="checkbox" name="AutoPiz"/></td></tr></table>
+                        </div></td>
+                    <input type="text" name="CommPort" value="1" id="CommPort" class="text-position" style="display:none;" displayName="CommPort"/>
+                    <input type="text" name="BaudRate" value="4800" id="BaudRate" class="text-position" style="display:none;" displayName="BaudRate"/>
+                    <input type="text" name="DataBits" value="8" id="DataBits" class="text-position" style="display:none;" displayName="DataBits"/>
+                    <input type="text" name="StopBits" value="1" id="StopBits" class="text-position" style="display:none;" displayName="StopBits"/>
+                    <input type="text" name="ParitySetting" value="n" id="ParitySetting" class="text-position" style="display:none;" displayName="ParitySetting"/>
+                    <input type="text" name="Jilhh" id="Jilhh" class="text-position" style="display:none;" displayName="Jilhh"/> <input style="display:none;" id="Lastzl" type="text" />
+                    <input type="text" name="zhonglybc" id="zhonglybc" style="display:none;"/>
+                    <input type="text" name="ShowDialog" value="n" id="ShowDialog" style="display:none;" displayName="ShowDialog"/> </tr>
+            </table>
+        </td>
+    </tr>
+    <tr id="Selectdata_M" valign=top>
+        <td>
+            <div id="SelectFrmDiv_M" class="text-position"
+                 style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+                <div id="SelectHeadDiv_M"
+                     style="OVERFLOW: hidden; background-color:#FFFFFF">
+                    <table id="EditHeadTabel_M" bordercolor="#ffffff" bordercolorlight="#AFB6C7" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;" bordercolordark="#ffffff" background="/gddl/imgs/table_h.gif" width="1490" cellpadding="1" class="edittablehead" border="1" cellspacing="#ffffff"> <tr width="1490" align="center">
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="50"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:45px">盘煤</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">车号</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">发货单位</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">煤矿单位</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="120"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:115px">承运单位</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">品种</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">计划口径</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">发货量</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="60"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:55px">扣吨</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">盘点煤场</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">煤场</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">检质员</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="120"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:115px">厂别</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="120"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:115px">收货人</label></th>
+                        <th height="23" style="POSITION: relative;top:0px;" align="center" width="120"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:115px">备注</label></th> </tr>
+                    </table> </div>
+                <div id="SelectDataDiv_M" onscroll="_onscroll(this,SelectHeadDiv_M)"
+                     style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; overflow-x:auto; overflow-y:none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+
+                    <table id="oData_M" class="edittable" border="0" cellpadding="0"
+                           cellspacing="0"
+                           style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"
+                           width="1490">
+                        <tr class="edittableTrOut" Height="21" onclick="classchange_M(this,'onclick')" onmouseout="classchange_M(this,'onmouseout')" onmouseover="classchange_M(this,'onmouseover')" width="1490"> <td width="50"><input type="checkbox" name="SELECTED_M" id="SELECTED_M" class="bigtext-position" style="width:48px" displayName="&#26159;&#21542;&#30424;&#29028;" readonly="true"/></td>
+                            <td width="100"><input type="text" name="CHEPH_M" id="CHEPH_M" class="bigtext-position" onfocus="editclick(this,EditInput_M)" style="width:98px" displayName="&#36710;&#21495;" readonly="true"/></td>
+                            <!--onclick="editin(this,'onclick');dropdown(this,FAHDWB_IDSelect);"
+                                onclick="editin(this,'onclick');dropdown(this,MEIKXXB_IDSelect);"
+                          readonly="true"  -->
+                            <td width="100"><input type="text" name="MEIKDQMC_M" value="" id="MEIKDQMC_M" title="" style="width:98px" onkeyup="onfilter(0,this)" class="bigtext-position" onfocus="show(0,0,this.name)" displayName="&#21457;&#36135;&#21333;&#20301;"/></td>
+                            <td width="100"><input type="text" name="MEIKDWMC_M" value="" id="MEIKDWMC_M" title="" style="width:98px" onkeyup="onfilter(1,this)" class="bigtext-position" onfocus="show(1,0,this.name)" displayName="&#29028;&#30719;&#21333;&#20301;" onchange="JihkjChange(this);"/></td>
+                            <td width="120"><input type="text" name="CHENGYDW_M" value="&#23425;&#22799;&#20803;&#22025;&#30005;&#21147;&#29123;&#26009;&#26377;&#38480;&#20844;&#21496;" id="CHENGYDW_M" class="bigtext-position" onclick="editin(this,'onclick');dropdown(this,CHENGYDW_Select);" style="width:118px" displayName="&#25215;&#36816;&#21333;&#20301;" readonly="true"/></td>
+                            <td width="100"><input type="text" name="PINZ_M" value="&#29028;&#27877;" id="PINZ_M" class="bigtext-position" onclick="editin(this,'onclick');dropdown(this,RANLPZB_IDSelect);" style="width:98px" displayName="&#21697;&#31181;" readonly="true"/></td>
+                            <td width="100"><input type="text" name="JIHKJ_M" value="" id="JIHKJ_M" class="bigtext-position" onclick="editin(this,'onclick');dropdown(this,JIHKJB_IDSelect);" style="width:98px" displayName="&#21475;&#24452;" readonly="true"/></td>
+                            <td width="100"><input type="text" name="FAHL_M" value="0.0" id="FAHL_M" class="bigtext-position" onfocus="editclick(this,EditInput_M)" style="width:98px" readonly="true"/></td>
+                            <td width="60"><input type="text" name="KOUD_M" value="0.0" id="KOUD_M" class="bigtext-position" onfocus="editclick(this,EditInput_M)" style="width:58px" readonly="true"/></td>
+                            <td width="100"><input type="text" name="PANDMC_M" value="" id="PANDMC_M" class="bigtext-position" onclick="editin(this,'onclick');dropdown(this,PANDMC_Select);" style="width:98px;" displayName="&#30424;&#28857;&#29028;&#22330;" readonly="true"/></td>
+                            <td width="100"><input type="text" name="MEIC_M" value="" id="MEIC_M" class="bigtext-position" onclick="editin(this,'onclick');dropdown(this,MEIC_Select);" style="width:98px" displayName="&#29028;&#22330;" readonly="true"/></td>
+                            <td width="100"><input type="text" name="MEIGY_M" value="&#23002;&#23792;" id="MEIGY_M" class="bigtext-position" onclick="editin(this,'onclick');dropdown(this,MEIGY_Select);" style="width:98px" displayName="&#29028;&#31649;&#21592;" readonly="true"/></td>
+                            <td width="120"><input type="text" name="CHANGB_M" value="&#20013;&#30005;&#25237;&#23425;&#22799;&#33021;&#28304;&#38109;&#19994;&#20020;&#27827;&#21457;&#30005;&#26377;&#38480;&#20844;&#21496;" id="CHANGB_M" class="bigtext-position" onclick="editin(this,'onclick');dropdown(this,CHANGB_Select);" style="width:118px" displayName="&#21378;&#21035;" readonly="true"/></td>
+                            <td width="120"><input type="text" name="SHOUHR_M" value="&#20020;&#27827;&#21457;&#30005;" id="SHOUHR_M" class="bigtext-position" onfocus="editclick(this,EditInput_M)" style="width:118px" displayName="&#25910;&#36135;&#20154;" readonly="true"/></td>
+                            <td width="120"><input type="text" name="BEIZ_M" id="BEIZ_M" class="bigtext-position" onfocus="editclick(this,EditInput_M)" style="width:118px" displayName="&#22791;&#27880;" readonly="true"/></td>
+                            <input type="text" name="MAOZ_M" value="0.0" id="MAOZ_M" style="display:none" readonly="true"/> <input readonly="true" style="display:none"
+                                                                                                                                   id="PIZ" type="text" />
+                            <input readonly="true" style="display:none"
+                                   id="JINGZ" type="text" />
+                        </tr> <input onchange="editchange(0)" style="display:none;"
+                                     class="bigtext-position" id="EditInput_M" type="text" />
+                        <select name="FAHDWB_IDSelect" id="FAHDWB_IDSelect" class="bigtext-position" type="text" style="display:none;" onchange="droponchange(0);javascript:this.form.submit();">
+                            <option value="-1">&#35831;&#36873;&#25321;</option>
+                            <option value="9323" selected="selected">&#21338;&#28304;&#26032;&#22411;&#33021;&#28304;</option>
+                            <option value="19725434639">&#21378;&#20869;&#36716;&#29028;</option>
+                            <option value="9102">&#37122;&#23572;&#22810;&#26031;&#24066;&#38534;&#26093;&#29028;&#28845;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="19725396048">&#37122;&#23572;&#22810;&#26031;&#24066;&#20234;&#21270;&#30719;&#19994;&#36164;&#28304;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9143">&#37122;&#25176;&#20811;&#26071;&#21191;&#21019;&#29028;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="8956">&#37122;&#25176;&#20811;&#21069;&#26071;&#38271;&#22478;&#29028;&#30719;</option>
+                            <option value="8830">&#31119;&#24314;&#36229;&#22823;&#30044;&#29287;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9107">&#31119;&#24030;&#37329;&#24800;&#29028;&#28845;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8942">&#22266;&#21407;&#26124;&#37995;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725435668">&#27743;&#33487;&#26187;&#21644;&#30005;&#21147;&#29123;&#26009;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725404544">&#37329;&#20964;</option>
+                            <option value="8941">&#28789;&#27494;&#24066;&#24191;&#30427;&#28304;&#29028;&#28845;&#36816;&#38144;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8930">&#20869;&#33945;&#21476;&#31119;&#22478;&#30719;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8939">&#20869;&#33945;&#21476;&#19978;&#28023;&#24217;&#30719;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9166">&#23425;&#22799;&#40718;&#35834;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9363">&#23425;&#22799;&#31119;&#22799;&#39134;&#36798;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9083">&#23425;&#22799;&#28009;&#37995;&#26124;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9063">&#23425;&#22799;&#21644;&#33804;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725409829">&#23425;&#22799;&#23439;&#20852;&#40511;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725431399">&#23425;&#22799;&#21326;&#37030;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725436790">&#23425;&#22799;&#21513;&#29790;&#24658;&#22270;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9123">&#23425;&#22799;&#37329;&#29577;&#33635;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9703">&#23425;&#22799;&#20140;&#30427;&#29028;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="19725394344">&#23425;&#22799;&#24040;&#30427;&#28304;&#26032;&#22411;&#24314;&#26448;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725394346">&#23425;&#22799;&#34701;&#28009;&#36798;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725391455">&#23425;&#22799;&#29790;&#33538;&#36890;&#20379;&#24212;&#38142;&#31649;&#29702;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9006">&#23425;&#22799;&#30427;&#28779;&#28304;&#29028;&#28845;&#38144;&#21806;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9226">&#23425;&#22799;&#22825;&#28070;&#24658;&#23792;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9043">&#23425;&#22799;&#19975;&#23792;&#24037;&#36152;</option>
+                            <option value="9382">&#23425;&#22799;&#23567;&#30719;</option>
+                            <option value="19725434649">&#23425;&#22799;&#38134;&#27827;&#22855;&#36857;&#31185;&#25216;&#25237;&#36164;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8834">&#23425;&#22799;&#38134;&#26143;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9303">&#23425;&#22799;&#33521;&#21147;&#29305;&#29289;&#27969;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="8947">&#23425;&#22799;&#20013;&#29028;&#23454;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9163">&#23425;&#22799;&#33454;&#38125;&#36798;&#29028;&#28845;&#36816;&#38144;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9243">&#29790;&#28304;&#22269;&#38469;&#36164;&#28304;&#25237;&#36164;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725432524">&#38485;&#35199;&#38182;&#23721;&#23454;&#19994;</option>
+                            <option value="9045">&#28145;&#22323;&#24066;&#24198;&#21326;&#25104;&#20379;&#24212;&#38142;&#31649;&#29702;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8802">&#31070;&#21326;&#23425;&#22799;&#29028;&#19994;&#38598;&#22242;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="19725394833">&#20044;&#28023;&#24066;&#40511;&#20255;&#20449;&#27888;&#21830;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725430243">&#20044;&#28023;&#24066;&#38182;&#36798;&#29289;&#27969;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9782">&#20044;&#23457;&#26071;&#33945;&#22823;&#30719;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9642">&#21556;&#24544;&#24066;&#39640;&#38392;&#29028;&#30719;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8949">&#30416;&#27744;&#21439;&#21516;&#39134;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9223">&#20013;&#30005;&#25237;&#38109;&#19994;&#22269;&#38469;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;&#35199;&#21271;&#20998;&#20844;&#21496;</option>
+                            <option value="19725425122">&#20013;&#22269;&#30707;&#27833;&#22825;&#28982;&#27668;</option>
+                            <option value="9263">&#20013;&#38109;&#37325;&#24198;&#22269;&#38469;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725413878">&#20013;&#29028;&#35199;&#21271;&#33021;&#28304;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19725415396">&#20013;&#29028;&#35199;&#21271;&#33021;&#28304;&#26377;&#38480;&#20844;&#21496;1</option>
+                            <option value="19725407299">&#37325;&#24198;&#24066;&#20892;&#19994;&#29983;&#20135;&#36164;&#26009;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9024">&#20822;&#30719;&#38109;&#19994;&#22269;&#38469;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496; </option>
+                        </select>
+                        <select name="MEIKXXB_IDSelect" id="MEIKXXB_IDSelect" class="bigtext-position" type="text" style="display:none;" onchange="droponchange(0)">
+                            <option value="-1">&#35831;&#36873;&#25321;</option>
+                            <option value="8943" selected="selected">&#23433;&#24509;&#23433;&#31918;&#22269;&#38469;&#21457;&#23637;&#20844;&#21496;</option>
+                            <option value="8958">&#23433;&#31918;&#22269;&#38469;</option>
+                            <option value="9482">&#21271;&#20140;&#21271;&#32654;&#27721;&#36798;&#29028;&#28845;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9522">&#21271;&#20140;&#24066;&#24658;&#29289;&#22825;&#29790;&#30005;&#21147;&#29289;&#36164;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9324">&#21338;&#28304;&#26032;&#22411;&#33021;&#28304;</option>
+                            <option value="8947">&#26124;&#37995;&#29028;&#19994;</option>
+                            <option value="8959">&#38271;&#22478;&#29028;&#30719;</option>
+                            <option value="8965">&#21378;&#20869;&#36716;&#29028;</option>
+                            <option value="8967">&#21378;&#20869;&#36716;&#29028;&#27877;</option>
+                            <option value="8938">&#36229;&#22823;&#30044;&#29287;&#19994;</option>
+                            <option value="9542">&#37122;&#23572;&#22810;&#26031;&#24066;&#33406;&#24503;&#29028;&#28845;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9103">&#37122;&#23572;&#22810;&#26031;&#24066;&#38534;&#26093;&#29028;&#28845;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="19714203">&#37122;&#23572;&#22810;&#26031;&#24066;&#20234;&#21270;&#30719;&#19994;&#36164;&#28304;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9144">&#37122;&#25176;&#20811;&#26071;&#21191;&#21019;&#29028;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="65">&#31119;&#22478;</option>
+                            <option value="8954">&#31119;&#22478;&#30719;&#19994;</option>
+                            <option value="81">&#31119;&#24314;&#36229;&#22823;</option>
+                            <option value="8948">&#31119;&#28304;&#24037;&#36152;</option>
+                            <option value="9108">&#31119;&#24030;&#37329;&#24800;&#29028;&#28845;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="78">&#31119;&#24030;&#26032;&#30005;</option>
+                            <option value="9562">&#29976;&#32899;&#37329;&#31161;&#21830;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8946">&#24191;&#30427;&#28304;</option>
+                            <option value="8945">&#24191;&#31077;&#21830;&#36152;</option>
+                            <option value="9">&#32418;&#26611;</option>
+                            <option value="8952">&#32418;&#23665;&#30707;</option>
+                            <option value="6">&#32418;&#30707;&#28286;</option>
+                            <option value="70">&#27982;&#23425;&#37995;&#36798;</option>
+                            <option value="19714403">&#27743;&#33487;&#26187;&#21644;&#30005;&#21147;&#29123;&#26009;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="7">&#37329;&#20964;</option>
+                            <option value="49">&#21531;&#23041;&#36890;&#36798;</option>
+                            <option value="48">&#20975;&#38712;</option>
+                            <option value="8963">&#28789;&#26032;</option>
+                            <option value="9722">&#40614;&#22427;&#23665;</option>
+                            <option value="4">&#26757;&#33457;&#20117;</option>
+                            <option value="8949">&#29028;&#28845;&#36816;&#38144;</option>
+                            <option value="9402">&#20869;&#33945;&#21476;&#20159;&#21033;&#33021;&#28304;&#32929;&#20221;&#26377;&#38480;&#20844;&#21496;&#23439;&#25996;&#29028;&#30719;</option>
+                            <option value="9167">&#23425;&#22799;&#40718;&#35834;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9364">&#23425;&#22799;&#31119;&#22799;&#39134;&#36798;&#36152;&#26131;</option>
+                            <option value="9084">&#23425;&#22799;&#28009;&#37995;&#26124;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9064">&#23425;&#22799;&#21644;&#33804;&#24037;&#36152;</option>
+                            <option value="19714243">&#23425;&#22799;&#23439;&#20852;&#40511;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19714323">&#23425;&#22799;&#21326;&#37030;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19714423">&#23425;&#22799;&#21513;&#29790;&#24658;&#22270;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9583">&#23425;&#22799;&#37329;&#27719;&#29028;&#19994;&#38598;&#22242;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9582">&#23425;&#22799;&#37329;&#27719;&#29028;&#19994;&#38598;&#22242;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9124">&#23425;&#22799;&#37329;&#29577;&#33635;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9704">&#23425;&#22799;&#20140;&#30427;&#29028;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9942">&#23425;&#22799;&#24040;&#30427;&#28304;&#26032;&#22411;&#24314;&#26448;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9602">&#23425;&#22799;&#20426;&#40527;&#20852;&#26106;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9902">&#23425;&#22799;&#23425;&#30005;&#29289;&#27969;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19714103">&#23425;&#22799;&#23425;&#19996;&#19975;&#39034;&#36798;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9822">&#23425;&#22799;&#24179;&#32599;&#21439;&#26143;&#26124;&#29028;&#28845;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9842">&#23425;&#22799;&#34701;&#28009;&#36798;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9742">&#23425;&#22799;&#29790;&#33538;&#36890;&#20379;&#24212;&#38142;&#31649;&#29702;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9007">&#23425;&#22799;&#30427;&#28779;&#28304;</option>
+                            <option value="9882">&#23425;&#22799;&#30427;&#33021;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9462">&#23425;&#22799;&#22825;&#31108;&#36890;&#21830;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9044">&#23425;&#22799;&#19975;&#23792;&#24037;&#36152;</option>
+                            <option value="19714383">&#23425;&#22799;&#38134;&#27827;&#22855;&#36857;&#31185;&#25216;&#25237;&#36164;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9383">&#23425;&#22799;&#38134;&#38081;&#24179;&#27741;&#23454;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9304">&#23425;&#22799;&#33521;&#21147;&#29305;&#29289;&#27969;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9164">&#23425;&#22799;&#33454;&#38125;&#36798;&#29028;&#28845;&#36816;&#38144;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9385">&#23425;&#22799;&#27859;&#37995;&#28304;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9524">&#24179;&#32599;&#21439;&#20803;&#22823;&#20191;&#29028;&#28845;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8955">&#20854;&#23427;</option>
+                            <option value="9247">&#38738;&#28023;&#22269;&#36152;</option>
+                            <option value="10">&#28165;&#27700;&#33829;</option>
+                            <option value="9046">&#24198;&#21326;&#25104;&#20379;&#24212;&#38142;&#31649;&#29702;</option>
+                            <option value="44">&#26435;&#27895;</option>
+                            <option value="43">&#28909;&#28857;</option>
+                            <option value="8936">&#28909;&#28857;&#29028;&#19994;</option>
+                            <option value="5">&#20219;&#23478;&#24196;</option>
+                            <option value="9244">&#29790;&#28304;&#22269;&#38469;</option>
+                            <option value="19714343">&#38485;&#35199;&#38182;&#23721;&#23454;&#19994;</option>
+                            <option value="8935">&#21830;&#36152;&#36890;</option>
+                            <option value="64">&#19978;&#28023;&#24217;</option>
+                            <option value="8944">&#19978;&#28023;&#24217;&#30719;</option>
+                            <option value="26">&#19978;&#28023;&#35777;&#22823;</option>
+                            <option value="25">&#28145;&#22323;&#21830;&#36152;&#36890;</option>
+                            <option value="12">&#30707;&#27133;&#26449;</option>
+                            <option value="13">&#30707;&#27807;&#39551;</option>
+                            <option value="9622">&#30707;&#22068;&#23665;&#24066;&#38534;&#28246;&#37995;&#27888;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8960">&#21452;&#20016;&#28304;</option>
+                            <option value="8">&#21452;&#39532;</option>
+                            <option value="63">&#21452;&#27427;</option>
+                            <option value="41">&#22826;&#21457;</option>
+                            <option value="8941">&#22826;&#21457;&#24037;&#36152;</option>
+                            <option value="9227">&#22825;&#28070;&#24658;&#23792;</option>
+                            <option value="8988">&#22825;&#37995;</option>
+                            <option value="8953">&#21516;&#39134;&#29028;&#19994;</option>
+                            <option value="40">&#19975;&#20048;&#31077;</option>
+                            <option value="39">&#25991;&#20840;</option>
+                            <option value="38">&#25991;&#24544;&#23439;</option>
+                            <option value="9862">&#20044;&#28023;&#24066;&#40511;&#20255;&#20449;&#27888;&#21830;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9147">&#20044;&#28023;&#24066;&#40511;&#35029;&#29289;&#27969;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="19714303">&#20044;&#28023;&#24066;&#38182;&#36798;&#29289;&#27969;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9802">&#20044;&#23457;&#26071;&#33945;&#22823;&#30719;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="37">&#20044;&#28304;</option>
+                            <option value="9643">&#21556;&#24544;&#24066;&#39640;&#38392;&#29028;&#30719;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="11">&#20116;&#20844;&#37324;</option>
+                            <option value="8950">&#20116;&#30719;&#29289;&#27969;</option>
+                            <option value="17">&#35199;&#23433;&#24191;&#31077;</option>
+                            <option value="18">&#35199;&#23433;&#24658;&#19994;</option>
+                            <option value="16">&#20852;&#21644;&#37995;&#21326;</option>
+                            <option value="35">&#30416;&#27744;&#40065;&#20013;</option>
+                            <option value="34">&#30416;&#27744;&#19968;&#39034;</option>
+                            <option value="15">&#30416;&#27744;&#24698;&#38534;</option>
+                            <option value="3">&#32650;&#22330;&#28286;</option>
+                            <option value="9342">&#32650;&#22330;&#28286;&#20108;&#30719;</option>
+                            <option value="8942">&#38134;&#26143;&#29028;&#19994;</option>
+                            <option value="28">&#27014;&#26519;&#26126;&#36745;</option>
+                            <option value="33">&#20803;&#22025;&#30005;&#21147;</option>
+                            <option value="2">&#26531;&#27849;</option>
+                            <option value="9502">&#26531;&#24196;&#36890;&#26207;&#23454;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9662">&#31456;&#19992;&#24066;&#40857;&#39134;&#32463;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8937">&#35777;&#22823;&#33021;&#28304;</option>
+                            <option value="8933">&#20013;&#22269;&#30707;&#27833;&#22825;&#28982;&#27668;</option>
+                            <option value="9224">&#20013;&#38109;&#22269;&#36152;&#35199;&#21271;&#20998;&#20844;&#21496;</option>
+                            <option value="9422">&#20013;&#38109;&#20869;&#33945;&#21476;&#22269;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9264">&#20013;&#38109;&#37325;&#24198;&#22269;&#38469;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8951">&#20013;&#29028;&#23454;&#19994;</option>
+                            <option value="19714263">&#20013;&#29028;&#35199;&#21271;&#33021;&#28304;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="19714283">&#20013;&#29028;&#35199;&#21271;&#33021;&#28304;&#26377;&#38480;&#20844;&#21496;1</option>
+                            <option value="19714223">&#37325;&#24198;&#24066;&#20892;&#19994;&#29983;&#20135;&#36164;&#26009;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9025">&#20822;&#30719;&#38109;&#19994; </option>
+                            <option value="23">&#26122;&#36798;</option>
+                            <option value="8940">&#37995;&#36798;&#29028;&#21270;</option>
+                            <option value="36">&#37995;&#23572;&#29305;</option>
+                            <option value="30">&#37995;&#38534;&#26124;</option>
+                        </select>
+                        <select name="RANLPZB_IDSelect" id="RANLPZB_IDSelect" class="bigtext-position" type="text" style="display:none;" onchange="droponchange(0)">
+                            <option value="-1">&#35831;&#36873;&#25321;</option>
+                            <option value="21">&#29028;&#27877;</option>
+                            <option value="5">&#31890;&#29028;</option>
+                            <option value="62">&#21407;&#29028;</option>
+                            <option value="101">&#27927;&#20013;&#29028;</option>
+                            <option value="121">&#22359;&#29028;</option>
+                            <option value="8">&#28151;&#29028;</option>
+                            <option value="201">&#26411;&#29028;</option>
+                            <option value="43">&#26612;&#27833;</option>
+                            <option value="202">&#20013;&#29028;</option>
+                            <option value="81">&#36135;</option>
+                            <option value="9">&#28895;&#28151;&#29028;</option>
+                            <option value="10">&#39640;&#28784;&#28151;&#29028;</option>
+                            <option value="241">&#24178;&#29028;&#27877;</option>
+                            <option value="161">&#27927;&#26411;&#29028;</option>
+                            <option value="261">&#21407;&#28151;&#29028;</option>
+                            <option value="281">&#20302;&#28909;&#29028;</option>
+                        </select>
+                        <select name="JIHKJB_IDSelect" id="JIHKJB_IDSelect" class="bigtext-position" type="text" style="display:none;" onchange="droponchange(0)">
+                            <option value="3">&#37325;&#28857;&#35746;&#36135;</option>
+                            <option value="44">&#24066;&#22330;&#37319;&#36141;</option>
+                            <option value="61">&#21306;&#22495;&#35746;&#36135;</option>
+                            <option value="81">&#26080;</option>
+                            <option value="1971">&#36816;&#36755;&#21512;&#21516;</option>
+                        </select>
+                        <select name="MEIGY_Select" id="MEIGY_Select" class="bigtext-position" type="text" style="display:none;" onchange="droponchange(0)">
+                            <option value="-1">&#35831;&#36873;&#25321;</option>
+                            <option value="1112" selected="selected">&#23002;&#23792;</option>
+                            <option value="1113">&#29579;&#32418;&#30000;</option>
+                            <option value="1114">&#35768;&#29577;&#26635;</option>
+                            <option value="1115">&#36213;&#35745;&#40857;</option>
+                            <option value="1116">&#26446;&#26126;&#20048;</option>
+                            <option value="1117">&#31206;&#23569;&#27874;</option>
+                            <option value="1118">&#24352;&#27491;&#23792;</option>
+                            <option value="1119">&#26446;&#22823;&#20255;</option>
+                            <option value="1381">&#20911;&#26195;&#24420;</option>
+                            <option value="1401">&#20993;&#20806;&#27427;</option>
+                            <option value="1402">&#21556;&#29790;</option>
+                            <option value="1403">&#36213;&#27704;&#38738;</option>
+                            <option value="1404">&#29579;&#23569;&#36745;</option>
+                            <option value="1405">&#29579;&#20803;&#25463;</option>
+                            <option value="1406">&#26361;&#23567;&#21018;</option>
+                            <option value="1407">&#29579;&#25104;&#26609;</option>
+                            <option value="1408">&#26446;&#26187;&#40065;</option>
+                            <option value="1111">&#36213;&#21344;&#38134;</option>
+                        </select>
+                        <select name="MEIC_Select" id="MEIC_Select" class="bigtext-position" type="text" style="display:none;" onchange="droponchange(0)">
+                            <option value="-1">&#35831;&#36873;&#25321;</option>
+                            <option value="183" selected="selected">&#21271;&#29028;&#22330;1</option>
+                            <option value="301">&#21271;&#29028;&#22330;2</option>
+                            <option value="302">&#21271;&#29028;&#22330;3</option>
+                            <option value="221">&#22791;&#29992;&#29028;&#22330;</option>
+                            <option value="181">&#19996;&#29028;&#22330;</option>
+                            <option value="242">&#21335;&#29028;&#22330;</option>
+                            <option value="161">&#35199;&#29028;&#22330;</option>
+                            <option value="241">&#21368;&#29028;&#27807;</option>
+                            <option value="261">&#27833;&#24211;</option>
+                            <option value="141">&#20013;&#29028;&#22330;</option>
+                        </select>
+                        <select name="PANDMC_Select" id="PANDMC_Select" class="bigtext-position" type="text" style="display:none;" onchange="droponchange(0)">
+                            <option value="-1" selected="selected">&#35831;&#36873;&#25321;</option>
+                            <option value="183">&#21271;&#29028;&#22330;1</option>
+                            <option value="301">&#21271;&#29028;&#22330;2</option>
+                            <option value="302">&#21271;&#29028;&#22330;3</option>
+                            <option value="221">&#22791;&#29992;&#29028;&#22330;</option>
+                            <option value="181">&#19996;&#29028;&#22330;</option>
+                            <option value="242">&#21335;&#29028;&#22330;</option>
+                            <option value="161">&#35199;&#29028;&#22330;</option>
+                            <option value="241">&#21368;&#29028;&#27807;</option>
+                            <option value="261">&#27833;&#24211;</option>
+                            <option value="141">&#20013;&#29028;&#22330;</option>
+                        </select>
+                        <select name="CHENGYDW_Select" id="CHENGYDW_Select" class="bigtext-position" type="text" style="display:none;" onchange="droponchange(0)">
+                            <option value="-1">&#35831;&#36873;&#25321;</option>
+                            <option value="24" selected="selected">&#23425;&#22799;&#20803;&#22025;&#30005;&#21147;&#29123;&#26009;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9042">&#23425;&#22799;&#19975;&#23792;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9225">&#23425;&#22799;&#22825;&#28070;&#24658;&#23792;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9245">&#38738;&#28023;&#22269;&#36152;</option>
+                            <option value="9644">&#21556;&#24544;&#24066;&#39640;&#38392;&#29028;&#30719;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="129">&#20869;&#33945;&#21476;&#19978;&#28023;&#24217;&#30719;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="126">&#35199;&#23433;&#24066;&#24191;&#31077;&#21830;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="134">&#24191;&#30427;&#28304;</option>
+                            <option value="138">&#23425;&#22799;&#22825;&#40857;&#27773;&#36710;&#36816;&#36755;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="143">&#23519;&#21491;&#21069;&#26071;&#31119;&#28304;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;&#22823;&#22478;&#35199;&#20998;&#20844;&#21496;</option>
+                            <option value="9823">&#23425;&#22799;&#24179;&#32599;&#21439;&#26143;&#26124;&#29028;&#28845;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9824">&#24179;&#32599;&#21439;&#20803;&#22823;&#20191;&#29028;&#28845;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9165">&#23425;&#22799;&#40718;&#35834;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9386">&#23425;&#22799;&#27859;&#37995;&#28304;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="42">&#27982;&#23425;&#37995;&#36798;&#29028;&#21270;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9162">&#23425;&#22799;&#33454;&#38125;&#36798;&#29028;&#28845;&#36816;&#38144;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="80">&#23425;&#22799;&#28909;&#28857;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="298">&#21378;&#20869;&#36716;&#29028;&#27877;</option>
+                            <option value="9182">&#23425;&#22799;&#20247;&#37995;&#28304;&#29289;&#27969;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9183">&#38134;&#24029;&#24658;&#37995;&#19990;&#32426;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9384">&#23425;&#22799;&#38134;&#38081;&#24179;&#27741;&#23454;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9584">&#23425;&#22799;&#37329;&#27719;&#29028;&#19994;&#38598;&#22242;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="117">&#37122;&#23572;&#22810;&#26031;&#24066;&#38534;&#26093;&#29028;&#28845;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9262">&#20013;&#38109;&#37325;&#24198;&#22269;&#38469;</option>
+                            <option value="9302">&#23425;&#22799;&#33521;&#21147;&#29305;&#29289;&#27969;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9483">&#21271;&#20140;&#21271;&#32654;&#27721;&#36798;&#29028;&#28845;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9503">&#26531;&#24196;&#36890;&#26207;&#23454;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="2">&#19978;&#28023;&#35777;&#22823;&#33021;&#28304;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="5">&#23425;&#22799;&#21531;&#23041;&#36890;&#36798;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="6">&#23433;&#24509;&#23433;&#31918;&#22269;&#38469;&#21457;&#23637;&#20844;&#21496;</option>
+                            <option value="8">&#23425;&#22799;&#22826;&#21457;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="13">&#31119;&#24314;&#36229;&#22823;&#30044;&#29287;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="15">&#23425;&#22799;&#20975;&#38712;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8983">&#23425;&#22799;&#29822;&#29788;&#29289;&#27969;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="148">&#23425;&#22799;&#29615;&#23707;&#29289;&#27969;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9145">&#20044;&#28023;&#24066;&#40511;&#35029;&#29289;&#27969;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="150">&#28789;&#27494;&#24066;&#29577;&#29141;&#36816;&#38144;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9525">&#28100;&#21338;&#28100;&#30719;&#29028;&#28845;&#36816;&#38144;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8982">&#23425;&#22799;&#31119;&#22799;&#39134;&#36798;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9184">&#38134;&#24029;&#24066;&#23425;&#19996;&#21326;&#23431;&#21830;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9242">&#29790;&#28304;&#22269;&#38469;</option>
+                            <option value="9362">&#23425;&#22799;&#37995;&#22531;&#24037;&#31243;&#26426;&#26800;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9443">&#20013;&#22269;&#30707;&#27833;&#22825;&#28982;&#27668;&#32929;&#20221;&#26377;&#38480;&#20844;&#21496;&#23425;&#22799;&#28392;&#27827;&#26032;&#21306;&#38144;&#21806;&#20998;&#20844;&#21496; </option>
+                            <option value="9603">&#23425;&#22799;&#20426;&#40527;&#20852;&#26106;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9682">&#38738;&#38108;&#23777;&#24066;&#24658;&#27427;&#24037;&#36152;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9002">&#21378;&#20869;&#36716;&#29028;</option>
+                            <option value="9004">&#24179;&#32599;&#21439;&#20013;&#22825;</option>
+                            <option value="9062">&#23425;&#22799;&#21644;&#33804;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9423">&#20013;&#38109;&#20869;&#33945;&#21476;&#22269;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9563">&#29976;&#32899;&#37329;&#31161;&#21830;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9702">&#23425;&#22799;&#20140;&#30427;&#29028;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="236">&#23425;&#22799;&#29028;&#28845;&#36816;&#38144;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9003">&#22266;&#21407;&#26124;&#37995;</option>
+                            <option value="244">&#20116;&#30719;&#29289;&#27969;&#26032;&#30086;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9005">&#23425;&#22799;&#30427;&#28779;&#28304;&#29028;&#28845;&#38144;&#21806;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="90012">&#24198;&#21326;&#25104;&#20379;&#24212;&#38142;&#31649;&#29702;</option>
+                            <option value="9222">&#20013;&#30005;&#25237;&#38109;&#19994;&#22269;&#38469;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;&#35199;&#21271;&#20998;&#20844;&#21496;</option>
+                            <option value="9683">&#23425;&#22799;&#23425;&#19996;&#23439;&#26124;&#29289;&#27969;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9763">&#38485;&#35199;&#38182;&#23721;&#23454;&#19994;</option>
+                            <option value="266">&#23665;&#35199;&#30465;&#29028;&#28845;&#36816;&#38144;&#38598;&#22242;&#26187;&#36890;&#29028;&#28845;&#29289;&#27969;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="268">&#31119;&#24030;&#24320;&#21457;&#21306;&#26032;&#30005;&#29123;&#26009;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="273">&#23425;&#22799;&#20013;&#29028;&#23454;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="274">&#20822;&#24030;&#24066;&#32418;&#23665;&#30707;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="275">&#30416;&#27744;&#21439;&#21516;&#39134;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="8985">&#23425;&#22799;&#38134;&#26143;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9023">&#20822;&#30719;&#38109;&#19994;&#22269;&#38469;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496; </option>
+                            <option value="282">&#40657;&#40857;&#27743;&#40857;&#29028;&#29790;&#38534;&#33021;&#28304;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9122">&#23425;&#22799;&#37329;&#29577;&#33635;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="293">&#27784;&#38451;&#24066;&#37329;&#19977;&#26143;&#26045;&#23553;&#38145;&#21378;</option>
+                            <option value="294">&#20013;&#30707;&#27833;&#22825;&#28982;&#27668;&#32929;&#20221;&#26377;&#38480;&#20844;&#21496;&#23425;&#22799;&#38144;&#21806;&#20998;&#20844;&#21496;&#28789;&#27494;&#24066;&#32463;&#38144;&#37096;</option>
+                            <option value="297">&#23425;&#22799;&#38738;&#38108;&#23777;&#24066;&#26223;&#39034;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9202">&#23425;&#22799;&#23425;&#30005;&#29289;&#27969;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9322">&#21338;&#28304;&#26032;&#22411;&#33021;&#28304;&#20844;&#21496;</option>
+                            <option value="9803">&#20044;&#23457;&#26071;&#33945;&#22823;&#30719;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="295">&#21556;&#24544;&#24066;&#21452;&#20016;&#28304;&#29289;&#36164;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9403">&#20869;&#33945;&#21476;&#20159;&#21033;&#33021;&#28304;&#32929;&#20221;&#26377;&#38480;&#20844;&#21496;&#23439;&#25996;&#29028;&#30719;</option>
+                            <option value="9463">&#23425;&#22799;&#22825;&#31108;&#36890;&#21830;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9523">&#21271;&#20140;&#24066;&#24658;&#29289;&#22825;&#29790;&#30005;&#21147;&#29289;&#36164;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9543">&#37122;&#23572;&#22810;&#26031;&#24066;&#33406;&#24503;&#29028;&#28845;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9623">&#30707;&#22068;&#23665;&#24066;&#38534;&#28246;&#37995;&#27888;&#29028;&#19994;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9663">&#31456;&#19992;&#24066;&#40857;&#39134;&#32463;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9082">&#23425;&#22799;&#28009;&#37995;&#26124;&#24037;&#36152;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9104">&#31119;&#24030;&#37329;&#24800;&#29028;&#28845;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;</option>
+                            <option value="9142">&#37122;&#25176;&#20811;&#26071;&#21191;&#21019;&#29028;&#19994;&#26377;&#38480;&#36131;&#20219;&#20844;&#21496;</option>
+                            <option value="9743">&#23425;&#22799;&#29790;&#33538;&#36890;&#20379;&#24212;&#38142;&#31649;&#29702;&#26377;&#38480;&#20844;&#21496;</option>
+                        </select>
+                        <select name="CHANGB_Select" id="CHANGB_Select" class="bigtext-position" type="text" style="display:none;" onchange="droponchange(0)">
+                            <option value="-1">&#35831;&#36873;&#25321;</option>
+                            <option value="1" selected="selected">&#20013;&#30005;&#25237;&#23425;&#22799;&#33021;&#28304;&#38109;&#19994;&#20020;&#27827;&#21457;&#30005;&#26377;&#38480;&#20844;&#21496;</option>
+                        </select> </table>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr id="trcondition_P" valign=middle height="20">
+        <td>
+            <table valign="middle">
+                <tr>
+                    <td><input id="ToFirstPageButton" name="ToFirstPageButton" type="submit" class="btn_mouseout" onmouseout="this.className='btn_mouseout'" onmouseover="this.className='btn_mouseover'" onmousedown="this.className='btn_mousedown'" onmouseup="this.className='btn_mouseup'" value="&#39318;&#39029;"/></td>
+                    <td><input id="ToPreviousPageButton"  type="submit" class="btn_mouseout" onmouseout="this.className='btn_mouseout'" onmouseover="this.className='btn_mouseover'" onmousedown="this.className='btn_mousedown'" onmouseup="this.className='btn_mouseup'" value="&#21069;&#19968;&#39029;"/></td>
+                    <td><input id="ToNextPageButton" name="ToNextPageButton" type="submit" class="btn_mouseout" onmouseout="this.className='btn_mouseout'" onmouseover="this.className='btn_mouseover'" onmousedown="this.className='btn_mousedown'" onmouseup="this.className='btn_mouseup'" value="&#21518;&#19968;&#39029;"/></td>
+                    <td><input id="ToLastPageButton" name="ToLastPageButton" type="submit" class="btn_mouseout" onmouseout="this.className='btn_mouseout'" onmouseover="this.className='btn_mouseover'" onmousedown="this.className='btn_mousedown'" onmouseup="this.className='btn_mouseup'" value="&#26411;&#39029;"/></td>
+                    <td><span style="width:75px;text-align:center" class="text-position"
+                              id = "pageno" name = "pageno"></span></td>
+                    <td>&nbsp;<span class="text-position">转到页：</span>
+                        <input type="text"  name="GoPageNumber" value="1" id="GoPageNumber" class="text-position" style="width:50px;text-align:center;font:normal bolder Verdana" onblur="MatchNum(this,/(^[1-9]{1}[0-9]{0,3}$)/gi);"/></td>
+                    <td>&nbsp;<input  name="GoPageButton" type="submit" class="btn_mouseout" onmouseout="this.className='btn_mouseout'" onmouseover="this.className='btn_mouseover'" onmousedown="this.className='btn_mousedown'" onmouseup="this.className='btn_mouseup'" value="Go&gt;&gt;" id="GoPageButton" onclick="return GopageValidate();" style="font:normal bolder Verdana"/></td><input class="text-position" style="display:none;"
+                                                                                                                                                                                                                                                                                                                                                                                                  id="EditTableRow" type="text" />
+                    <input type="text"  name="CurrentPageNumber" value="1" id="CurrentPageNumber" class="text-position" style="display:none;"/>
+                    <input type="text"  name="TotalPageNumber" value="1" id="TotalPageNumber" class="text-position" style="display:none;"/> </tr>
+            </table>
+        </td>
+    </tr>
+    <tr id="Selectdata_P"  valign=top>
+        <td>
+            <div id="SelectFrmDiv_P" class="text-position"
+                 style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+                <div id="SelectHeadDiv_P"
+                     style="OVERFLOW: hidden; background-color:#FFFFFF">
+                    <table id="EditHeadTabel_P" bordercolor="#ffffff" bordercolorlight="#AFB6C7" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;" bordercolordark="#ffffff" background="/gddl/imgs/table_h.gif" width="800" cellpadding="1" class="edittablehead" border="1" cellspacing="#ffffff"> <tr width="800" align="center">
+                        <!--<th jwcid="@Any" background="ognl:assets.background" width="30"
+                            height="29" align="center"><label name="tittleHead" class="text-position"
+                            style="position:relative;left:0;width:25px"> <input readonly="true" id="AllCheck"
+                            class="text-position" type="Checkbox" /></label></th>-->
+                        <th height="29" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">车号</label></th>
+                        <th height="29" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">发货单位</label></th>
+                        <th height="29" align="center" width="100"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:95px">煤矿单位</label></th>
+                        <th height="29" align="center" width="120"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:115px">承运单位</label></th>
+                        <th height="29" align="center" width="70"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:65px">品种</label></th>
+                        <th height="29" align="center" width="70"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:65px">计划口径</label></th>
+                        <th height="29" align="center" width="70"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:65px">发货量</label></th>
+                        <th height="29" align="center" width="70"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:65px">毛重</label></th> <!--<th jwcid="@Any" width="70" height="29" align="center"><label
+                                    name="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:65px">皮重</label></th>-->
+                        <th height="29" align="center" width="70"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:65px">扣吨</label></th> <!--<th jwcid="@Any" width="120" height="29" align="center"><label
+                                    name="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:115px">承运单位</label></th>
+                                <th jwcid="@Any" width="100" height="29" align="center"><label
+                                    name="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:95px">检质员</label></th>-->
+                        <th height="29" align="center" width="70"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:65px">盘点煤场</label></th>
+                        <th height="29" align="center" width="80"><label
+                                name="tittleHead" class="text-position"
+                                style="position:relative;left:0;width:75px">煤场</label></th> <!--<th jwcid="@Any" width="100" height="29" align="center"><label
+                                    name="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:95px">收货人</label></th>
+                                <th jwcid="@Any" width="100" height="29" align="center"><label
+                                    name="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:95px">厂别</label></th>
+                                <th jwcid="@Any" width="100" height="29" align="center"><label
+                                    name="tittleHead" class="text-position"
+                                    style="position:relative;left:0;width:95px">备注</label></th>-->
+                    </tr>
+                    </table> </div>
+                <div id="SelectDataDiv_P" onscroll="_onscroll(this,SelectHeadDiv_P)"
+                     style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+                    <table id="oData_P" class="edittable" border="0" cellpadding="0" cellspacing="0"
+                           style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"
+                           width="800">
+                        <tr id="trid" class="edittableTrOut" Height="21" onclick="classchange_P(this,'onclick')" width="800"> <!--<td width="30" align="center"><input readonly="true"
+                                    class="text-position" style="width:28px" jwcid="SELECTED_P"
+                                    id="SELECTED_P" type="text" /></td>-->
+                            <td width="100" class="tdText"><input type="text" name="CHEPH_P" value="CC0081" id="CHEPH_P" class="bigtext-position" style="width:98px" displayName="&#36710;&#21495;" readonly="true"/></td>
+                            <td width="100" class="tdText"><input type="text" name="MEIKDQMC_P" value="&#21338;&#28304;&#26032;&#22411;&#33021;&#28304;" id="MEIKDQMC_P" class="bigtext-position" title="&#21338;&#28304;&#26032;&#22411;&#33021;&#28304;" style="width:98px" displayName="&#21457;&#36135;&#21333;&#20301;" readonly="true"/></td>
+                            <td width="100" class="tdText"><input type="text" name="MEIKDWMC_P" value="&#20013;&#22269;&#30707;&#27833;&#22825;&#28982;&#27668;" id="MEIKDWMC_P" class="bigtext-position" title="&#20013;&#22269;&#30707;&#27833;&#22825;&#28982;&#27668;" style="width:98px" displayName="&#29028;&#30719;&#21333;&#20301;" readonly="true"/></td>
+                            <td width="120" class="tdText"><input type="text" name="CHENGYDW_P" value="&#20013;&#22269;&#30707;&#27833;&#22825;&#28982;&#27668;&#32929;&#20221;&#26377;&#38480;&#20844;&#21496;&#23425;&#22799;&#28392;&#27827;&#26032;&#21306;&#38144;&#21806;&#20998;&#20844;&#21496;" id="CHENGYDW_P" class="bigtext-position" style="width:118px" displayName="&#25215;&#36816;&#21333;&#20301;" readonly="true"/></td>
+                            <td width="70" class="tdText"><input type="text" name="PINZ_P" value="&#26612;&#27833;" id="PINZ_P" class="bigtext-position" style="width:68px" displayName="&#21697;&#31181;" readonly="true"/></td>
+                            <td width="70" class="tdText"><input type="text" name="JIHKJ_P" value="&#26080;" id="JIHKJ_P" class="bigtext-position" style="width:68px" displayName="&#21475;&#24452;" readonly="true"/></td>
+                            <td width="70" class="tdText"><input type="text" name="FAHL_P" value="0.0" id="FAHL_P" class="bigtext-position" style="width:68px" readonly="true"/></td>
+                            <td width="70" class="tdText"><input type="text" name="MAOZ_P" value="13.36" id="MAOZ_P" class="bigtext-position" style="width:68px" readonly="true"/></td>
+                            <!--<td width="70" class="tdText"><input readonly="true"
+                                class="bigtext-position" style="width:68px" jwcid="PIZ_P"
+                                id="PIZ_P" type="text" /></td>-->
+                            <td width="70" class="tdText"><input type="text" name="KOUD_P" value="0.0" id="KOUD_P" class="bigtext-position" style="width:68px" readonly="true"/></td>
+                            <!-- onfocus="editin(this,'onclick');editclick(this,EditInput)" -->
+                            <!--<td width="120" class="tdText"><input readonly="true"
+                                class="bigtext-position" style="width:118px" jwcid="CHENGYDW_P"
+                                id="CHENGYDW_P" type="text" /></td>
+                            <td width="100" class="tdText"><input readonly="true"
+                                class="bigtext-position" style="width:98px" jwcid="MEIGY_P"
+                                id="MEIGY_P" type="text" /></td>-->
+                            <td width="70" class="tdText"><input type="text" name="PANDMC_P" id="MEIC_P" class="bigtext-position" style="width:68px" displayName="&#30424;&#28857;&#29028;&#22330;" readonly="true"/></td>
+                            <td width="80" class="tdText"><input type="text" name="MEIC_P" value="&#27833;&#24211;" id="MEIC_P" class="bigtext-position" style="width:78px" displayName="&#29028;&#22330;" readonly="true"/></td>
+                            <!--<td width="100" class="tdText"><input readonly="true"
+                                class="bigtext-position" style="width:98px" jwcid="SHOUHR_P"
+                                id="SHOUHR_P" type="text" /></td>
+                            <td width="100" class="tdText"><input readonly="true"
+                                class="bigtext-position" style="width:98px" jwcid="CHANGB_P"
+                                id="CHANGB_P" type="text" /></td>
+                            <td width="100" class="tdText"><input readonly="true"
+                                class="bigtext-position" style="width:98px" jwcid="BEIZ_P"
+                                id="BEIZ_P" type="text" /></td>-->
+                        </tr><tr id="trid" class="edittableTrOut" Height="21" onclick="classchange_P(this,'onclick')" width="800"> <!--<td width="30" align="center"><input readonly="true"
+                                    class="text-position" style="width:28px" jwcid="SELECTED_P"
+                                    id="SELECTED_P" type="text" /></td>-->
+                        <td width="100" class="tdText"><input type="text" name="CHEPH_P$0" value="A123456" id="CHEPH_P" class="bigtext-position" style="width:98px" displayName="&#36710;&#21495;" readonly="true"/></td>
+                        <td width="100" class="tdText"><input type="text" name="MEIKDQMC_P$0" value="&#31119;&#24030;&#37329;&#24800;&#29028;&#28845;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;" id="MEIKDQMC_P" class="bigtext-position" title="&#31119;&#24030;&#37329;&#24800;&#29028;&#28845;&#36152;&#26131;&#26377;&#38480;&#20844;&#21496;" style="width:98px" displayName="&#21457;&#36135;&#21333;&#20301;" readonly="true"/></td>
+                        <td width="100" class="tdText"><input type="text" name="MEIKDWMC_P$0" value="&#21378;&#20869;&#36716;&#29028;" id="MEIKDWMC_P" class="bigtext-position" title="&#21378;&#20869;&#36716;&#29028;" style="width:98px" displayName="&#29028;&#30719;&#21333;&#20301;" readonly="true"/></td>
+                        <td width="120" class="tdText"><input type="text" name="CHENGYDW_P$0" value="&#24198;&#21326;&#25104;&#20379;&#24212;&#38142;&#31649;&#29702;" id="CHENGYDW_P" class="bigtext-position" style="width:118px" displayName="&#25215;&#36816;&#21333;&#20301;" readonly="true"/></td>
+                        <td width="70" class="tdText"><input type="text" name="PINZ_P$0" value="&#29028;&#27877;" id="PINZ_P" class="bigtext-position" style="width:68px" displayName="&#21697;&#31181;" readonly="true"/></td>
+                        <td width="70" class="tdText"><input type="text" name="JIHKJ_P$0" value="&#26080;" id="JIHKJ_P" class="bigtext-position" style="width:68px" displayName="&#21475;&#24452;" readonly="true"/></td>
+                        <td width="70" class="tdText"><input type="text" name="FAHL_P$0" value="0.0" id="FAHL_P" class="bigtext-position" style="width:68px" readonly="true"/></td>
+                        <td width="70" class="tdText"><input type="text" name="MAOZ_P$0" value="58.28" id="MAOZ_P" class="bigtext-position" style="width:68px" readonly="true"/></td>
+                        <!--<td width="70" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:68px" jwcid="PIZ_P"
+                            id="PIZ_P" type="text" /></td>-->
+                        <td width="70" class="tdText"><input type="text" name="KOUD_P$0" value="0.0" id="KOUD_P" class="bigtext-position" style="width:68px" readonly="true"/></td>
+                        <!-- onfocus="editin(this,'onclick');editclick(this,EditInput)" -->
+                        <!--<td width="120" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:118px" jwcid="CHENGYDW_P"
+                            id="CHENGYDW_P" type="text" /></td>
+                        <td width="100" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:98px" jwcid="MEIGY_P"
+                            id="MEIGY_P" type="text" /></td>-->
+                        <td width="70" class="tdText"><input type="text" name="PANDMC_P$0" id="MEIC_P" class="bigtext-position" style="width:68px" displayName="&#30424;&#28857;&#29028;&#22330;" readonly="true"/></td>
+                        <td width="80" class="tdText"><input type="text" name="MEIC_P$0" value="&#21271;&#29028;&#22330;1" id="MEIC_P" class="bigtext-position" style="width:78px" displayName="&#29028;&#22330;" readonly="true"/></td>
+                        <!--<td width="100" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:98px" jwcid="SHOUHR_P"
+                            id="SHOUHR_P" type="text" /></td>
+                        <td width="100" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:98px" jwcid="CHANGB_P"
+                            id="CHANGB_P" type="text" /></td>
+                        <td width="100" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:98px" jwcid="BEIZ_P"
+                            id="BEIZ_P" type="text" /></td>-->
+                    </tr><tr id="trid" class="edittableTrOut" Height="21" onclick="classchange_P(this,'onclick')" width="800"> <!--<td width="30" align="center"><input readonly="true"
+                                    class="text-position" style="width:28px" jwcid="SELECTED_P"
+                                    id="SELECTED_P" type="text" /></td>-->
+                        <td width="100" class="tdText"><input type="text" name="CHEPH_P$1" value="123" id="CHEPH_P" class="bigtext-position" style="width:98px" displayName="&#36710;&#21495;" readonly="true"/></td>
+                        <td width="100" class="tdText"><input type="text" name="MEIKDQMC_P$1" value="&#21338;&#28304;&#26032;&#22411;&#33021;&#28304;" id="MEIKDQMC_P" class="bigtext-position" title="&#21338;&#28304;&#26032;&#22411;&#33021;&#28304;" style="width:98px" displayName="&#21457;&#36135;&#21333;&#20301;" readonly="true"/></td>
+                        <td width="100" class="tdText"><input type="text" name="MEIKDWMC_P$1" value="&#23433;&#24509;&#23433;&#31918;&#22269;&#38469;&#21457;&#23637;&#20844;&#21496;" id="MEIKDWMC_P" class="bigtext-position" title="&#23433;&#24509;&#23433;&#31918;&#22269;&#38469;&#21457;&#23637;&#20844;&#21496;" style="width:98px" displayName="&#29028;&#30719;&#21333;&#20301;" readonly="true"/></td>
+                        <td width="120" class="tdText"><input type="text" name="CHENGYDW_P$1" value="&#24198;&#21326;&#25104;&#20379;&#24212;&#38142;&#31649;&#29702;" id="CHENGYDW_P" class="bigtext-position" style="width:118px" displayName="&#25215;&#36816;&#21333;&#20301;" readonly="true"/></td>
+                        <td width="70" class="tdText"><input type="text" name="PINZ_P$1" value="&#29028;&#27877;" id="PINZ_P" class="bigtext-position" style="width:68px" displayName="&#21697;&#31181;" readonly="true"/></td>
+                        <td width="70" class="tdText"><input type="text" name="JIHKJ_P$1" value="&#26080;" id="JIHKJ_P" class="bigtext-position" style="width:68px" displayName="&#21475;&#24452;" readonly="true"/></td>
+                        <td width="70" class="tdText"><input type="text" name="FAHL_P$1" value="0.0" id="FAHL_P" class="bigtext-position" style="width:68px" readonly="true"/></td>
+                        <td width="70" class="tdText"><input type="text" name="MAOZ_P$1" value="22.26" id="MAOZ_P" class="bigtext-position" style="width:68px" readonly="true"/></td>
+                        <!--<td width="70" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:68px" jwcid="PIZ_P"
+                            id="PIZ_P" type="text" /></td>-->
+                        <td width="70" class="tdText"><input type="text" name="KOUD_P$1" value="0.0" id="KOUD_P" class="bigtext-position" style="width:68px" readonly="true"/></td>
+                        <!-- onfocus="editin(this,'onclick');editclick(this,EditInput)" -->
+                        <!--<td width="120" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:118px" jwcid="CHENGYDW_P"
+                            id="CHENGYDW_P" type="text" /></td>
+                        <td width="100" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:98px" jwcid="MEIGY_P"
+                            id="MEIGY_P" type="text" /></td>-->
+                        <td width="70" class="tdText"><input type="text" name="PANDMC_P$1" id="MEIC_P" class="bigtext-position" style="width:68px" displayName="&#30424;&#28857;&#29028;&#22330;" readonly="true"/></td>
+                        <td width="80" class="tdText"><input type="text" name="MEIC_P$1" value="&#21271;&#29028;&#22330;1" id="MEIC_P" class="bigtext-position" style="width:78px" displayName="&#29028;&#22330;" readonly="true"/></td>
+                        <!--<td width="100" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:98px" jwcid="SHOUHR_P"
+                            id="SHOUHR_P" type="text" /></td>
+                        <td width="100" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:98px" jwcid="CHANGB_P"
+                            id="CHANGB_P" type="text" /></td>
+                        <td width="100" class="tdText"><input readonly="true"
+                            class="bigtext-position" style="width:98px" jwcid="BEIZ_P"
+                            id="BEIZ_P" type="text" /></td>-->
+                    </tr> <input onchange="editchange(1)" style="display:none;"
+                                 class="bigtext-position" id="EditInputUpdateAll" type="text" />
+                        <input onchange="editchange(0)" style="display:none;"
+                               class="bigtext-position" id="EditInput" type="text" />
+                        <input type="text" name="SCALE" value="2" id="SCALE" style="display:none;" readonly="true"/>
+                        <input type="text" name="RULEFORROUNDING" value="UpOrDown" id="RULEFORROUNDING" style="display:none;" displayName="RuleForRounding" readonly="true"/>
+                        <input type="checkbox" name="AUTOCOPY" id="AUTOCOPY" style="display:none;" readonly="true"/> </table>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+</form>
+</body>
+<script src="/gddl/js/dc/jilgl/qichmz/Qichmz.js" language="JavaScript" type="text/javascript"></script>
+<script src="/gddl/js/ConnectSelection_new.js" language="JavaScript" type="text/javascript"></script>
+<script>window.onresize();</script>
+</html>
+<!-- Render time: ~ 548 ms -->
+

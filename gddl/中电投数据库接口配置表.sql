@@ -1,0 +1,1 @@
+UPDATE JIEKJSPZB set LEIX='bianm',bianm=pinzb where id=545

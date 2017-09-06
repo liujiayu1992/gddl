@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<meta http-equiv="Expires" content="0"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Pragma" content="no-cache"/>    
+<title>合同下发</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';  	
+
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+
+});
+</script>
+</head>
+<body id="body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label="刷新"style="display:none" id="RefurbishButton"listener="ognl:listeners.RefurbishButton"></span>
+<span jwcid="xiafButton@ZRcontrib:ImgButton" buttontype="" label="下发"style="display:none" id="xiafButton"listener="ognl:listeners.xiafButton"></span>
+<span jwcid="chongxxfButton@ZRcontrib:ImgButton" buttontype="" label="重新下发"style="display:none" id="chongxxfButton"listener="ognl:listeners.chongxxfButton"></span>
+<span jwcid="shancButton@ZRcontrib:ImgButton" buttontype="" label="删除"style="display:none" id="shancButton"listener="ognl:listeners.shancButton"></span>
+<span id="RIQ1" jwcid="RIQ1" style="display:none" type="text"></span>
+<span id="RIQ2" jwcid="RIQ2" style="display:none"  type="text"></span>
+<input style="width:100%"onchange="this.form.submit()"style="display:none" jwcid="zhuangtSelect" id="zhuangtSelect" />
+<div id="gridDiv" style="height:100%;overflow:none"></div> 
+<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+</form>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<html jwcid="@Shell" title="人员信息维护" stylesheet="ognl:assets.Main">
+<SCRIPT LANGUAGE="JavaScript"> 
+	<!-- Hide 
+	function killErrors() { 
+		return true; 
+	} 
+	window.onerror = killErrors; 
+	 --> 
+</SCRIPT>
+<script>
+<span jwcid="@Insert" value="ognl:ArrayScript"></span>
+</script>
+<body id="body" jwcid="@Body">
+	<script jwcid = "Treejs" ></script>
+	<script jwcid = "Mainjs" ></script>
+    <script jwcid = "PersonManagejs" ></script>
+	<script>
+	function NodeChange(){
+        
+		var currentObjTr = LastNode.parentElement;
+		//var ShowText = currentObjTr.cells[1].innerText.replace(/(^\s*)|(\s*$)/g, "");
+		//var ArrIndex = eval(currentObjTr.cells[2].innerText.replace(/(^\s*)|(\s*$)/g, ""));
+		var CurNodeID = currentObjTr.cells[3].innerText.replace(/(^\s*)|(\s*$)/g, "");
+		if(CurNodeID == 0){
+			return;
+		}
+        document.getElementById("ID").value = CurNodeID;
+        ClickButton();
+
+        //oButton = document.getElementById("RefurbishButton");
+        //oButton.click();
+	}
+	function PowerClick(){
+	//alert(editBodyTable.rows.length)
+		/*var m = 0;
+		var param = "";
+		for(i = 1 ; i<editBodyTable.rows.length;i++){
+			if(document.all.item("SELECTED",i).checked){
+				m=m+1;
+				if(m>1){
+					alert("不能同时对两个用户设置权限");
+					return;
+				}
+				alert(document.all.item("PID",i).value);
+				param = "&pid="+document.all.item("PID",i).value;
+			}
+		}
+		alert(m)
+		if(m == 0){
+			alert("请选中一个用户");
+			return;
+		}
+		var url = "http://"+document.location.host+document.location.pathname;
+		url = url+"?service=page/PersonPower"+param;
+		alert(url);
+		window.open(url,"","dialogWidth:260px;dialogHeight:440px;scroll:no;status:no;help:yes");*/
+	}
+	function ClickButton(){
+		document.getElementById("OperateNotes").value = operateNotes;
+	}
+	</script>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+	<table class=TreeClass>
+        <tr>
+        	<td colspan=2>
+                <table id = Toolbar>
+					<tr>
+						<td><span jwcid="RefurbishButton@ZRcontrib:ImgButton" id="RefurbishButton" onclick="return Showwait();" buttontype=""
+							label="刷新" onblur="return blurfocus();" listener="ognl:listeners.RefurbishButton" ></span>
+						</td>
+						<td><span jwcid="InsertButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+							label="添加" onblur="return blurfocus();" listener="ognl:listeners.InsertButton" ></span>
+						</td>
+						<td><span jwcid="SaveButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+							label="保存" onblur="return blurfocus();" listener="ognl:listeners.SaveButton" ></span>
+						</td>
+						<td><span jwcid="DeleteButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+							label="作废还原" onblur="return blurfocus();" listener="ognl:listeners.DeleteButton" ></span>
+						</td>
+						<td><span jwcid="ReSetPwdButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+							label="重置密码" onblur="return blurfocus();" listener="ognl:listeners.ReSetPwdButton" ></span>
+						</td>
+						<td><span jwcid="PowerButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+							label="权限设置" onblur="return blurfocus();" listener="ognl:listeners.PowerButton"></span>
+						</td><!-- onclick="PowerClick();"   nosubmitbuttons -->
+						<td>
+							<input style="display:none" jwcid="OperateNotes" id="OperateNotes"/> 
+							<input style="display:none" jwcid="ID" id = "ID" />
+						</td>    
+					</tr>
+                </table>
+            </td>
+        </tr>
+		<tr valign = top>
+			<td  width=50%>
+				<div id = treeMainDiv  class=frameDiv>
+                </div>
+			</td>
+			<td>
+                <div id="editMainDiv" class=frameDiv>
+					<table id="editBodyTable" class="editBodyTable" cellpadding="0" cellspacing="0" width=230>
+						<tr>
+							<th width=30 height=28><input style="width:28px;" type=checkbox></input></th>
+                            <th width=80 height=28>用户名</th>
+                            <th width=80 height=28>姓名</th>
+                            <th width=60 height=28>登陆</th>
+                            <th></th>
+						</tr>
+						<tr jwcid="EditValues">
+                            <td width=30><span style="width:26px;"  onclick="CheckClick(this)" jwcid="SELECTED" id ="SELECTED"></span></td>
+							<td width=80><span style="width:76px;" onchange="InfoChange(this)" jwcid="MINGC"></span></td>
+							<td width=80><span style="width:76px;" onchange="InfoChange(this)" jwcid="QUANC"></span></td>
+                            <td width=60><span style="width:56px;" readonly="true" jwcid="ZHUANGT"></span></td>
+                            <td><span style="display:none" jwcid="PID" id="PID"></span></td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+	</form>
+</body>
+<script type="text/javascript">
+window.onresize();
+ShowRoot("treeMainDiv");
+<span jwcid="@Insert" value="ognl:OprateScript"/>
+</script>
+</html>

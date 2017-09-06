@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!-- $Id: build.xml,v 1.1.1.1 2014/05/12 05:30:19 xiaz Exp $ -->
+<project name="ymis Create War File" default="deploy" >
+
+	<!-- Customize this to match the desired name. -->
+	<!-- 把rmis改成你的项目名称目录 -->
+	<property name="project.name"  value="gddl"/>
+	<!-- 把下面的目录修改成你的Tomcat所在的目录 -->
+	
+	<property name="tomcat.dir"  value="D:/eclipse3.2/Tomcat 5.0"/>
+	<!--把tapestry的jar包拷贝到一个目录下并把下面的value改成所建的目录路径-->
+	<property name="tapestry.dist.dir"  value="D:/eclipse3.2/Tomcat 5.0/common/lib"/>
+	
+	<!--下面的东西不要改动-->
+	
+	
+	<property name="Create.dir"  value="D:/JavaProgramFiles"/>
+	
+	<!-- Do not change -->
+	<property name="context.dir" value="context"/>
+
+	<property name="deploy.dir" value="${tomcat.dir}/webapps"/>
+	<property name="target.dir" value="${context.dir}/WEB-INF"/>
+	<property name="war.dir" value="${Create.dir}/${project.name}"/>
+	<property name="war.file" value="${war.dir}/${project.name}.war"/>
+	<property name="tempJarPath"  value="D:/JavaProgramFiles/Temp"/>
+	<mkdir dir="${tempJarPath}"/>
+	
+
+	<property name="jar.dir" value="${war.dir}/jarpath/${project.name}"/>
+	<property name="project.jar" value="${jar.dir}/zhiren_rmis_${project.name}.jar"/>
+	
+	
+	<property name="src.dir" value="src"/>
+	<property name="classes.dir" value="${target.dir}/classes"/>
+	
+	
+	<!-- We expect Tomcat to be available. -->
+	
+	<property name="servlet.jar" value="${tomcat.dir}/common/lib/servlet.jar"/>
+		
+	<path id="project.class.path">
+		<fileset  dir="${tapestry.dist.dir}">
+			<include name="*.jar"/>
+		</fileset>
+		<pathelement location="${servlet.jar}"/>
+	</path>
+	
+	<target name="clean" description="Deletes derived files.">
+		<delete file="${deploy.dir}/${project.name}.war" quiet="true"/>
+		<delete dir="${deploy.dir}/${project.name}" quiet="true"/>
+		<delete file="${war.file}" quiet="true"/>
+		<delete file="${classes.dir}/**" quiet="true"/>
+		<mkdir dir="${war.dir}"/>
+		<copy todir="${classes.dir}" includeEmptyDirs="false">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.java"/>
+				<exclude name="conn/*.*"/>
+				<exclude name="**/package.html"/>
+			</fileset>
+		</copy>
+		<copy todir="${tempJarPath}" overwrite="true"  flatten="true">
+			<fileset dir="${tapestry.dist.dir}" >
+				<include name="**/*.jar" />
+				<exclude name="**/servlet-api.jar"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	
+	<target name="compile" depends="clean" description="Compile Java classes.">
+		<mkdir dir="${classes.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" debug="on"
+			classpathref="project.class.path"/>
+	</target>
+		
+	<target name="war" depends="compile"
+		description="Compile all classes and build the WAR.">
+		<war warfile="${war.file}" webxml="${context.dir}/WEB-INF/web.xml">
+
+			<fileset dir="${context.dir}">
+				<exclude name="WEB-INF/web.xml"/>
+	 		</fileset>
+		</war>
+	</target>
+	
+	<target name="deploy" depends="war" 
+		description="Deploy the WAR into Tomcat.">
+		<copy file="${war.file}"  overwrite="true" todir="${tomcat.dir}/webapps"/>
+		<delete dir="${tempJarPath}" quiet="true"/>
+	</target>
+</project>

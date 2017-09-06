@@ -1,0 +1,62 @@
+<html jwcid="@Shell" title="公式" stylesheet="ognl:assets.Main">
+<SCRIPT LANGUAGE="JavaScript"> 
+	<!-- Hide 
+	function killErrors() { 
+		return true; 
+	} 
+	window.onerror = killErrors; 
+	--> 
+</SCRIPT>
+<body id="body" jwcid="@Body">
+	<script jwcid = "Mainjs" ></script>
+	<script jwcid = "Gongsjs" ></script>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+		<table>
+			<tr>
+                <td>
+                    <table id = Toolbar>
+                        <tr>
+							<td><span jwcid="RefurbishButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="刷新" onblur="return blurfocus();" listener="ognl:listeners.RefurbishButton" ></span>
+							</td>
+							<td><span jwcid="InsertButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="添加" onblur="return blurfocus();" listener="ognl:listeners.InsertButton" ></span>
+							</td>
+			                <td><span jwcid="DeleteButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="删除" onblur="return blurfocus();" listener="ognl:listeners.DeleteButton" ></span>
+							</td>
+							<td><span jwcid="SaveButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="保存" onblur="return blurfocus();" listener="ognl:listeners.SaveButton" ></span>
+							</td>
+							<td><span jwcid="UpdateButton@ZRcontrib:ImgButton" onclick="return Showwait();" buttontype=""
+								label="公式维护" onblur="return blurfocus();" listener="ognl:listeners.UpdateButton" ></span>
+							</td>
+                        </tr>
+                     </table>
+                </td>
+			</tr>
+            <tr>
+                <td>
+                	<div id="editMainDiv" class=frameDivY>
+						<table id="editBodyTable" class="editBodyTable" cellpadding="0" cellspacing="0" width=330>
+							<tr>
+								<th width=30 height=28><input style="width:28px;" type=checkbox></input></th>
+	                            <th width=200 height=28>公式名</th>
+	                            <th width=50 height=28>类型</th>
+	                            <th width=50 height=28>备注</th>
+							</tr>
+							<tr jwcid="EditValues">
+	                            <td width=30><span style="width:26px;" onclick="CheckClick(this)" jwcid="SELECTED"></span></td>
+								<td width=200><span style="width:196px;" jwcid="MINGC"></span></td>
+								<td width=50><span style="width:46px;" jwcid="LEIX"></span></td>
+								<td width=50><span style="width:46px;" jwcid="BEIZ"></span></td>
+							</tr>
+						</table>
+					</div>
+                </td>  
+            </tr>
+		</table>
+	</form>
+</body><script>window.onresize();</script>
+</html>

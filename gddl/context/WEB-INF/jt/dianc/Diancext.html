@@ -1,0 +1,729 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>电厂</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function() {
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';	
+	Ext.QuickTips.init();
+
+    Ext.form.Field.prototype.msgTarget = 'side';
+
+    var bd = Ext.getBody();
+    var caiyfs_x;
+    var jilfs_x;
+    var daoz_x;
+    var dianclb_x;
+    var daog_x;
+    var shengf_x;
+    var jib_x;
+    var fuid_x;
+    <span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+    caiyfs_data = [['人工','人工'],['机械','机械']];
+	var caiyfs_store = new Ext.data.SimpleStore({
+	    fields: ['caiyfs_abbr', 'caiyfs_state'],
+	    data : caiyfs_data  // from states.js
+	});
+    jilfs_data = [['过衡','过衡'],['检尺','检尺']];
+	var jilfs_store = new Ext.data.SimpleStore({
+	    fields: ['jilfs_abbr', 'jilfs_state'],
+	    data : jilfs_data  // from states.js
+	});
+   /////////////////////////////////GridPanel//////////////////////////////////
+	var gridDiv_grid = new Ext.grid.GridPanel({
+		el:'gridDiv',
+		ds: gridDiv_ds,
+		cm: gridDiv_cm,
+		sm: new Ext.grid.RowSelectionModel({
+		    singleSelect: true,
+		    listeners: {
+		        rowselect: function(sm, row, rec) {
+		            Ext.getCmp("company-form").getForm().loadRecord(rec);
+    				caiyfs_x.setValue(rec.get('CAIYFS'));
+    				jilfs_x.setValue(rec.get('JILFS'));
+    				daoz_x.setValue(rec.get('DAOZ'));;
+				    dianclb_x.setValue(rec.get('DIANCLBB_ID'));
+				    daog_x.setValue(rec.get('DAOG'));
+				    shengf_x.setValue(rec.get('SHENGFB_ID'));
+				    jib_x.setValue(rec.get('JIB'));
+    				fuid_x.setValue(rec.get('FUID'));
+		        }
+		    }
+		}),
+    <span jwcid="@Insert" raw="true" value="ognl:TbarScript"></span>
+		bbar:gridDiv_pag,
+		stripeRows:true,
+		//autoExpandColumn: 'company',
+        frame: true,
+		height: 300,
+		width: 980
+	});
+    //////////////////////////////////////////////////////////////////////////
+	<span jwcid="@Insert" raw="true" value="ognl:GridScriptLoad"></span>
+    ////////////////////////////////////////////////////////
+    
+   function isSelectGrid(){
+    
+    var gsm1 = gridDiv_grid.getSelectionModel();
+    var rec1 = gsm1.getSelected();
+    
+    if(rec1==null){
+    	Ext.Msg.alert("提示信息","请先选择一条记录再进行操作!");
+    	
+    	return "false";
+    }
+  		return "true";
+    
+    }
+	var tab = new Ext.FormPanel({
+	    id:'company-form',
+        labelAlign: 'top',
+        el:'formDiv',
+        bodyStyle:'padding:5px',
+        width: '100%',
+        height: '100%',
+        frame: true,
+        items: [
+        {
+            layout:'column',
+            border:false,
+            items:[
+            {
+            columnWidth: 1,
+            layout: 'fit',
+            items: [gridDiv_grid]
+        }]
+        }
+        ,
+        {
+            xtype:'tabpanel',
+            plain:true,
+            listeners:{
+            	'tabchange':function(){
+            		var gsm = gridDiv_grid.getSelectionModel();
+            		rec = gsm.getSelected();
+            		if(rec  != null){
+            			gridDiv_grid.getSelectionModel().selectRecords(rec);
+            			gsm.fireEvent('selectionchange',gsm);
+
+            		}
+					
+            	}
+            },
+            activeTab: 0,
+            height:250,
+            defaults:{bodyStyle:'padding:10px'},
+            items:[{
+                title:'基本信息',
+                width:'auto',
+				layout:'column',
+                border:false,
+                
+                items: [
+                {
+	                width:'auto',
+	                columnWidth:.25,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '电厂编码',
+	                    name: 'BIANM',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){
+            					
+            					if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("BIANM",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },shengf_x = new Ext.form.ComboBox(
+	            			{	
+            					fieldLabel:'省份',
+	            				width:156,
+            					selectOnFocus:true,
+            					transform:'SHENGFB_IDSelect',
+								lazyRender:true,
+            					triggerAction:'all',
+            					typeAhead:true,
+								forceSelection:true,
+            					editable:false,
+            					allowBlank:false,
+            					listeners: {
+	                		 		change:function(own,newValue,oldValue){
+            						if(isSelectGrid()=="false"){return;}
+	                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+	                		 		rec.set("SHENGFB_ID",own.getRawValue());
+                		 			}
+                		 		}
+					}),{
+	                    xtype:'textfield',
+	                    fieldLabel: '总机',
+	                    name: 'ZONGJ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("ZONGJ",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                	},{
+	                    xtype:'textfield',
+	                    fieldLabel: '燃料负责人',
+	                    name: 'RANLFZR',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("RANLFZR",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                	}]
+            		},{
+	            	columnWidth:.25,
+	          		width:'auto',
+	            	layout: 'form',
+	            	border:false,
+	            	items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '简称',
+	                    name: 'MINGC',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("MINGC",newValue);
+                		 	}
+                		 },
+	                    width:156
+                		},fuid_x=new Ext.form.ComboBox(
+	            			{	fieldLabel:'上级单位',
+	            				width:156,
+            					selectOnFocus:true,
+            					transform:'FUIDSelect',
+								lazyRender:true,
+            					triggerAction:'all',
+            					typeAhead:true,
+								forceSelection:true,
+            					editable:false,
+            					allowBlank:true,//false,
+            					listeners: {
+	                		 		change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+	                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+	                		 		rec.set("FUID",own.getRawValue());
+                		 			}
+                		 		}
+						}),{
+	                    xtype:'textfield',
+	                    fieldLabel: '邮编',
+	                    name: 'YOUZBM',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("YOUZBM",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '联系地址',
+	                   	name: 'LIANXDZ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("LIANXDZ",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	}]
+            		},{
+	            	columnWidth:.25,
+	          		width:'auto',
+	            	layout: 'form',
+	            	border:false,
+	            	items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '全称',
+	                    name: 'QUANC',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("QUANC",newValue);
+                		 	}
+                		 },
+	                    width:156
+                	},daoz_x = new Ext.form.ComboBox(
+	            			{	fieldLabel:'到站',
+	            				width:156,
+            					selectOnFocus:true,
+            					transform:'DAOZSelect',
+								lazyRender:true,
+            					triggerAction:'all',
+            					typeAhead:true,
+								forceSelection:true,
+					            editable:false,
+					            allowBlank:true,//false,
+            					listeners: {
+	                		 		change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+	                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+	                		 		rec.set("DAOZ",own.getRawValue());
+                		 			}
+                		 		}
+					}),{
+	                    xtype:'textfield',
+	                    fieldLabel: '地址',
+	                    name: 'DIZ',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("DIZ",newValue);
+                		 	}
+                		 },
+	                    width:156
+                	},
+            			dianclb_x = new Ext.form.ComboBox(
+	            			{	
+            					fieldLabel:'电厂类别',
+	            				width:156,
+            					selectOnFocus:true,
+            					transform:'DIANCLBB_IDSelect',
+								lazyRender:true,
+            					triggerAction:'all',
+            					typeAhead:true,
+								forceSelection:true,
+            					editable:false,
+            					allowBlank:false,
+            					listeners: {
+	                		 		change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+	                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+	                		 		rec.set("DIANCLBB_ID",own.getRawValue());
+                		 			}
+                		 		}
+						})]
+            		},{
+	            	columnWidth:.25,
+	          		width:'auto',
+	            	layout: 'form',
+	            	border:false,
+	            	items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '拼音',
+	 					name: 'PINY',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("PINY",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	},daog_x = new Ext.form.ComboBox(
+	            			{	
+            					fieldLabel:'到港',
+	            				width:156,
+								selectOnFocus:true,
+								transform:'DAOGSelect',
+								lazyRender:true,
+								triggerAction:'all',
+								typeAhead:true,
+								forceSelection:true,
+								editable:false,
+								allowBlank:true,//false,
+								listeners: {
+			        		 		change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+			        		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+			        		 		rec.set("DAOG",own.getRawValue());
+		    		 			}
+    		 		}
+						}),
+            			jib_x = new Ext.form.ComboBox(
+	            			{	
+            					fieldLabel:'级别',
+	            				width:156,
+            					selectOnFocus:true,
+            					transform:'JIBSelect',
+								lazyRender:true,
+            					triggerAction:'all',
+            					typeAhead:true,
+								forceSelection:true,
+            					editable:false,
+            					allowBlank:false,
+            					listeners: {
+	                		 		change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+	                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+	                		 		rec.set("JIB",own.getRawValue());
+                		 			}
+                		 		}
+						}),{
+	                    xtype:'numberfield',
+	                    fieldLabel: '排序号',
+	 					name: 'XUH',
+            			allowBlank:false,
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("XUH",newValue);
+                		 	}
+                		 },
+	                    width:156
+	               	}]}]
+            		},{
+                title:'资源信息',
+                width:300,
+				layout:'column',
+                border:false,
+                items: [
+                {
+	                width:300,
+	                columnWidth:.33,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '接卸方式',
+	                    name: 'JIEXFS',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("JIEXFS",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },caiyfs_x = new Ext.form.ComboBox({
+				        fieldLabel: '采样方式',
+				        //value: inxingb,
+				        hiddenName:'采样方式',
+				        store: caiyfs_store,
+				        valueField:'caiyfs_abbr',
+				        editable: false,
+				        displayField:'caiyfs_state',
+				        typeAhead: true,
+				        mode: 'local',
+				        triggerAction: 'all',
+				        selectOnFocus:true,
+				        width:156,
+            			listeners: {
+	                		 		change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+	                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+	                		 		rec.set("CAIYFS",own.getRawValue());
+                		 			}
+                		 		}
+    				})]
+            		}
+            	,{
+	                columnWidth:.33,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '接卸线(条)',
+	                    name: 'JIEXX',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("JIEXX",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },jilfs_x = new Ext.form.ComboBox({
+				        fieldLabel: '计量方式',
+				        //value: inxingb,
+				        hiddenName:'计量方式',
+				        store: jilfs_store,
+				        valueField:'jilfs_abbr',
+				        editable: false,
+				        displayField:'jilfs_state',
+				        typeAhead: true,
+				        mode: 'local',
+				        triggerAction: 'all',
+				        selectOnFocus:true,
+				        width:156,
+            			listeners: {
+	                		 		change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+	                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+	                		 		rec.set("JILFS",own.getRawValue());
+                		 			}
+                		 		}
+    				})]
+            	},{
+	                columnWidth:.33,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '接卸能力(车)',
+	                    name: 'JIEXNL',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("JIEXNL",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]
+            	}]
+            },{
+                title:'储备信息',
+                width:300,
+				layout:'column',
+                border:false,
+                items: [
+                {
+	                width:300,
+	                columnWidth:.33,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'numberfield',
+	                    fieldLabel: '装机容量(MW)',
+	                    name: 'ZHUANGJRL',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("ZHUANGJRL",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'numberfield',
+	                    fieldLabel: '限负荷库存(吨)',
+	                    name: 'XIANFHKC',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("XIANFHKC",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'numberfield',
+	                    fieldLabel: '经济储煤上限(吨)',
+	                    name: 'JINGJCMSX',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("JINGJCMSX",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]
+            		}
+            	,{
+	                columnWidth:.33,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'numberfield',
+	                    fieldLabel: '最大库存(吨)',
+	                    name: 'ZUIDKC',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("ZUIDKC",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'numberfield',
+	                    fieldLabel: '日均耗煤(吨)',
+	                    name: 'RIJHM',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("RIJHM",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'numberfield',
+	                    fieldLabel: '经济储煤下限(吨)',
+	                    name: 'JINGJCMXX',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("JINGJCMXX",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]
+            	},{
+	                columnWidth:.33,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'numberfield',
+	                    fieldLabel: '正常储备(吨)',
+	                    name: 'ZHENGCCB',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("ZHENGCCB",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'numberfield',
+	                    fieldLabel: '冬储煤指标(吨)',
+	                    name: 'DONGCMZB',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("DONGCMZB",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'numberfield',
+	                    fieldLabel: '警戒存煤(吨)',
+	                    name: 'JINGJCML',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("JINGJCML",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]
+            	}]
+            
+            },{
+                title:'合同信息',
+                width:300,
+				layout:'column',
+                border:false,
+                items: [
+                {
+	                width:300,
+	                columnWidth:.33,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '法定代表人',
+	                    name: 'FADDBR',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("FADDBR",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '开户银行',
+	                    name: 'KAIHYH',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("KAIHYH",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]
+            		}
+            	,{
+	                columnWidth:.33,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '委托代理人',
+	                    name: 'WEITDLR',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("WEITDLR",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '帐号',
+	                    name: 'ZHANGH',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("ZHANGH",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]
+            	},{
+	                columnWidth:.33,
+	                width:300,
+	                layout: 'form',
+	                border:false,
+	                items: [{
+	                    xtype:'textfield',
+	                    fieldLabel: '电话',
+	                    name: 'DIANH',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("DIANH",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                },{
+	                    xtype:'textfield',
+	                    fieldLabel: '税号',
+	                    name: 'SHUIH',
+            			listeners: {
+                		 	change:function(own,newValue,oldValue){if(isSelectGrid()=="false"){return;}
+                		 		rec = gridDiv_grid.getSelectionModel().getSelected();
+                		 		rec.set("SHUIH",newValue);
+                		 	}
+                		 },
+	                    width:156
+	                }]
+            	}]
+            
+            
+            }]
+        }]
+
+    });
+	
+    tab.render();
+    <span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+
+</script>
+</head>
+<body id="body">
+
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><span jwcid="@Insert" raw="true"
+	value="ognl:GridHtml"></span> <span jwcid="@Insert" raw="true"
+	value="ognl:TreeHtml"></span> <span id="CHANGE" jwcid="CHANGE"
+	style="display:none"></span> <span id="diancTree_id" jwcid="TREEID"
+	style="display: none"></span> <input style="width:100%"
+	jwcid="SHENGFB_IDSelect" id="SHENGFB_IDSelect" /> <input
+	style="width:100%" jwcid="DAOGSelect" id="DAOGSelect" /> <input
+	style="width:100%" jwcid="DAOZSelect" id="DAOZSelect" /> <input
+	style="width:100%" jwcid="JIBSelect" id="JIBSelect" /> <input
+	style="width:100%" jwcid="DIANCLBB_IDSelect" id="DIANCLBB_IDSelect" />
+<input style="width:100%" jwcid="FUIDSelect" id="FUIDSelect" /> <span
+	jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+	style="display:none" id="SaveButton"
+	listener="ognl:listeners.SaveButton"></span></form>
+<div id="formDiv" style="height:100%;overflow:none"></div>
+<div id="gridDiv" style="height:100%;overflow:none"></div>
+</body>
+
+</html>

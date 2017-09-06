@@ -1,0 +1,160 @@
+<html jwcid="@Shell" doctype=" " title="数量管理"  stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script>
+    gridDiv_leib_history="";
+    gridDiv_liuc_history="";
+    gridDiv_leibzt_history="";
+    gridDiv_liuczt_history="";
+    gridDiv_liucjs_history="";
+    gridDiv_liucdz_history="";
+	Ext.onReady(function(){
+	    // basic tabs 1, built from existing content
+	    
+	    var url = "http://"+document.location.host+document.location.pathname;
+		var end = url.indexOf("/app");
+		url = url.substring(0,end);
+		Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+
+
+   		bodyHeight =body.clientHeight;
+		bodyWidth =body.clientWidth;
+	    var tabs = new Ext.TabPanel({
+	        renderTo: 'tabs1',
+	        width:bodyWidth-5,
+    		height:bodyHeight,
+	        activeTab: document.all.item("TabbarSelect").value,
+	        frame:true,
+	        defaults:{autoHeight: true},
+	        items:[
+	            {contentEl:'div1', title: '类别'},
+	            {contentEl:'div2', title: '流程'},
+	            {contentEl:'div3', title: '类别状态'},
+				{contentEl:'div4', title: '流程状态'},
+				{contentEl:'div5', title: '流程角色'},
+				{contentEl:'div6', title: '流程动作'}
+	        ]
+	    });
+        tabs.on('tabChange',function(oldtab,newtab){
+            if(newtab.title=='类别'){
+              document.all.item("TabbarSelect").value=0;
+            }else if(newtab.title=='流程'){
+              document.all.item("TabbarSelect").value=1;
+            }else if(newtab.title=='类别状态'){
+              document.all.item("TabbarSelect").value=2;
+            }else if(newtab.title=='流程状态'){
+              document.all.item("TabbarSelect").value=3;
+            }else if(newtab.title=='流程角色'){
+              document.all.item("TabbarSelect").value=4;
+            }else if(newtab.title=='流程动作'){
+              document.all.item("TabbarSelect").value=5;
+            }
+         });
+	    function handleActivate(tab){
+	        alert(tab.title + ' was activated.');
+	    }
+        <span jwcid="@Insert" raw="true" value="ognl:GridScript_Leib"></span>
+        <span jwcid="@Insert" raw="true" value="ognl:GridScript_Liuc"></span>
+        <span jwcid="@Insert" raw="true" value="ognl:GridScript_Leibzt"></span>
+        <span jwcid="@Insert" raw="true" value="ognl:GridScript_Liuczt"></span>
+    	<span jwcid="@Insert" raw="true" value="ognl:GridScript_Liucjs"></span>
+        <span jwcid="@Insert" raw="true" value="ognl:GridScript_Liucdz"></span>
+        });
+</script>
+<body id="body"  jwcid="@Body" class="bgs" >
+    <script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+      <div id="tabs1" style="margin:2px">
+    	<!-- Auto create div1 -->
+	    <div class="x-hide-display"  id="div1" style="height:100%;width:100%">
+	        <div id = "gridDiv_leib" style="height:100%;overflow:none"></div>
+	    </div>
+	    <!-- Auto create div2 -->
+	    <div class="x-hide-display"  id="div2" style="height:100%;width:100%">
+	        <div id = "gridDiv_liuc" style="height:100%;overflow:none"></div>
+	    </div>
+        <!-- Auto create div3 -->
+	    <div class="x-hide-display"  id="div3" style="height:100%;width:100%">
+	        <div id = "gridDiv_leibzt" style="height:100%;overflow:none"></div>
+	    </div>
+        <!-- Auto create div4 -->
+	    <div class="x-hide-display"  id="div4" style="height:100%;width:100%">
+	        <div id = "gridDiv_liuczt" style="height:100%;overflow:none"></div>
+	    </div>
+        <!-- Auto create div5 -->
+	    <div class="x-hide-display"  id="div5" style="height:100%;width:100%">
+	        <div id = "gridDiv_liucjs" style="height:100%;overflow:none"></div>
+	    </div>
+        <!-- Auto create div6 -->
+	    <div class="x-hide-display"  id="div6" style="height:100%;width:100%">
+	        <div id = "gridDiv_liucdz" style="height:100%;overflow:none"></div>
+	    </div>
+    </div>
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+      
+    <input class="text-position" style="display:none;"jwcid="TabbarSelect" id="TabbarSelect" type="text" />    
+    <span jwcid="@ZRcontrib:ModalDialog" message="ognl:meg" > </span>
+    
+    <!--类别-->
+    <span jwcid="SaveButtonLeib@ZRcontrib:ImgButton" buttontype=""
+	label="保存" style="display:none" id = "SaveButtonLeib" listener="ognl:listeners.SaveButtonLeib" ></span>
+    <span jwcid="InsertButtonLeib@ZRcontrib:ImgButton" buttontype=""
+	label="添加" style="display:none" id = "InsertButtonLeib"  ></span>
+    <span jwcid="DeleteButtonLeib@ZRcontrib:ImgButton" buttontype=""
+	label="删除" style="display:none" id = "DeleteButtonLeib"  ></span>
+	<!--流程-->
+    <span jwcid="SaveButtonLiuc@ZRcontrib:ImgButton" buttontype=""
+	label="保存" style="display:none" id = "SaveButtonLiuc" listener="ognl:listeners.SaveButtonLiuc" ></span>
+    <span jwcid="InsertButtonLiuc@ZRcontrib:ImgButton" buttontype=""
+	label="添加" style="display:none" id = "InsertButtonLiuc"  ></span>
+    <span jwcid="DeleteButtonLiuc@ZRcontrib:ImgButton" buttontype=""
+	label="删除" style="display:none" id = "DeleteButtonLiuc"  ></span>
+    <!--类别状态-->
+    <span jwcid="SaveButtonLeibzt@ZRcontrib:ImgButton" buttontype=""
+	label="保存" style="display:none" id = "SaveButtonLeibzt" listener="ognl:listeners.SaveButtonLeibzt" ></span>
+    <span jwcid="InsertButtonLeibzt@ZRcontrib:ImgButton" buttontype=""
+	label="添加" style="display:none" id = "InsertButtonLeibzt"  ></span>
+    <span jwcid="DeleteButtonLeibzt@ZRcontrib:ImgButton" buttontype=""
+	label="删除" style="display:none" id = "DeleteButtonLeibzt"  ></span>
+    <!--流程状态-->
+    <span jwcid="SaveButtonLiuczt@ZRcontrib:ImgButton" buttontype=""
+	label="保存" style="display:none" id = "SaveButtonLiuczt" listener="ognl:listeners.SaveButtonLiuczt" ></span>
+    <span jwcid="InsertButtonLiuczt@ZRcontrib:ImgButton" buttontype=""
+	label="添加" style="display:none" id = "InsertButtonLiuczt"  ></span>
+    <span jwcid="DeleteButtonLiuczt@ZRcontrib:ImgButton" buttontype=""
+	label="删除" style="display:none" id = "DeleteButtonLiuczt"  ></span>
+    <!--流程角色-->
+    <span jwcid="SaveButtonLiucjs@ZRcontrib:ImgButton" buttontype=""
+	label="保存" style="display:none" id = "SaveButtonLiucjs" listener="ognl:listeners.SaveButtonLiucjs" ></span>
+    <span jwcid="InsertButtonLiucjs@ZRcontrib:ImgButton" buttontype=""
+	label="添加" style="display:none" id = "InsertButtonLiucjs"  ></span>
+    <span jwcid="DeleteButtonLiucjs@ZRcontrib:ImgButton" buttontype=""
+	label="删除" style="display:none" id = "DeleteButtonLiucjs"  ></span>
+    <!--流程动作-->
+    <span jwcid="SaveButtonLiucdz@ZRcontrib:ImgButton" buttontype=""
+	label="保存" style="display:none" id = "SaveButtonLiucdz" listener="ognl:listeners.SaveButtonLiucdz" ></span>
+    <span jwcid="InsertButtonLiucdz@ZRcontrib:ImgButton" buttontype=""
+	label="添加" style="display:none" id = "InsertButtonLiucdz"  ></span>
+    <span jwcid="DeleteButtonLiucdz@ZRcontrib:ImgButton" buttontype=""
+	label="删除" style="display:none" id = "DeleteButtonLiucdz"  ></span>
+    <!--下拉框-->
+    <input style="display: none"  jwcid="LeibSelect" id="LeibSelect"  type="text"/>
+    <input style="display: none"  jwcid="LiucdzSelect" id="LiucdzSelect" type="text"/>
+    <input style="display: none"  jwcid="LiucSelect" id="LiucSelect"  type="text"/>
+    <span style="display:none;" jwcid="EditTableRow"  id="EditTableRow"></span>
+    <span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:GridHtml_Leib"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:GridHtml_Liuc"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:GridHtml_Leibzt"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:GridHtml_Liuczt"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:GridHtml_Liucjs"></span>
+    <span jwcid="@Insert" raw="true" value="ognl:GridHtml_Liucdz"></span>
+  
+ 
+  </form> 
+</body>
+<script>//window.onresize();
+</script>
+</html>

@@ -1,0 +1,8 @@
+<jboss-web>
+   <!-- Uncomment the security-domain to enable security. You will
+      need to edit the ebxmlrr login configuration to setup the
+      login modules used to authentication users.
+      <security-domain>java:/jaas/cts-client-certs</security-domain>
+      -->
+	<context-root>/</context-root> 
+</jboss-web>

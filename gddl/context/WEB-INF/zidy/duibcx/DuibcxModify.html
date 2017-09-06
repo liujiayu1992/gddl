@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>DuibcxIndex</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.selectcombo"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+    <span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+    Ext.onReady(function(){
+    <span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+    });
+</script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.DuibcxPanel"></script>
+</head>
+<body id="body" jwcid="@Body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Reportjs"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<span style="display:none;" jwcid="DataSrcID" id="DataSrcID"></span>
+<span style="display:none;" jwcid="ColID" id="ColID"></span>
+<span style="display:none;" jwcid="Gongys" id="Gongys"></span>
+<span style="display:none;" jwcid="Dianc" id="Dianc"></span>
+<span style="display:none;" jwcid="Title" id="Title"></span>
+<span style="display:none;" jwcid="Width" id="Width"></span>
+<span jwcid="RefurbishDataSourceButton@ZRcontrib:ImgButton" buttontype=""
+	id="RefurbishDataSourceButton" style="display:none"
+	listener="ognl:listeners.RefurbishDataSourceButton"></span>
+<span jwcid="InsertColButton@ZRcontrib:ImgButton" buttontype=""
+	id="InsertColButton" style="display:none"
+	listener="ognl:listeners.InsertColButton"></span>
+<span jwcid="InsertFormulaButton@ZRcontrib:ImgButton" buttontype=""
+	id="InsertFormulaButton" style="display:none"
+	listener="ognl:listeners.InsertFormulaButton"></span>
+<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+	id="SaveButton" style="display:none"
+	listener="ognl:listeners.SaveButton"></span>
+<span jwcid="ReturnButton@ZRcontrib:ImgButton" buttontype=""
+	id="ReturnButton" style="display:none"
+	listener="ognl:listeners.ReturnButton"></span>
+<span jwcid="CHANGE" id="CHANGE" style="display:none"></span>
+<span jwcid="FieldCHANGE" id="FieldCHANGE" style="display:none"></span>
+<span jwcid="DataSrcCombo" style="display:none" id="DataSrcCombo"></span> 
+<span jwcid="ColCombo" style="display:none" id="ColCombo"></span>
+<span jwcid="DiancCombo" style="display:none" id="DiancCombo"></span> 
+<span jwcid="GongysCombo" style="display:none" id="GongysCombo"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+</form>
+</body>
+</html>

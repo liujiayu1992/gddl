@@ -1,0 +1,64 @@
+<!-- $Id: Palette.html,v 1.1.1.1 2014/05/12 05:31:47 xiaz Exp $ -->
+
+<span jwcid="$content$">
+<table jwcid="@Any" element="table" valign="middle" class="ognl:tableClass">
+  <tr>
+  	<th class="available-header">
+ 		<span jwcid="@RenderBlock" block="ognl:availableTitleBlock"/>
+ 		<span jwcid="defaultAvailableTitleBlock@Block">可选项 <!--span key="title.available"/--></span>
+	</th>
+  	<td element="td"valign="middle" class="controls" height ="100%" rowspan="2" width ="30">
+          <table height ="100%"  jwcid="@Any" element="table" border="0" cellspacing="0" cellpadding="0"  >
+  	    	<tr>
+              <td >
+	              <a jwcid="@Any" 
+	  	    	element="a" 
+	  	    	href="ognl:symbols.selectOnClickScript"><img jwcid="@Image"
+	  	    		image="ognl:selectImage"
+	  	    		name="ognl:symbols.selectImageName"
+	  	    		alt="将“可选项”列表框中选中的项移到“已选择”列表框中"/></a>
+				</td>
+             </tr>
+             <tr>
+				<td>
+				    <a jwcid="@Any" element="a"
+				    	href="ognl:symbols.deselectOnClickScript"><img jwcid="@Image"
+				    		image="ognl:deselectImage"
+				    		name="ognl:symbols.deselectImageName"
+				    		alt="将“已选择”列表框中选中的项移到“可选项”列表框中"/></a>
+    			</td>
+             </tr>
+			<span jwcid="@Conditional" condition="ognl:sortUser">
+				<tr>
+					<td>
+		                <a jwcid="@Any" element="a"
+					    	href="ognl:symbols.upOnClickScript"><img jwcid="@Image" 
+					    		image="ognl:upImage"
+					    		name="ognl:symbols.upImageName"
+					    		alt="将“已选择”列表框中选中的项向上移动"/></a>
+					</td>
+             	</tr>
+				<tr>
+					<td>
+					    <a jwcid="@Any" element="a"
+					    	href="ognl:symbols.downOnClickScript">
+                            <img jwcid="@Image"
+					    		image="ognl:downImage"
+					    		name="ognl:symbols.downImageName"
+					    		alt="将“已选择”列表框中选中的项向下移动"/></a>
+					</td>
+             	</tr>                        
+    		</span>
+		</table>
+    </td>
+  	<th class="selected-header">
+ <span jwcid="@RenderBlock" block="ognl:selectedTitleBlock"></span>
+ <span jwcid="defaultSelectedTitleBlock@Block">已选项 <!--span key="title.selected"/--></span>
+    </th>
+  </tr>
+  <tr>
+    <td class="available-cell"><select jwcid="@Delegator"  delegate="ognl:availableColumn"/></td>
+    <td class="selected-cell"><select jwcid="@Delegator" delegate="ognl:selectedColumn"/></td>
+  </tr>
+</table>
+</span>

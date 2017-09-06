@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title>gongswh</title>
+	<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+	<script type="text/javascript">
+	Ext.onReady(function(){
+Ext.QuickTips.init();
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	<span jwcid="@Insert" raw="true" value="ognl:InitData"></span>
+	var store = new Ext.data.SimpleStore({
+	    fields: ['abbr', 'state'],
+	    data : xdata  // from states.js
+	});
+    var form = new Ext.form.FormPanel({
+    defaultType: 'textfield',
+    labelAlign: 'right',
+    title: '基本信息',
+    labelWidth: 370,
+    frame: true,
+    defaults: {
+        msgTarget: 'side'
+    },
+    //width: 300,
+    items: [{
+        fieldLabel: '姓名',
+        value: inxingm,
+        width: 150
+    },{
+		fieldLabel: '部门',
+		value: inbum,
+		width :150
+    },{
+		fieldLabel: '职位',
+		value: inzhiw,
+       width :150
+    },
+     new Ext.form.ComboBox({
+        fieldLabel: '性别',
+        value: inxingb,
+        hiddenName:'性别',
+        store: store,
+        valueField:'abbr',
+        editable: false,
+        displayField:'state',
+        typeAhead: true,
+        mode: 'local',
+        triggerAction: 'all',
+        selectOnFocus:true,
+        width:150
+    }),
+    new Ext.form.TextArea({
+		fieldLabel: '联系地址',
+		value: inlianxdz,
+       width :150
+    }),{
+		fieldLabel: '邮政编码',
+		value: inyouzbm,
+       width :150
+    },{
+		fieldLabel: '传真',
+		value: inchuanz,
+       width :150
+    },{
+		fieldLabel: '移动电话',
+		value: inyiddh,
+       width :150
+    },{
+		fieldLabel: '固定电话',
+		value: inguddh,
+       width :150
+    },{
+		fieldLabel: 'E-mail',
+		vtype:'email',
+		value: inEmail,
+       width :150
+    }],
+    buttons: [{
+        text: '确认',
+        minWidth : 65
+    }]
+});
+form.render("form");
+	form.buttons[0].on("click",function(){
+		texts	=	form.items;
+		xingm	=	texts.itemAt(0).getValue();
+		bum		=	texts.itemAt(1).getValue();
+		zhiw	=	texts.itemAt(2).getValue();
+		xingb	=	texts.itemAt(3).getRawValue();
+		lianxdz=	texts.itemAt(4).getValue();
+		youzbm	=	texts.itemAt(5).getValue();
+		chuanz	=	texts.itemAt(6).getValue();
+		yiddh	=	texts.itemAt(7).getValue();
+		guddh	=	texts.itemAt(8).getValue();
+		email	=	texts.itemAt(9).getValue();
+		newInfo = xingm + ";" +
+				bum+ ";" +
+				zhiw+ ";" +
+				xingb+ ";" +
+				lianxdz+ ";" +
+				youzbm+ ";" +
+				chuanz+ ";" +
+				yiddh+ ";" +
+				guddh+ ";" +
+				email;
+		var Cobj = document.getElementById("CHANGE");
+		Cobj.value = newInfo;
+		document.getElementById("SaveButton").click();
+	});
+
+
+formpwd.render("formpwd");
+	formpwd.buttons[0].on("click",function(){
+		texts = formpwd.items;
+		if(!texts.itemAt(0).isValid() || !texts.itemAt(1).isValid()){
+			Ext.MessageBox.alert("提示信息","<span style='letter-spacing: 1pt'><font size='3'><strong>密码不符合验证规则!</strong></font></span>");
+			return;
+		}
+		
+		var Cobj = document.getElementById("CHANGE");
+		Cobj.value = pwds;
+		document.getElementById("ReSetPwdButton").click();
+	});h
+});
+</script>
+</head>
+<body>
+<div id = "formpwd" style="width:100%;height:200"></div>
+<div id = "form" style="width:100%;height:100%"></div>
+
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+	<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+		label="保存" style="display:none" 
+		id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+	<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+</form>
+</body>
+</html>

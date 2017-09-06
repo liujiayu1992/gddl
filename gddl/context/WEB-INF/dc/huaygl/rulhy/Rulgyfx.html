@@ -1,0 +1,1314 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>入炉化验工业分析</title>
+</head>
+
+<body>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"
+	onkeydown="if(event.keyCode == 13) return false;" action="--WEBBOT-SELF--" method="POST">    
+
+			<!--webbot bot="SaveResults" U-File="C:\Documents and Settings\wang\My Documents\_private\form_results.csv" S-Format="TEXT/CSV" S-Label-Fields="TRUE" -->
+<table border="1" width="100%">
+	<tr>
+
+        
+			        <td>
+                    <font size="2">入炉时间</font><input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 20%"
+					jwcid="Rulrq" id="Rulrq" type="text" /><font size="2">
+                    入炉班值</font><input readonly="true"
+					onfocus="editin(this,'onclick');"onclick="editin(this,'onclick');dropdown(this,RulbzSelect);"
+					style="width: 20%"
+					jwcid="RulbzSelect" id="RulbzSelect"  /><font size="2">
+                    化验时间</font><input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 20%"
+					jwcid="Huayrq" id="Huayrq" type="text"  /></td>
+                    
+					<td><span jwcid="RefurbishButton@ZRcontrib:ImgButton"
+					buttontype="refurbish" label="刷新"
+					listener="ognl:listeners.RefurbishButton" /></td>
+					<td><span jwcid="SaveButton@ZRcontrib:ImgButton"
+					buttontype="Save" label="保存"
+					listener="ognl:listeners.SaveButton" /></td>
+					<td><span jwcid="DeleteButton@ZRcontrib:ImgButton"
+					buttontype="delete" label="删除"
+					listener="ognl:listeners.DeleteButton" /></td>
+					<td><span jwcid="SubmitButton@ZRcontrib:ImgButton"
+					buttontype="submit" label="提交"
+					listener="ognl:listeners.SubmitButton" /></td>
+	</tr>
+	<tr>
+			        <td>
+                    <font size="2">取 煤 位</font><input readonly="true"
+					onfocus="editin(this,'onclick');"onclick="editin(this,'onclick');dropdown(this,QumwSelect);"
+					style="width: 20%"
+					jwcid="QumwSelect" id="QumwSelect" /><font size="2">
+                    数据状态</font><input readonly="true"
+					onfocus="editin(this,'onclick');"onclick="editin(this,'onclick');dropdown(this,Shenhzt);"
+					style="width: 20%"
+					jwcid="Shenhzt" id="Shenhzt" /><font size="2"> 氢</font><input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 66px"
+					jwcid="Qing" id="Qing" type="text"  /><font size="2">
+
+
+		            </td>
+
+	</tr>
+</table>
+
+<table border="0" width="100%" id="table1">
+	<tr>
+		<td>
+		<table border="1" width="100%" id="table2">
+			<tr>
+				<td rowspan="10" width="6%"><font size="2">全水分Mt</font></td>
+				<td width="20%">　</td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第一次</font></td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第二次</font></td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第三次</font></td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第四次</font></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">称量瓶(盘)号</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clph1" id="Mt_clph1" type="text" /><font size="2">
+
+　</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clph2" id="Mt_clph1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clph3" id="Mt_clph1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clph4" id="Mt_clph1" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">称量瓶(盘)质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clpzl1" id="Mt_clpzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clpzl2" id="Mt_clpzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clpzl3" id="Mt_clpzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clpzl4" id="Mt_clpzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">称量瓶(盘)质量+试样质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clpzlsyzl1" id="Mt_clpzlsyzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clpzlsyzl2" id="Mt_clpzlsyzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clpzlsyzl3" id="Mt_clpzlsyzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_clpzlsyzl4" id="Mt_clpzlsyzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">试样质量m(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_syzl1" id="Mt_syzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_syzl2" id="Mt_syzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_syzl3" id="Mt_syzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_syzl4" id="Mt_syzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">烘后总质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_hhzzl1" id="Mt_hhzzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_hhzzl2" id="Mt_hhzzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_hhzzl3" id="Mt_hhzzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_hhzzl4" id="Mt_hhzzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">检查性试验后总质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_jcxsyhzzl1" id="Mt_jcxsyhzzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_jcxsyhzzl2" id="Mt_jcxsyhzzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_jcxsyhzzl3" id="Mt_jcxsyhzzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_jcxsyhzzl4" id="Mt_jcxsyhzzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">全水分Mt=m1/m*100(%)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_qsf1" id="Mt_qsf1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_qsf2" id="Mt_qsf2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_qsf3" id="Mt_qsf3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_qsf4" id="Mt_qsf4" type="text" /></td>
+			</tr>
+			
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">平均值Mt(%)</font></td>
+				<td colspan="4">
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_pjz" id="Mt_pjz" type="text" /></td>
+			</tr>
+            <tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">审核人员</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_sh1" id="Mt_sh1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_sh2" id="Mt_sh2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_sh3" id="Mt_sh3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mt_sh4" id="Mt_sh4" type="text" /></td>
+			</tr>
+            
+		</table>
+		</td>
+		<td>
+		<table border="1" width="100%" id="table8">
+			<tr>
+				<td rowspan="10" width="6%"><font size="2">水分Mad</font></td>
+				<td width="20%">　</td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第一次</font></td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第二次</font></td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第三次</font></td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第四次</font></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">称量瓶(盘)号</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clph1" id="Mad_clph1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clph2" id="Mad_clph2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clph3" id="Mad_clph3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clph4" id="Mad_clph4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">称量瓶(盘)质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clpzl1" id="Mad_clpzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clpzl2" id="Mad_clpzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clpzl3" id="Mad_clpzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clpzl4" id="Mad_clpzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">称量瓶(盘)质量+试样质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clpzlsyzl1" id="Mad_clpzlsyzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clpzlsyzl2" id="Mad_clpzlsyzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clpzlsyzl3" id="Mad_clpzlsyzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_clpzlsyzl4" id="Mad_clpzlsyzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">试样质量m(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_syzl1" id="Mad_syzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_syzl2" id="Mad_syzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_syzl3" id="Mad_syzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_syzl4" id="Mad_syzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">烘后总质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_hhzzl1" id="Mad_hhzzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_hhzzl2" id="Mad_hhzzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_hhzzl3" id="Mad_hhzzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_hhzzl4" id="Mad_hhzzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">检查性试验后总质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_jcxsyhzzl1" id="Mad_jcxsyhzzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_jcxsyhzzl2" id="Mad_jcxsyhzzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_jcxsyhzzl3" id="Mad_jcxsyhzzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_jcxsyhzzl4" id="Mad_jcxsyhzzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">全水分Mt=m1/m*100(%)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_qsf1" id="Mad_qsf1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_qsf2" id="Mad_qsf2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_qsf3" id="Mad_qsf3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_qsf4" id="Mad_qsf" type="text" /></td>
+			</tr>
+			
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">平均值Mt(%)</font></td>
+				<td colspan="4">
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_pjz" id="Mad_pjz" type="text" /></td>
+			</tr>
+            <tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">审核人员</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_sh1" id="Mad_sh1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_sh2" id="Mad_sh2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_sh3" id="Mad_sh3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Mad_sh4" id="Mad_sh4" type="text" /></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table border="1" width="100%" id="table4">
+			<tr>
+				<td rowspan="11" width="6%"><font size="2">挥发分Vad</font></td>
+				<td width="20%">　</td>
+				<td bgcolor="#C0C0C0"><font size="2">第一次</font></td>
+				<td bgcolor="#C0C0C0"><font size="2">第二次</font></td>
+				<td bgcolor="#C0C0C0"><font size="2">第三次</font></td>
+				<td bgcolor="#C0C0C0"><font size="2">第四次</font></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">坩埚号</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggh1" id="Vad_ggh1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggh2" id="Vad_ggh2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggh3" id="Vad_ggh3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggh4" id="Vad_ggh4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">坩埚质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggzl1" id="Vad_ggzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggzl2" id="Vad_ggzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggzl3" id="Vad_ggzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggzl4" id="Vad_ggzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">坩埚质量+试样质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggzlsyzl1" id="Vad_ggzlsyzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggzlsyzl2" id="Vad_ggzlsyzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggzlsyzl3" id="Vad_ggzlsyzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_ggzlsyzl4" id="Vad_ggzlsyzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">试样质量m(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_syzl1" id="Vad_syzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_syzl2" id="Vad_syzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_syzl3" id="Vad_syzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_syzl4" id="Vad_syzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">加热后总质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_jrhzzl1" id="Vad_jrhzzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_jrhzzl2" id="Vad_jrhzzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_jrhzzl3" id="Vad_jrhzzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_jrhzzl4" id="Vad_jrhzzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">煤样加热后减少的质量m1(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_myjrhjszl1" id="Vad_myjrhjszl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_myjrhjszl2" id="Vad_myjrhjszl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_myjrhjszl3" id="Vad_myjrhjszl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_myjrhjszl4" id="Vad_myjrhjszl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">挥发分Vad=m1/m*100-Mad(%)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_hff1" id="Vad_hff1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_hff2" id="Vad_hff2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_hff3" id="Vad_hff3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_hff4" id="Vad_hff4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">挥发分Vdaf(%)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_hffqsf1" id="Vad_hffqsf1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_hffqsf2" id="Vad_hffqsf2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_hffqsf3" id="Vad_hffqsf3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_hffqsf4" id="Vad_hffqsf4" type="text" /></td>
+			</tr>
+			
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">平均值Vdaf(%)</font></td>
+				<td colspan="4">
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_pjz" id="Vad_pjz" type="text" /></td>
+			</tr>
+            <tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">审核人员</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_sh1" id="Vad_sh1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_sh2" id="Vad_sh2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_sh3" id="Vad_sh3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Vad_sh4" id="Vad_sh4" type="text" /></td>
+			</tr>
+            
+		</table>
+		</td>
+		<td>
+		<table border="1" width="100%" id="table9">
+			<tr>
+				<td rowspan="11" width="6%"><font size="2">灰分Aad</font></td>
+				<td width="20%">　</td>
+				<td bgcolor="#C0C0C0"><font size="2">第一次</font></td>
+				<td bgcolor="#C0C0C0"><font size="2">第二次</font></td>
+				<td bgcolor="#C0C0C0"><font size="2">第三次</font></td>
+				<td bgcolor="#C0C0C0"><font size="2">第四次</font></td>
+			</tr>
+			<tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">灰皿号</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmh1" id="Aad_hmh1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmh2" id="Aad_hmh2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmh3" id="Aad_hmh3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmh4" id="Aad_hmh4" type="text" /></td>
+			</tr>
+			<tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">灰皿质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmzl1" id="Aad_hmzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmzl2" id="Aad_hmzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmzl3" id="Aad_hmzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmzl4" id="Aad_hmzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">灰皿质量+试样质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmzlsyzl1" id="Aad_hmzlsyzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmzlsyzl2" id="Aad_hmzlsyzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmzlsyzl3" id="Aad_hmzlsyzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_hmzlsyzl4" id="Aad_hmzlsyzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">试样质量m(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_syzl1" id="Aad_syzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_syzl2" id="Aad_syzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_syzl3" id="Aad_syzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_syzl4" id="Aad_syzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">加热后总质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_jrhzzl1" id="Aad_jrhzzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_jrhzzl2" id="Aad_jrhzzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_jrhzzl3" id="Aad_jrhzzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_jrhzzl4" id="Aad_jrhzzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">检查性试验后总质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_jcxsyhzzl1" id="Aad_jcxsyhzzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_jcxsyhzzl2" id="Aad_jcxsyhzzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_jcxsyhzzl3" id="Aad_jcxsyhzzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_jcxsyhzzl4" id="Aad_jcxsyhzzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">残留物的质量m1(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_clwdzl1" id="Aad_clwdzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_clwdzl2" id="Aad_clwdzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_clwdzl3" id="Aad_clwdzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+					jwcid="Aad_clwdzl4" id="Aad_clwdzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">灰分Aad(%)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Aad_hf1" id="Aad_hf1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Aad_hf2" id="Aad_hf2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Aad_hf3" id="Aad_hf3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Aad_hf4" id="Aad_hf4" type="text" /></td>
+			</tr>
+			
+			<tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">平均值(%)</font></td>
+				<td colspan="4">
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Aad_pjz" id="Aad_pjz" type="text" /></td>
+			</tr>
+            <tr>
+				<td  width="20%" bgcolor="#C0C0C0"><font size="2">审核人员</font></td>
+                <td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Aad_sh1" id="Aad_sh1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Aad_sh2" id="Aad_sh2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Aad_sh3" id="Aad_sh3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Aad_sh4" id="Aad_sh4" type="text" /></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table border="1" width="100%" id="table10" >
+			<tr>
+				<td rowspan="9" width="6%"><font size="2">全硫</font></td>
+				<td width="20%">　</td>
+				<td bgcolor="#C0C0C0" width="63"><font size="2">第一次</font></td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第二次</font></td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第三次</font></td>
+				<td bgcolor="#C0C0C0" width="60"><font size="2">第四次</font></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">器皿号</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmh1" id="Ql_qmh1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmh2" id="Ql_qmh2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmh3" id="Ql_qmh3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmh4" id="Ql_qmh4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">器皿质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmzl1" id="Ql_qmzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmzl2" id="Ql_qmzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmzl3" id="Ql_qmzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmzl4" id="Ql_qmzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">器皿质量+试样质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmzlsyzl1" id="Ql_qmzlsyzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmzlsyzl2" id="Ql_qmzlsyzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmzlsyzl3" id="Ql_qmzlsyzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_qmzlsyzl4" id="Ql_qmzlsyzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">试样质量m(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_syzl1" id="Ql_syzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_syzl2" id="Ql_syzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_syzl3" id="Ql_syzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_syzl4" id="Ql_syzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">全硫St,ad(%)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_stad1" id="Ql_stad1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_stad2" id="Ql_stad2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_stad3" id="Ql_stad3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_stad4" id="Ql_stad4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">全硫St,d(%)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_std1" id="Ql_std1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_std2" id="Ql_std2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_std3" id="Ql_std3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_std4" id="Ql_std4" type="text" /></td>
+			</tr>
+			
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">平均值St,d(%)</font></td>
+				<td colspan="4">
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_pjz" id="Ql_pjz" type="text" /></td>
+			</tr>
+            
+            <tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">审核人员</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_sh1" id="Ql_sh1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_sh2" id="Ql_sh2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_sh3" id="Ql_sh3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Ql_sh4" id="Ql_sh4" type="text" /></td>
+			</tr>
+            
+			</table>
+		</td>
+		<td>
+		<table border="1" width="100%" id="table11">
+			<tr>
+				<td rowspan="9" width="6%"><font size="2">发热量</font></td>
+				<td width="20%">　</td>
+				<td bgcolor="#C0C0C0"><font size="2">第一次</font></td>
+				<td bgcolor="#C0C0C0"><font size="2">第二次</font></td>
+				<td bgcolor="#C0C0C0"><font size="2">第三次</font></td>
+				<td bgcolor="#C0C0C0"><font size="2">第四次</font></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">坩埚质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_ggzl1" id="Frl_ggzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_ggzl2" id="Frl_ggzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_ggzl3" id="Frl_ggzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_ggzl4" id="Frl_ggzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">坩埚质量+试样质量(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_ggzlsyzl1" id="Frl_ggzlsyzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_ggzlsyzl2" id="Frl_ggzlsyzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_ggzlsyzl3" id="Frl_ggzlsyzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_ggzlsyzl4" id="Frl_ggzlsyzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">试样质量m(g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_syzl1" id="Frl_syzl1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_syzl2" id="Frl_syzl2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_syzl3" id="Frl_syzl3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_syzl4" id="Frl_syzl4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">Qb,ad(J/g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qbad1" id="Frl_qbad1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qbad2" id="Frl_qbad2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qbad3" id="Frl_qbad3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qbad4" id="Frl_qbad4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">Qgr,ad(J/g)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qgrad1" id="Frl_qgrad1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qgrad2" id="Frl_qgrad2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qgrad3" id="Frl_qgrad3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qgrad4" id="Frl_qgrad4" type="text" /></td>
+			</tr>
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">Qnet,ar(MJ/kg)</font></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qnetar1" id="Frl_qnetar1" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qnetar2" id="Frl_qnetar2" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qnetar3" id="Frl_qnetar3" type="text" /></td>
+				<td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_qnetar4" id="Frl_qnetar4" type="text" /></td>
+			</tr>
+			
+			<tr>
+				<td width="20%" bgcolor="#C0C0C0"><font size="2">平均值Qnet,ar(MJ/kg)</font></td>
+				<td colspan="4">
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_pjz" id="Frl_pjz" type="text" /></td>
+			</tr>
+            
+            <tr>
+				<td width="20%" bgcolor="#C0C0C0" ><font size="2">审核人员</font></td>
+                <td>
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_sh1" id="Frl_sh1" type="text" /></td>
+				<td >
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_sh2" id="Frl_sh2" type="text" /></td>
+				<td >
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_sh3" id="Frl_sh3" type="text" /></td>
+				<td >
+<input 
+					onfocus="editin(this,'onclick');" onclick="editin(this,'onclick');"
+					style="width: 100%"
+                   jwcid="Frl_sh4" id="Frl_sh4" type="text" /></td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+
+</html>

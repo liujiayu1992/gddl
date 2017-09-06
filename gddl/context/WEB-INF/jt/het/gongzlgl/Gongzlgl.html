@@ -1,0 +1,358 @@
+<html jwcid="@Shell" doctype=" " title="数量管理"  stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script>
+	Ext.onReady(function(){
+	    // basic tabs 1, built from existing content
+   		bodyHeight =body.clientHeight;
+		bodyWidth =body.clientWidth;
+	    var tabs = new Ext.TabPanel({
+	        renderTo: 'tabs1',
+	        width:bodyWidth-5,
+    		height:bodyHeight-23,
+	        activeTab: document.all.item("TabbarSelect").value,
+	        frame:true,
+	        defaults:{autoHeight: true},
+	        items:[
+	            {contentEl:'div1', title: '类别'},
+	            {contentEl:'div2', title: '流程'},
+	            {contentEl:'div3', title: '类别状态'},
+				{contentEl:'div4', title: '流程状态'},
+				{contentEl:'div5', title: '流程角色'},
+				{contentEl:'div6', title: '流程动作'}
+	        ]
+	    });
+        tabs.on('tabChange',function(oldtab,newtab){
+            if(newtab.title=='类别'){
+              document.all.item("TabbarSelect").value=0;
+            }else if(newtab.title=='流程'){
+              document.all.item("TabbarSelect").value=1;
+            }else if(newtab.title=='类别状态'){
+              document.all.item("TabbarSelect").value=2;
+            }else if(newtab.title=='流程状态'){
+              document.all.item("TabbarSelect").value=3;
+            }else if(newtab.title=='流程角色'){
+              document.all.item("TabbarSelect").value=4;
+            }else if(newtab.title=='流程动作'){
+              document.all.item("TabbarSelect").value=5;
+            }
+         });
+	    function handleActivate(tab){
+	        alert(tab.title + ' was activated.');
+	    }
+	});
+</script>
+<body id="body"  jwcid="@Body" class="bgs" >
+	<script jwcid="Gongzlgljs"/>
+	<script jwcid="Datejs"/>
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+    <input class="text-position" style="display:none;"jwcid="TabbarSelect" id="TabbarSelect" type="text" />    
+    <span jwcid="@ZRcontrib:ModalDialog" message="ognl:meg" > </span>
+       <div id="tabs1"style="margin:2px">
+            <div id="div1"class="x-hide-display">
+             <table id="tablemain"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+	         <tr  id="trcondition"  valign=middle  height ="20">
+	            <td > 
+	                <table valign="middle">
+	                    <tr>
+                        <td><span  jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label="刷新" listener="ognl:listeners.RefurbishButton" /></td>      
+                        <td><span  jwcid="InsertButton@ZRcontrib:ImgButton" buttontype="insert"  label="添加" listener="ognl:listeners.InsertButton" /></td> 
+	                    <td><span  jwcid="DeleteButton@ZRcontrib:ImgButton" buttontype="delete"  label="删除" listener="ognl:listeners.DeleteButton" /></td> 
+	                    <td><span  jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="save"  label="保存" listener="ognl:listeners.SaveButton" /></td> 
+	                      <input  class = "text-position" style="display:none;" jwcid="EditTableRow" id="EditTableRow" type="text" />
+	                    </tr>
+	                </table>
+	            </td>
+	          </tr>
+	          <tr  id="SelectData" valign=top>
+	            <td > 
+	                <div id="SelectFrmDiv"   class = "text-position" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+	                  <div id="SelectHeadDiv" style="OVERFLOW: hidden; background-color:#FFFFFF">
+	                    <table  id="EditHeadTabel"  bordercolordark="#ffffff" cellpadding="0" cellspacing="0" bordercolor="#ffffff" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252" bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"   class="edittablehead"  jwcid="@Any" background="ognl:assets.background" width = "200">
+	                        <tr width = "200" align="center">
+	                              <th jwcid="@Any"  width = "50" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:47px">序号</label></th>
+	                              <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">名称</label></th>
+	                        </tr></table></div>
+	                  <div id="SelectDataDiv" onscroll="_onscroll(this,SelectHeadDiv)" style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; ; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+	                    <table id="oData" class="edittable" border="0" cellpadding="0" cellspacing="0" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"  width = "200"  >
+	                        <tr Height="21" onclick="classchange(this,'onclick')" onmouseout="classchange(this,'onmouseout')"  onmouseover="classchange(this,'onmouseover')"  width = "200"  jwcid="EditValues" class="edittableTrOut">
+	                             <td width = "50" class="tdText">
+	                             <input  readonly ="true"  class = "text-position" style="width:48px" jwcid="XUH" id="XUH" type="text" />
+	                             </td>
+	                            <td width = "150" >
+	                             <input  readonly ="true" onclick="editin(this,'onclick');editclick(this,EditInput);" class = "text-position" style="width:148px" jwcid="MINGC" id="MINGC" type="text" />
+	                             </td>
+	                        </tr>
+	
+	                             <input   onchange="editchange(1)" style="display:none;"  class = "text-position" id="EditInputUpdateAll" type="text" />
+	                             <input   onchange="editchange(0)" style="display:none;"  class = "text-position" id="EditInput" type="text" />
+	                     </table></div>
+	                </div>
+	            </td>
+	          </tr>
+            </table>
+            </div>
+           
+            <div id="div2"class="x-hide-display">
+             <table id="tablemainM"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+	         <tr  id="trconditionM"  valign=middle  height ="20">
+	            <td > 
+	                <table valign="middle">
+	                    <tr>
+                         <td><span  jwcid="RefurbishButtonM@ZRcontrib:ImgButton" buttontype="" label="刷新" listener="ognl:listeners.RefurbishButtonM" /></td>      
+                         <td><span  jwcid="InsertButtonM@ZRcontrib:ImgButton" buttontype="insert"  label="添加" listener="ognl:listeners.InsertButtonM" /></td> 
+	                     <td><span  jwcid="DeleteButtonM@ZRcontrib:ImgButton" buttontype="delete"  label="删除" listener="ognl:listeners.DeleteButtonM" /></td> 
+	                     <td><span  jwcid="SaveButtonM@ZRcontrib:ImgButton" buttontype="save"  label="保存" listener="ognl:listeners.SaveButtonM" /></td> 
+	                     <input  class = "text-position" style="display:none;" jwcid="EditTableRowM" id="EditTableRowM" type="text" />
+	                    </tr>
+	                </table>
+	            </td>
+	          </tr>
+	          <tr  id="SelectDataM" valign=top>
+	            <td > 
+	                <div id="SelectFrmDivM"   class = "text-position" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+	                  <div id="SelectHeadDivM" style="OVERFLOW: hidden; background-color:#FFFFFF">
+	                    <table  id="EditHeadTabelM"  bordercolordark="#ffffff" cellpadding="0" cellspacing="0" bordercolor="#ffffff" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252" bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"   class="edittablehead"  jwcid="@Any" background="ognl:assets.background" width = "350">
+	                        <tr width = "350" align="center">
+	                              <th jwcid="@Any"  width = "50" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:44px">序号</label></th>
+	                              <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">名称</label></th>
+                                  <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">类别</label></th>
+                                  
+	                        </tr></table></div>
+	                  <div id="SelectDataDivM" onscroll="_onscroll(this,SelectHeadDivM)" style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; ; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+	                    <table id="oDataM" class="edittable" border="0" cellpadding="0" cellspacing="0" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"  width = "350"  >
+	                        <tr Height="21" onclick="classchangeM(this,'onclick')" onmouseout="classchangeM(this,'onmouseout')"  onmouseover="classchangeM(this,'onmouseover')"  width = "350"  jwcid="EditValuesM" class="edittableTrOut">
+	                             <td width = "50" class="tdText">
+	                             <input  readonly ="true"  class = "text-position" style="width:48px" jwcid="XUHM" id="XUHM" type="text" />
+	                             </td>
+	                            <td width = "150" >
+	                             <input  readonly ="true" onclick="editinM(this,'onclick');editclickM(this,EditInputM);" class = "text-position" style="width:148px" jwcid="MINGCM" id="MINGCM" type="text" />
+	                             </td>
+                                <td width = "150" >
+		                             <input  onclick="editinM(this,'onclick');dropdownM(this,liuclbb_idSelect);" readonly="true" class = "text-position" style="width:148px" jwcid="liuclbb_id" id="liuclbb_id" type="text" />
+		                         </td>
+	                        </tr>
+                           		 <input   onchange="droponchangeM(0)" class = "bigtext-position" style="display:none;" jwcid="liuclbb_idSelect" id="liuclbb_idSelect" type="text" />
+	                             <input   onchange="editchangeM(0)" style="display:none;"  class = "text-position" id="EditInputM" type="text" />
+	                     </table></div>
+	                </div>
+	            </td>
+	          </tr>
+            </table>
+            </div>
+           
+	       <div id="div3"class="x-hide-display">
+            <table id="tablemainL"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+		        <tr  id="trconditionL"  valign=middle  height ="20">
+		            <td > 
+		                <table valign="middle">
+		                    <tr>
+                             <td align="right"class="text-position" >类别:</td>
+               				 <td ><input class="text-position" onchange="this.form.submit()"jwcid="leibSelect" id="leibSelect"/></td>
+                            <td><span  jwcid="RefurbishButtonL@ZRcontrib:ImgButton" buttontype="" label="刷新" listener="ognl:listeners.RefurbishButtonL" /></td>      
+		                    <td><span  jwcid="InsertButtonL@ZRcontrib:ImgButton" buttontype="insert"  label="添加" listener="ognl:listeners.InsertButtonL" /></td> 
+		                    <td><span  jwcid="DeleteButtonL@ZRcontrib:ImgButton" buttontype="delete"  label="删除" listener="ognl:listeners.DeleteButtonL" /></td> 
+                            <td><span  jwcid="SaveButtonL@ZRcontrib:ImgButton" buttontype="save"  label="保存" listener="ognl:listeners.SaveButtonL" /></td> 
+		                        <input  class = "text-position" style="display:none;"  jwcid="EditTableRowL" id="EditTableRowL" type="text" />
+		                    </tr>
+		                </table>
+		            </td>
+		        </tr>
+		        <tr  id="SelectDataL" valign=top>
+		            <td > 
+		                <div id="SelectFrmDivL"   class = "text-position" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		                  <div id="SelectHeadDivL" style="OVERFLOW: hidden; background-color:#FFFFFF">
+		                    <table  id="EditHeadTabelL"  bordercolordark="#ffffff" cellpadding="0" cellspacing="0" bordercolor="#ffffff" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;" bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"   class="edittablehead"  jwcid="@Any" background="ognl:assets.background" width="200">
+		                        <tr  width="200"  align="center">
+                                     <th jwcid="@Any"   width="50" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:45px">序号</label></th>
+		                              <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">名称</label></th>
+		                              <!--th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">顺序</label></th-->
+		                        </tr></table></div>
+		                  <div id="SelectDataDivL" onscroll="_onscroll(this,SelectHeadDivL)" style="POSITION: absolute;BORDER-RIGHL: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; ; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+		                    <table id="oDataL" class="edittable" border="0" cellpadding="0" cellspacing="0" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"  width = "200"  >
+		                        <tr Height="21" onclick="classchangeL(this,'onclick')" onmouseout="classchangeL(this,'onmouseout')"  onmouseover="classchangeL(this,'onmouseover')"  width = "200"  jwcid="EditValuesL" class="edittableTrOut">
+		                             <td width="50"  class="tdText">
+		                             <input  readonly ="true"  class = "text-position" style="width:48px" jwcid="XUHL" id="XUHL" type="text" />
+		                             </td>
+                                    <td width = "150" >
+	                                <input  readonly ="true" onclick="editinL(this,'onclick');editclickL(this,EditInputL);" class = "text-position" style="width:148px" jwcid="MINGCL" id="MINGCL" type="text" />
+	                                </td>
+                                    <!--td width = "150" >
+	                                <input  readonly ="true" onclick="editinL(this,'onclick');editclickL(this,EditInputL);" class = "text-position" style="width:148px" jwcid="paixhL" id="paixhL" type="text" />
+	                                </td-->
+		                        </tr>
+		                             <input   onchange="editchangeL(0)" style="display:none;"  class = "bigtext-position" id="EditInputL" type="text" />
+		                     </table></div>
+		                </div>
+		            </td>
+		        </tr>
+		    </table> 
+	       </div>
+	       
+	       <div id="div4"class="x-hide-display">
+            <table id="tablemainT"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+		        <tr  id="trconditionT"  valign=middle  height ="20">
+		            <td > 
+		                <table valign="middle">
+		                    <tr>
+                             <td align="right"class="text-position" >流程:</td>
+               				 <td ><input class="text-position" onchange="this.form.submit()"jwcid="Liucb_IDSelectT" id="Liucb_IDSelectT"/></td>
+                            <td><span  jwcid="RefurbishButtonT@ZRcontrib:ImgButton" buttontype="" label="刷新" listener="ognl:listeners.RefurbishButtonT" /></td>      
+		                    <td><span  jwcid="InsertButtonT@ZRcontrib:ImgButton" buttontype="insert"  label="添加" listener="ognl:listeners.InsertButtonT" /></td> 
+		                    <td><span  jwcid="DeleteButtonT@ZRcontrib:ImgButton" buttontype="delete"  label="删除" listener="ognl:listeners.DeleteButtonT" /></td> 
+                            <td><span  jwcid="SaveButtonT@ZRcontrib:ImgButton" buttontype="save"  label="保存" listener="ognl:listeners.SaveButtonT" /></td> 
+		                        <input  class = "text-position" style="display:none;"  jwcid="EditTableRowT" id="EditTableRowT" type="text" />
+		                    </tr>
+		                </table>
+		            </td>
+		        </tr>
+		        <tr  id="SelectDataT" valign=top>
+		            <td > 
+		                <div id="SelectFrmDivT"   class = "text-position" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		                  <div id="SelectHeadDivT" style="OVERFLOW: hidden; background-color:#FFFFFF">
+		                    <table  id="EditHeadTabelT"  bordercolordark="#ffffff" cellpadding="0" cellspacing="0" bordercolor="#ffffff" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;" bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"   class="edittablehead"  jwcid="@Any" background="ognl:assets.background" width="350">
+		                        <tr  width="350"  align="center">
+                                     <th jwcid="@Any"   width="50" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:45px">序号</label></th>
+		                              <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">类别状态</label></th>
+		                              <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">顺序</label></th>
+		                        </tr></table></div>
+		                  <div id="SelectDataDivT" onscroll="_onscroll(this,SelectHeadDivT)" style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; ; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+		                    <table id="oDataT" class="edittable" border="0" cellpadding="0" cellspacing="0" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"  width = "350"  >
+		                        <tr Height="21" onclick="classchangeT(this,'onclick')" onmouseout="classchangeT(this,'onmouseout')"  onmouseover="classchangeT(this,'onmouseover')"  width = "350"  jwcid="EditValuesT" class="edittableTrOut">
+		                             <td width="50"  class="tdText">
+		                             <input  readonly ="true"  class = "text-position" style="width:48px" jwcid="XUHT" id="XUHT" type="text" />
+		                             </td>
+                                    <td width = "150" >
+	                                <input  readonly ="true" onclick="editinT(this,'onclick');dropdownT(this,leibztSelect);" class = "text-position" style="width:148px" jwcid="MINGCT" id="MINGCT" type="text" />
+	                                </td>
+                                    <td width = "150" >
+	                                <input  readonly ="true" onclick="editinT(this,'onclick');editclickT(this,EditInputT);" class = "text-position" style="width:148px" jwcid="paixhT" id="paixhT" type="text" />
+	                                </td>
+		                        </tr>
+		                             <input   onchange="editchangeT(0)" style="display:none;"  class = "bigtext-position" id="EditInputT" type="text" />
+                                     <input   onchange="droponchangeT(0)" class = "bigtext-position" style="display:none;" jwcid="leibztSelect" id="leibztSelect" type="text" />
+		                     </table></div>
+		                </div>
+		            </td>
+		        </tr>
+		    </table> 
+	       </div>
+	     
+	       <div id="div5"class="x-hide-display">
+            <table id="tablemainH"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+		        <tr  id="trconditionH"  valign=middle  height ="20">
+		            <td > 
+		                <table valign="middle">
+		                    <tr>
+                            <td><span  jwcid="RefurbishButtonH@ZRcontrib:ImgButton" buttontype="" label="刷新" listener="ognl:listeners.RefurbishButtonH" /></td>      
+                             <td><span  jwcid="InsertButtonH@ZRcontrib:ImgButton" buttontype="insert"  label="添加" listener="ognl:listeners.InsertButtonH" /></td> 
+		                     <td><span  jwcid="DeleteButtonH@ZRcontrib:ImgButton" buttontype="delete"  label="删除" listener="ognl:listeners.DeleteButtonH" /></td> 
+		                     <td><span  jwcid="SaveButtonH@ZRcontrib:ImgButton" buttontype="save"  label="保存" listener="ognl:listeners.SaveButtonH" /></td> 
+		                         <input  class = "text-position" style="display:none;"  jwcid="EditTableRowH" id="EditTableRowH" type="text" />
+		                    </tr>
+		                </table>
+		            </td>
+		        </tr>
+		        <tr  id="SelectDataH" valign=top>
+		            <td > 
+		                <div id="SelectFrmDivH"   class = "text-position" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		                  <div id="SelectHeadDivH" style="OVERFLOW: hidden; background-color:#FFFFFF">
+		                    <table  id="EditHeadTabelH"  bordercolordark="#ffffff" cellpadding="0" cellspacing="0" bordercolor="#ffffff" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252" bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"   class="edittablehead"  jwcid="@Any" background="ognl:assets.background" width = "350">
+		                        <tr width = "350" align="center">
+                                     <th jwcid="@Any"  style="width:50px" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:45px">序号</label></th>
+		                              <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">角色</label></th>
+		                              <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">备注</label></th>
+		                        </tr></table></div>
+		                  <div id="SelectDataDivH" onscroll="_onscroll(this,SelectHeadDivH)" style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; ; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+		                    <table id="oDataH" class="edittable" border="0" cellpadding="0" cellspacing="0" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"  width = "350"  >
+		                        <tr Height="21" onclick="classchangeH(this,'onclick')" onmouseout="classchangeH(this,'onmouseout')"  onmouseover="classchangeH(this,'onmouseover')"  width = "350"  jwcid="EditValuesH" class="edittableTrOut">
+		                             <td width ="50" class="tdText">
+		                             <input  readonly ="true"  class = "text-position" style="width:48px" jwcid="XUHH" id="XUHH" type="text" />
+		                             </td>
+                                    <td width = "150" >
+		                             <input  onclick="editinH(this,'onclick');editclickH(this,EditInputH);"  readonly="true" class = "text-position" style="width:148px" jwcid="mingcH" id="mingcH" type="text" />
+		                             </td>
+		                             <td width = "150" >
+		                             <input onclick="editinH(this,'onclick');editclickH(this,EditInputH);"  readonly="true" class = "text-position" style="width:148px" jwcid="beizH" id="beizH" type="text" />
+		                             </td>
+		                        </tr>
+		                             <input   onchange="editchangeH(0)" style="display:none;"  class = "bigtext-position" id="EditInputH" type="text" />
+		                     </table></div>
+		                </div>
+		            </td>
+		        </tr>
+               
+		    </table>  
+	       </div>   
+	    
+	       <div id="div6"class="x-hide-display">
+            <table id="tablemainD"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+		        <tr  id="trconditionD"  valign=middle  height ="20">
+		            <td > 
+		                <table valign="middle">
+		                    <tr>
+                             <td align="right"class="text-position" >流程:</td>
+               				 <td ><input class="text-position" onchange="this.form.submit()"jwcid="liucSelect" id="liucSelect"/></td>
+                            <td><span  jwcid="RefurbishButtonD@ZRcontrib:ImgButton" buttontype="" label="刷新" listener="ognl:listeners.RefurbishButtonD" /></td>      
+                            <td><span  jwcid="InsertButtonD@ZRcontrib:ImgButton" buttontype="insert"  label="添加" listener="ognl:listeners.InsertButtonD" /></td> 
+		                    <td><span  jwcid="DeleteButtonD@ZRcontrib:ImgButton" buttontype="delete"  label="删除" listener="ognl:listeners.DeleteButtonD" /></td> 
+		                    <td><span  jwcid="SaveButtonD@ZRcontrib:ImgButton" buttontype="save"  label="保存" listener="ognl:listeners.SaveButtonD" /></td> 
+		                         <input  class = "text-position" style="display:none;"  jwcid="EditTableRowD" id="EditTableRowD" type="text" />
+		                    </tr>
+		                </table>
+		            </td>
+		        </tr>
+		        <tr  id="SelectDataD" valign=top>
+		            <td > 
+		                <div id="SelectFrmDivD"   class = "text-position" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		                  <div id="SelectHeadDivD" style="OVERFLOW: hidden; background-color:#FFFFFF">
+		                    <table  id="EditHeadTabelD"  bordercolordark="#ffffff" cellpadding="0" cellspacing="0" bordercolor="#ffffff" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252" bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"   class="edittablehead"  jwcid="@Any" background="ognl:assets.background" width = "800">
+		                        <tr width = "800" align="center">
+                                	<th jwcid="@Any"  style="width:50px" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:45px">序号</label></th>
+		                            <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">角色</label></th>
+		                            <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">前驱状态</label></th>
+                                    <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">后继状态</label></th>
+                                    <th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">操作名</label></th>
+									<th jwcid="@Any"  width = "150" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:145px">动作</label></th>                                    
+		                        </tr></table></div>
+		                  <div id="SelectDataDivD" onscroll="_onscroll(this,SelectHeadDivD)" style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; ; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+		                    <table id="oDataD" class="edittable" border="0" cellpadding="0" cellspacing="0" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"  width = "650"  >
+		                        <tr Height="21" onclick="classchangeD(this,'onclick')" onmouseout="classchangeD(this,'onmouseout')"  onmouseover="classchangeD(this,'onmouseover')"  width = "650"  jwcid="EditValuesD" class="edittableTrOut">
+		                             <td width ="50" class="tdText">
+		                             <input  readonly ="true"  class = "text-position" style="width:48px" jwcid="XUHD" id="XUHD" type="text" />
+		                             </td>
+                                    <td width = "150" >
+		                             <input  onclick="editinD(this,'onclick');dropdownD(this,JUESB_IDSelectD);" readonly="true" class = "text-position" style="width:148px" jwcid="juesb_idD" id="juesb_idD" type="text" />
+		                             </td>
+		                             <td width = "150" >
+		                             <input  onclick="editinD(this,'onclick');dropdownD(this,zhuangt_idSelectD);" readonly="true" class = "text-position" style="width:148px" jwcid="qianqztD" id="qianqztD" type="text" />
+		                             </td>
+                                      <td width = "150" >
+		                             <input  onclick="editinD(this,'onclick');dropdownD(this,zhuangt_idSelectD);" readonly="true" class = "text-position" style="width:148px" jwcid="houjztD" id="houjztD" type="text" />
+		                             </td>
+                                     <td width = "150" >
+		                             <input  onclick="editinD(this,'onclick');editclickD(this,EditInputD);"  readonly="true" class = "text-position" style="width:148px" jwcid="caozmD" id="caozmD" type="text" />
+		                             </td>
+                                     <td width = "150" >
+		                             <input  onclick="editinD(this,'onclick');editclickD(this,EditInputD);"  readonly="true" class = "text-position" style="width:148px" jwcid="dongzD" id="dongzD" type="text" />
+		                             </td>
+		                        </tr>
+		                             <input   onchange="droponchangeD(0)" class = "bigtext-position" style="display:none;" jwcid="JUESB_IDSelectD" id="JUESB_IDSelectD" type="text" />
+                                    <input   onchange="droponchangeD(0)" class = "bigtext-position" style="display:none;" jwcid="zhuangt_idSelectD" id="zhuangt_idSelectD" type="text" />
+                                     
+		                             <input   onchange="editchangeD(0)" style="display:none;"  class = "bigtext-position" id="EditInputD" type="text" />
+		                     </table></div>
+		                </div>
+		            </td>
+		        </tr>
+		    </table>  
+	       </div>   
+	     </div>
+    </form>
+</body>
+<script>window.onresize();
+</script>
+</html>

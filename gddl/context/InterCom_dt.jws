@@ -1,0 +1,634 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.StringReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+import javax.xml.rpc.ParameterMode;
+
+import org.apache.axis.client.Call;
+import org.apache.axis.client.Service;
+import org.apache.axis.encoding.XMLType;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+import org.xml.sax.InputSource;
+import com.zhiren.common.DateUtil;
+import com.zhiren.common.JDBCcon;
+import com.zhiren.common.MainGlobal;
+import com.zhiren.common.ResultSetList;
+
+public class InterCom_dt { 
+	private static final String error000="1,000,接收成功";
+	private static final String error001="-1,001,XMLData数据转换为gb312编码时出错";
+	private static final String error002="-1,002,文档不符合dom规范,可能是发送配置表中sql的字段为函数时没有写别名";
+	private static final String error003="-1,003,双方没有安照接口协议传输数据，请检查发送接收的配置，例如发送数据的日期时间类型必须用格式字符串，接收端编码类型字段的配置等或远程数据库编码重复或违反唯一约束条件";//
+	private static final String error004="-1,004,执行远程的sql时远程服务器数据库连接失败";
+	private static final String error005="-1,005,执行远程的sql时出错，可能是客户端生成的sql语句不符合规范，请检查发送配置表";
+	private static final String error007="-1,007,删除远程数据时没有找到主键字段名称，可能是远程接收配置没有设置主键名称!";
+	private static final String error008="1,008,删除0条数据，也就是远程数据与本地数据没有同步";
+	private static final String error009="-1,009,用户名称不在，你的电厂还没有在集团注册用户";
+	private static final String error010="-1,010,用户账户的密码错误请检查系统密码设置";
+	private static final String error011="-1,011,接收数据库的接收配置有不识别的类型";
+	private static final String error013="-1,013,发送端与接收端配置的字段个数不一致。";
+	private static final String error014="-1,014,未知异常。";
+	private static final String error015="-1,015,写文件时出错。";
+//	private static final String error016="-1,016,解密时出错，可能是密钥错误";
+	
+//	private Long diancxxb_id=null;
+	private  StringBuffer diancxxb_id=new StringBuffer();
+	public boolean getRenw(String diancxxb_id,String renwm){
+		String ENDPOINTADDRESS="";
+		JDBCcon con=new JDBCcon();
+		String sql="select yonghmc,mim,endpointaddress from jiekzhb where diancxxb_id="+diancxxb_id;
+		ResultSetList rs=con.getResultSetList(sql);
+		try {
+			if(rs.next()){
+				ENDPOINTADDRESS=rs.getString("endpointaddress");
+			}
+			if(ENDPOINTADDRESS.equals("")||ENDPOINTADDRESS==null
+			){
+				return false;
+			}
+			Service service = new Service();
+			Call call = (Call) service.createCall();//远程调用者
+			call.setTargetEndpointAddress(new java.net.URL(ENDPOINTADDRESS));
+			call.setOperationName("request");
+			call.addParameter("task", XMLType.SOAP_STRING,ParameterMode.IN);
+			call.invoke(new Object[] {renwm});//
+		} catch (Exception e) {
+			// TODO 自动生成 catch 块
+			e.printStackTrace();
+			return false;
+		}finally{
+			con.Close();
+		}
+		return true;
+	}
+	public boolean getRenwall(String diancxxb_id){
+			String ENDPOINTADDRESS="";
+			JDBCcon con=new JDBCcon();
+			String sql="select yonghmc,mim,endpointaddress from jiekzhb where diancxxb_id="+diancxxb_id;
+			ResultSetList rs=con.getResultSetList(sql);
+			try {
+				if(rs.next()){
+					ENDPOINTADDRESS=rs.getString("endpointaddress");
+				}
+				if(ENDPOINTADDRESS.equals("")||ENDPOINTADDRESS==null
+				){
+					return false;
+				}
+				Service service = new Service();
+				Call call = (Call) service.createCall();//远程调用者
+				call.setTargetEndpointAddress(new java.net.URL(ENDPOINTADDRESS));
+				call.setOperationName("requestall");
+				call.invoke(new Object[] {});//
+			} catch (Exception e) {
+				// TODO 自动生成 catch 块
+				e.printStackTrace();
+				return false;
+			}finally{
+				con.Close();
+			}
+			return true;
+	}
+	public String incept(String user,String password, byte[ ] XMLData){
+		String message="";
+		int v=yanz(user,password,diancxxb_id);
+		if(v==-1){//用户不存在 
+			message=error009;
+			return message;
+		}else if(v==0){//密码错误
+			message=error010;
+			return message;
+		}else{//通过验证
+			message=xmlToDb(XMLData);
+		}
+//		System.out.print(message);
+//		System.out.print(diancxxb_id);
+		return message;
+	}
+	public String execute(String user,String password,String sql) {
+		System.out.print(sql);
+		String message="";
+		int v=yanz(user,password,diancxxb_id);
+		if(v==-1){//用户不存在 
+			message=error009;
+			return message;
+		}else if(v==0){//密码错误
+			message=error010;
+			return message;
+		}else{//通过验证
+			message=error000;
+			Statement st=null;
+			Connection dBConnection=null;
+			try {
+			String ConnStr="",UserName="",UserPassword="";
+			if (ConnStr.equals("")) {
+				ConnStr = MainGlobal.getDb_jdbcDriverURL();
+			}
+			if (UserName.equals("")) {
+				UserName = MainGlobal.getDb_username();
+			}
+			if (UserPassword.equals("")) {
+				UserPassword = MainGlobal.getDb_password();
+			}
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			dBConnection = DriverManager.getConnection(ConnStr,UserName, UserPassword);
+			st = dBConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			st.executeUpdate(sql);
+			} catch (ClassNotFoundException e) {
+				// TODO 自动生成 catch 块
+				e.printStackTrace();
+				message=error004;
+			}catch (SQLException e) {
+				// TODO 自动生成 catch 块
+				e.printStackTrace();
+				message=error005+sql;
+			}finally{
+				try {
+					st.close();
+					dBConnection.close();
+				} catch (SQLException e) {
+					// TODO 自动生成 catch 块
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		
+		return 	message;
+	}
+	private  String xmlToDb( byte[ ] XMLData){
+		String message=error000;
+		JDBCcon con=new JDBCcon();
+		Element elShujxy=null;
+		Element elGuanlid=null;
+		Element elCaoz=null;
+		Statement st=null;
+		Connection dBConnection=null;
+		//0,解析xml取出数据1,取出格式设置2,构造table、values
+		try{
+			//0
+				String xmlstr= new String(XMLData,"GB2312");
+				StringReader sr = new StringReader(xmlstr);
+//				System.out.println(xmlstr);
+				InputSource is = new InputSource(sr);
+				Document doc = (new SAXBuilder()).build(is);//解读每一个数据帧文件
+				Element root = doc.getRootElement();
+//				System.out.print(root.getName());
+				List Table = root.getChildren();
+
+				 elShujxy = (Element) Table.get(0);//数据协议
+				 elCaoz = (Element) Table.get(1);//操作
+				 elGuanlid = (Element) Table.get(2);//删除主键
+			//1	2
+				StringBuffer bufferTable=new StringBuffer();
+				StringBuffer bufferValus=new StringBuffer();
+			    String sql="select renwmc,jiekjspzb.zidmc,leix,jiekbmzhpzb.zidmc zhuanmsql,zhujmc,weik\n" + 
+				"from jiekjspzb,jiekbmzhpzb\n" + 
+				"where  jiekjspzb.bianm=jiekbmzhpzb.bianm(+) and renwmc='"+elShujxy.getText()+"' order by jiekjspzb.id";
+//				System.out.println(sql); 
+			    ResultSetList rs=con.getResultSetList(sql);
+				if(elCaoz.getText().equals("0")){//0:增加1:删除 如果为增加操作
+					//插入：1,生成表头(id,mingc...)2,读取数据记录组织成valus3,形成插入sql
+					//表头在读配置信息时顺便生成
+					//先删除后增加
+					con.setAutoCommit(false);
+					sql=
+							"delete from "+elShujxy.getText()+" where "+rs.getString(0,"zhujmc")+"="+elGuanlid.getText();
+					con.getDelete(sql);
+					String rulrq="";
+					 bufferTable.append("(");
+					 int kk=0;
+					 while(rs.next()){
+						// System.out.println(kk);
+						// jiespzBeanList.add(new InterCom.JiespzBean(rs.getString("renwmc"),rs.getString("zidmc"),rs.getString("leix"),rs.getString("zhuanmsql"),rs.getString("zhujmc"))) ;
+						// System.out.println(((JiespzBean)jiespzBeanList.get(0)).getZidmc());
+						 if(kk==0){
+							 bufferTable.append(rs.getString("zidmc"));
+						 }else{
+							 bufferTable.append(","+rs.getString("zidmc")); 
+						 }
+						 kk++;
+					 }
+					 bufferTable.append(")");
+//					 System.out.println(bufferTable);
+					 if( Table.size()>3&&(((Element) Table.get(3)).getChildren()).size()!=rs.getRows()){//发送端与接收端字段数量配置不一致
+						 message=error013;
+						 return message;
+					 }
+					for (int i = 3; i < Table.size(); i++) {//数据记录
+						Element shujjl = (Element) Table.get(i);
+						List elZids= shujjl.getChildren();
+						bufferValus.setLength(0);
+						bufferValus.append("(");
+						for(int k=0;k<elZids.size();k++){//2构造values,验证数据（编码验证和空验证）
+							//根据字段配置的类型处理响应字段数据
+							String leix = rs.getString(k,"leix");
+							if(k>0){
+								bufferValus.append(",");
+							}
+							//可以进行编码验证和空验证
+							String str= jiaoy(rs.getString(k,"zidmc"),rs.getString(k,"zhuanmSql"),rs.getString(k,"weik"),((Element)elZids.get(k)).getText(),leix);// 字段名称、字段编码、字段为空
+							if(!str.equals("")){
+								message="-1,012,"+str+"";
+								return message;
+							}
+							if("varchar".equals(leix)||"number".equals(leix)||"id".equals(leix)){
+								bufferValus.append("'"+((Element)elZids.get(k)).getText()+"'");
+							}else if("bianm".equals(leix)){
+								bufferValus.append("("+rs.getString(k,"zhuanmSql")+"'"+((Element)elZids.get(k)).getText()+"')");
+							}else if("date".equals(leix)){
+								if(k==1){
+									rulrq=((Element)elZids.get(k)).getText();
+								}
+								bufferValus.append("to_date('"+((Element)elZids.get(k)).getText()+"','YYYY-MM-DD')");
+							}else if("time".equals(leix)){
+								bufferValus.append("to_date('"+((Element)elZids.get(k)).getText()+"','YYYY-MM-DD HH24:MI:SS')");
+							}else if("decode".equals(leix)){//varchar,nubmer
+								bufferValus.append("("+rs.getString(k,"zhuanmSql").replaceAll("%%", "'"+((Element)elZids.get(k)).getText()+"'")+")");//替换参数
+							}else{//不识别的类型
+								message=error011+":"+leix;
+								return message;
+							}
+						}
+						bufferValus.append(")");
+						sql="insert into "+elShujxy.getText()+bufferTable.toString()+"values\n"+bufferValus.toString();
+						int flag=con.getInsert(sql);
+						if(flag==-1){
+							throw new SQLException();
+						}
+					}
+//					if(elShujxy.getText().equals("rulmzlb")||elShujxy.getText().equals("meihyb")){
+//						UpdateRulzlID(rulrq,diancxxb_id.toString());//.longValue()
+//					}
+					con.commit();
+				}else {
+					//删除操作：形成删除sql
+					 sql=
+						"delete from "+elShujxy.getText()+" where "+rs.getString(0,"zhujmc")+"="+elGuanlid.getText();
+					 int count=con.getDelete(sql);
+					 if(count==-1){//"-1,003,"+str+""删除"+count+"行数据
+						 message=error007;
+					 }if(count==0){
+						 message=error008;
+					 }else{
+						 message=error000;
+					 }
+					 
+					 return message;
+				}
+		}catch(IOException e){
+			con.rollBack();
+			message=error001;//zhixzt cuowlb zhixbz 
+			return message;
+		}catch(JDOMException e1){
+			con.rollBack();
+			message=error002;//zhixzt cuowlb zhixbz 
+			return message;
+		}catch(SQLException e2){
+			con.rollBack();
+			message=error003;//zhixzt cuowlb zhixbz
+			
+			return message;
+		}catch(Exception e4){
+			con.rollBack();
+			message=error014;//zhixzt cuowlb zhixbz
+		}
+		finally{
+			  con.Close();
+			  Xiejsrzb(diancxxb_id.toString(),elShujxy.getText(),elGuanlid.getText(),message,elCaoz.getText());
+		}
+		return message;
+}
+	private String jiaoy(String zidmc,String zhuanmsql,String zidwk,String date,String leix) throws SQLException{//先进行空验证再进行编码验证
+		String resultStr="";
+		if((zidwk.equals("")||zidwk==null)&&(date.equals("")||date==null)){//如果不允许为空,数据还为空则返回错误
+			resultStr=zidmc+"不允许为空";
+			return resultStr;
+		}
+		JDBCcon con=new JDBCcon();
+		try{
+		if(!zhuanmsql.equals("")&&!date.equals("")&&date!=null){//如果是有转码，并有转码数据
+//			System.out.println(zhuanmsql+"'"+date+"'");
+			if("bianm".equals(leix)){//
+				ResultSetList rs=con.getResultSetList(zhuanmsql+"'"+date+"'");
+				if(!rs.next()){
+					resultStr=zidmc+"字段的"+date+"编码不能识别";
+					return resultStr;
+				}
+			}else{//decode
+				if(zidwk.equals("")){//不如果是必填项才校验
+					ResultSetList rs=con.getResultSetList(zhuanmsql.replaceAll("%%", "'"+date+"'"));
+					if(rs.next()){
+						if(rs.getString(0)==null||rs.getString(0).equals("")){
+							resultStr=zidmc+"字段的"+date+"在数据库中找不到对应的值，也就是说在远程数据库中昨日库存为空";
+						}
+						return resultStr;
+					}
+				}
+			}
+			
+		}}
+		finally{
+			 con.Close();
+		}
+		return resultStr;
+	}
+	private int yanz(String user,String password,StringBuffer diancxxb_id){//验证账户
+		JDBCcon con=new JDBCcon();
+		int v=1;
+		String sql=
+		"select mim,id\n" +
+		"from jiekzhb\n" + 
+		"where jiekzhb.yonghmc='"+user+"'";
+		ResultSetList rs=con.getResultSetList(sql);
+		 try{
+			if(rs.next()){
+					diancxxb_id.setLength(0);
+					diancxxb_id.append(rs.getString(1));
+					if(password.equals(rs.getString(0))){
+						v=1;//如果用户存在，并且密码正确返回1
+					}else{
+						v=0;//密码错误
+					}
+			}else{
+				v=-1;//不存在该用户
+			}
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }finally{
+			 con.Close();
+		 }
+		 return v;
+	}
+	private  void UpdateRulzlID(String riq,String diancxxb_id) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("update meihyb h ")
+		.append("set rulmzlb_id = ( \n")
+		.append("select nvl(max(id),0) from rulmzlb z where z.rulrq = h.rulrq \n")
+		.append("and z.diancxxb_id = h.diancxxb_id and z.rulbzb_id = h.rulbzb_id \n")
+		.append("and z.jizfzb_id = h.jizfzb_id ) where h.rulrq = ").append(DateUtil.FormatOracleDate(riq))
+		.append(" and  h.diancxxb_id=").append(diancxxb_id);
+		JDBCcon con = new JDBCcon();
+		con.getUpdate(sb.toString());
+		con.Close();
+	}
+	private void Xiejsrzb(String diancxxb_id,String renw,String renwbs,String message,String caoz){//写接收日志表
+		String[]dat=message.split(",");
+//		if(dat[0].equals("-1")){//如果为错误
+			JDBCcon con=new JDBCcon();
+			String sql=
+			"insert into jiekjsrzb(id,diancxxb_id,renw,renwbs,shij,cuowdm,cuowxx,caoz,zhixzt)values(\n" +
+			"xl_xul_id.nextval,"+diancxxb_id+",'"+renw+"',"+renwbs+",sysdate,'"+dat[1]+"','"+dat[2]+"','"+caoz+"',"+dat[0]+
+			")";
+			con.getInsert(sql);
+			con.Close();
+//		}
+	}
+	public String[] sqlExe(String diancxxb_id,String[] sqls,boolean isTransaction){
+		String ENDPOINTADDRESS="";
+		JDBCcon con=new JDBCcon();
+		String[] resultArry;
+		String sql=
+			"select d.diancxxb_id,z.endpointaddress\n" +
+			"from dianczhb d,jiekzhb z\n" + 
+			"where d.jiekzhb_id=z.id and d.diancxxb_id="+diancxxb_id;
+		ResultSetList rs=con.getResultSetList(sql);
+		try {
+			if(rs.next()){
+				ENDPOINTADDRESS=rs.getString("endpointaddress");
+			}
+			if(ENDPOINTADDRESS.equals("")||ENDPOINTADDRESS==null){
+				return new String[]{"该电厂没有入口地址！"};
+			}
+			Service service = new Service();
+			Call call = (Call) service.createCall();//远程调用者
+			call.setTargetEndpointAddress(new java.net.URL(ENDPOINTADDRESS));
+			call.setOperationName("sqlExe");
+			call.addParameter("sqls", XMLType.SOAP_ARRAY,ParameterMode.IN);
+			call.addParameter("isTransaction", XMLType.SOAP_BOOLEAN,ParameterMode.IN);
+			call.setReturnType(XMLType.SOAP_ARRAY);
+			resultArry=(String[])call.invoke(new Object[] {sqls,Boolean.valueOf(isTransaction)});//如果执行成功返回true
+		} catch (Exception e) {
+			// TODO 自动生成 catch 块
+			e.printStackTrace();
+			return new String[]{"出错啦！"};
+		}finally{
+			con.Close();
+		}
+		return resultArry;
+	}
+	
+	public String getShangj_Jicxx(String Type){
+//		说明：编写日期2009-02-23
+//			编写人员：zsj
+//			主要目的：基础信息上下同步
+//			主要功能：下级单位通过调用该函数返回上级单位的基础信息
+		StringBuffer resultData=new StringBuffer("");
+		JDBCcon con=new JDBCcon();
+		String sql="";
+		String ErrorMessage="";
+		ResultSetList rsl=null;
+		
+			
+		if(Type.equals("MK")){
+			
+			sql="select 0 as id,\n" +
+				"       m.xuh,\n" + 
+				"       g.mingc as meikdq,\n" + 
+				"       m.bianm,\n" + 
+				"       m.mingc,\n" + 
+				"       m.quanc,\n" + 
+				"       m.piny,\n" + 
+				"       sf.quanc as shengfb_id,\n" + 
+				"       m.leib,\n" + 
+				"       jh.mingc as jihkb_id,\n" + 
+				"       m.leix,\n" + 
+				"       m.danwdz,\n" + 
+				"       cs.mingc as chengsb_id,\n" + 
+				"       m.beiz\n" + 
+				"  from meikxxb m, shengfb sf, jihkjb jh, chengsb cs, gongysb g\n" + 
+				" where m.shengfb_id = sf.id(+)\n" + 
+				"   and m.jihkjb_id = jh.id\n" + 
+				"   and m.chengsb_id = cs.id(+)\n" + 
+				"   and m.meikdq_id = g.id(+)\n" + 
+				" order by m.bianm";
+
+		}else if(Type.equals("GYS")){
+			
+			sql="select 0 as id,sg.mingc as fuid,g.xuh,g.mingc,g.quanc,g.piny,g.bianm,\n" +
+				"       g.danwdz,g.faddbr,g.weitdlr,g.kaihyh,g.zhangh,g.dianh,g.shuih,\n" + 
+				"       g.youzbm,g.chuanz,g.meitly,g.meiz,g.chubnl,g.kaicnl,g.kaicnx,\n" + 
+				"       g.shengcnl,g.gongynl,g.liux,g.yunsfs,g.shiccgl,g.zhongdht,\n" + 
+				"       g.yunsnl,g.heznx,decode(g.rongqgx,1,'优',2,'良',3,'中',4,'差','') as rongqgx,\n" + 
+				"       decode(g.xiny,1,'优',2,'良',3,'中',4,'差','') as xiny,g.gongsxz,g.kegywfmz,g.kegywfmzzb,\n" + 
+				"       sf.quanc as shengfb_id,decode(g.shifss,1,'是',2,'否','') as shifss,g.shangsdz,g.zicbfb,g.shoumbfb,\n" + 
+				"       g.qitbfb,cs.mingc as chengsb_id,g.beiz\n" + 
+				"       from gongysb g,gongysb sg,shengfb sf,chengsb cs\n" + 
+				"       where g.fuid=sg.id(+)\n" + 
+				"             and g.shengfb_id=sf.id(+)\n" + 
+				"             and g.chengsb_id=cs.id(+)\n" + 
+				"             and g.leix = 1\n" + 
+				"       order by g.bianm";
+		}else if(Type.equals("MKDQ")){
+			
+			/*sql="select 0 as id,sg.mingc as fuid,g.xuh,g.mingc,g.quanc,g.piny,g.bianm,\n" +
+				"       g.danwdz,g.faddbr,g.weitdlr,g.kaihyh,g.zhangh,g.dianh,g.shuih,\n" + 
+				"       g.youzbm,g.chuanz,g.meitly,g.meiz,g.chubnl,g.kaicnl,g.kaicnx,\n" + 
+				"       g.shengcnl,g.gongynl,g.liux,g.yunsfs,g.shiccgl,g.zhongdht,\n" + 
+				"       g.yunsnl,g.heznx,decode(g.rongqgx,1,'优',2,'良',3,'中',4,'差','') as rongqgx,\n" + 
+				"       decode(g.xiny,1,'优',2,'良',3,'中',4,'差','') as xiny,g.gongsxz,g.kegywfmz,g.kegywfmzzb,\n" + 
+				"       sf.quanc as shengfb_id,decode(g.shifss,1,'是',2,'否','') as shifss,g.shangsdz,g.zicbfb,g.shoumbfb,\n" + 
+				"       g.qitbfb,cs.mingc as chengsb_id,g.beiz\n" + 
+				"       from gongysb g,gongysb sg,shengfb sf,chengsb cs\n" + 
+				"       where g.fuid=sg.id(+)\n" + 
+				"             and g.shengfb_id=sf.id(+)\n" + 
+				"             and g.chengsb_id=cs.id(+)\n" + 
+				"			  and g.leix = 0\n" +
+				"       order by g.bianm";*/
+			//仅供国电燃料使用	
+			sql=    "SELECT 0 AS ID,\n" +
+					"       M.XUH,\n" + 
+					"       M.MINGC,\n" + 
+					"       M.QUANC,\n" + 
+					"       M.BIANM,\n" + 
+					"       M.ZHUANGT,\n" + 
+					"       S.QUANC   SHENGFB_ID\n" + 
+					"  FROM MEIKDQB M, SHENGFB S\n" + 
+					" WHERE S.ID = M.SHENGFB_ID\n" + 
+					" ORDER BY M.XUH";
+			
+		}
+		
+		if(!sql.equals("")){
+			
+			rsl=con.getResultSetList(sql);
+			if(rsl.getRows()>0){
+				
+				int i=0;
+				while(rsl.next()){
+					
+					for(int j=0;j<rsl.getColumnCount();j++){
+						
+						resultData.append("'").append(rsl.getString(j)).append("'").append(",");
+					}
+					resultData.deleteCharAt(resultData.length()-1);
+					resultData.append("~%&");
+					i++;
+				}
+			}
+		}else{
+			
+			ErrorMessage="查询类型 '"+Type+"' 未定义";
+			resultData.append(ErrorMessage);
+		}
+		
+		if(rsl!=null){
+			
+			rsl.close();
+		}
+		con.Close();
+		return resultData.toString();
+	}
+	public String[]  sqlExe(String[] sqls,boolean isTransaction) throws Exception{ 
+		//1连接数据库
+		String ConnStr="",UserName="",UserPassword="";
+		String[] arryRes=new String[sqls.length];
+		if (ConnStr.equals("")) {
+			ConnStr = MainGlobal.getDb_jdbcDriverURL();
+		}
+		if (UserName.equals("")) {
+			UserName = MainGlobal.getDb_username();
+		}
+		if (UserPassword.equals("")) {
+			UserPassword = MainGlobal.getDb_password();
+		}
+		
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection dBConnection = DriverManager.getConnection(ConnStr,UserName, UserPassword);
+		Statement st = dBConnection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+		//2循环执行sqls，并记录执行结果。
+		try{
+		if(isTransaction){//如果是事务
+			dBConnection.setAutoCommit(false);
+			for (int i=0;i<sqls.length;i++){
+				try {
+					st.executeUpdate(sqls[i]);
+					arryRes[0]="true";
+				} catch (SQLException e) {
+					// TODO 自动生成 catch 块
+					arryRes[0]=e.getLocalizedMessage();
+					e.printStackTrace();
+					dBConnection.rollback();
+					return arryRes;
+				}
+			}
+			dBConnection.commit();
+		}else{// 不是事务
+			for (int i=0;i<sqls.length;i++){
+				try {
+					st.executeUpdate(sqls[i]);
+					arryRes[i]="true";
+				} catch (SQLException e) {
+					// TODO 自动生成 catch 块
+					arryRes[i]=e.getLocalizedMessage();
+					e.printStackTrace();
+				}
+			}
+		}
+		}
+		finally{
+			st.close();
+			dBConnection.close();
+		}
+		return arryRes;
+	}
+//	文件保存
+	public  String fileStroe(String path,String name,byte[] file,String caoz){
+		String messager=error000;
+		String realPath="";
+		String[] renwmc_diancid=new String[2];
+		String rootWeb=MainGlobal.getXitxx_item("盘点", "公司盘煤附件路径", "0", "E:\\zhiren\\pand\\");
+		renwmc_diancid=path.split(",");
+		
+		//生成文件路径
+		realPath=rootWeb+"\\"+renwmc_diancid[1];
+		
+		File fRealPath=new File(realPath);
+		
+		if(!fRealPath.exists()){
+            //存放盘点图表文件的目录，不存在时自动创建
+			fRealPath.mkdirs();
+		}
+		File realFile=new File(realPath+"\\"+name);//完整的盘点文件名
+		
+		if(caoz.endsWith("0")||caoz.endsWith("2")){//增加\修改
+			FileOutputStream out;
+			try {
+				out = new FileOutputStream(realFile);
+				out.write(file);
+				out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				messager=error015;
+			}
+			out = null;
+		}else{
+            //删除
+			if(realFile.delete()){
+				 messager=error000;
+			}else{
+				messager=error008;
+			}
+		}
+		return messager;
+	}
+}

@@ -1,0 +1,415 @@
+<html jwcid="@Shell" doctype=" " title="数量管理"  stylesheet="ognl:assets.Rmis">
+<body id="body"  jwcid="@Body" class="bgs" onkeydown="Pingb()" bottommargin=0 topmargin=2 leftmargin=5 rightmargin=5>
+<div id="waitshez" style="border:0px solid gray; padding:2px; POSITION: absolute;z-index:1; OVERFLOW: none; HEIGHT: 119px;width:228px; left:284px; top:200px">
+	<object classid="clsid:D27CDB6E-AE6D-11CF-96B8-444553540000" id="obj1" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" border="0" width="210" height="85">
+      <param name="movie" jwcid="@Any" value="ognl:assets.tiaoj_waiting"  />
+      <param name="quality" value="high" />
+      <embed jwcid="@Any" src="ognl:assets.tiaoj_waiting" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" name="obj1" width="210" height="85" quality="High"/> 
+    </object>
+</div>   
+	<script>
+        function Showwait(){
+			if(document.all.item("waitshez").style.display=="none"){
+        	//	 document.all.item("shezhi").style.display="none";
+                 document.all.item("waitshez").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+
+    </script>
+<style>   
+  img   
+  {   
+  position:relative;   
+  }   
+  </style>
+<script type="text/javascript">   
+  mouseover=true   
+  function   coordinates()   
+  {   
+  if   (!tiaojian)   
+  {   
+  return   
+  }   
+  if   (event.srcElement.id=="tiaojian")   
+  {   
+  mouseover=true   
+  pleft=document.getElementById('TanchuDiv').style.pixelLeft   
+  ptop=document.getElementById('TanchuDiv').style.pixelTop   
+  xcoor=event.clientX   
+  ycoor=event.clientY   
+  document.onmousemove=moveImage   
+  }   
+  }   
+    
+  function   moveImage()   
+  {   
+  if   (mouseover&&event.button==1)   
+  {   
+  document.getElementById('TanchuDiv').style.pixelLeft=pleft+event.clientX-xcoor   
+  document.getElementById('TanchuDiv').style.pixelTop=ptop+event.clientY-ycoor   
+  return   false   
+  }   
+  }   
+    
+  function   mouseup()   
+  {   
+  mouseover=false   
+  }   
+  document.onmousedown=coordinates   
+  document.onmouseup=mouseup   
+</script>
+    <script jwcid="Kuangfjscwjs"/>
+    <script jwcid="Datejs"/>
+    <script>
+   
+        function selall(){
+        	var shoukdw="";
+        
+        	var edityufkhj=document.all.item('HEXYFK').value;
+			if(edityufkhj!="" && edityufkhj!=null && edityufkhj!=0){
+				alert("已经指定预付款,不可以进行全部选择！");
+				return false;
+        	}else{
+	        	if(document.all.item("Selectall").checked){
+	        
+		        	for(var i=0;i<oData.rows.length;i++){
+		        		
+		        		if(document.all.item("Select",i).checked){
+		                
+		                	shoukdw=document.all.item("SHOUKDW",i).value;
+		                	break;
+		                }
+		        	}
+		        	for(i=0;i<oData.rows.length;i++){
+		                if(shoukdw==""){
+		                	shoukdw=document.all.item("SHOUKDW",i).value;
+		                }
+		                if(shoukdw==document.all.item("SHOUKDW",i).value){
+		                	document.all.item("Select",i).checked = true;    	
+		                }
+		            }
+		        }else{
+		        	document.all.item("Selectall").checked=false;
+		        	for(var i=0;i<oData.rows.length;i++){
+		        		if(document.all.item("Select",i).checked){
+		                	document.all.item("Select",i).checked=false;
+		                }
+		        	}
+		        }
+            }
+            Jisfpje();
+        }        
+                
+        function MatchStr(obj,long){
+			var Strs = obj.value;
+			var s = Strs.replace(/[^\x00-\xff]/g,"aa");		// 将汉字和全角字符替换为aa
+			if(s.length > long){							// 判断字符串是否超过指定长度
+				alert("输入字符串过长，请重新输入！");
+				obj.value="";
+				obj.focus();
+				return false;	
+			}		
+			return true;	
+		}
+        function setZhuangt(str,zhuangt){
+        	SetDisabled(str,zhuangt);        
+        }
+          
+        function Jisfpje(){
+            var zonghj=0;//总合计
+			var j=0;
+        	for(var i=0;i<oData.rows.length;i++){
+				if(document.all.item("Select",i).checked){
+                	j++;
+                	var strzonghj = "";
+					var zuzonghj = document.all.item("MEIKHJ",i).value.split(",");
+                	for(n=0;n<zuzonghj.length;n++){
+						strzonghj = strzonghj+zuzonghj[n];
+					}
+                    zonghj=Round(eval(zonghj)+eval(strzonghj),2); 
+                    
+//                    document.all.item("FUKDFPJE").value=zonghj;
+				}
+			} 
+			document.all.item("FUKDFPJE").value=zonghj;                        
+//           if(j==0){
+//				document.all.item("FUKDFPJE").value=0;
+//			}                           
+        }
+                         
+        function showDIV(){
+			document.all.item("tanchuDIV").style.display="";
+		}
+                       
+        function hiddeDialog(){
+			document.all.item("TanchuDiv").style.display="none";
+		}    
+          
+		var divrow=-1;
+        function getRowID(obj){
+        	divrow=obj.rowIndex;             
+		}                   
+        function SelYufk(obj){
+                 
+            for(var divrow=0;divrow<table2.rows.length;divrow++){
+				if(document.all.item("SelectDIV",divrow).checked){   
+                    if(eval(document.all.item("DIVHEXYFK",divrow).value)==0){   
+	                   
+                		var divyufkye = Number((document.all.item("DIVYUFKYE",divrow).value).replace(',',''));
+	                    var DIVFUKDFPJE=Number((document.all.item("FUKDFPJE").value).replace(',',''));
+	                    var ZONGHEXYFK=Number((document.all.item("HEXYFK").value).replace(',',''));
+	                    
+	                    var shengyjsje=eval(DIVFUKDFPJE)-eval(ZONGHEXYFK);
+	                    if(shengyjsje>0){
+		                    var chaz=eval(divyufkye)-eval(shengyjsje);
+		                    if(chaz>0){
+		                    	document.all.item("DIVHEXYFK",divrow).value=shengyjsje;
+		                    }else{
+								document.all.item("DIVHEXYFK",divrow).value=divyufkye;
+		                    }
+	                    }else{
+	                    	alert("核销预付款已经等于付款金额，不可以再选择预付款！");   
+                			document.all.item("SelectDIV",divrow).checked=false;
+                			return false; 
+	                    }
+                	}
+				}else{
+                    document.all.item("DIVHEXYFK",divrow).value=0; 
+				}
+            }
+            JisYufk();
+		}
+        function JisYufk(){
+            var hexyfkje=0;
+			for(var i=0;i<table2.rows.length;i++){
+				if(document.all.item("Selectdiv",i).checked){
+                	hexyfkje = Round(eval(hexyfkje)+eval(document.all.item("DIVHEXYFK",i).value),2);
+				}  
+			}
+            document.all.item("HEXYFK").value=hexyfkje;  
+		}
+
+    </script>
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+   <!-- <script><span jwcid="@Insert" value="ognl:PageHome" /></script>
+   <span jwcid="@contrib:Messagebox" message="ognl:msg" > </span>-->
+        <table id="tablemain"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+        <tr  id="trcondition"  valign=middle  height ="20">
+            <td > 
+                <table  id="tiaoj1" valign="middle">
+                    <tr>
+                        <td  style="font-size:9pt">起始日期:</td>
+                        <td><input onchange="Showwait();javascript:this.form.submit();setZhuangt('tiaoj1',true);" style="width:80;height:21" jwcid="BeginjsrqSelect"/></td>
+                        <td style="font-size:9pt">结束日期:</td>
+                        <td><input onchange="Showwait();javascript:this.form.submit();setZhuangt('tiaoj1',true);" style="width:80;height:21" jwcid="EndjsrqSelect"/></td>
+	                    <!-- <td style="font-size:9pt">名称:</td>
+		                     <td><input style="height:21" jwcid="DiancmcDropDown" onchange="Showwait();javascript:this.form.submit();setZhuangt('tiaoj1',true);" id="DiancmcDropDown" type="text" /></td>
+                         < td style="font-size:9pt">状态:</td>-->
+		                  <!--   <td><input style="height:21" jwcid="RuzztDropDown" onchange="Showwait();javascript:this.form.submit();setZhuangt('tiaoj1',true);" id="RuzztDropDown" type="text" /></td-->
+                        <!-- <td style="font-size:9pt">类型:</td>
+	                     	<td><input style="height:21" jwcid="JieslxDropDown" onchange="Showwait();javascript:this.form.submit();" id="JieslxDropDown" type="text" /></td>
+	                     -->
+                            <td style="font-size:9pt">收款单位:</td>
+	                        <td><input style="height:21" jwcid="ShoukdwDropDown" onchange="Showwait();javascript:this.form.submit();setZhuangt('tiaoj1',true);" id="ShoukdwDropDown" type="text" /></td>
+                          <td style="font-size:9pt">编号:</td>
+		                    <td><input style="width:150;height:21"  jwcid="JiesbhDropDown" onchange="Showwait();javascript:this.form.submit();setZhuangt('tiaoj1',true);" id="JiesbhDropDownid" type="text" /></td>    
+						 
+                            <td><span  jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype=""  label="刷新" listener="ognl:listeners.RefurbishButton" /></td>
+                     <td><span  jwcid="SelYfkButton@ZRcontrib:ImgButton" buttontype="nosubmitbuttons"  label="生成付款单" onclick="if(!checkgx())return;showDIV();"/></td>
+	                    <td><span style="display:none"  jwcid="QuerjsButton@ZRcontrib:ImgButton" buttontype=""  label="生成付款单"   onclick="//return check();" listener="ognl:listeners.QuerjsButton" /></td>
+                       
+                            </tr>
+                </table>        
+                <table id="tiaoj3">
+                    <tr>
+                        <td><span  jwcid="ChaxButton@ZRcontrib:ImgButton" style="display:none" buttontype=""  listener="ognl:listeners.ChaxButton" /></td>
+	                    	<input  class = "text-position" style="display:none;" jwcid="EditTableRow" id="EditTableRow" type="text" />
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr  id="SelectData" valign=top>
+            <td > 												
+                <div id="SelectFrmDiv"   class = "text-position" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+                  <div id="SelectHeadDiv" style="OVERFLOW: hidden; background-color:#FFFFFF">
+                    <table  id="EditHeadTabel"  bordercolordark="#ffffff" cellpadding="1" bordercolor="#ffffff" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;" bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"   class="edittablehead"  jwcid="@Any" background="ognl:assets.background" width = "1692">
+                        <tr width = "1692" align="center">
+                              <th jwcid="@Any"  width = "35" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:33px">行号</label></th>
+	                          
+	                          <th width="35" height="23" align="center">
+							  <label id="tittleHead" class="text-position" style="position:relative;left:0;width:33px">
+							      <input type="checkbox" name="Selectall" onclick="selall();" readonly="true" id="Selectall" displayname="选择" />
+							  </label></th>
+                              
+                              <th jwcid="@Any"  width = "240" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:238px">收款单位</label></th>                              
+                              <th jwcid="@Any"  width = "200" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:200px">发货单位</label></th>
+                              <th jwcid="@Any"  width = "80" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:78px">电厂名称</label></th>
+                              <th jwcid="@Any"  width = "220" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:68px">结算单编号</label></th>
+                              <th jwcid="@Any"  width = "130" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:128px">发票编号</label></th>    
+                              <th jwcid="@Any"  width = "160" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:88px">煤款合计</label></th>
+                              <th jwcid="@Any"  width = "160" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:88px">价款合计</label></th>
+                              <th jwcid="@Any"  width = "160" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:78px">税款合计</label></th>
+                              
+                              <!--th jwcid="@Any"  width = "75" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:73px">预付款编号</label></th>
+                              <th jwcid="@Any"  width = "75" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:73px">核销金额</label></th-->
+                              <th jwcid="@Any"  width = "68" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:68px">含税单价</label></th>
+                              <th jwcid="@Any"  width = "70" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:68px">运费合计</label></th>
+                              <th jwcid="@Any"  width = "70" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:68px">结算重量</label></th>
+                              <th jwcid="@Any"  width = "60" height = "23" align="center"><label id="tittleHead"  class = "text-position" style="position:relative;left:0;width:58px">结算车数</label></th>
+                              
+                        </tr></table></div>
+                  <div id="SelectDataDiv" onscroll="_onscroll(this,SelectHeadDiv)" style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+                           
+                       <table id="oData" class="edittable" border="0" cellpadding="0" cellspacing="0" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"  width = "1692"  >
+                        <!--tr Height="21"  ondblclick="document.Form0.ChaxButton.click();" onclick="classchange(this,'onclick');SelPand();" onmouseout="classchange(this,'onmouseout')"  onmouseover="classchange(this,'onmouseover')"  width = "1230"  jwcid="EditValues" class="edittableTrOut"-->
+                        <tr Height="21"  ondblclick="//getjsd(this);"  onclick="classchange(this,'onclick');SelPand();" onmouseout="classchange(this,'onmouseout')"  onmouseover="classchange(this,'onmouseover')"  width = "1692"  jwcid="EditValues" class="edittableTrOut">      
+                            <td width = "35" class="tdText">
+                             <input readonly="true" class = "text-position" style="width:33px" jwcid="HANGH" id="HANGH" />
+                             </td>
+                             <td width = "35" class="tdText">
+                             <input readonly="true" class = "text-position" style="width:33px" onclick="Tuic(this);" jwcid="Select" id="Select" type="checkbox" />
+                             </td>
+                             
+                             <td width = "240" >
+                             <input readonly="true" class = "text-position" style="width:238px;" jwcid="SHOUKDW" id="SHOUKDW" type="text" />
+                             </td>
+                             <td width = "200" >
+                             <input readonly="true" class = "text-position" style="width:200px;" jwcid="FAHDW" id="FAHDW" type="text" />
+                             </td>
+                             <td width = "100" >
+                             <input readonly="true" class = "text-position" style="width:98px" jwcid="DIANCMC" id="DIANCMC" type="text" />
+                             </td>
+                             <td width = "251" >
+                             <input readonly="true" class = "text-position" style="width:251px" jwcid="JIESDBH" id="JIESDBH" type="text" />
+                             </td>
+                             
+                             <td width = "130" >
+                             <input readonly="true" class = "text-position" style="width:128px" jwcid="FAPBH" id="FAPBH" type="text" />
+                             </td>
+                             
+                             <td width = "150" >
+                             <input readonly="true" class = "text-position" style="width:150px;text-align:right" jwcid="MEIKHJ" id="MEIKHJ" type="text" />
+                             </td>
+                             <td width = "150" >
+                             <input readonly="true" class = "text-position" style="width:150px;text-align:right" jwcid="JIAKHJ" id="JIAKHJ" type="text" />
+                             </td>
+                             <td width = "150" >
+                             <input readonly="true" class = "text-position" style="width:150px;text-align:right" jwcid="JIAKSK" id="JIAKSK" type="text" />
+                             </td>
+                             
+                             <!--td width = "75" >
+                             <input readonly="true" class = "text-position" style="width:73px" jwcid="YUFKBH" id="YUFKBH" type="text" />
+                             </td>
+                             <td width = "75" >
+                             <input readonly="true" class = "text-position" style="width:73px" jwcid="HEXYFKJE" id="HEXYFKJE" type="text" />
+                             </td-->
+                             
+                             <td width = "70" >
+                             <input readonly="true" class = "text-position" style="width:68px;text-align:right" jwcid="HANSDJ" id="HANSDJ" type="text" />
+                             </td>
+                             <td width = "70" >
+                             <input readonly="true" class = "text-position" style="width:68px;text-align:right" jwcid="YUNFHJ" id="YUNFHJ" type="text" />
+                             </td>
+                             <td width = "70" >
+                             <input readonly="true" class = "text-position" style="width:68px;text-align:right" jwcid="JIESSL" id="JIESSL" type="text" />
+                             </td>
+                             <td width = "60" >
+                             <input  readonly="true" class = "text-position" style="width:58px;text-align:right" jwcid="CHES" id="CHES" type="text" />
+                             </td>
+                        </tr>
+                     </table></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="TanchuDiv" style="display:none; border-left:1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; POSITION: absolute;z-index:1; OVERFLOW: none; HEIGHT: 250px;left:157px; top:114px; background-color:#CCCCCC; width:430px; padding-left:2px; padding-right:2px; padding-top:2px">
+		 	<div>
+		 	<div id="div1" style="OVERFLOW: hidden; background-color:#CCCCCC">
+                <table width="500" height="25" cellspacing="0" cellpadding="0" style="font-size:9pt" bordercolordark="#DBE4EE" bgcolor="#808080">
+		            <tr  width="500">
+						<td id="tiaojian" width="100%" style="color: #ffffff">
+						&nbsp;<b>预付款信息</b>:</td>
+		                <td align="right">
+						<image jwcid="@Image" image="ognl:assets.close" width="15" height="15" onclick="hiddeDialog()"/></td>
+						<td>&nbsp;&nbsp;</td>
+					</tr>
+				</table>
+				<table id="table1"  bordercolordark="#ffffff" cellpadding="1" bordercolor="#ffffff" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;" bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff" class="edittablehead" width="500">
+					<tr width="500" align="center">
+                        <th jwcid="@Any" background="ognl:assets.background" width="35"
+							height="23" align="center"><label id="tittleHead"
+							style="position:relative;left:0;width:30px">选择</label></th>
+						<th jwcid="@Any" background="ognl:assets.background" width="80"
+							height="23" align="center"><label id="tittleHead"
+							style="position:relative;left:0;width:75px">编号</label></th>
+						<th jwcid="@Any" background="ognl:assets.background" width="85"
+							height="23" align="center"><label id="tittleHead"
+							style="position:relative;left:0;width:80px">日期</label></th>
+						<th jwcid="@Any" background="ognl:assets.background" width="100"
+							height="23" align="center"><label id="tittleHead"
+							style="position:relative;left:0;width:95px">金额</label></th>
+						<th jwcid="@Any" background="ognl:assets.background" width="100"
+							height="23" align="center"><label id="tittleHead"
+							style="position:relative;left:0;width:95px">余额</label></th>
+                        <th jwcid="@Any" background="ognl:assets.background" width="100"
+							height="23" align="center"><label id="tittleHead"
+							style="position:relative;left:0;width:95px">核销金额</label></th>
+					</tr>
+				</table>
+			</div>
+			<div id="div2" style="border:0px solid gray; POSITION: absolute;PADDING-RIGHT: 0px; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; HEIGHT: 200px; width:510px;PADDING-TOP: 0px; left:0px; top:51px">
+				<table id="table2" class="edittable" border="0" cellpadding="0" cellspacing="0" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;" width="500">
+					<tr width="500" onclick="getRowID(this);" onmouseout="classchange(this,'onmouseout')"  onmouseover="classchange(this,'onmouseover')" jwcid="EditData1"  class="edittableTrOut">
+						<td width = "35" class="tdText">
+                            <input readonly="true" class = "text-position" style="width:33px" onclick="SelYufk(this)" jwcid="SelectDIV" id="SelectDIV" type="checkbox" />
+						</td>
+                        <td width="80"><input readonly="true"
+							style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;width:78px"
+							jwcid="DIVYUFKBH" id="DIVYUFKBH" type="text" /></td>
+						<td width="85"><input readonly="true"
+							style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;width:83px"
+							 jwcid="DIVYUFKRQ"id="DIVYUFKRQ" type="text" /></td>
+						<td width="100"><input readonly="true"
+							style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;width:98px"
+							 jwcid="DIVYUFKJE"id="DIVYUFKJE" type="text" /></td>
+						<td width="100"><input readonly="true"
+							style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;width:98px"
+							jwcid="DIVYUFKYE" id="DIVYUFKYE" type="text" /></td>
+                        <td width="100"><input style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;width:98px"
+							onfocus="editin(this,'onfocus')" onchange="JisYufk()"
+                        	jwcid="DIVHEXYFK" id="DIVHEXYFK" type="text" /></td>
+					</tr>
+				</table>
+			</div>
+			<div style="border-left:1px solid #000000; border-right:1px solid #000000; border-bottom:1px solid #000000; POSITION: absolute; OVERFLOW: none; HEIGHT: 33px;width:506px; left:-1px; top:249px; background-color:#CCCCCC; padding-left:4px; padding-right:4px; padding-bottom:1px; border-top-style:solid; border-top-width:1px; padding-top:1px">
+				<table>
+					<tr>
+						<td style="font-size:9pt">结算金额:<input readonly="true"
+							style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;width:83px"
+							 jwcid="FUKDFPJE"id="FUKDFPJE" type="text" /></td>
+						<td style="font-size:9pt">核销金额:<input readonly="true"
+							style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;width:83px"
+							 jwcid="HEXYFK"id="HEXYFK" type="text" /></td>
+		                <td align="right">
+							<span jwcid="OkButton@ZRcontrib:ImgButton" buttontype="nosubmitbuttons" onclick='hiddeDialog();document.all.item("QuerjsButton").click();' label=" 确定 "></span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div> 
+    </form>
+</body>
+   <script>
+                                 function getjsd(myself){
+                                  var jiesdbianm =oData.rows(myself.rowIndex).cells[5].childNodes[0].value;
+                                 var url = "http://"+document.location.host+document.location.pathname;
+                                 		url = url + "?service=page/ShoumShowjsd&jiesdbh="+jiesdbianm;
+                                    window.open(url);
+                                  }
+                                  </script>
+<script>window.onresize();document.all.item("waitshez").style.display="none";</script>
+</html>

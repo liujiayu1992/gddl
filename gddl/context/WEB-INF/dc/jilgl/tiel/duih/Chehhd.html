@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>车号核对</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.palette" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	<span jwcid="@Insert" raw="true" value="ognl:ToolbarScript"></span>
+	<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+</script>	
+</head>
+<body id="body" jwcid="@Body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+   	<table  border="0" cellspacing="0" cellpadding="0" width="100%"  height="100%">
+   	 	<tr>
+   	 	<td colspan=2>
+	   	<span jwcid="HengdSelect" style="display:none" id = "HengdSelect"></span>
+	   	<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" id="RefurbishButton"
+			style="display:none" listener="ognl:listeners.RefurbishButton"></span>
+		<span jwcid="DuihButton@ZRcontrib:ImgButton" buttontype="" id="DuihButton"
+			style="display:none" listener="ognl:listeners.DuihButton"></span>
+   	 	</td>
+   	 	</tr>
+   	 	<tr>
+   	 	<td colspan=2><div id = tbdiv></div></td>
+   	 	</tr>
+   	 	<tr height=90%>
+   	 		<td height=100% width=35%><div id="gridDiv" style="height:100%;overflow:none"></div></td>
+   	 		<td height=100% width=65% valign="middle"  align=center >
+	   	 		<span jwcid="DataSelect" rows="32"></span>
+   	 		</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

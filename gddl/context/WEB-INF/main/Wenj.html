@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312" />
+<title>无标题文档</title>
+<style type="text/css">
+DIV {
+	BORDER-WIDTH: 0px; 
+	PADDING: 0px; 
+}
+
+#n-body {
+	MARGIN: 0px auto; OVERFLOW: hidden; WIDTH: 650px; LINE-HEIGHT: 20px; HEIGHT: 20px;
+}
+#m-body{
+    MARGIN: 0px auto; OVERFLOW: hidden; WIDTH: 650px; LINE-HEIGHT: 20px; HEIGHT: 20px;
+}
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.tb_line01 {
+	border: 1px solid #E8E8E8;
+}
+.tb_line02 {
+	border: 1px solid #DADADA;
+}
+.tb_line03 {
+	border: 1px solid #FFFFFF;
+}
+.bg03 {
+	background-image: url(imgs/startpage/start_page_laihaocun_bg.gif);
+	background-color: #CAD8E6;
+	border: 1px solid #A6B9CD;
+	background-repeat: repeat-x;
+	background-position: top;
+
+}
+.bg02 {
+	background-image: url(imgs/startpage/start_page_content_bg.gif);
+	background-repeat: repeat-x;
+	background-position: top;
+	background-color: #A9BCD1;
+}
+.bg01 {
+	background-color: #A9BCD1;
+	background-image: url(imgs/startpage/start_page_link_bg.gif);
+	background-repeat: repeat-x;
+	background-position: top;
+}
+.quicklinks a:link {
+	color: #194671;
+	font-size: 14px;
+	text-decoration: none;
+}
+.quicklinks a:visited {
+	color: #194671;
+	font-size: 14px;
+	text-decoration: none;
+}
+.quicklinks a:hover {
+	font-size: 14px;
+	color: #FF6600;
+	text-decoration: none;
+}
+.quicklinks a:active {
+	color: #194671;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.laihaocun {
+	font-family: "黑体", simhei;
+	font-size: 16px;
+}
+.laihaocun a:link {
+	color: #FF6600;
+	text-decoration: none;
+}
+.laihaocun a:visited {
+	color: #FF6600;
+	text-decoration: none;
+}
+.laihaocun a:hover {
+	color: #FF6600;
+	text-decoration: underline;
+}
+.laihaocun a:active {
+	color: #FF6600;
+	text-decoration: none;
+}
+
+.tubiao {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.tubiao a:link {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.tubiao a:visited {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.tubiao a:hover {
+	font-size: 12px;
+	color: #FF6600;
+	text-decoration: none;
+}
+.tubiao a:active {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.news {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #8DB6DF;
+}
+.news a:link {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.news a:visited {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.news a:hover {
+	font-size: 12px;
+	color: #FF6600;
+	text-decoration: none;
+}
+.news a:active {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+-->
+</style>
+<body>
+<script>    
+	var	objActive=null;
+	function ChangeChart(obj){
+    	
+    	obj.style.backgroundColor="#EAF0F6";
+
+		if (objActive==null){
+			objActive=obj;
+		}else{
+			objActive.style.backgroundColor="";
+			objActive=obj;
+		}
+    	var divKuc="none";
+    	var divShouh="none";
+       	var divTongz="none";    
+    
+    	if(obj.id=='kuc'){
+    		divKuc="";
+    	}else if(obj.id=='shouh'){
+    		divShouh="";
+    	}else if(obj.id=='tongz'){
+    		divTongz ="";
+    	}
+		document.all.item('KucchartDiv').style.display=divKuc;
+		document.all.item('ShouhchartDiv').style.display=divShouh;
+    	document.all.item('TongzDiv').style.display=divTongz;
+	}
+    
+    function ShownewPageAll(obj){
+    	var url = "http://"+document.location.host+document.location.pathname;
+        var end = url.indexOf(";");
+		url = url.substring(0,end);
+   	    url = url + "?service=page/WenjAll";        
+		window.open(url,"newWin");
+    }
+</script>
+<form jwcid="@Form" delegate="ognl:beans.delegate">
+<table width="400" border="0" align="left" cellpadding="0" cellspacing="0" class="bg03" >
+  	<tr>
+	    <td align="left" valign="top"><img src="imgs/startpage/spacer.gif" width="12" height="1" /></td>
+        <td width="100%" align="left" valign="top">
+            <table width="400" border="0" cellpadding="3" cellspacing="0">
+                <span jwcid="@Insert" value="ognl:Wenj" raw="true"></span>
+            </table>
+		</td>               
+  	</tr>
+</table>
+</form>
+<map name="Map">
+<area shape="rect" coords="2, 2, 50, 29" onclick="ShownewPageAll(this);" href="#">
+</map>
+</body>
+</html>

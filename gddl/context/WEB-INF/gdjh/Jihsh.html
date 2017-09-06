@@ -1,0 +1,172 @@
+<html jwcid="@Shell" doctype=" " title="计划审核"
+	stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+//cbofun_NianfDropDown();
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+    
+var window_panel = new Ext.Window({
+	title:'审核意见',
+    el:'hello-win',
+    layout:'fit',
+    width:500,
+    height:300,
+    minWidth: 300,
+    minHeight: 200,
+    closeAction:'hide',
+    plain: true,
+    modal:true,            
+    items: new Ext.TabPanel({
+    	el: 'hello-tabs',
+        autoTabs:true,
+        activeTab:0,
+        deferredRender:false,
+        border:false,
+        tbar: [{text:'默认意见'},
+            new Ext.form.ComboBox({
+        	width:150,
+        	id:'wodyjSelect1',
+        	selectOnFocus:true,
+        	transform:'wodyjSelect',
+        	lazyRender:true,
+        	triggerAction:'all',
+       	 	typeAhead:true,
+        	forceSelection:true,
+       	 	editable:false
+      })  ]
+      
+         
+    }),
+    
+    	buttons: [{
+        	text:'确定',handler:function(){
+ //           	rec = gridDiv_grid.getSelectionModel().getSelected();
+ //           	if(rec)
+ //           		rec.set('textarea1',document.getElementById("My_opinion").value); 
+ //   				document.getElementById("textarea1").value= document.getElementById("My_opinion").value;
+    				document.getElementById("textarea1").value= document.getElementById("wodyjSelect1").value;
+    				
+            	window_panel.hide();
+        	}	
+        },{
+        	text: '取消',
+        	handler: function(){
+            	
+    			window_panel.hide();
+            }
+         }]
+});
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+});
+</script>
+<body id="body" jwcid="@Body" class="bgs">
+<div id="wait"
+	style="POSITION: absolute;BORDER-RIGHT: gray 0px solid;z-index:1; PADDING-RIGHT: 2px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;HEIGHT: 218;width:330">
+<iframe jwcid="@Iframe" page="Waiting" height="100%"
+	oncontextmenu="self.event.returnValue=false" name="mainFrame"
+	style="background:ThreeDLowwer" width="100%" align="middle"
+	frameborder="0" scrolling="no"> </iframe></div>
+<script>
+		document.all.item("wait").style.posTop=(body.clientHeight-document.all.item("wait").clientHeight)/2;
+		document.all.item("wait").style.posLeft=(body.clientWidth-document.all.item("wait").clientWidth )/2;
+     	function Showwait(){
+			if(document.all.item("wait").style.display=="none"){
+                 document.all.item("wait").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+</script>
+<script jwcid="gdjhreportjs" />
+
+<script><span jwcid="@Insert" value="ognl:PageHome" /></script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<div id="hello-win" class="x-hidden">
+<div class="x-window-header">审核意见</div>
+<div id="hello-tabs" style="height:100%;width:100%"><!-- Auto create tab 1 -->
+
+<div class="x-tab" id="DivMy_opinion" title="我的意见"
+	style="height:100%;width:100%"><span jwcid="@TextArea"
+	id="My_opinion" style="width:100%;height:61%;border:0px;overflow:auto"
+	value="ognl:My_opinion"></span></div>
+
+<!-- Auto create tab 2 -->
+<div class="x-tab" title="历史意见" style="height:100%;width:100%"><span
+	jwcid="@TextArea" readonly="true" id="Histry_opinion"
+	style="width:100%;height:61%;border:0px;overflow:auto"
+	value="ognl:Histry_opinion"></span></div>
+	
+<span jwcid="wodyjSelect" id="wodyjSelect"></span>
+	
+</div>
+
+</div>
+<span jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"> </span>
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"	width="100%"  height="100%">
+	<tr id="trcondition" valign=middle height="20" style="display:none">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+				<td width='30' align="right">单位:</td>
+				<td width='150'><input style="width:100%"
+					onchange="this.form.submit()" jwcid="danwSelect" id="danwSelect" /></td>
+				<td width='60' align="right">年份:</td>
+				<td width='80'><input style="width:100%"
+					onchange="this.form.submit()" jwcid="NianfDropDown"
+					id="NianfDropDown" type="text" /></td>
+				<td width='30' align="right">状态:</td>
+				<td width='120'><input style="width:100%"
+					onchange="this.form.submit()" jwcid="weizSelect" id="weizSelect" /></td>
+				<span jwcid="@Conditional" condition="ognl:quanxkz">
+				<td width='40'><span style="width:100%"
+					jwcid="@ZRcontrib:ImgButton" buttontype="" label="提交"
+					id="tijButton" listener="ognl:listeners.TijButton" /></td>
+				<td width='40'><span style="width:100%"
+					jwcid="@ZRcontrib:ImgButton" buttontype="" label="回退"
+					id="huitButton" listener="ognl:listeners.HuitButton" /></td>
+				</span>
+				<td width='60'><span style="width:100%"
+					jwcid="@ZRcontrib:ImgButton" buttontype="nosubmitbuttons"
+					onclick="return chakrz()" label="查看文本" /></td>
+				<td></td>
+				<input style="display:none;" jwcid="EditTableRow" id="EditTableRow" type="text" />
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top valign=top hight="100%">
+		<td>
+		<div id="SelectFrmDiv" style="height:100%;overflow:none"></div>
+		<span jwcid="@Insert" raw="true" value="ognl:TreeHtml" /> <span
+			jwcid="@Insert" raw="true" value="ognl:GridHtml"></span> <span
+			id="CHANGE" jwcid="CHANGE" style="display:none"></span> <span
+			id="diancTree_id" jwcid="TREEID" style="display:none"></span></td>
+	</tr>
+	<tr id="xiaox" style="display:none">
+		<td style="border:1px solid gray;" width="100%" height="100%">
+		<div id="yijDiv" width="100%" height="100%"></div>
+		<span jwcid="@TextArea" id="textarea1"
+			style="width:100%;height:100%;border:0px;overflow:auto"
+			value="ognl:xiaox"></span></td>
+	</tr>
+</table>
+</form>
+</body>
+<script>
+//window.onresize();
+document.all.item("wait").style.display="none";
+</script>
+</html>

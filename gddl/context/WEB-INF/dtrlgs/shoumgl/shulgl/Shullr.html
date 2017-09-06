@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>卸煤信息(Xiemxx)</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+
+function Xiem(){
+	SelClick("XiemxxButton");
+}
+function Detail(){
+	SelClick("DetailButton");
+}
+function SelClick(BtnName){
+	var rec = gridDiv_sm.getSelected();
+//alert(rec);
+	if(rec != null){
+		var id = rec.get('ID');
+		if(id == 0){
+			Ext.MessageBox.alert('提示信息','请先保存再进行操作！');
+			return;
+		}
+		var param = document.getElementById('CHANGE');
+		param.value = id;
+		document.getElementById(BtnName).click();
+	}else{
+		Ext.MessageBox.alert('提示信息','请选择要操作的记录！');
+		return;
+	}	
+}
+//window
+<span jwcid="@Insert" raw="true" value="ognl:GridInWindowScript"></span>
+var Jieg_window =new Ext.Window({
+		    width:'600',
+		    height:'400',
+		    autoScroll:true, 
+		    closeAction:'hide',
+	        modal:true,
+	        layout:'fit',
+	        title:'查询的类似结果',
+	        buttons :[{text:'确定',
+	                   handler:function(){
+	                                           if(gridDivInwindow_sm.getCount()>0){
+	                                                   if(confirm('确认匹配?')){
+	                                               var rec = gridDiv_sm.getSelected();
+	                                               rec.set('FAYSLB_ID',gridDivInwindow_sm.getSelected().get('ID'));
+	                                               Jieg_window.hide();alert('匹配成功');
+	                                               }
+	                                                  
+	                                               
+	                                           }else{
+	                                             if(confirm('没有匹配的项?')){
+	                                                        Jieg_window.hide();
+	                                                        alert('此条数据将不被保存');
+	                                                        }else{
+	                                                          alert('请选择一行');
+	                                                        } 
+	                                           }
+	                                      }     
+	                 }] ,
+		     items:gridDivInwindow_grid
+		    });
+
+});
+</script>
+</head>
+<body id="body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridInWindowHtml"></span>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+	<span jwcid="@Insert" raw=true value="ognl:TreeHtml"/>
+	<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+		<tr>
+			<td>
+				<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="RefurbishButton"
+					listener="ognl:listeners.RefurbishButton"></span>
+                <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="SaveButton"
+					listener="ognl:listeners.SaveButton"></span>
+                <span jwcid="DetailButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="DetailButton"
+					listener="ognl:listeners.DetailButton"></span>
+                <span jwcid="XiemxxButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="XiemxxButton"
+					listener="ognl:listeners.XiemxxButton"></span>
+		        <span jwcid="RIQ" style="display:none" id="RIQ"></span>
+				<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+			</td>
+		</tr>
+		<tr height="100%">
+			<td>
+			<div id="gridDiv" style="width:100%;height:100%;overflow:none"></div>
+			<div id="gridDivInwindow" style="width:100%;height:100%;overflow:none"></div>
+			</td>
+		</tr>
+	</table>
+	<input jwcid="YewlxSelect" submitOnChange="true" id="YewlxSelect" type="text"></input>
+	 <span id="diancTree_id"  jwcid = "TREEID" style="display:none"></span>
+</form>
+</body>
+</html>

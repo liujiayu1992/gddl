@@ -1,0 +1,212 @@
+<html jwcid="@Shell" doctype=" " title="数量管理"  stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.xthemegraycss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+    var win;
+    
+    <span jwcid="@Insert" raw="true" value="ognl:msg"></span> 
+    
+  
+
+});
+</script>
+
+  
+  
+
+<body id="body"  jwcid="@Body" class="bgs" onkeydown="Pingb()" bottommargin=0 topmargin=2 leftmargin=5 rightmargin=5>
+    <script jwcid="Fuktzdjs"/>
+    <script jwcid="Datejs"/>
+    <script>
+        function MatchStr(obj,long){
+			var Strs = obj.value;
+			var s = Strs.replace(/[^\x00-\xff]/g,"aa");		// 将汉字和全角字符替换为aa
+			if(s.length > long){							// 判断字符串是否超过指定长度
+				alert("输入字符串过长，请重新输入！");
+				obj.value="";
+				obj.focus();
+				return false;	
+			}		
+			return true;	
+		}
+        function MatchNum(obj1,str){
+			var Numr, Numre;
+			var Nums = obj1.value;
+			if(Nums.substring(0,1)=='.'){			//将首字符为'.'的数值替换为'0.'
+				Nums= 0 + Nums;	
+			}
+        	
+	        obj1.value = Nums;
+			Numre = str;  							// 创建正则表达式对象。
+			Numr = Nums.match(Numre);               // 在字符串 s 中查找匹配。
+			if(Nums!= Numr){						// 如果不等
+				alert("数值超出合理范围！");
+				obj1.value=0;						// 输入框付值为0
+				obj1.focus();						// 输入框取得焦点
+		   		return false;
+			}
+        }  
+        function tissave(objid){
+      		var DivPrint = objid;
+			var msg="修改数据后请先保存。确认提交吗？";
+			if(confirm(msg)){
+				return;
+			}else{
+				return false;
+			}
+		} 
+        function Fenjsz(){
+        	var shijfk=(document.all.item("SHIJFK").value).replace(".",""); 
+            for(var i=0;i<shijfk.length;i++){
+                if(i<10){
+            		nmb=shijfk.substring(shijfk.length-(eval(i)+1),shijfk.length-i);
+                    document.all.item("SHU"+(eval(i)+1)).value=nmb;
+                }else{
+                    nmb=shijfk.substring(0,shijfk.length-i);
+                    document.all.item("SHU"+11).value=nmb;
+                    return;
+                }
+            }  
+            if(shijfk.length<11){
+                var nulength=11-eval(shijfk.length);
+                for(var j=0;j<nulength;j++){
+                	document.all.item("SHU"+(11-eval(j))).value='';
+                }
+            } 
+        }
+        
+    </script>    
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+    <!-- script><span jwcid="@Insert" value="ognl:PageHome" /></script-->
+  
+    <table id="tablemain"  border="0" cellspacing="0"  cellpadding="0" width ="100%">
+        <tr  id="trcondition"  valign=middle  height ="20">
+            <td  valign="center" height="35" style=" background-color: #DBE4EE;"> 
+                <table valign="middle">
+                	<tr>
+                       <td><span  jwcid="RetrunsButton@ZRcontrib:ImgButton" buttontype="" label="返回" listener="ognl:listeners.RetrunsButton" onclick="" /></td> 
+                       <td><span  jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" listener="ognl:listeners.SaveButton" onclick=""/></td>
+                      <td><input name="PrintButton" type="button" class="btn_mouseout" onmouseout="this.className='btn_mouseout'" onmouseover="this.className='btn_mouseover'" onmousedown="this.className='btn_mousedown'" onmouseup="this.className='btn_mouseup'" value="&#25171;&#21360;" onclick="getjsd();"/></td>	  
+                     	   <input  class="text-position" style="display:none;" jwcid="EditTableRow" id="EditTableRow" type="text" />
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr  id="SelectData" valign=top jwcid="EditValues">
+        	<!--td style="display:none;">
+	        	<div id="PrintDiv"   class="text-position" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto;width:897px; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+					<span jwcid="PrintTable"/>
+                </div>
+            </td-->
+            <td > 
+                <div id="SelectFrmDiv"   class="text-position" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+                      <table width="750"  style=" font-size:9pt">
+						<tr>
+					  		<td height="50" colspan="5"><div align="center" class="LittleTitleStyle"><font size="5">燃 料 付 款 通 知 单</font></div></td>  
+						</tr>
+						<tr>
+							<td width="60">填制单位:</td>
+							<td style="width:500"><input readonly ="true"　class="text-position" style="width:200" jwcid="Tianzdw" id="Tianzdw" type="text" /></td>
+                            <td width="40" align="left">编号:</td>
+							<td width="150" align="left"><input class="text-position" style="width:148px" jwcid="FUKTZDBH" id="FUKTZDBH" onblur="MatchStr(this,100)" type="text" />
+                            </td>
+						</tr>
+					  </table>
+                      <table width="750" border="1" cellspacing="0"  style=" font-size:9pt;	border: darkgray 1px solid;border-collapse: collapse;background-color: #DCE4ED;">
+					    <tr height="45">
+					      <td colspan="1" class="tdborder" width="100" align="center">付款事由</td>
+                          <td colspan="16" width="730" class="tdborder"><input readonly ="true" class="text-position" size="50" jwcid="FUKSY" id="FUKSY" type="text"/></td>
+					    </tr>
+					    <tr height="45">
+					      <td rowspan="2" colspan="1" class="tdborder" width="100" align="center">发票金额</td>
+					      <td rowspan="2" colspan="1" class="tdborder" width="100" align="center">扣运费</td>
+					      <td rowspan="2" colspan="1" class="tdborder" width="100" align="center">扣回空费</td>
+					      <td rowspan="2" colspan="1" class="tdborder" width="100" align="center">核销预付款</td>
+						  <td rowspan="2" colspan="1" class="tdborder" width="100" align="center">实际付款</td>
+                          
+					      <td rowspan="1" colspan="11" width="330" class="tdborder" align="center">实际付款金额</td>
+					    </tr>
+                        <tr height="45">
+                          <td colspan="1" class="tdborder" width="20" align="center">亿</td>
+					      <td colspan="1" class="tdborder" width="20" align="center">千</td>
+					      <td colspan="1" class="tdborder" width="20" align="center">百</td>
+					      <td colspan="1" class="tdborder" width="20" align="center">十</td>
+						  <td colspan="1" class="tdborder" width="20" align="center">万</td>
+                          <td colspan="1" class="tdborder" width="20" align="center">千</td>
+					      <td colspan="1" class="tdborder" width="20" align="center">百</td>
+					      <td colspan="1" class="tdborder" width="20" align="center">十</td>
+					      <td colspan="1" class="tdborder" width="20" align="center">元</td>
+						  <td colspan="1" class="tdborder" width="20" align="center">角</td>
+                          <td colspan="1" class="tdborder" width="20" align="center">分</td>
+                        </tr>
+                        <tr height="45">
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="15" jwcid="FAPJE" id="FAPJE" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" jwcid="KOUYF"  size="15" id="KOUYF" type="text" onfocus="editin(this,'onfocus')" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()"/></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" jwcid="KOUHKF" size="15" id="KOUHKF" type="text" onfocus="editin(this,'onfocus')" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()"/></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="15" jwcid="HEXYFK" id="HEXYFK" type="text" /></td> 
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="15" jwcid="SHIJFK" id="SHIJFK" type="text" /></td>                           
+                            
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu11" NAME="Shu11" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu10" NAME="Shu10" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu9" NAME="Shu9" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu8" NAME="Shu8" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu7" NAME="Shu7" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu6" NAME="Shu6" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu5" NAME="Shu5" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu4" NAME="Shu4" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu3" NAME="Shu3" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu2" NAME="Shu2" type="text" /></td>
+                            <td colspan="1" class="tdborder"><input class="text-position" readonly="true" size="1" id="Shu1" NAME="Shu1" type="text" /></td>                            
+                        </tr>
+					    <tr height="45">
+					      <td colspan="1" width="100" class="tdborder" align="center">大写</td>
+                          <td colspan="16" width="100" class="tdborder"><input class="text-position" readonly="true" size="80" jwcid="SHIJFKDX" id="SHIJFKDX" type="text" /></td>  
+					    </tr>
+                        <tr height="45">
+					      <td colspan="1" width="100" class="tdborder" align="center">发票编号</td>
+                          <td colspan="16" width="100" class="tdborder"><input class="text-position" readonly="true" size="80" jwcid="FAPBHS" id="FAPBHS" type="text" /></td>  
+					    </tr>
+					    <tr height="45">
+					      <td rowspan="3" colspan="1" width="100" class="tdborder" align="center">收款单位</td>
+                          <td rowspan="1" colspan="1" width="100" class="tdborder" align="center">名称</td>
+                          <td rowspan="1" colspan="15" class="tdborder"><input class="text-position" readonly="true" size="60" jwcid="SHOUKDW" id="SHOUKDW" type="text" /></td>   
+                        </tr>
+                        <tr height="45">
+                          <td colspan="1" width="100" class="tdborder" align="center">编码</td>
+                          <td colspan="2" width="100" class="tdborder"><input class="text-position" readonly="true" size="30" jwcid="GONGYSBM" id="GONGYSBM" type="text" /></td>   
+                          <td colspan="1" width="100" class="tdborder" align="center">地址</td>
+                          <td colspan="12" width="100" class="tdborder"><input class="text-position" readonly="true" size="30" jwcid="DIZ" id="DIZ" type="text" /></td>   
+                        </tr>
+                        <tr height="45">
+                          <td colspan="1" width="100" class="tdborder" align="center">开户银行</td>
+                          <td colspan="2" width="100" class="tdborder"><input class="text-position" readonly="true" size="30" jwcid="KAIHYH" id="KAIHYH" type="text" /></td>   
+                          <td colspan="1" width="100" class="tdborder" align="center">银行账号</td>
+                          <td colspan="12" width="100" class="tdborder"><input class="text-position" readonly="true" size="30" jwcid="ZHANGH" id="ZHANGH" type="text" /></td>   
+                        </tr>
+                        <tr height="45">
+					      <td colspan="1" width="100" class="tdborder" align="center">项目信息</td>
+                          <td colspan="1" width="100" class="tdborder" align="center">项目名称</td>
+                          <td colspan="2" width="100" class="tdborder"><input class="text-position" size="30" jwcid="XIANGMMC" id="XIANGMMC" type="text" /></td>  
+                          <td colspan="1" width="100" class="tdborder" align="center">项目名称</td>
+                          <td colspan="12" width="100" class="tdborder"><input class="text-position" size="30" jwcid="XIANGMBH" id="XIANGMBH" type="text" /></td>  
+					    </tr>
+                     </table>
+                      <div id="SelectDataDiv" style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+                    	<table id="oData" class="edittable" border="0" cellpadding="0" cellspacing="0" style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"  width = "0"  >
+                     	</table>
+                     </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!--显示报表内容结束-->   
+     
+    </form>
+</body>
+<script>window.onresize();setFormat();Fenjsz();</script>
+</html>

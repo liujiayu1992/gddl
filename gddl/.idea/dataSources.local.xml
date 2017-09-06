@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="@localhost" uuid="d78cf338-c4ee-499e-9360-2f4dea287871">
+      <database-info product="Oracle" version="Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production&#10;With the Partitioning, OLAP, Data Mining and Real Application Testing options" jdbc-version="4.0" driver-name="Oracle JDBC driver" driver-version="12.1.0.2.0">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>linh0</user-name>
+      <resolve-scope>*:PUBLIC,ZHONGW</resolve-scope>
+      <unqualified-resolve-schemas>*:PUBLIC,ZHONGW</unqualified-resolve-schemas>
+    </data-source>
+    <data-source name="linh@localhost [2]" uuid="28b83d0a-4c8f-4fa6-a01c-1e688e438c50">
+      <database-info product="Oracle" version="Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production&#10;With the Partitioning, OLAP, Data Mining and Real Application Testing options" jdbc-version="4.0" driver-name="Oracle JDBC driver" driver-version="12.1.0.2.0">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>linh</user-name>
+      <introspection-schemas>*:LINH</introspection-schemas>
+      <resolve-scope>*:LINH,PUBLIC</resolve-scope>
+      <unqualified-resolve-schemas>*:LINH,PUBLIC</unqualified-resolve-schemas>
+    </data-source>
+    <data-source name="linhtest@localhost" uuid="9b6806e6-5876-4fdc-bbe9-861d29fc1e22">
+      <database-info product="Oracle" version="Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production&#10;With the Partitioning, OLAP, Data Mining and Real Application Testing options" jdbc-version="4.0" driver-name="Oracle JDBC driver" driver-version="12.1.0.2.0">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>linhtest</user-name>
+      <resolve-scope>*:LINHTEST,PUBLIC</resolve-scope>
+      <unqualified-resolve-schemas>*:LINHTEST,PUBLIC</unqualified-resolve-schemas>
+    </data-source>
+  </component>
+</project>

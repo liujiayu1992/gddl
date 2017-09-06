@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>系统登录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+<!--
+.bg {
+	background-image: url(imgs/login/login_new_bg.jpg);
+	background-repeat: repeat-x;
+	background-color: #2A68AE;
+}
+.input_bg {
+	background-image: url(imgs/login/login_new_inputBG.jpg);
+	background-repeat: no-repeat;
+	height: 223px;
+}
+.inputTxt {
+	height: 19px;
+	width: 84px;
+	border-top: 1px solid #707070;
+	border-right: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	border-left: 1px solid #707070;
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+	color: #204162;
+	text-decoration: none;
+	clip:   rect(auto auto auto auto);
+}
+.inputPosition {
+	padding-top: 3px;
+	padding-left: 0px;
+	clip: rect(12px,auto,auto,auto);
+}
+-->
+</style>
+
+</head>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+	var url = "http://"+document.location.host+document.location.pathname;
+	var end = url.indexOf("/app");
+	url = url.substring(0,end);
+	Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+});
+</script>
+<body jwcid="@Body" id ="body" leftmargin="0" topmargin="0" class="bg">
+<form jwcid="@Form" listener="ognl:listeners.submit"
+	delegate="ognl:beans.delegate">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td><img jwcid="@Any" src="ognl:LoginLogo"  width="810"
+			height="361"/></td>
+	</tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"
+	class="input_bg">
+	<tr>
+		<td valign="top">
+		<table width="50%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td><img src="imgs/login/spacer.gif" width="1" height="70"></td>
+			</tr>
+		</table>
+		<table width="99%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="0%"><img src="imgs/login/spacer.gif" width="671"
+					height="1"></td>
+				<td width="100%">
+				<table width="38%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="24%"><input jwcid="userName" name="textfield3"
+							type="text" class="inputTxt" /></td>
+						<td width="14%"><img src="imgs/login/spacer.gif" width="52"
+							height="1"></td>
+						<td width="24%"><input jwcid="passWord" name="textfield2"
+							type="password" class="inputTxt" /></td>
+						<td width="0%"><img src="imgs/login/spacer.gif" width="16"
+							height="1"></td>
+						<td width="100%">
+						<div class="inputPosition"><input jwcid="@Any" name="imageField2"
+							type="image" src="imgs/login/login_new_bt.jpg" width="70"
+							height="21" border="0"/></div>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+<table width="1004" border="0" id="logofooter" cellpadding="0" cellspacing="0">
+	<tr>
+		<td align="right" valign="bottom"><a href="http://www.zhiren.net" target="_blank"><img
+			src="imgs/login/login_new_zhirenlogo.jpg" width="125" height="20"
+			border="0"></a></td>
+	</tr>
+</table>
+<table>
+<tr>
+		<td><img src="imgs/login/spacer.gif" width="1" height="20"></td>
+	</tr>
+</table>
+</form>
+</body>
+<script>
+logofooter.height= eval(body.offsetHeight - 361 - 223 -20);
+</script>
+</html>

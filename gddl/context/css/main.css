@@ -1,0 +1,188 @@
+
+.btn_mouseout { 
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";            
+     BORDER-RIGHT: #7b9ebd 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 
+    #7b9ebd 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 12px; FILTER: 
+    progid:DXImageTransform.Microsoft.Gradient(GradientType=0, 
+    StartColorStr=#ffffff, EndColorStr=#cecfde); BORDER-LEFT: #7b9ebd 
+    1px solid; CURSOR: hand; COLOR: #333333; PADDING-TOP: 2px; 
+    BORDER-BOTTOM: #7b9ebd 1px solid
+    } 
+.btn_mouseover {
+font-family: "Verdana", "Arial", "Helvetica", "sans-serif";            
+	 BORDER-RIGHT: #2C59AA 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 
+	#7b9ebd 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 12px; FILTER: 
+	progid:DXImageTransform.Microsoft.Gradient(GradientType=0, 
+	StartColorStr=#ffffff, EndColorStr=#bdbecd); BORDER-LEFT: #7b9ebd 
+	1px solid; CURSOR: hand; COLOR: #333333; PADDING-TOP: 2px; 
+	BORDER-BOTTOM: #2C59AA 1px solid
+}
+.btn_mousedown{
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";              
+	 BORDER-RIGHT: #7b9ebd 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 
+	#7b9ebd 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 12px; FILTER: 
+	progid:DXImageTransform.Microsoft.Gradient(GradientType=0, 
+	StartColorStr=#cecfde, EndColorStr=#ffffff); BORDER-LEFT: #7b9ebd 
+	1px solid; CURSOR: hand; COLOR: #333333; PADDING-TOP: 2px; 
+	BORDER-BOTTOM: #7b9ebd 1px solid
+} 
+.btn_mouseup { 
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";             
+	 BORDER-RIGHT: #7b9ebd 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 
+	#7b9ebd 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 12px; FILTER: 
+	progid:DXImageTransform.Microsoft.Gradient(GradientType=0, 
+	StartColorStr=#ffffff, EndColorStr=#cecfde); BORDER-LEFT: #7b9ebd 
+	1px solid; CURSOR: hand; COLOR: #333333; PADDING-TOP: 2px; 
+	BORDER-BOTTOM: #7b9ebd 1px solid
+} 
+
+.PageUpDown {
+	font-family: "Verdana", "Arial", "Helvetica", "sans-serif";
+	font-size: 11px;
+	text-decoration: none;
+}
+.PageUpDown a:link {
+	color: #666666;
+	text-decoration: none;
+}
+.PageUpDown a:visited {
+	color: #666666;
+	text-decoration: none;
+}
+.PageUpDown a:hover {
+	color: #357C7F;
+	text-decoration: none;
+}
+.PageUpDown a:active {
+	color: #666666;
+	text-decoration: none;
+}
+.bgsscroll {
+	overflow:auto;
+	leftmargin:80px;
+	rightmargin:80px;
+	topmargin:0px;
+}
+
+
+
+
+.navigationBar{
+	background-color: #C0C0C0;
+	border-left: 1px solid rgb(0,0,0); 
+	border-top: 1px solid rgb(0,0,0); 
+	border-right: 1px solid rgb(0,0,0); 
+	border-bottom: 0px solid rgb(0,0,0);
+	font-size: 9pt;
+}
+
+.navigationBarpage{
+	background-color: #FFF9E5;
+	border-left: 1px solid rgb(0,0,0); 
+	border-top: 1px solid rgb(0,0,0); 
+	border-right: 1px solid rgb(0,0,0); 
+	border-bottom: 0px solid rgb(0,0,0);
+	font-size: 9pt;
+}
+
+.tdLeft{padding-left:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);}
+
+.tdRight{padding-right:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);}
+
+.tdNormal{border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);}
+
+.tdNoneLeft{padding-left:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);}
+
+.tdNoneRight{padding-right:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);}
+
+.tdNone{border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);}
+  
+.Table{
+	margin : 0;
+	padding : 0;
+	border : 0;
+}
+.ImageTd{
+	width:36px; 
+	height:18px;  
+	overflow:hidden; 
+	border:0; 
+	padding:0; 
+	margin:0;
+}
+.TextTd{
+	font-size : 12px;
+}
+.HiddenTd{
+	display:none;
+}
+
+
+.frameDiv{
+	POSITION: relative;
+	BORDER-RIGHT: gray 1px solid;
+	PADDING-RIGHT: 2px;
+	BORDER-TOP: gray 1px solid;
+	PADDING-TOP: 2px;
+	BORDER-LEFT: gray 1px solid;
+	PADDING-LEFT: 2px;
+	BORDER-BOTTOM: gray 1px solid;
+	PADDING-BOTTOM: 2px;
+	OVERFLOW-X: scroll;
+	OVERFLOW-Y: scroll;
+}
+.frameDivX{
+	POSITION: relative;
+	BORDER-RIGHT: gray 1px solid;
+	PADDING-RIGHT: 2px;
+	BORDER-TOP: gray 1px solid;
+	PADDING-TOP: 2px;
+	BORDER-LEFT: gray 1px solid;
+	PADDING-LEFT: 2px;
+	BORDER-BOTTOM: gray 1px solid;
+	PADDING-BOTTOM: 2px;
+	OVERFLOW-X: scroll;
+	OVERFLOW-Y: none;
+}
+.frameDivY{
+	POSITION: relative;
+	BORDER-RIGHT: gray 1px solid;
+	PADDING-RIGHT: 2px;
+	BORDER-TOP: gray 1px solid;
+	PADDING-TOP: 2px;
+	BORDER-LEFT: gray 1px solid;
+	PADDING-LEFT: 2px;
+	BORDER-BOTTOM: gray 1px solid;
+	PADDING-BOTTOM: 2px;
+	OVERFLOW-X: none;
+	OVERFLOW-Y: scroll;
+}
+
+.editBodyTable{
+	font-size: 14px;
+	color: #525252;
+	padding: 0px;
+	border: 0px;
+}
+.editBodyTable tr{
+
+}
+.editBodyTable th{
+	border-top: gray 1px solid;
+	border-bottom: gray 1px solid;
+	border-left: gray 1px solid;
+	border-right: 0px;	
+}
+.editBodyTable td{
+	border-top: 0px;
+	border-bottom: gray 1px solid;
+	border-left: gray 1px solid;
+	border-right: 0px;	
+}
+.editBodyTable input{
+	position:relative;
+	left:0;
+	border:white 0px solid;
+	font-size:14px;
+}
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="gb2312"?>
+<InstallInfo ElementType="Object">
+    <gddl ElementType="Object" user="中卫">
+        <ValidateCode>MicroWin10-1150</ValidateCode>
+        <ConnectionType ElementType="Property">0</ConnectionType>
+        <JndiName ElementType="Property">env/gddl</JndiName>
+        <JdbcDriverURL ElementType="Property">jdbc:oracle:thin:@localhost:1521:orcl</JdbcDriverURL>
+        <DataBaseUserName ElementType="Property">linh</DataBaseUserName>
+        <DataBasePassWord ElementType="Property">a</DataBasePassWord>
+        <SuperUserName ElementType="Property">ZHIREN</SuperUserName>
+        <SuperPassWord ElementType="Property">VERSION</SuperPassWord>
+        <SystemLeib ElementType="Property">0</SystemLeib>
+        <StyleColor ElementType="Property">blue</StyleColor>
+        <LogoPath ElementType="Property">gddc</LogoPath>
+    </gddl>
+    <gddl ElementType="Object" user="中卫">
+        <ValidateCode>zr</ValidateCode>
+        <ConnectionType ElementType="Property">0</ConnectionType>
+        <JndiName ElementType="Property">env/gddl</JndiName>
+        <JdbcDriverURL ElementType="Property">jdbc:oracle:thin:@localhost:1521:orcl</JdbcDriverURL>
+        <DataBaseUserName ElementType="Property">gdql</DataBaseUserName>
+        <DataBasePassWord ElementType="Property">ris</DataBasePassWord>
+        <SuperUserName ElementType="Property">ZHIREN</SuperUserName>
+        <SuperPassWord ElementType="Property">VERSION</SuperPassWord>
+        <SystemLeib ElementType="Property">0</SystemLeib>
+        <StyleColor ElementType="Property">blue</StyleColor>
+        <LogoPath ElementType="Property">gddc</LogoPath>
+    </gddl>
+</InstallInfo>

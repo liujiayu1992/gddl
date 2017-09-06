@@ -1,0 +1,127 @@
+<html jwcid="@Shell" title="资源菜单管理" stylesheet="ognl:assets.Main">
+<head>
+<style>
+    .TreeClass{
+		border: darkgray 1px solid;
+		border-collapse: collapse;
+		background-color: #DCE4ED;
+		bordercolor: #000000;
+		font-family: Verdana, Arial, Helvetica, ;
+		width : 100%;
+		height : 100%;
+	  	sans-serif;font-size: 12px;color: #000000;
+	}
+    .TreeClass td{
+    	font-family: Verdana, Arial, Helvetica, ;
+	  	sans-serif;font-size: 12px;color: #000000;
+    }
+    .TreeClass div{
+    	overflow: scroll;
+    	width:50%;
+    }
+</style>
+</head>
+<script>
+<span jwcid="@Insert" value="ognl:ArrayScript"></span>
+</script>
+
+<body jwcid="@Body" >
+    <script jwcid = "Treejs" ></script>
+	<script jwcid = "Mainjs" ></script>
+    <script>
+		function NodeChange(){
+      		var currentObjTr = LastNode.parentElement;
+           	var ShowText = currentObjTr.cells[1].innerText.replace(/(^\s*)|(\s*$)/g, "");
+			var ArrIndex = eval(currentObjTr.cells[2].innerText.replace(/(^\s*)|(\s*$)/g, ""));
+            var CurNodeID = currentObjTr.cells[3].innerText.replace(/(^\s*)|(\s*$)/g, "");
+            if(CurNodeID == 0){
+            	document.getElementById("ID").value = CurNodeID;
+            	document.getElementById("ResourceName").value = ShowText;
+            	document.getElementById("ResourcePlace").value = Tree[0][4];
+            	document.getElementById("SerialNumber").value = Tree[0][3];
+            	return;
+            }
+            for(i=0;i < Tree[ArrIndex].length;i++){
+				if(Tree[ArrIndex][i][1]==CurNodeID){
+                	document.getElementById("ID").value = CurNodeID;
+                	document.getElementById("ResourceName").value = ShowText;
+                	document.getElementById("ResourcePlace").value = Tree[ArrIndex][i][4];
+                	document.getElementById("SerialNumber").value = Tree[ArrIndex][i][3];
+					break;
+				}
+			}
+		}
+        function ClickButton(){
+			document.getElementById("OperateNotes").value = operateNotes;
+        }
+        </script>
+	<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+		<table class=TreeClass >
+	        <tr valign = top>
+	            <td>
+	                <div id = ShowPlatform>
+                    </div>
+                </td>
+                <td>
+			        <table>
+			        	<tr>
+			                <td>
+			                    资源名:
+			                </td>
+			                <td colspan=2>
+			                    <input jwcid="ResourceName" id = "ResourceName" />
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    文件位置:
+			                </td>
+			                <td colspan=2>
+			                    <input jwcid="ResourcePlace" id = "ResourcePlace" />
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    序号:
+			                </td>
+			                <td colspan=2>
+			            		<input jwcid="SerialNumber" id = "SerialNumber" />
+			                </td>
+			            </tr>
+			            <tr>
+				            <td colspan=3>
+				                <input style="display:none" jwcid="OperateNotes" id="OperateNotes"/> 
+				                <input style="display:none" jwcid="ID" id = "ID" />
+				            </td>
+			            </tr> 
+			            <tr align=right>
+			                <td align=left>
+			                    <span jwcid="InsertButton@ZRcontrib:ImgButton" buttontype=""
+			                    onClick="ClickButton()"
+								label="添加" listener="ognl:listeners.InsertButton" ></span>
+			                </td>
+			                <td align=center>
+			            		<span jwcid="UpdateButton@ZRcontrib:ImgButton" buttontype=""
+			                    onClick="ClickButton()"
+								label="修改" listener="ognl:listeners.UpdateButton" ></span>
+			                </td>
+			                <td align=right>
+			            		<span jwcid="DeleteButton@ZRcontrib:ImgButton" buttontype=""
+			                    onClick="ClickButton()"
+								label="删除" listener="ognl:listeners.DeleteButton" ></span>
+			                </td>
+			            </tr>
+			        </table>
+                </td>  
+            </tr>
+        </table>
+	</form>
+</body>
+<script type="text/javascript">
+ShowRoot("ShowPlatform");
+<span jwcid="@Insert" value="ognl:OprateScript"/>
+ShowPlatform.style.width = bodyWidth/2;
+ShowPlatform.style.height = bodyHeight-60;
+</script>
+</html>
+

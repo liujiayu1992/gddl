@@ -1,0 +1,305 @@
+<html jwcid="@Shell" doctype=" " title="货票核对"  stylesheet="ognl:assets.Rmis">
+
+<body id="body" Style = "margin:5" jwcid="@Body" class="bgs" onkeydown="Pingb()">
+    <script jwcid="Huophdjs"/>
+    <script jwcid="Datejs"/>
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+        <!--span jwcid="@ZRcontrib:ModalDialog" message="ognl:Msg" ></span-->
+			<table width="100%"> 
+			<tr width="100%"  jwcid = "EditValues">
+				<td width="15%" id="lefttdhp">　</td>
+				<td width=690>
+					<table width="690" align="center">
+			<tr>
+				<td>
+					<table>
+						<tr align="center">
+							<td width=15%>
+							</td>	
+							<td>
+								<span style="letter-spacing: 60pt"><u><font face="仿宋_GB2312" size="6"><strong>货票</strong></font></u></span>
+							</td>	
+							<td width=15%>
+								<strong>NO.</strong><input size="12" style="border-top: none;border-right: none;border-left: none;border-bottom: solid black 2px;" jwcid="HPPIAOJH" id="HPPIAOJH" type="text" />
+							</td>	
+						</tr>
+					</table>		
+				</td>
+			</tr>
+			<tr  align="center">
+				<td>
+				<table class="TABLEdanj1" width="690" >
+					<tr>
+						<td width="65" class="TABLEinput">		
+								<span style="letter-spacing: 3pt">发货日期</span>
+						</td>
+						<td width="100" colspan="2" class="TABLEinput">
+								<input size="12"  readonly="true" jwcid="HPFAHRQ" id="HPFAHRQ" type="text" class="TABLEinput"/>
+						</td>
+						<td width="65" class="TABLEinput">
+								<span style="letter-spacing: 3pt">发站</span>
+						</td>
+						<td width="65" class="TABLEinput">
+								<input size="8" readonly="true"  jwcid="HPFAZ" id="HPFAZ" type="text" class="TABLEinput"/>
+						　</td>
+						<td width="65" class="TABLEinput">
+								<span style="letter-spacing: 3pt">到站</span>
+						</td>
+						<td width="65" class="TABLEinput">
+								<input size="8" readonly="true"  jwcid="HPDAOZ" id="HPDAOZ" type="text"class="TABLEinput" />
+						</td>
+						<td width="65" class="TABLEinput">
+								<span style="letter-spacing: 3pt">车种车号</span>
+						</td>
+						<td width="65" class="TABLEinput">
+							<input size="8" readonly="true"  jwcid="HPCHEPH" id="HPCHEPH" type="text" class="TABLEinput"/>
+						</td>
+						<td width="65" class="TABLEinput">
+								<span style="letter-spacing: 3pt">货车标重</span>
+						</td>
+						<td width="60" class="TABLEinput">
+						　		<input size="7" readonly="true"  jwcid="HPBIAOZ" id="HPBIAOZ" type="text" class="TABLEinput" />
+						</td>
+					</tr>
+					<tr>
+						<td width="65">
+								<span style="letter-spacing: 3pt">运价里程</span>
+						</td>
+						<td width="230" colspan="4">
+								<input size="32" readonly="true"  jwcid="HPYUNJLC" id="HPYUNJLC" type="text" class="TABLEinput"/>
+						</td>
+						<td width="65">
+								<span style="letter-spacing: 3pt">保价金额</span>
+						</td>
+						<td width="65" class="TABLEinput">
+								<input size="8" jwcid="HPBAOJJE" id="HPBAOJJE" onchange="countbaojf(this)" type="text" class=""/>
+						</td>
+						<td colspan="4" width="255">
+								<span style="letter-spacing: 3pt">现付费用</span>
+						</td>
+					</tr>
+					<tr>
+						<td width="130" colspan="2" class="TABLEinput">
+								<span style="letter-spacing: 3pt">托运人名称及地址</span>
+						</td>
+						<td width="295" colspan="5" class="TABLEinput">
+								<input size="42" readonly="true"  jwcid="HPFAHDW" id="HPFAHDW" type="text"class="TABLEinput" />
+						</td>
+						<td width="65">
+								<span style="letter-spacing: 3pt;width:115">费别</span>
+						</td>
+						<td width="65">
+							
+								<span style="letter-spacing: 3pt">金额</span>
+							
+						</td>
+						<td width="65">
+								<span style="letter-spacing: 3pt;width:115">费别</span>
+						</td>
+						<td width="60">
+								<span style="letter-spacing: 3pt">金额</span>
+						</td>
+					</tr>
+					<tr>
+						<td width="130" colspan="2" class="TABLEinput">
+							
+								<span style="letter-spacing: 3pt">收货人名称及地址</span>
+						</td>
+						<td width="295" colspan="5" class="TABLEinput">
+								<input size="42" readonly="true"  jwcid="HPDIANCMC" id="HPDIANCMC" type="text" class="TABLEinput"/>
+						</td>
+						<td width="65" align="center" valign = "middle">
+								<input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB0" id="HPFEIB0" type="text"/>
+						</td>
+						<td width="65" >
+								<input class = "" style="border:0;width:65;font-size:9pt" onchange = "Hej()"  jwcid="HPJINE0" id="HPJINE0" type="text" />
+						</td>
+						<td width="65" >
+								<input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB1" id="HPFEIB1" type="text" />
+						</td>
+						<td width="60" >
+								<input class = "" style="border:0;width:60;font-size:9pt" onchange = "Hej()"  jwcid="HPJINE1" id="HPJINE1" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td width="65" class="TABLEinput">
+								<span style="letter-spacing: 3pt">货物名称</span>
+						</td>
+						<td width="65">
+								<span style="letter-spacing: 3pt">品名代码</span>
+						</td>
+						<td width="35">
+								<span style="letter-spacing: 3pt">件数</span>
+						</td>
+						<td width="65">
+								<span style="letter-spacing: 3pt">货物重量</span>
+						</td>
+						<td width="65">
+								<span style="letter-spacing: 3pt">计费重量</span>
+						</td>
+						<td width="65">
+								<span style="letter-spacing: 3pt">运价号</span>
+						</td>
+						<td width="65">
+								<span style="letter-spacing: 3pt">运价率</span>
+						</td>
+						<td width="65" >
+							<input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB2" id="HPFEIB2" type="text" />
+						</td>
+						<td width="65" >
+							<input class = "" style="border:0;width:65;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE2" id="HPJINE2" type="text" />
+						</td>
+						<td width="65" >
+							<input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB3" id="HPFEIB3" type="text" />
+						</td>
+						<td width="60" >
+							<input class = "" style="border:0;width:60;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE3" id="HPJINE3" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<td width="65" class="TABLEinput"><input size="8" readonly="true" id="HPMEIZ" type="text" class="TABLEinput"/></td>
+						<td width="65">　</td>
+						<td width="35">　</td>
+						<td width="65">	 </td>
+						<td width="65">  </td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB4" id="HPFEIB4" type="text"  /></td>
+						<td width="65" ><input class = "" style="border:0;width:65;font-size:9pt"  onchange = "Hej()"  jwcid="HPJINE4" id="HPJINE4" type="text" /></td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB5" id="HPFEIB5" type="text" /></td>
+						<td width="60" ><input class = "" style="border:0;width:60;font-size:9pt"  onchange = "Hej()"  jwcid="HPJINE5" id="HPJINE5" type="text" /></td>
+					</tr>
+					<tr>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="35">　</td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB6" id="HPFEIB6" type="text" /></td>
+						<td width="65" ><input class = "" style="border:0;width:65;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE6" id="HPJINE6" type="text" /></td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB7" id="HPFEIB7" type="text" /></td>
+						<td width="60" ><input class = "" style="border:0;width:60;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE7" id="HPJINE7" type="text" /></td>
+					</tr>
+					<tr>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="35">　</td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB8" id="HPFEIB8" type="text" /></td>
+						<td width="65" ><input class = "" style="border:0;width:65;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE8" id="HPJINE8" type="text" /></td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true" jwcid="HPFEIB9" id="HPFEIB9" type="text" /></td>
+						<td width="60" ><input class = "" style="border:0;width:60;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE9" id="HPJINE9" type="text" /></td>
+					</tr>
+					<tr>
+						<td width="65" class="TABLEinput">
+								<span style="letter-spacing: 3pt">合计</span>
+						</td>
+						<td width="65">　</td>
+						<td width="35">　</td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65">　</td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true"  jwcid="HPFEIB10" id="HPFEIB10" type="text" /></td>
+						<td width="65" ><input class = "" style="border:0;width:65;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE10" id="HPJINE10" type="text" /></td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true"  jwcid="HPFEIB11" id="HPFEIB11" type="text" /></td>
+						<td width="60" ><input class = "" style="border:0;width:60;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE11" id="HPJINE11" type="text" /></td>
+					</tr>
+					<tr>
+						<td width="65" rowspan="3">
+								<span style="letter-spacing: 3pt">集装箱号码</span>
+						</td>
+						<td width="360" colspan="6" rowspan="3">
+							<input rows="3" cols="50" readonly="true"  jwcid="HPCHEPHS" id="HPCHEPHS" type="text" />
+						</td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true"  jwcid="HPFEIB12" id="HPFEIB12" type="text"  /></td>
+						<td width="65" ><input class = "" style="border:0;width:65;font-size:9pt"  onchange = "Hej()"  jwcid="HPJINE12" id="HPJINE12" type="text" /></td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true"  jwcid="HPFEIB13" id="HPFEIB13" type="text" /></td>
+						<td width="60" ><input class = "" style="border:0;width:60;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE13" id="HPJINE13" type="text" /></td>
+					</tr>
+					<tr>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true"  jwcid="HPFEIB14" id="HPFEIB14" type="text" /></td>
+						<td width="65" ><input class = "" style="border:0;width:65;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE14" id="HPJINE14" type="text" /></td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true"  jwcid="HPFEIB15" id="HPFEIB15" type="text" /></td>
+						<td width="60" ><input class = "" style="border:0;width:60;font-size:9pt"  onchange = "Hej()"  jwcid="HPJINE15" id="HPJINE15" type="text" /></td>
+					</tr>
+					<tr>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true"  jwcid="HPFEIB16" id="HPFEIB16" type="text" /></td>
+						<td width="65" ><input class = "" style="border:0;width:65;font-size:9pt"  onchange = "Hej()"  jwcid="HPJINE16" id="HPJINE16" type="text" /></td>
+						<td width="65" ><input class = "text-position_bgcolor" style="border:0;width:115;font-size:9pt" readonly="true"  jwcid="HPFEIB17" id="HPFEIB17" type="text" /></td>
+						<td width="60" ><input class = "" style="border:0;width:60;font-size:9pt" onchange = "Hej()"   jwcid="HPJINE17" id="HPJINE17" type="text" /></td>
+					</tr>
+					<tr>
+						<td width="65" rowspan="2" align="center">
+							<span style="letter-spacing: 3pt">记事</span>
+						</td>
+						<td width="360" colspan="6" rowspan="2"> 
+								<input rows="2" cols="50"  jwcid="HPBEIZ" id="HPBEIZ" type="text" />	
+						</td>
+					</tr>
+					<tr>
+						<td width="65" rowspan="2" class="TABLEinput">
+							<span style="letter-spacing: 3pt">合计</span>
+						</td>
+						<td width="190" colspan="3" rowspan="2"  class="TABLEinput">
+                            <input size="26" readonly="true"  jwcid="HPHEJ" id="HPHEJ" type="text"  class="TABLEinput"/>
+                        </td>
+					</tr>	
+							<input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID0"  id="HPFEIYID0" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID1"  id="HPFEIYID1" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID2"  id="HPFEIYID2" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID3"  id="HPFEIYID3" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID4"  id="HPFEIYID4" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID5"  id="HPFEIYID5" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID6"  id="HPFEIYID6" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID7"  id="HPFEIYID7" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID8"  id="HPFEIYID8" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID9"  id="HPFEIYID9" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID10" id="HPFEIYID10" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID11" id="HPFEIYID11" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID12" id="HPFEIYID12" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID13" id="HPFEIYID13" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID14" id="HPFEIYID14" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID15" id="HPFEIYID15" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID16" id="HPFEIYID16" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID17" id="HPFEIYID17" type="text" class="inputNoShowDataWhiteBG"/>
+                            <input size="26" style="width:25px" readonly="true"  jwcid="HPFEIYID18" id="HPFEIYID18" type="text" class="inputNoShowDataWhiteBG"/>
+				</table>
+				</td>
+			</tr>
+            <tr  align="center">	
+				<td >
+					<table>
+						<tr>
+							<td>
+								<span id="ReturnButton" jwcid="ReturnButton@ZRcontrib:ImgButton" buttontype="" label="返回" listener="ognl:listeners.ReturnButton" />	
+							</td>
+							<td>
+                                <span onclick = "return closeOpenWin()" id="SaveButton" jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存" listener="ognl:listeners.SaveButton" />
+                            </td>
+							<td>
+								<span id="FeiylxAddButton" jwcid="FeiylxAddButton@ZRcontrib:ImgButton" buttontype="" label="新增修改费用项目" listener="ognl:listeners.FeiylxAddButton" />	
+							</td>	
+							<!--td>
+								<span id="FeiylxDelButton" jwcid="FeiylxDelButton@ZRcontrib:ImgButton" buttontype="" label="修改公式" listener="ognl:listeners.FeiylxDelButton" />	
+							</td-->	
+						</tr>	
+					</table>	
+					
+				</td>					
+			</tr>
+			
+		</table>
+								</td>
+				<td width="15%">　</td>
+			</tr>
+		</table>
+    </form>
+</body>
+<script>window.onresize();</script>
+</html>

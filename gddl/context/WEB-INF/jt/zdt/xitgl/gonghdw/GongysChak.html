@@ -1,0 +1,516 @@
+<html jwcid="@Shell" title="" stylesheet="ognl:assets.Rmis">
+<style>
+.HeadSub {
+	height: 20px;
+	font-size: 13px;
+	font-weight: bold;
+	background-color: #DCDEE1;
+}
+.TDTitle {
+	height: 20px;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #F0F0F0;
+}
+input{
+	border:0px;
+	
+}
+
+.grid_table {
+	border-top: 1px #ACA899 solid;
+	border-left: 1px #ACA899 solid;
+	font-size: 12px;
+	border-collapse: collapse;
+}
+body {
+	font-size: 14px;
+	font-family: "宋体";
+}
+ol li {
+	margin: 8px;
+}
+#con {
+	font-size: 12px;
+	width: 100%;
+	margin: 2 auto;
+}
+#tags {
+	height: 23px;
+	width: 400px;
+	margin: 0;
+	padding: 0;
+	margin-left: 10px;
+}
+#tags li {
+	float: left;
+	margin-right: 1px;
+	background: url(images/tagleft.gif) no-repeat left bottom;
+	height: 23px;
+	list-style-type: none;
+}
+#tags li a {
+	text-decoration: none;
+	float: left;
+	background: url(images/tagright.gif) no-repeat right bottom;
+	height: 23px;
+	padding: 0px 10px;
+	line-height: 23px;
+	color: #999;
+}
+#tags li.emptyTag {
+	width: 4px;
+	background: none;
+}
+#tags li.selectTag {
+	background-position: left top;
+	position: relative;
+	height: 25px;
+	margin-bottom: -2px;
+}
+#tags li.selectTag a {
+	background-position: right top;
+	color: #000;
+	height: 25px;
+	line-height: 25px;
+}
+#tagContent {
+	padding: 1px;
+	background-color: #fff;
+	border: 1px solid #aecbd4;
+	border-left: 0px;
+	border-bottom: 0px;
+	width: 100%;
+}
+.tagContent {
+	height: 350px;
+	padding: 10px;
+	color: #474747;
+	width: 98%;
+	display: none;
+}
+#tagContent div.selectTag {
+	display: block;
+}
+</style>
+
+<body id="body" jwcid="@Body">
+<script jwcid="GongysChakjs" />
+<script jwcid="Mainjs" />
+    
+<script jwcid="Datejs" />
+    
+<script jwcid="Validatejs" />
+<script>
+    <span jwcid="@Insert" raw="true" value="ognl:ArrayScript"/>
+</script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><span
+	jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"></span>
+<div id="MainDiv">
+<table cellpadding="0" cellspacing="0" border="0" align="center"
+	style="width: 99%;border: 0px #ACA899 solid; padding: 5px;">
+	<tr>
+		<td><span jwcid="ReturnsButton@ZRcontrib:ImgButton"
+			onclick="return Showwait();" buttontype="" label="返回"
+			onblur="return blurfocus();" listener="ognl:listeners.ReturnsButton"></span>
+		<span jwcid="SaveButton@ZRcontrib:ImgButton"
+			onclick="return Showwait();" buttontype="" label="保存"
+			onblur="return blurfocus();" listener="ognl:listeners.SaveButton"></span>
+        <input style="display: none;" jwcid="EditTableRow"
+							id="EditTableRow" type="text" />
+		</td>
+	</tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="1"
+	style="width: 99%; height: 100%; border: 1px #ACA899 solid; padding: 5px;"
+	class="grid_table" align="center" id="MainTable">
+	<colgroup>
+		<col width="15%" align="left" />
+		<col width="35%" align="left" />
+		<col width="15%" align="left" />
+		<col width="35%" align="left" />
+	</colgroup>
+	<tr class="HeadSub">
+		<td colspan="4">
+		<table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+			<tr>
+				<td style="width: 95%" align="center">供 应 商 详 细 信 息</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr style="height: 18px;">
+		<td class="TDTitle">供应商名称:</td>
+		<td><span id="QUANC" jwcid="QUANC"></span></td>
+		<td class="TDTitle">供应商简称:</td>
+		<td><span id="MINGC" jwcid="MINGC"></span></td>
+	</tr>
+	<tr style="height: 18px;">
+		<td class="TDTitle">供应商编码:</td>
+		<td><span id="BIANM" jwcid="BIANM"></span></td>
+		<td class="TDTitle">供应商类别:</td>
+		<td><span id="FUID" jwcid="FUID"></span></td>
+	</tr>
+	<tr style="height: 18px;">
+		<td class="TDTitle">所 属 省 部:</td>
+		<td><span id="SHENGFB_ID" jwcid="SHENGFB_ID"></span></td>
+	</tr>
+	<tr class="HeadSub">
+		<td colspan="4" align="center">供 应 商 调 查 表 情 况&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="height: 5px; border-top: 0px;"></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="width: 100%; padding: 0px; border-top: 0px;">
+		<div id="con" style="width: 100%; height: 100%;">
+		<ul id="tags" style="width: 100%; height: 100%;">
+			<li class="selectTag"><a href="javascript:void(0)"
+				onclick="getTab(0);">公司整体状况</a></li>
+			<li><a href="javascript:void(0)" onclick="getTab(1);">资源基本状况</a></li>
+			<li><a href="javascript:void(0)" onclick="getTab(2);">煤种</a></li>
+			<li><a href="javascript:void(0)" onclick="getTab(3);">合作情况</a></li>
+			<li><a href="javascript:void(0)" onclick="getTab(4);">下属矿点</a></li>
+		</ul>
+		<div id="tagContent">
+		<div class="tagContent selectTag">
+		<table cellpadding="0" cellspacing="0" border="1"
+			style="width: 99%; border: 1px #ACA899 solid; padding: 5px;"
+			class="grid_table">
+			<colgroup>
+				<col width="20%" align="left" />
+				<col width="31%" align="left" />
+				<col width="18%" align="left" />
+				<col width="31%" align="left" />
+			</colgroup>
+			<tr>
+				<td class="TDTitle" style="height: 30px;">信用等级:</td>
+				<td><span id="XINY" jwcid="XINY"></span></td>
+				<td class="TDTitle">邮政编码:</td>
+				<td><span id="YOUZBM" jwcid="YOUZBM"></span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">详细地址:</td>
+				<td><span id="DANWDZ" jwcid="DANWDZ"></span></td>
+				<td class="TDTitle">联系电话 / 传真:</td>
+				<td><span style="width:50px" id="DIANH" jwcid="DIANH"></span>/
+				<span style="width:50px" id="CHUANZ" jwcid="CHUANZ"> </span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">法定代表人:</td>
+				<td><span id="FADDBR" jwcid="FADDBR"></span></td>
+				<td class="TDTitle">委托代理人:</td>
+				<td><span id="WEITDLR" jwcid="WEITDLR"></span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">公司性质:</td>
+				<td><span id="GONGSXZ" jwcid="GONGSXZ"></span></td>
+				<td class="TDTitle">是否为上市公司:</td>
+				<td><span id="SHIFSS" jwcid="SHIFSS"></span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">上市地址:</td>
+				<td colspan="3"><span id="SHANGSDZ" jwcid="SHANGSDZ"></span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">开户银行:</td>
+				<td colspan="3"><span id="KAIHYH" jwcid="KAIHYH"></span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">帐号:</td>
+				<td><span id="ZHANGH" jwcid="ZHANGH"></span></td>
+				<td class="TDTitle">税号:</td>
+				<td><span id="SHUIH" jwcid="SHUIH"></span></td>
+			</tr>
+		</table>
+		</div>
+		<div class="tagContent">
+		<table cellpadding="0" cellspacing="0" border="1"
+			style="width: 99%; border: 1px #ACA899 solid; padding: 5px;"
+			class="grid_table">
+			<colgroup>
+				<col width="19%" align="left" />
+				<col width="33%" align="left" />
+				<col width="20%" align="left" />
+				<col width="28%" align="left" />
+			</colgroup>
+			<tr>
+				<td class="TDTitle" style="height: 30px;">煤炭来源:</td>
+				<td>自产:<span id="ZICBFB" style="width:30px" jwcid="ZICBFB"></span>%
+				收煤:<span id="SHOUMBFB" style="width:30px" jwcid="SHOUMBFB"></span>%
+				其它:<span id="QITBFB" style="width:30px" jwcid="QITBFB"></span>%</td>
+				<td class="TDTitle">煤炭储备能力:</td>
+				<td><span id="CHUBNL" jwcid="CHUBNL"></span>亿吨</td>
+			</tr>
+			<tr>
+				<td class="TDTitle">主要煤种:</td>
+				<td><span id="MEIZ" jwcid="MEIZ"></span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">煤炭可开采能力:</td>
+				<td colspan="3"><span style="width:30px" id="KAICNL"
+					jwcid="KAICNL"></span>亿吨，可开采年限<span id="KAICNX" style="width:20px"
+					jwcid="KAICNX"></span>年</td>
+			</tr>
+			<tr>
+				<td class="TDTitle">生产能力:</td>
+				<td><span id="SHENGCNL" style="width:40px" jwcid="SHENGCNL"></span>万吨/年</td>
+				<td class="TDTitle">供应能力:</td>
+				<td><span id="GONGYNL" style="width:40px" jwcid="GONGYNL"></span>万吨/年</td>
+			</tr>
+			<tr>
+				<td class="TDTitle">煤炭主要流向:</td>
+				<td colspan="3"><span id="LIUX" jwcid="LIUX"></span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">煤炭主要运输方式:</td>
+				<td><span id="YUNSFS" jwcid="YUNSFS"></span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">运输能力:</td>
+				<td><span id="YUNSNL" jwcid="YUNSNL"></span></td>
+			</tr>
+		</table>
+		</div>
+		<div class="tagContent">
+		<table cellpadding="0" cellspacing="0" border="1"
+			style="width: 99%; border: 1px #ACA899 solid; padding: 5px;"
+			class="grid_table">
+			<colgroup>
+				<col width="18%" align="left" />
+				<col width="82%" align="left" />
+			</colgroup>
+			<tr>
+				<td class="TDTitle" style="height: 30px;">可供应煤种:</td>
+				<td><span id="KEGYWFMZ" jwcid="KEGYWFMZ"></span></td>
+			</tr>
+			<tr>
+				<td class="TDTitle">主要煤质指标:</td>
+				<td>
+				<table cellpadding="0" cellspacing="0" border="0"
+					style="width: 100%; height: 100%; padding: 5px;">
+					<tr>
+						<td style="width: 50%">基本规格:</td>
+						<td style="width: 50%">元素分析:</td>
+					</tr>
+					<tr valign="top">
+						<td>
+						<table cellpadding="0" cellspacing="0" border="1"
+							style="width: 99%; border: 1px #ACA899 solid; padding: 5px;"
+							class="grid_table">
+							<colgroup>
+								<col width="25%" align="left" />
+								<col width="25%" align="left" />
+								<col width="25%" align="left" />
+								<col width="25%" align="left" />
+							</colgroup>
+							<tr>
+								<td>全水分</td>
+								<td>Mt</td>
+								<td>%</td>
+								<td><span id="QUANSF" style="width:40px" jwcid="QUANSF"></span>%</td>
+							</tr>
+							<tr style="background-color: #F0F0F0;">
+								<td>灰份</td>
+								<td>Ad</td>
+								<td>%</td>
+								<td><span id="HUIF" style="width:40px" jwcid="HUIF"></span>%</td>
+							</tr>
+							<tr>
+								<td>挥发份</td>
+								<td>Vdaf</td>
+								<td>%</td>
+								<td><span id="HUIFF" style="width:40px" jwcid="HUIFF"></span>%</td>
+							</tr>
+							<tr style="background-color: #F0F0F0;">
+								<td>全硫份</td>
+								<td>St,d</td>
+								<td>%</td>
+								<td><span id="LIUF" style="width:40px" jwcid="LIUF"></span>%</td>
+							</tr>
+							<tr>
+								<td>发热量</td>
+								<td>Qnet,ar</td>
+								<td>Kal/kg</td>
+								<td><span id="FARL" style="width:40px" jwcid="FARL"></span>Kal/kg</td>
+							</tr>
+							<tr style="background-color: #F0F0F0;">
+								<td>粒度</td>
+								<td></td>
+								<td>mm</td>
+								<td><span id="LID" style="width:40px" jwcid="LID"></span>mm</td>
+							</tr>
+							<tr>
+								<td>哈氏可磨系数</td>
+								<td></td>
+								<td>HGI</td>
+								<td><span id="HASKMXS" style="width:40px" jwcid="HASKMXS">
+								</span>%</td>
+							</tr>
+							<tr style="background-color: #F0F0F0;">
+								<td>灰熔点(T2)</td>
+								<td></td>
+								<td>℃</td>
+								<td><span id="HUIRD" style="width:40px" jwcid="HUIRD"></span>℃</td>
+							</tr>
+						</table>
+						</td>
+						<td valign="top">
+						<table cellpadding="0" cellspacing="0" border="1"
+							style="width: 99%; border: 1px #ACA899 solid; padding: 5px;"
+							class="grid_table">
+							<tr>
+								<td>碳</td>
+								<td>Cdaf</td>
+								<td>%</td>
+								<td><span id="TAN" style="width:40px" jwcid="TAN"></span>%</td>
+							</tr>
+							<tr style="background-color: #F0F0F0;">
+								<td>氢</td>
+								<td>Hdaf</td>
+								<td>%</td>
+								<td><span id="QING" style="width:40px" jwcid="QING"></span>%</td>
+							</tr>
+							<tr>
+								<td>氧</td>
+								<td>Odaf</td>
+								<td>%</td>
+								<td><span id="YANG" style="width:40px" jwcid="YANG"></span>%</td>
+							</tr>
+							<tr style="background-color: #F0F0F0;">
+								<td>氮</td>
+								<td>Ndaf</td>
+								<td>%</td>
+								<td><span id="DAN" style="width:40px" jwcid="DAN"></span>%</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+
+				</td>
+			</tr>
+		</table>
+		</div>
+		<div class="tagContent">
+		<table cellpadding="0" cellspacing="0" border="1"
+			style="width: 99%; border: 1px #ACA899 solid; padding: 5px;"
+			class="grid_table">
+			<colgroup>
+				<col width="18%" align="left" />
+				<col width="82%" align="left" />
+			</colgroup>
+			<tr>
+				<td class="TDTitle" style="height: 30px;">合作状况:</td>
+				<td><span id="HEZNX" jwcid="HEZNX"></span></td>
+			</tr>
+			<tr style="height: 30px;">
+				<td class="TDTitle">合作情况:</td>
+				<td>市场采购<span id="SHICCL" style="width:40px" jwcid="SHICCGL"></span>吨<br>
+				重点采购<span id="ZHONGDHT" style="width:40px" jwcid="ZHONGDHT"></span>吨</td>
+			</tr>
+		</table>
+		</div>
+		<div class="tagContent">
+				<table table cellpadding="0" cellspacing="0" border="0" style="width: 99%; border: 0px #ACA899 solid; padding: 5px;" class="grid_table">
+					<tr id="SelectData" valign=top>
+						<td>
+						<div id="SelectFrmDiv" class="text-position"
+							style="BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;HEIGHT: 100%">
+						<div id="SelectHeadDiv"
+							style="OVERFLOW: hidden; background-color:#FFFFFF">
+						<table id="EditHeadTabel" bordercolordark="#ffffff"
+							cellpadding="1" bordercolor="#ffffff"
+							style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;"
+							bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+							class="edittablehead" jwcid="@Any"
+							background="ognl:assets.background" width="950">
+							<tr width="950" align="center">
+								<th jwcid="@Any" width="100" height="23" align="center"><label
+									id="tittleHead" class="text-position"
+									style="position:relative;left:0;width:95px">序号</label></th>
+								<th jwcid="@Any" width="100" height="23" align="center"><label
+									id="tittleHead" class="text-position"
+									style="position:relative;left:0;width:95px">编码</label></th>
+								<th jwcid="@Any" width="100" height="23" align="center"><label
+									id="tittleHead" class="text-position"
+									style="position:relative;left:0;width:95px">简称</label></th>
+								<th jwcid="@Any" width="150" height="23" align="center"><label
+									id="tittleHead" class="text-position"
+									style="position:relative;left:0;width:145px">全称</label></th>
+								<th jwcid="@Any" width="100" height="23" align="center"><label
+									id="tittleHead" class="text-position"
+									style="position:relative;left:0;width:95px">拼音</label></th>
+								<th jwcid="@Any" width="100" height="23" align="center"><label
+									id="tittleHead" class="text-position"
+									style="position:relative;left:0;width:95px">省份</label></th>
+								<th jwcid="@Any" width="100" height="23" align="center"><label
+									id="tittleHead" class="text-position"
+									style="position:relative;left:0;width:95px">类别</label></th>
+								<th jwcid="@Any" width="100" height="23" align="center"><label
+									id="tittleHead" class="text-position"
+									style="position:relative;left:0;width:95px">口径</label></th>
+								<th jwcid="@Any" width="100" height="23" align="center"><label
+									id="tittleHead" class="text-position"
+									style="position:relative;left:0;width:95px">类型</label></th>
+							</tr>
+						</table>
+						</div>
+						<div id="SelectDataDiv" onscroll="_onscroll(this,SelectHeadDiv)"
+							style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+						<table id="oData" class="edittable" border="0" cellpadding="0"
+							cellspacing="0"
+							style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"
+							width="950">
+							<tr Height="21" onclick="classchange(this,'onclick')"
+								onmouseout="classchange(this,'onmouseout')"
+								onmouseover="classchange(this,'onmouseover')" width="950"
+								jwcid="EditValues" class="edittableTrOut">
+								<td width="100"><input readonly="true"
+									class="text-position" style="width:98px" jwcid="KXUH" id="KXUH"
+									type="text" /></td>
+								<td width="100"><input readonly="true"
+									class="text-position" style="width:98px" jwcid="KBIANM"
+									id="KBIANM" type="text" /></td>
+								<td width="100"><input readonly="true"
+									class="text-position" style="width:98px" jwcid="KMINGC"
+									id="KMINGC" type="text" /></td>
+								<td width="150"><input readonly="true"
+									class="text-position" style="width:148px" jwcid="KQUANC"
+									id="KQUANC" type="text" /></td>
+								<td width="100"><input readonly="true"
+									class="text-position" style="width:98px" jwcid="KPINY"
+									id="KPINY" type="text" /></td>
+								<td width="100"><input readonly="true"
+									class="text-position" style="width:98px" jwcid="KSHENGFB_ID"
+									id="KSHENGFB_ID" type="text" /></td>
+								<td width="100"><input readonly="true"
+									class="text-position" style="width:98px" jwcid="KLEIB"
+									id="KLEIB" type="text" /></td>
+								<td width="100"><input readonly="true"
+									class="text-position" style="width:98px" jwcid="KJIHKJB_ID"
+									id="KJIHKJB_ID" type="text" /></td>
+								<td width="100"><input readonly="true"
+									class="text-position" style="width:98px" jwcid="KLEIX"
+									id="KLEIX" type="text" /></td>
+							</tr>
+						</table>
+						</div>
+						</div>
+						</td>
+					</tr>
+				</table>
+		</div>
+		</div>
+		</div>
+		</td>
+	</tr>
+</table>
+</div>
+</form>
+
+</body>
+<script>window.onresize();</script>
+</html>

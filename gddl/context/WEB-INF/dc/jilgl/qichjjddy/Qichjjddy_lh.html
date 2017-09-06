@@ -1,0 +1,327 @@
+<html jwcid="@Shell" doctype=" " title="打印检斤单"
+	stylesheet="ognl:assets.Rmis">
+<body id="body" jwcid="@Body" class="bgs">
+<script>
+      <!--span jwcid="@Insert" raw="true" value="ognl:ArrayScript"/-->   
+    </script>
+<script jwcid="Qichjjjs" />
+<script jwcid="Datejs" />
+<script jwcid="Validatejs" />
+<form listener="ognl:listeners.submit" jwcid="@Form"
+    onkeydown="if(event.keyCode == 13 || event.keyCode == 8) return false;"
+	delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign=middle height="20">
+		<td>
+		<table valign="middle">
+			<tr>
+				<td class="text-position">检斤日期</td>
+        		<td width = "100" >
+					<input readonly="true" class = "text-position" style="width:98px" jwcid="JIANJSJ" id="JIANJSJ" type="text" />
+                <td class="text-position">至</td>
+        		<td width = "100" >
+					<input readonly="true" class = "text-position" style="width:98px" jwcid="JIANJSJ1" id="JIANJSJ1" type="text" />
+                <td class="text-position">品种：</td>
+                <td><input readonly="true" class="text-position" id="RanlpzbSelect"
+					jwcid="Ranlpzb_idSelect" onchange="if(Showwait()){javascript:this.form.submit();}else{return false;}" type="text" /></td>    
+                <td><span jwcid="RefurbishButton@ZRcontrib:ImgButton"  buttontype="" label="刷新" listener="ognl:listeners.RefurbishButton" /></td>
+				<td><input type="button"
+					onclick="printq();" value="打印检斤单"></td>
+                <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" style="display:none"   listener="ognl:listeners.SaveButton" />
+				<input class="text-position" style="display:none;"
+					jwcid="EditTableRow1" id="EditTableRow1" type="text" />
+                <input class="text-position" style="display:none;"
+					jwcid="ReportType" id="ReportType" type="text" />
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="SelectData1" valign=top>
+		<td>
+		<div id="SelectFrmDiv1" class="text-position"
+			style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		<div id="SelectHeadDiv1"
+			style="OVERFLOW: hidden; background-color:#FFFFFF">
+		<table id="EditHeadTabel1" bordercolordark="#ffffff" cellpadding="1"
+			bordercolor="#ffffff"
+			style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;"
+			bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+			class="edittablehead" jwcid="@Any"
+			background="ognl:assets.background" width="1730">
+			<tr width="1730" align="center">
+				<th jwcid="@Any" width="40" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:35px">选择</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">车号</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">发货单位</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">煤矿单位</label></th>
+				<th jwcid="@Any" width="70" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:65px">品种</label></th>
+				<th jwcid="@Any" width="70" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:65px">计划口径</label></th>
+				<th jwcid="@Any" width="60" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:55px">发货量</label></th>
+				<th jwcid="@Any" width="60" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:55px">毛重</label></th>
+				<th jwcid="@Any" width="60" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:55px">皮重</label></th>
+				<th jwcid="@Any" width="60" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:55px">净重</label></th>
+				<th jwcid="@Any" width="60" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:55px">扣吨</label></th>
+                <th jwcid="@Any" width="60" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:55px">运损</label></th>
+                <th jwcid="@Any" width="165" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:160px">检毛时间</label></th>
+                <th jwcid="@Any" width="165" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:160px">检皮时间</label></th>
+                <th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">煤场</label></th>
+				<th jwcid="@Any" width="120" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:115px">承运单位</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">检质员</label></th>
+                <th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">检斤员</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">收货人</label></th>
+				<th jwcid="@Any" width="100" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:95px">备注</label></th>
+			</tr>
+		</table>
+		</div>
+		<div id="SelectDataDiv1" onscroll="_onscroll(this,SelectHeadDiv1)"
+			style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+		<table id="oData1" class="edittable" border="0" cellpadding="0"
+			cellspacing="0"
+			style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"
+			width="1730">
+			<tr Height="21" id="trid1" onclick="classchange1(this,'onclick')"
+				onmouseout1="classchange(this,'onmouseout')"
+				onmouseover1="classchange(this,'onmouseover')" width="1730"
+				jwcid="EditValues1" class="edittableTrOut">
+				<td width="40"><input readonly="true" class="bigtext-position"
+					style="width:38px" onclick = "Selected(this)" jwcid="XUANZ" id="XUANZ" type="text" /></td>
+				<td width="100"><input readonly="true"
+					class="bigtext-position" style="width:98px" jwcid="CHEPH"
+					id="CHEPH" type="text" /></td>
+				<td width="100"><input readonly="true"
+					class="bigtext-position" style="width:98px" jwcid="MEIKDQMC"
+					id="MEIKDQMC" type="text" /></td>
+				<td width="100"><input readonly="true"
+					class="bigtext-position" style="width:98px" jwcid="MEIKDWMC"
+					id="MEIKDWMC" type="text" /></td>
+				<td width="70"><input readonly="true" class="bigtext-position"
+					style="width:68px" jwcid="PINZ" id="PINZ" type="text" /></td>
+				<td width="70"><input readonly="true" class="bigtext-position"
+					style="width:68px" jwcid="JIHKJ" id="JIHKJ" type="text" /></td>
+				<td width="60"><input readonly="true" class="bigtext-position"
+					style="width:58px" jwcid="FAHL" id="FAHL" type="text" /></td>
+				<td width="60"><input readonly="true"
+					class="bigtext-position" style="width:58px" jwcid="MAOZ" id="MAOZ"
+					type="text" /></td>
+				<td width="60"><input readonly="true" class="bigtext-position"
+					style="width:58px" jwcid="PIZ" id="PIZ" type="text" /></td>
+				<td width="60"><input readonly="true" class="bigtext-position"
+					style="width:58px" jwcid="JINGZ" id="JINGZ" type="text" /></td>
+				<td width="60"><input readonly="true" class="bigtext-position"
+					style="width:58px" jwcid="koud" id="koud" type="text" /></td>
+                <td width="60"><input readonly="true" class="bigtext-position"
+					style="width:58px" jwcid="YUNS" id="YUNS" type="text" /></td>
+                <td width="165"><input readonly="true" class="bigtext-position"
+					style="width:163px" jwcid="JIANMSJ" id="JIANMSJ" type="text" /></td>
+                <td width="165"><input readonly="true" class="bigtext-position"
+					style="width:163px" jwcid="JIANPSJ" id="JIANPSJ" type="text" /></td>
+				<td width="80"><input readonly="true" class="bigtext-position"
+					style="width:78px" jwcid="MEIC" id="MEIC" type="text" /></td>
+				<td width="120"><input readonly="true" class="bigtext-position"
+					style="width:118px" jwcid="CHENGYDW" id="CHENGYDW" type="text" />
+				</td>
+				<td width="80"><input readonly="true" class="bigtext-position"
+					style="width:78px" jwcid="MEIGY" id="MEIGY" type="text" /></td>
+                <td width="80"><input readonly="true" class="bigtext-position"
+					style="width:78px" jwcid="JIANJY" id="JIANJY" type="text" /></td>
+				<td width="100"><input readonly="true"
+					class="bigtext-position" style="width:98px" jwcid="SHOUHR"
+					id="SHOUHR" type="text" /></td>
+				<td width="100"><input readonly="true" class="bigtext-position"
+					style="width:98px" jwcid="BEIZ" id="BEIZ" type="text" /></td>
+				<input onchange="editchange(0)" style="display:none;"
+					class="bigtext-position" id="EditInput" type="text" />
+			</tr>
+		</table>
+		</div>
+		</div>
+		</td>
+	</tr>
+</table>
+
+
+<!-- 打印带格式检斤单 -->
+<div align=center style="display:none" id="di">
+<div align=center id="printjjd">
+<div align=center> 
+<font style="FONT-SIZE: 18pt; font-family:楷体_GB2312;">临河发电分公司过磅单</font><br>
+<br>
+<table  width=704 cellPadding=0 cellSpacing=0 style="font-family:宋体;font-size:13pt;border-left:0px solid rgb(0,0,0);border-top:0px solid rgb(0,0,0);border-right:0px solid rgb(0,0,0);border-bottom:0px solid rgb(0,0,0);">
+<tr height=0>
+<td width=88 valign=middle  class=tdNoneLeft>过磅时间:</td>
+<td width=274 colspan=2 valign=middle style=" border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Jianmsj2"/>
+</td>
+<td width=44 valign=middle  class=tdNoneLeft>　</td>
+<td width=274 colspan=2 valign=middle style=" border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Jianpsj2"/>
+</td>
+<td width=132 valign=middle  align='right' class=tdNoneLeft>
+NO:<span jwcid="@Insert" value="ognl:X_ID"/></td>
+<td width=0  valign=middle  class=tdNoneLeft></td>
+</tr>
+</table>
+<table  width=704 cellPadding=0 cellSpacing=0 style="font-family:宋体;font-size:13pt;border-left:1px solid rgb(0,0,0);border-top:1px solid rgb(0,0,0);border-right:1px solid rgb(0,0,0);border-bottom:1px solid rgb(0,0,0);">
+<tr height=50>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">单位</td>
+<td width=274 colspan=3 valign=middle  align='center' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Danw2"/>
+</td>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">运输单位</td>
+<td width=274 colspan=3 valign=middle  align='center' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Yunsdw2"/>
+</td>
+</tr>
+<tr height=50>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">货名</td>
+<td width=92 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">矿方量(吨)</td>
+<td width=86 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">毛重(吨)</td>
+<td width=86 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">皮重(吨)</td>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">扣吨(吨)</td>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">净重(吨)</td>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">车号</td>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">车型</td>
+</tr>
+<tr height=50>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Ranlpz2"/>
+</td>
+<td width=92 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Kuangfl2"/>
+</td>
+<td width=86 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Maoz2"/>
+</td>
+<td width=86 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Piz2"/>
+</td>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Koud2"/>
+</td>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Jingz2"/>
+</td>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Cheh2"/>
+</td>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">&nbsp;</td>
+</tr>
+<tr height=55>
+<td width=88 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">过磅员<br>签字</td>
+<td width=92 valign=center  align='left' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">&nbsp;</td>
+<td width=86 valign=center  align='middle' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">矿点</td>
+<td width=86 valign=middle  align='center' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">
+<span jwcid="@Insert" value="ognl:Meikdw2"/>
+</td>
+<td width=352 colspan=4 valign=middle  align='center' style=" border-left:1px solid rgb(0,0,0); border-top:1px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);">&nbsp;</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+
+
+<!-- 套打格式 -->
+<div align=center style="display:none" id="di2">
+<div align=center id="printjjd2">
+<div align=center> <BR><BR>
+<TABLE style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; FONT-FAMILY: 宋体; FONT-SIZE: 13pt; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" cellSpacing=0 cellPadding=0 width=704>
+<TBODY>
+<TR height=0>
+<TD class=tdNoneLeft vAlign=center width=50>&nbsp;</TD>
+<TD vAlign=center width=204 colSpan=2 style="BORDER-LEFT:rgb(0,0,0); solid border-bottom:0px rgb(0,0,0); border-right:0px border-top:0px border-left:0px">
+<span jwcid="@Insert" value="ognl:Jianmsj2"/>
+</TD>
+<TD class=tdNoneLeft vAlign=center width=75>&nbsp;</TD>
+<TD vAlign=center width=204 colSpan=2  style="BORDER-LEFT: rgb(0,0,0); solid border-bottom:0px rgb(0,0,0); border-right:0px border-top:0px border-left:0px">
+<span jwcid="@Insert" value="ognl:Jianpsj2"/>
+</TD>
+<TD class=tdNoneLeft vAlign=center width=88>&nbsp;</TD>
+<TD class=tdNoneLeft vAlign=center width=88>&nbsp;</TD></TR></TBODY></TABLE>
+<TABLE style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; FONT-FAMILY: 宋体; FONT-SIZE: 13pt; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" cellSpacing="0" cellPadding="0"  width=704>
+<TBODY>
+<TR height=50>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center width=400 colSpan=5 align=middle>
+<span jwcid="@Insert" value="ognl:Danw2"/>
+</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center width=304 colSpan=3 align=middle>
+<span jwcid="@Insert" value="ognl:Yunsdw2"/>
+</TD></TR>
+<TR height=50>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center width=704 colSpan=8 align=middle>&nbsp;</TD></TR>
+<TR height=50>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center  width=88 align=left>
+<span jwcid="@Insert" value="ognl:Ranlpz2"/>
+</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center  width=88 align=left>
+<span jwcid="@Insert" value="ognl:Kuangfl2"/>
+</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center  width=88 align=middle>
+<span jwcid="@Insert" value="ognl:Maoz2"/>
+</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center  width=88 align=middle>
+<span jwcid="@Insert" value="ognl:Piz2"/>
+</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center  width=88 align=middle>
+<span jwcid="@Insert" value="ognl:Koud2"/>
+</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center  width=88 align=middle>
+<span jwcid="@Insert" value="ognl:Jingz2"/>
+</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center  width=88 align=middle>
+<span jwcid="@Insert" value="ognl:Cheh2"/>
+</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center width=88 align=right>&nbsp;</TD></TR>
+<TR height=55>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center width=264 colSpan=3 align=middle>&nbsp;</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center width=88 align=middle>
+<span jwcid="@Insert" value="ognl:Meikdw2"/>
+</TD>
+<TD style="BORDER-BOTTOM: rgb(0,0,0) 0px solid; BORDER-LEFT: rgb(0,0,0) 0px solid; BORDER-TOP: rgb(0,0,0) 0px solid; BORDER-RIGHT: rgb(0,0,0) 0px solid" vAlign=center width=352 colSpan=4 align=middle>&nbsp;</TD></TR></TBODY></TABLE>
+</div>
+</div>
+</div>
+</form>
+</body>
+<script>window.onresize();</script>
+</html>

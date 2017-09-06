@@ -1,0 +1,1304 @@
+<html jwcid="@Shell" doctype=" " title="合同模板"
+	stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extselectcombojs"></script>
+<script>
+    var gridDiv_history = "";
+	var win_bl;
+    var submited=false;   
+	Ext.onReady(function(){
+	<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+    var abcd;
+    var flag_code=true;
+      cbofun_NianfDropDown();
+      cbofun_YuefDropDown();
+      cbofun_zhuhtSelect();
+      cbo_zhuhtSelect.listWidth=250;
+      if(document.all.item("mobmcSelect")!=null){
+      cbofun_mobmcSelect();
+     }
+    cbofun_hetSelect();
+     cbo_hetSelect.listWidth=250;
+      cbofun_gongfSelect(); 
+	 cbo_gongfSelect.setWidth(225);
+     cbo_gongfSelect.setEditable(true);
+    cbofun_xufSelect(); 
+    cbo_xufSelect.setWidth(225);
+    cbofun_shijgfSelect(); 
+    cbo_shijgfSelect.setWidth(225);
+	    // basic tabs 1, built from existing content
+   		bodyHeight =body.clientHeight;
+		bodyWidth =body.clientWidth;
+	    var tabs = new Ext.TabPanel({
+	        renderTo: 'tabs1',
+	        width:bodyWidth-5,
+    		height:bodyHeight-115,
+	        activeTab: document.all.item("TabbarSelect").value,
+	        frame:true,
+	        defaults:{autoHeight: true},
+	        items:[
+	            {contentEl:'div1', title: '数量信息'},
+	            {contentEl:'div2', title: '质量要求'},
+	            {contentEl:'div3', title: '价格'},
+				{contentEl:'div4', title: '增扣款'},
+				{contentEl:'div5', title: '其他条款'},
+   			    {contentEl:'div6', title: '供方需方'}
+	        ]
+	    });
+        tabs.on('tabChange',function(oldtab,newtab){
+            if(newtab.title=='数量信息'){
+              document.all.item("TabbarSelect").value=0;
+            }else if(newtab.title=='质量要求'){
+              document.all.item("TabbarSelect").value=1;
+            }else if(newtab.title=='价格'){
+              document.all.item("TabbarSelect").value=2;
+            }else if(newtab.title=='增扣款'){
+              document.all.item("TabbarSelect").value=3;
+            }else if(newtab.title=='其他条款'){
+              document.all.item("TabbarSelect").value=4;
+           }else if(newtab.title=='供方需方'){
+	             if( !flag_code){//如果不是刷新
+	             document.all.item("TabbarSelect").value=5;
+	           	 }
+
+              if(!abcd){
+	                abcd= new Ext.zr.select.Selectcombo({
+				    multiSelect:true,
+			        //selectOnFocus:true,
+		        	transform:'Meiksselect',
+		        	//lazyRender:false,
+			        triggerAction:'all',
+			        typeAhead:true,
+			        width:260,
+             		listeners :{'blur':function(){
+				        var val;
+				        if(this.getRawValue().substr(0,1)==','){
+				        	 val=this.getRawValue().substring(1,this.getRawValue().length);				        
+				        }else{
+				       		   val=this.getRawValue();    		 
+				        }
+            				document.getElementById('FAHR').value=val;
+				        }   
+			        },
+		        	forceSelection:true
+			        })	
+              };
+              abcd.setValue(document.getElementById('FAHR').value);
+            }
+         });
+       // tabs.fireEvent('tabChange',null,tabs.items.last());
+       // abcd.setRawValue(document.getElementById('FAHR').value);
+         tabs.setActiveTab(5); 
+          if(document.all.item("TabbarSelect").value==5){
+         	 tabs.fireEvent('tabChange',null,tabs.items.last());
+          }
+          flag_code=false;  
+        tabs.setActiveTab(document.all.item("TabbarSelect").value);
+	    function handleActivate(tab){
+	        alert(tab.title + ' was activated.');
+	    }
+	});
+            
+    function FormatInput(obj,decimalLength){
+		var i=0;
+		var objLength;
+		if (document.all.item(obj)!=null){
+			objLength=document.all.item(obj).length;
+			if (objLength>1){
+				for (i =0;i< objLength;i++){
+					document.all.item(obj,i).value=Format(document.all.item(obj,i).value,decimalLength);
+				}
+			}else if (objLength=1){
+				document.all.item(obj).value=Format(document.all.item(obj).value,decimalLength);
+			}
+		}
+	}	
+
+
+
+	function Format(value, decimalLength){
+		value = Math.round(value * Math.pow(10, decimalLength));
+	
+		value = value / Math.pow(10, decimalLength);
+		var v = value.toString().split(".");
+		if (v[0]==""){
+			v[0]="0";
+		}
+	
+		if (v.length > 1) {
+			var len = v[1].length;
+			if (len > decimalLength) {
+				v[1] = v[1].substring(0, decimalLength);
+			}
+			else {
+				 for (var i=v[1].length; i<decimalLength; i++) {
+					v[1] += "0";
+				}
+			}
+		}
+		else {
+			v[1] = "";
+			for (var i=v[1].length; i<decimalLength; i++) {
+				v[1] += "0";
+			}
+		}
+	
+		if (decimalLength > 0) {
+			return v[0] + "." + v[1];
+		}
+		else {
+			return v[0];
+		}	
+	}
+</script>
+<script  type="text/javascript">
+	function  winShowBL(ob){
+   	
+        <span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>        
+  	}
+</script>
+<style>
+table th{
+	text-align: center
+}
+</style>
+<body id="body" jwcid="@Body" class="bgs"
+	onkeydown="if(event.keyCode==13 && event.srcElement.tagName!='TEXTAREA'){event.keyCode=9}">
+<script jwcid="Hetmbjs" />
+
+<script jwcid="Datejs" />
+
+<script jwcid="EditSelectionjs" />  
+
+<script jwcid="Validatejs" /> 
+
+<script>
+    <span jwcid="pageLink" />
+</script>
+<div id = "gridDiv" style="overflow:none"></div>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><script>
+        function chax(){
+	         if(Ext.get('hetSelect').getValue()!=-1){
+	         	var url = "http://"+document.location.host+document.location.pathname;
+	            var end = url.indexOf(";");
+				url = url.substring(0,end);
+	       	    url = url + "?service=page/" + "Shenhrz&hetb_id="+Ext.get('hetSelect').getValue();
+	            window.open(url,'newWin');
+	         }else{
+	         	alert("请选择合同！");
+	         }
+        }
+        
+        function fuz(){
+        	var zhuht=document.getElementById('zhuhtSelect');
+        	if(zhuht.value==-1){
+        		alert('请选择主合同');
+        		return false;
+        	}
+        	return true;
+        }
+    </script> <input class="text-position" style="display:none;"
+	jwcid="TabbarSelect" id="TabbarSelect" type="text" />
+    <span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+    <span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span> 
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign=middle height="20">
+		<td>
+		<table class="toolBar">
+			<tr>
+				<td width='60' align="right">签订年份:</td>
+				<td width='80'><input onchange="if(!submited){submited=true;javascript:document.Form0.submit();}" style="width:100%"
+					jwcid="NianfDropDown" id="NianfDropDown" type="text" /></td>
+				<td width='80'><input style="width:100%" onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					jwcid="YuefDropDown" id="YuefDropDown" type="text" /></td>
+				<td align="right" width='50'>主合同:</td>
+				<td width='150'><input style="width:100%"  onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					jwcid="zhuhtSelect" id="zhuhtSelect" /></td>
+				<span jwcid="@Conditional" condition="ognl:Xinjht">
+				<!-- td align="right" width='30'>模板:</td>
+				<td width='120'><input style="width:100%" onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					jwcid="mobmcSelect" id="mobmcSelect" /></td-->
+				</span>
+				<td align="right" width='60'>补充合同:</td>
+				<td width='150'><input style="width:100%" onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					jwcid="hetSelect" id="hetSelect" /></td>
+				<td width='40' align="left"><span
+					jwcid="QueryButton@ZRcontrib:ImgButton" onclick="if(chax()){return chekRepear()}else{return false;}"
+					style="width:100%" buttontype="nosubmitbuttons" label="文本" /></td>
+				<td width='40'><span jwcid="@ZRcontrib:ImgButton" buttontype=""onclick="return chekRepear()"
+					label="删除" listener="ognl:listeners.ShancButton" /></td>
+				<td width='40'><span jwcid="@ZRcontrib:ImgButton" buttontype=""
+					label="保存" onclick="if(saveCheck()){return chekRepear()}else{return false;}" 
+					listener="ognl:listeners.BaocButton" /></td>
+                <td width='60'><span  jwcid="@ZRcontrib:ImgButton"buttontype="" label="复制主合同"  
+					onclick="return fuz();" listener="ognl:listeners.fuzButton"/></td>
+                <span  jwcid="@ZRcontrib:ImgButton" style="display:none" buttontype="" label="保存变量" listener="ognl:listeners.SaveButton" id="SaveButton"/>
+				<!-- td width='100'><span jwcid="@ZRcontrib:ImgButton"
+					buttontype="" label="提交进入流程" onclick="if(saveCheck()){return chekRepear()}else{return false;}" 
+					listener="ognl:listeners.TijButton" /></td-->
+                <span jwcid="@Conditional" condition="ognl:Hetbl"> 
+	                 <td width='80'>
+	                     <!-- span  jwcid="@ZRcontrib:ImgButton" buttontype="nosubmitbuttons" label="变量设置"onclick="return winShowBL(this);" id="bl"></span-->
+	                 </td>
+                </span>
+				<td>&nbsp</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<!--合同信息-->
+	<tr id="hetxx" valign=top>
+		<td valign="bottom">
+		<fieldset align="middle"><legend class="text-position">合同信息</legend>
+		<table class="text-position" style="margin:4px;" border="0"
+			cellspacing="0" cellpadding="0">
+			<tr>
+				<td align="right">合同编号:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input type="text" jwcid="hetbh" style="border:0px;" size="20"
+					displayname="合同编号" /></td>
+				<td align="right">生效时间:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input style="border:0px;" size="9" jwcid="shengxsj" /></td>
+				<td align="right">过期时间:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input size="9" style="border:0px;" jwcid="guoqsj"/ ></td>
+			</tr>
+			<tr height="5">
+				<td colspan="6"></td>
+			</tr>
+			<tr>
+				<td align="right">签订时间:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input type="text" style="border:0px;" jwcid="qiandrq" /></td>
+				<td align="right">签订地点:</td>
+				<td
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;">
+				<input class="text-position" jwcid="qianddd" style="border:0px;"
+					id="qianddd" type="text" /></td>
+				<td align="right">计划口径:</td>
+				<td><input type="text" style="width:255px" jwcid="jihkjSelect" /></td>
+
+			</tr>
+		</table>
+		</fieldset>
+		</td>
+	</tr>
+	<!--合同详细信息-->
+	<tr id="hetzxx" valign=top>
+		<td>
+		<div id="tabs1" style="margin:2px">
+		<div id="div1" class="x-hide-display">
+		<table id="tablemains" border="0" cellspacing="0" cellpadding="0"
+			width="100%">
+			<tr id="trconditions" valign=middle height="20">
+				<td>
+				<table valign="middle">
+					<tr>
+						<td><span jwcid="@ZRcontrib:ImgButton" buttontype=""onclick="return chekRepear()"
+							label="添加"style="display:none" listener="ognl:listeners.InsertButtons" /></td>
+						<td><span jwcid="@ZRcontrib:ImgButton" buttontype=""onclick="return chekRepear()"
+							label="删除" listener="ognl:listeners.DeleteButtons" /></td>
+						<input class="text-position" style="display:none;"
+							jwcid="EditTableRows" id="EditTableRows" type="text" />
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr id="SelectDatas" valign=top>
+				<td>
+				<div id="SelectFrmDivs" class="text-position"
+					style="BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;HEIGHT: 100%">
+				<div id="SelectHeadDivs"
+					style="OVERFLOW: hidden; background-color:#FFFFFF">
+				<table id="EditHeadTabels" bordercolordark="#ffffff" cellpadding="1"
+					bordercolor="#ffffff"
+					style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;position:relative"
+					bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+					class="edittablehead" jwcid="@Any"
+					background="ognl:assets.background" width="1350">
+					<tr width="1350" ;text-align: center>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">煤炭<br>
+						品种</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">运输<br>
+						方式</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">发站</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">到站</label></th>
+						<th jwcid="@Any" width="150" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:145px">收货人</label></th>
+						<th jwcid="@Any" width="80" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:75px">合计(吨)</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">1月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">2月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">3月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">4月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">5月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">6月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">7月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">8月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">9月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">10月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">11月</label></th>
+						<th jwcid="@Any" width="70" height="23" align="center"><label
+							id="tittleHeads" class="text-position"
+							style="position:relative;left:0;width:65px">12月</label></th>
+					</tr>
+				</table>
+				</div>
+				<div id="SelectDataDivs" onscroll="_onscrolls(this,SelectHeadDivs)"
+					style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT:0px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+				<table id="oDatas" class="edittable" border="0" cellpadding="0"
+					cellspacing="0"
+					style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"
+					width="1350">
+					<tr Height="21" onclick="classchanges(this,'onclick')"
+						onmouseout="classchanges(this,'onmouseout')"
+						onmouseover="classchanges(this,'onmouseover')" width="1350"
+						jwcid="EditValuess" class="edittableTrOut">
+						<td width="70" class="tdEditable"><input
+							onclick="editins(this,'onclick');dropdowns(this,RANLPZB_IDSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="RANLPZB_ID" id="RANLPZB_ID" type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							class="text-position"
+							onclick="editins(this,'onclick');dropdowns(this,yunsfsSelect);"
+							style="width:68px" jwcid="yunsfs" id="yunsfs" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editins(this,'onclick');dropdowns(this,chezSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="faz" id="faz" type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onclick="editins(this,'onclick');dropdowns(this,chezSelect);"
+							class="text-position" style="width:68px" jwcid="daoz" id="daoz"
+							type="text" /></td>
+						<td width="150" class="tdEditable"><input readonly='true'
+							onclick="editins(this,'onclick');dropdowns(this,shouhrSelect);"
+							class="text-position" style="width:148px" jwcid="shouhr"
+							id="shouhr" type="text" /></td>
+
+						<td width="80" class="tdText"><input readonly="true"
+							class="text-position" style="width:78px" jwcid="HEJs" id="HEJs"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y1s" id="Y1s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y2s" id="Y2s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y3s" id="Y3s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y4s" id="Y4s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y5s" id="Y5s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y6s" id="Y6s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y7s" id="Y7s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y8s" id="Y8s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y9s" id="Y9s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y10s" id="Y10s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y11s" id="Y11s"
+							type="text" /></td>
+						<td width="70" class="tdEditable"><input readonly='true'
+							onfocus="editins(this,'onclick');editclicks(this,EditInputs)"
+							onclick="editins(this,'onclick');editclicks(this,EditInputs)"
+							class="text-position" style="width:68px" jwcid="Y12s" id="Y12s"
+							type="text" /></td>
+					</tr>
+					<input onchange="droponchanges(0)" class="bigtext-position"
+						style="display:none;" jwcid="RANLPZB_IDSelect"
+						id="RANLPZB_IDSelect" type="text" />
+					<input onchange="droponchanges(0)" class="bigtext-position"
+						style="display:none;" jwcid="chezSelect" id="chezSelect"
+						type="text" />
+					<input onchange="droponchanges(0)" class="bigtext-position"
+						style="display:none;" jwcid="shouhrSelect" id="shouhrSelect"
+						type="text" />
+					<input onchange="droponchanges(0)" class="bigtext-position"
+						style="display:none;" jwcid="yunsfsSelect" id="yunsfsSelect"
+						type="text" />
+					<input onchange="editchanges(0)" style="display:none;"
+						class="bigtext-position" id="EditInputs" type="text" />
+				</table>
+				</div>
+				</div>
+				</td>
+			</tr>
+
+		</table>
+		</div>
+		<div id="div2" class="x-hide-display">
+		<table id="tablemainz" border="0" cellspacing="0" cellpadding="0"
+			width="100%">
+			<tr id="trconditionz" valign=middle height="20">
+				<td>
+				<table valign="middle">
+					<tr>
+						<td><span jwcid="@ZRcontrib:ImgButton" buttontype=""onclick="return chekRepear()"
+							label="添加" listener="ognl:listeners.InsertButtonz" /></td>
+						<td><span jwcid="@ZRcontrib:ImgButton" buttontype=""onclick="return chekRepear()"
+							label="删除" listener="ognl:listeners.DeleteButtonz" /></td>
+						<input class="text-position" style="display:none;"
+							jwcid="EditTableRowz" id="EditTableRowz" type="text" />
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr id="SelectDataz" valign=top>
+				<td>
+				<div id="SelectFrmDivz" class="text-position"
+					style="BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;height:100px">
+				<div id="SelectHeadDivz" style="OVERFLOW: hidden;">
+				<table id="EditHeadTabelz" bordercolordark="#ffffff" cellpadding="1"
+					bordercolor="#ffffff"
+					style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;position:relative"
+					bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+					class="edittablehead" jwcid="@Any"
+					background="ognl:assets.background" width="570">
+					<tr width="570" align="center" style="position:relative">
+						<th style="position:relative" jwcid="@Any" width="40" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:35px">序号</label></th>
+						<th style="position:relative" jwcid="@Any" width="150" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:145px">项目</label></th>
+						<th style="position:relative" jwcid="@Any" width="100" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:95px">条件</label></th>
+						<th style="position:relative" jwcid="@Any" width="100" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:95px">下限</label></th>
+						<th style="position:relative" jwcid="@Any" width="100" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:95px">上限</label></th>
+						<th style="position:relative" jwcid="@Any" width="80" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:75px">项目<br>
+						单位</label></th>
+					</tr>
+				</table>
+				</div>
+				<div id="SelectDataDivz" onscroll="_onscrollz(this,SelectHeadDivz)"
+					style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;height:90px;padding-left:0px">
+				<table id="oDataz" class="edittable" border="0" cellpadding="0"
+					cellspacing="0"
+					style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;margin-left:0px"
+					width="570">
+					<tr Height="21" onclick="classchangez(this,'onclick')"
+						onmouseout="classchangez(this,'onmouseout')"
+						onmouseover="classchangez(this,'onmouseover')" width="570"
+						jwcid="EditValuesz" class="edittableTrOut">
+						<td width="40" class="tdText"><input readonly="true"
+							class="text-position" style="width:38px" jwcid="XUH" id="XUH"
+							type="text" /></td>
+						<td width="150" class="tdEditable"><input
+							onclick="editinz(this,'onclick');dropdownz(this,ZHIBSelect);"
+							readonly="true" class="text-position" style="width:148px"
+							jwcid="ZHIB" id="ZHIB" type="text" /></td>
+						<td width="100" class="tdEditable"><input
+							onclick="editinz(this,'onclick');dropdownz(this,TIAOJSelect);"
+							readonly="true" class="text-position" style="width:98px"
+							jwcid="TIAOJ" id="TIAOJ" type="text" /></td>
+						<td width="100" class="tdEditable"><input readonly='true'
+							onfocus="editinz(this,'onclick');editclickz(this,EditInputZ)"
+							onclick="editinz(this,'onclick');editclickz(this,EditInputZ)"
+							class="text-position" style="width:98px" jwcid="xiax" id="xiax"
+							type="text" /></td>
+						<td width="100" class="tdEditable"><input readonly='true'
+							onfocus="editinz(this,'onclick');editclickz(this,EditInputZ)"
+							onclick="editinz(this,'onclick');editclickz(this,EditInputZ)"
+							class="text-position" style="width:98px" jwcid="shangx"
+							id="shangx" type="text" /></td>
+						<td width="80" class="tdEditable"><input
+							onclick="editinz(this,'onclick');dropdownz(this,DANWSelect);"
+							class="text-position" readonly="true" style="width:78px"
+							jwcid="DANW" id="DANW" type="text" /></td>
+					</tr>
+					<input onchange="editchangez(0)" style="display:none;"
+						class="bigtext-position" id="EditInputZ" type="text" />
+					<input onchange="droponchangez(0)" class="bigtext-position"
+						style="display:none;" jwcid="ZHIBSelect" id="ZHIBSelect"
+						type="text" />
+					<input onchange="droponchangez(0)" class="bigtext-position"
+						style="display:none;" jwcid="TIAOJSelect" id="TIAOJSelect"
+						type="text" />
+					<input onchange="droponchangez(0)" class="bigtext-position"
+						style="display:none;" jwcid="DANWSelect" id="DANWSelect"
+						type="text" />
+
+				</table>
+				</div>
+				</div>
+				</td>
+			</tr>
+		</table>
+		</div>
+		<!--价格-->
+		<div id="div3" class="x-hide-display">
+		<table id="tablemaing" border="0" cellspacing="0" cellpadding="0"
+			width="100%">
+			<tr id="trconditiong" valign=middle height="20">
+				<td>
+				<table valign="middle">
+					<tr>
+						<td><span jwcid="@ZRcontrib:ImgButton" buttontype=""onclick="return chekRepear()"
+							label="添加" listener="ognl:listeners.InsertButtong" /></td>
+						<td><span jwcid="@ZRcontrib:ImgButton" buttontype=""onclick="return chekRepear()"
+							label="删除" listener="ognl:listeners.DeleteButtong" /></td>
+						<input class="text-position" style="display:none;"
+							jwcid="EditTableRowg" id="EditTableRowg" type="text" />
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr id="SelectDatag" valign=top>
+				<td>
+				<div id="SelectFrmDivg" class="text-position"
+					style="BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;">
+				<div id="SelectHeadDivg" style="OVERFLOW: hidden;">
+				<table id="EditHeadTabelg" bordercolordark="#ffffff" cellpadding="1"
+					bordercolor="#ffffff"
+					style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;position:relative"
+					bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+					class="edittablehead" jwcid="@Any"
+					background="ognl:assets.background" width="1740">
+					<tr width="1740" align="center" style="position:relative">
+						<th style="position:relative" jwcid="@Any" width="40" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:35px">序号</label></th>
+						<th style="position:relative" jwcid="@Any" width="140" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:135px">项目</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">条件</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">下限</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">上限</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">项目<br>
+						单位</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">价格</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">价格<br>
+						单位</label></th>
+                         <th style="position:relative" jwcid="@Any" width="200" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:195px">价格<br>
+						公式</label></th>
+                         <th style="position:relative" jwcid="@Any" width="100" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:95px">价格<br>
+						类型</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">结算<br>
+						方式</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">计价<br>
+						方式</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">加权<br>
+						方式</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">运价</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">运价<br>
+						单位</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">拒付盈<br>
+						吨运费</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">运输<br>
+						方式</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">最高<br>
+						煤价</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">最高煤<br>
+						价单位</label></th>
+                          <th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">分公司<br>
+						加价(含税)</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">分公司<br>
+						加价单位</label></th>
+                          <th style="position:relative" jwcid="@Any" width="70" height="23"><label
+							id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">煤炭<br>
+						品种</label></th>
+					</tr>
+				</table>
+				</div>
+				<div id="SelectDataDivg" onscroll="_onscrollg(this,SelectHeadDivg)"
+					style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;height:90px;padding-left:0px">
+				<table id="oDatag" class="edittable" border="0" cellpadding="0"
+					cellspacing="0"
+					style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;margin-left:0px"
+					width="1740">
+					<tr Height="21" onclick="classchangeg(this,'onclick')"
+						onmouseout="classchangeg(this,'onmouseout')"
+						onmouseover="classchangeg(this,'onmouseover')" width="1740"
+						jwcid="EditValuesg" class="edittableTrOut">
+						<td width="40" class="tdText"><input readonly="true"
+							class="text-position" style="width:38px" jwcid="XUHg" id="XUHg"
+							type="text" /></td>
+						<td width="140" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,xiangmmgSelect);"
+							readonly="true" class="text-position" style="width:138px"
+							jwcid="xiangmmg" id="xiangmmg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,tiaojgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="tiaojg" id="tiaojg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editing(this,'onclick');editclickg(this,EditInputg)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="xiaxg" id="xiaxg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editing(this,'onclick');editclickg(this,EditInputg)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="shangxg" id="shangxg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,zhibdwgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="zhibdwg" id="zhibdwg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editing(this,'onclick');editclickg(this,EditInputg)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jiagg" id="jiagg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,jiagdwgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jiagdwg" id="jiagdwg" type="text" /></td>
+                         <td width="200" class="tdEditable"><input
+							onfocus="editing(this,'onclick');editclickg(this,EditInputg)"
+							readonly="true" class="text-position" style="width:198px"
+							jwcid="jiaggs" id="jiaggs" type="text" /></td>
+                         <td width="100" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,jijlxSelect);"
+							readonly="true" class="text-position" style="width:98px"
+							jwcid="jijlx" id="jijlx" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,jiesfsgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jiesfsg" id="jiesfsg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,jijfsgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jijfsg" id="jijfsg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,jiaqfsgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jiaqfsg" id="jiaqfsg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editing(this,'onclick');editclickg(this,EditInputg)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="yunjg" id="yunjg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,jiagdwgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="yunjdwg" id="yunjdwg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,yingdkfgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="yingdkfg" id="yingdkfg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,yunsfsgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="yunsfsg" id="yunsfsg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editing(this,'onclick');editclickg(this,EditInputg)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="zuigmjg" id="zuigmjg" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,jiagdwgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="zuigmjdwg" id="zuigmjdwg" type="text" /></td>
+                        <td width="70" class="tdEditable"><input
+							onfocus="editing(this,'onclick');editclickg(this,EditInputg)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="fengsjj" id="fengsjj" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,jiagdwgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="fengsjjdwg" id="fengsjjdwg" type="text" /></td>
+                        <td width="70" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,RANLPZB_IDgSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="RANLPZB_IDg" id="RANLPZB_IDg" type="text" /></td>
+					</tr>
+                    <input onchange="droponchangeg(0)" class="bigtext-position"e
+						style="display:none;" jwcid="RANLPZB_IDgSelect"
+						id="RANLPZB_IDgSelect" type="text" />
+					<input onchange="editchangeg(0)" style="display:none;"
+						class="bigtext-position" id="EditInputg" type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="xiangmmgSelect" id="xiangmmgSelect"
+						type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="tiaojgSelect" id="tiaojgSelect"
+						type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="zhibdwgSelect" id="zhibdwgSelect"
+						type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="jiagdwgSelect" id="jiagdwgSelect"
+						type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="jiesfsgSelect" id="jiesfsgSelect"
+						type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="jijfsgSelect" id="jijfsgSelect"
+						type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="jiaqfsgSelect" id="jiaqfsgSelect"
+						type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="yingdkfgSelect" id="yingdkfgSelect"
+						type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="yunsfsgSelect" id="yunsfsgSelect"
+						type="text" />
+                     <input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="jijlxSelect" id="jijlxSelect"
+						type="text" />
+				</table>
+				</div>
+				</div>
+				</td>
+			</tr>
+		</table>
+		</div>
+		<!-- 增扣款 -->
+		<div id="div4" class="x-hide-display">
+		<table id="tablemainj" border="0" cellspacing="0" cellpadding="0"
+			width="100%">
+			<tr id="trconditionj" valign=middle height="20">
+				<td>
+				<table valign="middle">
+					<tr>
+						<td><span jwcid="@ZRcontrib:ImgButton" buttontype=""onclick="return chekRepear()"
+							label="添加" listener="ognl:listeners.InsertButtonj" /></td>
+						<td><span jwcid="@ZRcontrib:ImgButton" buttontype=""onclick="return chekRepear()"
+							label="删除" listener="ognl:listeners.DeleteButtonj" /></td>
+						<input class="text-position" style="display:none;"
+							jwcid="EditTableRowj" id="EditTableRowj" type="text" />
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr id="SelectDataj" valign=top>
+				<td>
+				<div id="SelectFrmDivj" class="text-position"
+					style="BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;">
+				<div id="SelectHeadDivj" style="OVERFLOW: hidden;">
+				<table id="EditHeadTabelj" bordercolordark="#ffffff" cellpadding="1"
+					bordercolor="#ffffff"
+					style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;position:relative"
+					bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+					class="edittablehead" jwcid="@Any"
+					background="ognl:assets.background" width="2160">
+					<tr width="2160" align="center" style="position:relative">
+						<th style="position:relative" jwcid="@Any" width="40" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:35px">序号</label></th>
+						<th style="position:relative" jwcid="@Any" width="140" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:135px">项目</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">条件</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">下限</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">上限</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">项目<br>
+						单位</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">基数</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">基数<br>
+						单位</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">扣价</label></th>
+						<th style="position:relative" jwcid="@Any"  width = "120" height = "23" 
+							align="center"><label id="tittleHeadz"  class = "text-position" 
+							style="position:relative;left:0;width:115px">扣价<br>
+						公式</label></th>	
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">扣价<br>
+						单位</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">增付价</label></th>
+						<th style="position:relative" jwcid="@Any"  width = "120" height = "23" 
+							align="center"><label id="tittleHeadz"  class = "text-position" 
+							style="position:relative;left:0;width:115px">增付价<br>
+						公式</label></th>	
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">增付<br>
+						价单位</label></th>
+						<th style="position:relative" jwcid="@Any" width="100" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:95px">价格<br>
+						类型</label></th>
+						<th style="position:relative" jwcid="@Any" width="100" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:95px">小数处<br>
+						理方式</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">基准<br>
+						增扣价</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">基准<br>
+						指标</label></th>
+						<th style="position:relative" jwcid="@Any" width="140" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:135px">参照项目</label></th>                        
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">参照项目<br>
+						单位</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">参照项目<br>
+						上限</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">参照项目<br>
+						下限</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">加权<br>
+						方式</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">运输<br>
+						方式</label></th>
+                        <th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">煤炭<br>
+                           品种</label></th>
+                        <th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">适用<br>
+                           范围</label></th>
+						<th style="position:relative" jwcid="@Any" width="70" height="23"
+							align="center"><label id="tittleHeadz" class="text-position"
+							style="position:relative;left:0;width:65px">备注</label></th>
+					</tr>
+				</table>
+				</div>
+				<div id="SelectDataDivj" onscroll="_onscrollj(this,SelectHeadDivj)"
+					style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;height:90px;padding-left:0px">
+				<table id="oDataj" class="edittable" border="0" cellpadding="0"
+					cellspacing="0"
+					style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;margin-left:0px"
+					width="2160">
+					<tr Height="21" onclick="classchangej(this,'onclick')"
+						onmouseout="classchangej(this,'onmouseout')"
+						onmouseover="classchangej(this,'onmouseover')" width="2160"
+						jwcid="EditValuesj" class="edittableTrOut">
+						<td width="40" class="tdText"><input readonly="true"
+							class="text-position" style="width:38px" jwcid="XUHj" id="XUHj"
+							type="text" /></td>
+						<td width="140" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,zhilxmjSelect);"
+							readonly="true" class="text-position" style="width:138px"
+							jwcid="zhilxmj" id="zhilxmj" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,tiaojjSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="tiaojj" id="tiaojj" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="xiaxj" id="xiaxj" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="shangxj" id="shangxj" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,zhibdwSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="zhibdw" id="zhibdw" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jis" id="jis" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,zhibdwSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jisdw" id="jisdw" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="kouj" id="kouj" type="text" /></td>
+						<td width = "120" class="tdEditable"><input 
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"   
+							readonly="true" class = "text-position" style="width:118px" 
+							jwcid="koujgs" id="koujgs" type="text" /></td>   
+						<td width="70" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,jiagdwjSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="koujdw" id="koujdw" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="zengfj" id="zengfj" type="text" /></td>
+						<td width = "120" class="tdEditable"><input 
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"   
+							readonly="true" class = "text-position" style="width:118px" 
+							jwcid="zengfjgs" id="zengfjgs" type="text" /></td>	
+						<td width="70" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,jiagdwjSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="zengfjdw" id="zengfjdw" type="text" /></td>
+						<td width="100" class="tdEditable"><input
+							onclick="editing(this,'onclick');dropdowng(this,jijlxjSelect);"
+							readonly="true" class="text-position" style="width:98px"
+							jwcid="jijlxj" id="jijlxj" type="text" /></td>
+						<td width="100" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,xiaosclSelect);"
+							readonly="true" class="text-position" style="width:98px"
+							jwcid="xiaoscl" id="xiaoscl" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jizzkj" id="jizzkj" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jizzb" id="jizzb" type="text" /></td>
+						<td width="140" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,zhilxmjSelect);"
+							readonly="true" class="text-position" style="width:138px"
+							jwcid="canzxm" id="canzxm" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,zhibdwSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="canzxmdw" id="canzxmdw" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="canzxmxx" id="canzxmxx" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="canzxmsx" id="canzxmsx" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,jiaqfsjSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="jiaqfsj" id="jiaqfsj" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onclick="editinj(this,'onclick');dropdownj(this,yunsfsjSelect);"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="yunsfsj" id="yunsfsj" type="text" /></td>
+                        <td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');dropdownj(this,pinzSelect)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="pinzb_id" id="pinzb_id" type="text" /></td>
+                        <td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');dropdownj(this,shiyfwSelect)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="shiyfw" id="beiz" type="text" /></td>
+						<td width="70" class="tdEditable"><input
+							onfocus="editinj(this,'onclick');editclickj(this,EditInputj)"
+							readonly="true" class="text-position" style="width:68px"
+							jwcid="beiz" id="beiz" type="text" /></td>
+                        
+					</tr>
+                    <input onchange="droponchangej(0)" class="bigtext-position"
+						style="display:none;" jwcid="shiyfwSelect" id="shiyfwSelect"
+						type="text" />
+                    <input onchange="droponchangej(0)" class="bigtext-position"
+						style="display:none;" jwcid="pinzSelect" id="pinzSelect"
+						type="text" />
+					<input onchange="editchangej(0)" style="display:none;"
+						class="bigtext-position" id="EditInputj" type="text" />
+					<input onchange="droponchangej(0)" class="bigtext-position"
+						style="display:none;" jwcid="zhilxmjSelect" id="zhilxmjSelect"
+						type="text" />
+					<input onchange="droponchangej(0)" class="bigtext-position"
+						style="display:none;" jwcid="zhibdwSelect" id="zhibdwSelect"
+						type="text" />
+					<input onchange="droponchangej(0)" class="bigtext-position"
+						style="display:none;" jwcid="tiaojjSelect" id="tiaojjSelect"
+						type="text" />
+					<input onchange="droponchangej(0)" class="bigtext-position"
+						style="display:none;" jwcid="jiagdwjSelect" id="jiagdwjSelect"
+						type="text" />
+					<input onchange="droponchangej(0)" class="bigtext-position"
+						style="display:none;" jwcid="jiaqfsjSelect" id="jiaqfsjSelect"
+						type="text" />
+					<input onchange="droponchangej(0)" class="bigtext-position"
+						style="display:none;" jwcid="yunsfsjSelect" id="yunsfsjSelect"
+						type="text" />
+					<input onchange="droponchangej(0)" class="bigtext-position"
+						style="display:none;" jwcid="xiaosclSelect" id="xiaosclSelect"
+						type="text" />
+					<input onchange="droponchangeg(0)" class="bigtext-position"
+						style="display:none;" jwcid="jijlxjSelect" id="jijlxjSelect"
+						type="text" />
+				</table>
+				</div>
+				</div>
+				</td>
+			</tr>
+		</table>
+		</div>
+		<div id="div5" class="x-hide-display"><span jwcid="wenz"
+			style="border:0px;overflow:auto" id="wenzTextareay"> </span></div>
+		<div id="div6" class="x-hide-display">
+		<table id="gongfTable"
+			style="font-size:13px;margin-bottom:20px;margin-top:50px"
+			cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="right">合同供方：</td>
+				<td><input style="width:255px" editable=true  onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					jwcid="gongfSelect" id="gongfSelect" /></td>
+			</tr>
+			<tr>
+				<td align="right">单位名称（章）：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfdwmc" /></td>
+				<td align="right">单位地址：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfdwdz" /></td>
+			</tr>
+			<tr>
+				<td align="right">法定代表人：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongffddbr" /></td>
+				<td align="right">委托代理人：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfwtdlr" /></td>
+			</tr>
+			<tr>
+				<td align="right">电话：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfdn" /></td>
+				<td align="right">传真：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfcz" /></td>
+
+			</tr>
+			<tr>
+				<td align="right">开户银行：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfkhyh" /></td>
+				<td align="right">账号：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfzh" /></td>
+			</tr>
+			<tr>
+				<td align="right">邮政编码：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="gongfyzbm" /></td>
+				<td align="right">税号：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="Gshuih" /></td>
+			</tr>
+		</table>
+		<table style="font-size:13px" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="right">选择需方：</td>
+				<td><input style="width:255px" onchange="if(!submited){submited=true;javascript:document.Form0.submit();}"
+					jwcid="xufSelect" id="xufSelect" /></td>
+			</tr>
+			<tr>
+				<td align="right">单位名称（章）：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufdwmc" /></td>
+				<td align="right">单位地址：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufdwdz" /></td>
+			</tr>
+			<tr>
+				<td align="right">法定代表人：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xuffddbr" /></td>
+				<td align="right">委托代理人：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufwtdlr" /></td>
+			</tr>
+			<tr>
+				<td align="right">电话：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufdn" /></td>
+				<td align="right">传真：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufcz" /></td>
+			</tr>
+			<tr>
+				<td align="right">开户银行：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufkhyh" /></td>
+				<td align="right">账号：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xuffzh" /></td>
+			</tr>
+			<tr>
+				<td align="right">邮政编码：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="xufyzbm" /></td>
+				<td align="right">税号：</td>
+				<td><input
+					style="border-bottom:1px solid gray;border-top:0px solid white;border-left:0px ;border-right:0px;"
+					size="35" jwcid="shuih" /></td>
+			</tr>
+			<tr height="20">
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td align="right">发货人：</td>
+				<td><input style="width:255px" jwcid="shijgfSelect"
+					id="shijgfSelect" /></td>
+				<td align="right">煤矿:</td>
+				<td><input jwcid="FAHR"id="FAHR" style="display:none;font-size:12px;width:250px" /> 
+                <input jwcid="Meiksselect" id="Meiksselect"/></td>
+			</tr>
+		</table>
+		</div>
+		</div>
+		</td>
+	</tr>
+</table>
+<div id="hetbl-win" class="x-hidden"></div>
+<span id='Xiaosw' style="display:none" jwcid="Xiaosw"></span>
+</form>
+</body>
+<script>
+	FormatInput("kouj",document.getElementById('Xiaosw').value);
+    FormatInput("zengfj",document.getElementById('Xiaosw').value);     
+</script>
+<script>window.onresize();</script>
+</html>

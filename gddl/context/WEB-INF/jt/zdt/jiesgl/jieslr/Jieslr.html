@@ -1,0 +1,577 @@
+<html jwcid="@Shell" doctype=" " title="结算录入"
+	stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.xthemegraycss" />
+<style>
+    .editinput_notborder{
+	height:18px;
+	border: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+}
+</style>    
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extcombojs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+    var win;
+    <span jwcid="@Insert" raw="true" value="ognl:ToolbarScript"/>
+});
+</script>
+<body id="body" jwcid="@Body" class="bgs"
+	onkeydown="Pingb();if(event.keyCode==13)event.keyCode=9" bottommargin=0
+	topmargin=2 leftmargin=5 rightmargin=5>
+
+
+<script jwcid="Datejs" />
+<script jwcid="validatejs" />
+<script jwcid="Jieslrjs" />
+
+    
+<script>
+       
+          function print(objid){
+				var obj = document.getElementById(objid);
+				var printStr = "<title>??</title>";
+				printStr += "<style media=\"print\">.noPrint {display:none;}<\/style>";
+				printStr += "<style>body{background:#FFFFFF;font-size:12px;}<\/style>";
+				printStr += "<style>\n";
+				printStr += ".tdLeft{padding-left:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);}\n";
+			   	printStr += ".tdRight{padding-right:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);}\n";
+				printStr += ".tdNormal{border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:1px solid rgb(0,0,0); border-bottom:1px solid rgb(0,0,0);}\\n";
+				printStr += ".tdNoneLeft{padding-left:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);}\n";
+			   	printStr += ".tdNoneRight{padding-right:2; border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);}\n";
+			   	printStr += ".tdNone{border-left:0px solid rgb(0,0,0); border-top:0px solid rgb(0,0,0); border-right:0px solid rgb(0,0,0); border-bottom:0px solid rgb(0,0,0);}\n";
+			   	printStr += "<\/style>\n";
+				   		
+				printStr += obj.innerHTML;
+				var a = window.open("about:blank",null,"width=700,height=500,toolbar=yes,left=0,top=0");
+				var abody = a.document.open();
+				abody.write(printStr);
+				abody.close();
+				a.print();
+				a.close();
+				printStr = null;
+				a = null;
+			}
+             
+		function check(){
+		
+		var ddl = document.all.item("HETBHSelect"); 
+		var index = ddl.selectedIndex; 
+		var Value = ddl.options[index].value; 
+		var Text = ddl.options[index].text; 
+       var jiesbh = document.getElementById("JIESBH").value; 
+       var jiesdw = document.getElementById("JIESDW").value;
+       var faz = document.getElementById("FAZ").value;    
+       var meitpz = document.getElementById("MEITPZ").value;  
+       var gonghdw = document.getElementById("GONGHDW").value;  
+       var yunsfs = document.getElementById("YUNSFS").value;  
+       var jihkj = document.getElementById("JIHKJ").value;  
+       var jingz = document.getElementById("JINGZ").value;
+       var shijjsl = document.getElementById("SHIJJSL").value;
+       var meij = document.getElementById("MEIJ").value;  
+       var jiakmk = document.getElementById("JIAKMK").value;  
+       var yingfyf = document.getElementById("YINGFYF").value;  
+       var yingkyf = document.getElementById("YINGKYF").value;  
+       var shuil = document.getElementById("SHUIL").value;  
+       var yingfyf_b = document.getElementById("YINGFYF_B").value;  
+       var yingkyf_b = document.getElementById("YINGKYF_B").value; 
+       var rez_ht = document.getElementById("REZ_HT").value;  
+       var rez_ys = document.getElementById("REZ_YS").value;  
+       var rez_gf = document.getElementById("REZ_GF").value;  
+       var rez_js = document.getElementById("REZ_JS").value;
+       var hansyf_k = document.getElementById("HANSYF_K").value;   
+       var huif_ht = document.getElementById("HUIF_HT").value;
+       var huif_ys = document.getElementById("HUIF_YS").value;
+       var huif_gf = document.getElementById("HUIF_GF").value;  
+       var huif_js = document.getElementById("HUIF_JS").value;
+        
+       var huiff_ht = document.getElementById("HUIFF_HT").value;
+       var huiff_ys = document.getElementById("HUIFF_YS").value;
+       var huiff_gf = document.getElementById("HUIFF_GF").value;  
+       var huiff_js = document.getElementById("HUIFF_JS").value;
+        
+       var shuif_ht = document.getElementById("SHUIF_HT").value;
+       var shuif_ys = document.getElementById("SHUIF_YS").value;
+       var shuif_gf = document.getElementById("SHUIF_GF").value;  
+       var shuif_js = document.getElementById("SHUIF_JS").value;
+ 
+       var liuf_ht = document.getElementById("LIUF_HT").value;
+       var liuf_ys = document.getElementById("LIUF_YS").value;
+       var liuf_gf = document.getElementById("LIUF_GF").value;  
+       var liuf_js = document.getElementById("LIUF_JS").value;       
+        
+       var hansyf_q = document.getElementById("HANSYF_Q").value;   
+       var yunfsj = document.getElementById("YUNFSJ").value;
+       var qityzf = document.getElementById("QITYZF").value;
+       var yunfsl = document.getElementById("YUNFSL").value; 
+         
+       if(jiesbh == ""){
+			alert("结算编号为空，请核对！");
+			return false;
+		}else if(Text == "请选择"){
+			alert("合同编号为空，请核对！");
+			return false;
+		}else if(jiesdw == ""){
+       		alert("结算单位为空，请核对！");
+       		return false;
+        }else if(faz == ""){
+       		alert("发站为空，请核对！");
+       		return false;
+        }else if(meitpz == ""){
+       		alert("煤炭品种为空，请核对！");
+       		return false;
+        }else if(gonghdw == ""){
+       		alert("供货单位为空，请核对！");
+       		return false;
+        }else if(yunsfs = ""){
+       		alert("运输方式为空，请核对！");
+       		return false;
+        }else if(jihkj == ""){
+       		alert("计划口径为空，请核对！");
+       		return false;
+        }else if(meij == ""){
+       		alert("煤价为空，请核对！");
+       		return false;
+        }else if(jingz == ""||jingz==0){
+       		alert("净重为空或者为0，请核对！");
+       		return false;
+        }else if(shijjsl == ""||shijjsl==0){
+       		alert("实际结算量为空或者为0，请核对！");
+       		return false;
+        }else if(jiakmk == ""){
+       		alert("加扣款为空，请核对！");
+       		return false;
+        }else if(yingfyf == ""){
+       		alert("应付运费为空，请核对！");
+       		return false;
+        }else if(yingfyf_b == ""){
+       		alert("应付运费为空，请核对！");
+       		return false;
+        }else if(yingkyf == ""){
+       		alert("应扣运费为空，请核对！");
+       		return false;
+        }else if(yingkyf_b == ""){
+       		alert("应扣运费为空，请核对！");
+       		return false;
+        }else if(shuil == ""){
+       		alert("税率为空，请核对！");
+       		return false;
+        }else if(rez_ht == ""){
+       		alert("合同热值为空，请核对！");
+       		return false;
+        }else if(rez_ys == ""||rez_ys==0){
+       		alert("验收热值为空或者为0，请核对！");
+       		return false;
+        }else if(rez_gf == "" ){
+       		alert("供方热值为空或者为0，请核对！");
+       		return false;
+        }else if(rez_js == ""||rez_js==0){
+       		alert("结算热值为空或者为0，请核对！");
+       		return false;
+        }else if(hansyf_k == ""){
+       		alert("含税运费为空，请核对！");
+       		return false;
+        }else if(huif_ht == ""){
+       		alert("合同灰分为空，请核对！");
+       		return false;
+        }else if(huif_ys == ""){
+       		alert("验收灰分为空，请核对！");
+       		return false;
+        }else if(huif_gf == ""){
+       		alert("供方灰分为空，请核对！");
+       		return false;
+        }else if(huif_js == ""){
+       		alert("结算灰分为空，请核对！");
+       		return false;
+        }else if(huiff_ht == ""){
+       		alert("合同挥发份为空，请核对！");
+       		return false;
+        }else if(huiff_ys == ""){
+       		alert("验收挥发份为空，请核对！");
+       		return false;
+        }else if(huiff_gf == ""){
+       		alert("供方挥发份为空，请核对！");
+       		return false;
+        }else if(huiff_js == ""){
+       		alert("结算挥发份为空，请核对！");
+       		return false;
+        }else if(shuif_ht == ""){
+       		alert("合同水分为空，请核对！");
+       		return false;
+        }else if(shuif_ys == ""){
+       		alert("验收水分为空，请核对！");
+       		return false;
+        }else if(shuif_gf == ""){
+       		alert("供方水分为空，请核对！");
+       		return false;
+        }else if(shuif_js == ""){
+       		alert("结算水分为空，请核对！");
+       		return false;
+        }else if(hansyf_q == ""){
+       		alert("含税运费为空，请核对！");
+       		return false;
+       }else if(yunfsj == ""){
+       		alert("运费税金为空，请核对！");
+       		return false;
+       }else if(qityzf == ""){
+       		alert("其他运杂费为空，请核对！");
+       		return false;
+       }else if(yunfsl == ""){
+       		alert("运费税率为空，请核对！");
+       		return false;
+       }else if(shuil<0||yunfsl<0||qityzf <0||yunfsj<0||hansyf_q<0||hansyf_k<0||yingfyf <0||yingfyf_b<0){
+       		alert("净重,实际结算量，税率，运费税率，其他运杂费，运费税金，含税运费，应付运费信息小于或等于零，请核对！");
+			return false;
+	  }else{  
+          	return true;
+	   }
+	}      
+
+		
+	                                    
+    </script>
+<form listener="ognl:listeners.submit" jwcid="@Form"delegate="ognl:beans.delegate">
+    <!--span jwcid="@ZRcontrib:ModalDialog" message="ognl:Msg"> </span-->
+
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign="center" height="15">
+		<td valign="center">
+            <div id ="container">
+		   	 	<div id="tbdiv"></div>
+			</div>
+			<table valign="middle" class="toolBar"  style="display:none">
+				<tr height="20">
+              
+					<td><span jwcid="RetrunsButton@ZRcontrib:ImgButton"
+						buttontype="" label="刷新"
+						listener="ognl:listeners.RetrunsButton" /></td>
+                    <td><span jwcid="ReturnButton@ZRcontrib:ImgButton" 
+                        buttontype="" label="返回" style="display:none" id = "ReturnButton" 
+                        listener="ognl:listeners.ReturnButton" ></span></td>
+					<td><span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+						label="保存"
+						listener="ognl:listeners.SaveButton"  onclick="if(check()){return true;}else {return false;}"/></td>
+					<input class="" style="display:none;" jwcid="EditTableRow"
+						id="EditTableRow" type="text" />
+					<input style="display:none;" id="oldjiakhj" type="text" />
+					<input style="display:none;" id="oldjiaksk" type="text" />
+					<td width="10%"></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr id="SelectData" valign=top jwcid="EditValues">
+            <td > 
+                <div id="SelectFrmDiv"   class = "" style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+                      <table width="100%" style=" font-size:9pt">
+							<tr>
+						  		<td height="23" colspan="9"><div align="center" class="LittleTitleStyle"><font size="4" style="font-weight:bold"><span jwcid="@Insert" raw="true" value="ognl:Title"/></font></div></td>  
+							</tr>
+							<tr>
+								<td align="left">结算编号:
+	                                <input  class = "" style="width:35%" jwcid="JIESBH" id="JIESBH" onblur="MatchStr(this,50)" type="text" /></td>
+								<td align="right">合同编号:
+									<!--input  class = "" style="width:35%" jwcid="HETBH" id="HETBH" onblur="MatchStr(this,50)" type="text" /></td-->
+                                 	<!--input    style="width:100%" class="" style="width:35%"onclick="dropdown3(this,HETBHSelect)"  jwcid="HETBH" id="HETBH" type="text" /-->
+	                          		<input style="width:35%"   jwcid="HETBHSelect" id="HETBHSelect" type="text" /></td>
+                                      
+							</tr>
+						</table>
+                      <table border="1" cellspacing="0"  style=" font-size:9pt;	border: darkgray 1px solid;border-collapse: collapse;background-color: #DCE4ED;">
+					    <tr >
+                          <input  readonly ="true" style="display:none" jwcid="ID" id="ID" type="text" />
+					      <td colspan="2" class="Jsdtdborder" >结算单位</td>
+					      <td colspan="7" class="edit" >
+	                          <input    style="width:100%" class="noeditinput" onclick="dropdown(this,JIESDWSelect)"  jwcid="JIESDW" id="JIESDW" type="text" /></td>
+	                          <input onchange="droponchange(0)" style="display:none" jwcid="JIESDWSelect" id="JIESDWSelect" type="text" />
+					    
+                          <td  class="Jsdtdborder"  width="8%" align="center">发站</td>
+                          <td  class="edit">
+	                          <input  style="width:100%"   class="noeditinput" onclick="dropdown(this,FAZSelect)" jwcid="FAZ" id="FAZ" type="text" /></td>
+	                          <input onchange="droponchange(0)" style="display:none" jwcid="FAZSelect" id="FAZSelect" type="text" />
+					    
+					      <td  class="Jsdtdborder" align="center" width="9%">煤炭品种</td>
+					      <td  class="edit" ><input   style="width:100%"   class="noeditinput" onclick="dropdown(this,MEITPZSelect)"  jwcid="MEITPZ" id="MEITPZ" type="text" /></td>
+                          <input onchange="droponchange(0)" style="display:none" jwcid="MEITPZSelect" id="MEITPZSelect" type="text" />
+					    </tr>
+                        <tr >
+					      <td colspan="2" class="Jsdtdborder" >供货单位</td>
+					      <td colspan="7" class="edit" >
+                          <input   style="width:100%"  class="noeditinput" onclick="dropdown(this,GONGHDWSelect)"  jwcid="GONGHDW" id="GONGHDW" type="text" /></td>
+                          <input onchange="droponchange(0)" style="display:none" jwcid="GONGHDWSelect" id="GONGHDWSelect" type="text" />
+					    
+                          <td class="Jsdtdborder" width="8%" align="center">运输距离</td>
+                          <td  class="Jsdtdborder"width="11%">
+                              <input  style="width:100%" class = "editinput_notborder"   jwcid="YUNSJL" id="YUNSJL" type="text" /></td>
+					    
+					      <td  class="Jsdtdborder" align="center" width="9%">运输方式</td>
+					      <td  class="edit" ><input  style="width:100%"   class="noeditinput" onclick="dropdown(this,YUNSFSSelect)"  jwcid="YUNSFS" id="YUNSFS" type="text" /></td>
+                          <input onchange="droponchange(0)" style="display:none" jwcid="YUNSFSSelect" id="YUNSFSSelect" type="text" />
+					    </tr>
+					    <tr>
+                          <td colspan="2" class="Jsdtdborder" >计划口径</td>
+					      <td colspan="2" class="edit" ><input  style="width:100%" readonly="true"  class="noeditinput" onclick="dropdown(this,JIHKJSelect)"  jwcid="JIHKJ" id="JIHKJ" type="text" /></td>
+                          <input onchange="droponchange(0)" style="display:none"  jwcid="JIHKJSelect" id="JIHKJSelect" type="text" />
+						  <!--td colspan="2" class="Jsdtdborder">
+							<input type="text" name="HETXZ" value=""  style="width: 100%"  readonly="true" jwcid="HETXZ" id="HETXZ" class="noeditinput" displayname="''" /></td-->
+                              
+					      <td class="Jsdtdborder" align="center"width="10%">结算日期</td>
+                          <td  colspan="2" class="edit">
+                          	<input style="width:86%" onclick="changedate(this)" class = "editinput" jwcid="JIESRQ" id="JIESRQ" type="text" /></td>
+					      <td class="Jsdtdborder"align="center"width="10%">承运日期</td>
+                          <td   class="edit">
+                            <input style="width:100%" onclick="changedate(this)"  class = "editinput" jwcid="CHENGYRQ" id="CHENGYRQ" type="text" /></td>
+                          <td class="Jsdtdborder"align="center"width="10%">到厂日期</td>
+                          <td   class="edit">
+                            <input style="width:100%" onclick="changedate(this)"  class = "editinput" jwcid="DAOCRQ" id="DAOCRQ" type="text" /></td>
+							<td  class="Jsdtdborder" width="9%">燃料部经办人</td>
+							<td  class="edit" width="9%">
+							<input type="text" name="JINGBR"  style="width: 100%"  onblur="MatchStr(this,2000)" jwcid="JINGBR" id="JINGBR" class="editinput" displayname="''" /></td>
+					    </tr>
+					    <tr>
+					      <td rowspan="6" class="Jsdtdborder"align="center" width="5%">数量（吨）</td>
+                          <td colspan="2" width="14%" class="Jsdtdborder" align="center">项目</td>
+						  <td width="8%" class="Jsdtdborder" align="center">数量</td>
+						  <td colspan="2"  class="Jsdtdborder" align="center">项目</td>
+						  <td  class="Jsdtdborder" align="center">数量</td>
+
+					      <td colspan="2" class="Jsdtdborder"align="center">煤 价（元/吨）</td>
+                          <td  class="edit"  width="10%">
+                              <input class = "editinput_notborder"  jwcid="MEIJ" id="MEIJ" type="text" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()" onfocus="editin(this,'onfocus')" /></td>
+					      <td rowspan="3" class="Jsdtdborder" align="center" width="11%">国铁可<br>抵税（元）</td>
+						  <td class="Jsdtdborder"align="center" width="9%">应付运费</td>
+					      <td  class="edit" width="9%">
+                              <input style="width:100%" class = "editinput_notborder"  jwcid="YINGFYF" id="YINGFYF" type="text" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()" onfocus="editin(this,'onfocus')"/></td>
+					    </tr>
+					    <tr>
+                          <td colspan="2" class="Jsdtdborder" align="center">车 数</td>
+                          <td  class="edit"width="10%">
+                              <input style="width:100%" class = "editinput_notborder"  jwcid="CHES" id="CHES" type="text" onchange="MatchNum(this,/^[0-9]{0,10}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+						  <td colspan="2" class="Jsdtdborder" align="center">亏 吨</td>
+                          <td  class="edit"width="10%">
+                              <input class = "editinput_notborder" style="width:100%" jwcid="KUID" id="KUID" type="text"onchange="MatchNum(this,/^[0-9]{0,10}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+                          <td colspan="2" class="Jsdtdborder"align="center">加扣煤款（元）</td>
+                          <td  class="edit">
+                              <input class = "editinput_notborder" style="width:100%" jwcid="JIAKMK" id="JIAKMK" type="text" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()" onfocus="editin(this,'onfocus')"/></td>
+                          <td class="Jsdtdborder"align="center">应扣运费</td>
+                          <td  class="edit">
+                              <input class = "editinput_notborder" style="width:100%" jwcid="YINGKYF" id="YINGKYF" type="text" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()" onfocus="editin(this,'onfocus')"/></td>
+					    </tr>
+                        <tr>
+                          <td colspan="2" class="Jsdtdborder" align="center">票 重</td>
+                          <td  class="edit">
+                              <input class = "editinput_notborder" style="width:100%" jwcid="PIAOZ" id="PIAOZ" type="text" onchange="MatchNum(this,/^[0-9]{0,10}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+						  <td colspan="2" class="Jsdtdborder" align="center">运 损</td>
+                          <td  class="edit">
+                              <input class = "editinput_notborder" style="width:100%" jwcid="YUNS" id="YUNS" type="text" onchange="MatchNum(this,/^[0-9]{0,10}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+                          <td colspan="2" class="Jsdtdborder"align="center">含税单价（元/吨）</td>
+                          <td  class="edit"width="10%">
+                              <input class = "editinput" style="width:100%" readonly="true"   jwcid="HANSDJ" id="HANSDJ" type="text"  onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);"/></td>
+                          <td class="Jsdtdborder"align="center" width="9%">合计</td>
+                          <td  class="edit"width="9%">
+                              <input class = "editinput" readonly="true" style="width:100%" jwcid="HEJ" id="HEJ" type="text" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);" /></td>
+					    </tr>
+					    <tr>
+                          <td colspan="2" class="Jsdtdborder" align="center">净 重</td>
+                          <td  class="edit">
+                              <input class = "editinput_notborder" style="width:100%" jwcid="JINGZ" id="JINGZ" type="text" onchange="MatchNum(this,/^[0-9]{0,10}$|^\-[0-9]{0,10}$/);Count()" onfocus="editin(this,'onfocus')"/></td>
+						  <td colspan="2" class="Jsdtdborder" align="center">扣 吨</td>
+                          <td  class="edit">
+                              <input class = "editinput_notborder"style="width:100%"  jwcid="KOUD" id="KOUD" type="text"onchange="MatchNum(this,/^[0-9]{0,10}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+                          <td colspan="2" class="Jsdtdborder"align="center">税率</td>
+                          <td  class="edit" width="10%">
+                              <input class = "editinput_notborder" value="0" style="width:100%"  jwcid="SHUIL" id="SHUIL" type="text" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);Count()"onfocus="editin(this,'onfocus')" /></td>                         
+                          <td rowspan="3" class="Jsdtdborder" align="center" width="11%">国铁不可<br>抵税（元）</td>
+                          <td class="Jsdtdborder"align="center" width="9%">应付运费</td>
+                          <td  class="edit" width="9%">
+                              <input class = "editinput_notborder"style="width:100%"  jwcid="YINGFYF_B" id="YINGFYF_B" type="text" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()" onfocus="editin(this,'onfocus')" /></td>
+					    </tr>   
+                        <tr>
+                          <td colspan="2" class="Jsdtdborder" align="center">盈 吨</td>
+                          <td  class="edit">
+                              <input class = "editinput_notborder" style="width:100%" jwcid="YINGD" id="YINGD" type="text" onchange="MatchNum(this,/^[0-9]{0,10}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+						  <td colspan="2" class="Jsdtdborder" align="center">差异量</td>
+                          <td  class="edit">
+                              <input class = "editinput" style="width:100%" jwcid="CHAYL" id="CHAYL" type="text" readonly="true" onchange="MatchNum(this,/^[0-9]{0,10}$|^\-[0-9]{0,10}$/);"/></td>
+
+                          <td colspan="2" class="Jsdtdborder"align="center">不含税单价（元/吨）</td>
+                          <td  class="edit"width="10%">
+                              <input class = "editinput" style="width:100%" readonly="true"  jwcid="BUHSDJ" id="BUHSDJ" type="text"/></td>
+                          <td class="Jsdtdborder"align="center"width="9%">应扣运费</td>
+                          <td  class="edit"width="9%">
+                              <input class = "editinput_notborder" style="width:100%" jwcid="YINGKYF_B" id="YINGKYF_B" type="text" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()" onfocus="editin(this,'onfocus')"/></td>
+					    </tr>   
+                        <tr>
+                          <td colspan="2" class="Jsdtdborder" align="center">实际结算量</td>
+                          <td colspan="4" class="edit">
+                              <input class = "editinput_notborder" style="width:100%" jwcid="SHIJJSL" id="SHIJJSL" type="text" onchange="Count()" onfocus="editin(this,'onfocus')"/></td>
+                          <td colspan="2" class="Jsdtdborder"align="center">不含税煤款（元）</td>
+                          <td  class="edit"width="10%">
+                              <input class = "editinput" style="width:100%" readonly="true" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,7}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,7}$|^\-[0-9]{0,10}$/);" jwcid="BUHSMK" id="BUHSMK" type="text" /></td>
+                          <td class="Jsdtdborder"align="center" width="9%">合计</td>
+                          <td  class="edit" width="9%">
+                              <input class = "editinput" style="width:100%" readonly="true"  jwcid="HEJ_B" id="HEJ_B" type="text"  onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);"/></td>
+					    </tr>                 
+                       	<tr>
+							<td rowspan="6" class="Jsdtdborder" width="5%">质量</td>
+							<td colspan="2" width="14%" class="Jsdtdborder" align="center">项目</td>
+							<td width="8%" class="Jsdtdborder" align="center">合同</td>
+							<td width="6%" class="Jsdtdborder" align="center">验收</td>
+							<td width="8%" class="Jsdtdborder" align="center">供方</td>
+							<td width="8%" class="Jsdtdborder" align="center">结算</td>
+							<td colspan="2" class="Jsdtdborder" align="center">税金（元）</td>
+							<td  class="edit" width="10%">
+							<input type="text" name="SHUIJ"  style="width: 100%" readonly="true" value=""  jwcid="SHUIJ" id="SHUIJ" class="editinput" displayname="''"  onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);"/></td>
+							<td rowspan="2" class="Jsdtdborder" align="center" width="11%">
+							矿运费<br>
+							（元）</td>
+							<td colspan="1" class="Jsdtdborder" align="center">含税运费</td>
+							<td class="edit" width="9%">
+							<input type="text" name="HANSYF_K" value="0.0" onfocus="editin(this,'onfocus')" style="width: 100%" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count(3);" jwcid="HANSYF_K" id="HANSYF_K" class="editinput_notborder" /></td>
+					
+                            
+                            <!--td colspan="2" class="Jsdtdborder" align="center">矿运费（元）</td>
+							<td  class="edit"width="9%">
+							<input type="text" name="KUANGYF"  style="width: 100%" value="" jwcid="KUANGYF"  id="KUANGYF" class="editinput_notborder" displayname="''" onfocus="editin(this,'onfocus')" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()"/></td-->
+						</tr>
+						<tr>
+							<td class="Jsdtdborder" align="center" >热 值</td>
+							<td class="Jsdtdborder" align="center" width="8%">大卡/千克</td>
+							<td class="Jsdtdborder">
+							<input class="editinput_notborder" style="width: 100%" jwcid="REZ_HT" id="REZ_HT" value="0.0" name="REZ_HT"  type="text" displayname=""onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text"style="width: 100%" name="REZ_YS" value="0.0" jwcid="REZ_YS"  id="REZ_YS" class="editinput_notborder" displayname=""onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text"style="width: 100%" name="REZ_GF" value="0.0" jwcid="REZ_GF" id="REZ_GF" class="editinput_notborder" displayname=""onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text"style="width: 100%" name="REZ_JS" value="0.0" jwcid="REZ_JS"  id="REZ_JS" class="editinput_notborder" displayname=""onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+							<td colspan="2" class="Jsdtdborder" align="center">价税合计（元）</td>
+							<td  class="edit" width="10%">
+							<input type="text" style="width: 100%" name="JIASHJ" value="" readonly="true" jwcid="JIASHJ"  id="JIASHJ" class="editinput" displayname="''" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);" /></td>
+							<td colspan="1" class="Jsdtdborder" align="center">税 金</td>
+							<td class="edit" width="9%">
+							<input type="text" name="SHUIJ_K" value="0.0" readonly="true" onfocus="editin(this,'onfocus')" style="width: 100%" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()" jwcid="SHUIJ_K" id="SHUIJ_K" class="editinput" /></td>
+
+                            <!--td colspan="2" class="Jsdtdborder" align="center" >汽运费（元）</td>
+							<td  class="edit" width="9%">
+							<input type="text" name="QIYF"  style="width: 100%" value="" jwcid="QIYF"  id="QIYF" class="editinput_notborder" displayname="''" onfocus="editin(this,'onfocus')" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count()" /></td-->
+						</tr>
+						<tr>
+							<td class="Jsdtdborder" align="center">灰 份</td>
+							<td class="Jsdtdborder" align="center" width="6%">Ad</td>
+							<td class="Jsdtdborder">
+							<input class="editinput_notborder" style="width: 100%" jwcid="HUIF_HT"id="HUIF_HT" value="0.0" name="HUIF_HT"  type="text" displayname=""onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="HUIF_YS" style="width: 100%"value="0.0" jwcid="HUIF_YS" id="HUIF_YS" class="editinput_notborder" displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);"onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="HUIF_GF" style="width: 100%" value="0.0" jwcid="HUIF_GF"  id="HUIF_GF" class="editinput_notborder" displayname=""onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="HUIF_JS"style="width: 100%" value="0.0" jwcid="HUIF_JS" id="HUIF_JS" class="editinput_notborder" displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);"onfocus="editin(this,'onfocus')"/></td>
+							<td colspan="2" class="Jsdtdborder"></td>
+							<td  class="edit" width="10%">
+							<!--input type="text" name="YUNFSL"  style="width: 100%" value=""  jwcid="YUNFSL" id="YUNFSL" class="editinput_notborder" displayname="''" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);Count()" onfocus="editin(this,'onfocus')"/></td-->
+                            <td rowspan="2" class="Jsdtdborder" align="center" width="11%">
+							汽运费<br>
+							（元）</td>
+							<td colspan="1" class="Jsdtdborder" align="center">含税运费</td>
+							<td class="edit" width="9%">
+							<input type="text" name="HANSYF_Q" value="0.0" onfocus="editin(this,'onfocus')" style="width: 100%" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count(3);" jwcid="HANSYF_Q" id="HANSYF_Q" class="editinput_notborder" /></td>
+						</tr>
+						<tr>
+							<td class="Jsdtdborder" align="center">挥发份</td>
+							<td class="Jsdtdborder" align="center" width="6%">Vdaf</td>
+							<td class="Jsdtdborder">
+							<input class="editinput_notborder" style="width: 100%" jwcid="HUIFF_HT"id="HUIFF_HT" value="0.0" name="HUIFF_HT"  type="text" displayname="" onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="HUIFF_YS" style="width: 100%" value="0.0" jwcid="HUIFF_YS" id="HUIFF_YS" class="editinput_notborder" displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);"onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="HUIFF_GF" style="width: 100%" value="0.0"  jwcid="HUIFF_GF"id="HUIFF_GF" class="editinput_notborder" displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);"onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="HUIFF_JS" style="width: 100%" value="0.0"  jwcid="HUIFF_JS"id="HUIFF_JS" class="editinput_notborder" displayname=""onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+							<td colspan="2" class="Jsdtdborder" align="center">运费（元）</td>
+							<td  class="edit" width="10%">
+							<input type="text" name="YUNF" value="" jwcid="YUNF" id="YUNF" class="editinput" readonly="true" displayname="''" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);" /></td>
+                            <td class="Jsdtdborder" align="center" width="9%">税 金</td>
+							<td class="edit" width="9%">
+							<input type="text" name="SHUIJ_Q" value="0.0" readonly="true" onfocus="editin(this,'onfocus')" style="width: 100%" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);" jwcid="SHUIJ_Q" id="SHUIJ_Q" class="editinput" /></td>
+	
+							<!--td rowspan="3" class="Jsdtdborder" align="center" width="11%">运价（元/<br>吨)</td>
+							<td  class="Jsdtdborder" align="center" width="9%">国 铁</td>
+							<td  class="edit" width="9%">
+							<input type="text" name="GUOT" readonly="true" value="" style="width: 100%" jwcid="GUOT" id="GUOT" class="editinput" displayname="''"  onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);"/></td-->
+						</tr>
+						<tr>
+							<td class="Jsdtdborder" align="center">水 份</td>
+							<td class="Jsdtdborder" align="center" width="6%">Mt</td>
+							<td class="Jsdtdborder">
+							<input class="editinput_notborder" jwcid="SHUIF_HT" id="SHUIF_HT" value="0.0" style="width: 100%" name="SHUIF_HT"  type="text" displayname=""onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="SHUIF_YS" value="0.0"  style="width: 100%" jwcid="SHUIF_YS"id="SHUIF_YS" class="editinput_notborder" displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);"onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="SHUIF_GF" value="0.0"  style="width: 100%" jwcid="SHUIF_GF"id="SHUIF_GF" class="editinput_notborder" displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);"onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="SHUIF_JS" value="0.0"  style="width: 100%" jwcid="SHUIF_JS"id="SHUIF_JS" class="editinput_notborder" displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);"onfocus="editin(this,'onfocus')"/></td>
+							<td colspan="2" class="Jsdtdborder" align="center">运费税金（元）</td>
+							<td  class="edit" width="10%">
+							<input type="text" name="YUNFSJ" class="editinput_notborder" value="" jwcid="YUNFSJ"id="YUNFSJ"  displayname="''"  onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count(2)"/></td>
+                            <td colspan="2" class="Jsdtdborder" align="center" width="9%">其他运杂费（元）</td>
+							<td class="edit" width="9%">
+							<input type="text" name="QITYZF" value="0.0" onfocus="editin(this,'onfocus')" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);Count();" jwcid="QITYZF" id="QITYZF" class="editinput_notborder" /></td>
+					
+							<!--td  class="Jsdtdborder" align="center" width="9%">矿 运</td>
+							<td  class="edit" width="9%">
+							<input type="text" name="KUANGY" readonly="true" value=""   jwcid="KUANGY"id="KUANGY" class="editinput" displayname="''"  onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);"/></td-->
+						</tr>
+						<tr>
+							<td class="Jsdtdborder" align="center">硫 份</td>
+							<td class="Jsdtdborder" align="center"width="6%">St,d</td>
+							<td class="Jsdtdborder">
+							<input class="editinput" class="editinput_notborder" jwcid="LIUF_HT"id="LIUF_HT" value="0.0" style="width: 100%" name="LIUF_HT"  type="text" displayname="" onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="LIUF_YS" class="editinput_notborder" value="0.0"style="width: 100%"  jwcid="LIUF_YS"id="LIUF_YS"  displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="LIUF_GF" class="editinput_notborder" value="0.0" style="width: 100%" jwcid="LIUF_GF" id="LIUF_GF"  displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+							<td class="Jsdtdborder">
+							<input type="text" name="LIUF_JS" class="editinput_notborder" value="0.0" style="width: 100%" jwcid="LIUF_JS"id="LIUF_JS" displayname="" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);" onfocus="editin(this,'onfocus')"/></td>
+							<td colspan="2" class="Jsdtdborder" align="center">运费合计（元）</td>
+							<td  class="edit" width="9%">
+							<input type="text" name="YUNFHJ" value="" readonly="true" style="width: 100%"  jwcid="YUNFHJ"id="YUNFHJ" class="editinput" displayname="''"  onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);"/></td>
+                            <td colspan="2" class="Jsdtdborder" align="center">运费税率</td>
+							<td class="edit" width="10%">
+							<input type="text" name="YUNFSL"class="editinput_notborder" value="0" onfocus="editin(this,'onfocus')" style="width: 100%" onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,3}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,3}$|^\-[0-9]{0,10}$/);Count(3);" jwcid="YUNFSL" id="YUNFSL" /></td>
+					
+							<!--td  class="Jsdtdborder" align="center"width="10%">汽 运</td>
+							<td  class="edit"width="10%">
+							<input type="text" name="QIY" readonly="true" value=""style="width: 100%"  jwcid="QIY"id="QIY" class="editinput" displayname="''"  onchange="MatchNum(this,/^[0-9]{0,10}\.[0-9]{0,2}$|^[0-9]{0,10}$|^\-[0-9]{0,10}\.[0-9]{0,2}$|^\-[0-9]{0,10}$/);"/></td-->
+						</tr>
+						<tr>
+							<td colspan="3" class="Jsdtdborder">实付总金额（大写）</td>
+							<td colspan="6" class="Jsdtdborder">
+							<input type="text" name="SHIFZJEDX" value="￥零元整"  style="width: 100%"  readonly="true"  id="SHIFZJEDX" class="editinput" displayname="''" /></td>
+							<td colspan="2" class="Jsdtdborder">实付总金额（小写）</td>
+							<td colspan="2" class="Jsdtdborder">
+							<input type="text" name="SHIFZJEXX" value="" style="width: 100%"  readonly="true"  id="SHIFZJEXX" class="editinput" displayname="''" /></td>			
+						</tr>
+						<tr>
+							<td colspan="3" class="Jsdtdborder">说明</td>
+							<td colspan="10" class="edit">
+							<input type="text" name="BEIZ" value="" class="editinput_notborder"  style="width: 100%"  onblur="MatchStr(this,2000)" jwcid="BEIZ" id="BEIZ"  displayname="''" onfocus="editin(this,'onfocus')"/></td>
+						</tr>
+					</table>
+                </div>
+            </td>
+        </tr>
+</table>
+</form>
+</body>
+<script>window.onresize();Count();</script>
+</html>

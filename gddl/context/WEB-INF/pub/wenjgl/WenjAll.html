@@ -1,0 +1,190 @@
+<html jwcid="@Shell" doctype=" " title="ÎÄ¼þä¯ÀÀ"  stylesheet="ognl:assets.Rmis">
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>
+<script>
+	Ext.onReady(function(){
+		var url = "http://"+document.location.host+document.location.pathname;
+		var end = url.indexOf("/app");
+		url = url.substring(0,end);
+		Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+	});
+    <!--span jwcid="@Insert" value="ognl:ShowHtml"  raw="true"/-->
+    /*
+    Ext.onReady(function(){
+	    var p = new Ext.Panel({
+	        title: 'News',
+	        collapsible:true,
+	        renderTo: document.body,
+	        autoWidth : true,
+	        height : document.body.clientHeight,
+	        html:  showMessage()
+	    });
+	});*/
+</script>
+ 
+<style type="text/css">
+DIV {
+	BORDER-WIDTH: 0px; 
+	PADDING: 0px; 
+}
+
+#n-body {
+	MARGIN: 0px auto; OVERFLOW: hidden; WIDTH: 650px; LINE-HEIGHT: 20px; HEIGHT: 20px;
+}
+#m-body{
+    MARGIN: 0px auto; OVERFLOW: hidden; WIDTH: 650px; LINE-HEIGHT: 20px; HEIGHT: 20px;
+}
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.tb_line01 {
+	border: 1px solid #E8E8E8;
+}
+.tb_line02 {
+	border: 1px solid #DADADA;
+}
+.tb_line03 {
+	border: 1px solid #FFFFFF;
+}
+.bg03 {
+	background-image: url(imgs/startpage/start_page_laihaocun_bg.gif);
+	background-color: #CAD8E6;
+	border: 1px solid #A6B9CD;
+	background-repeat: repeat-x;
+	background-position: top;
+
+}
+.bg02 {
+	background-image: url(imgs/startpage/start_page_content_bg.gif);
+	background-repeat: repeat-x;
+	background-position: top;
+	background-color: #A9BCD1;
+}
+.bg01 {
+	background-color: #A9BCD1;
+	background-image: url(imgs/startpage/start_page_link_bg.gif);
+	background-repeat: repeat-x;
+	background-position: top;
+}
+.quicklinks a:link {
+	color: #194671;
+	font-size: 14px;
+	text-decoration: none;
+}
+.quicklinks a:visited {
+	color: #194671;
+	font-size: 14px;
+	text-decoration: none;
+}
+.quicklinks a:hover {
+	font-size: 14px;
+	color: #FF6600;
+	text-decoration: none;
+}
+.quicklinks a:active {
+	color: #194671;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.laihaocun {
+	font-family: "ºÚÌå", simhei;
+	font-size: 16px;
+}
+.laihaocun a:link {
+	color: #FF6600;
+	text-decoration: none;
+}
+.laihaocun a:visited {
+	color: #FF6600;
+	text-decoration: none;
+}
+.laihaocun a:hover {
+	color: #FF6600;
+	text-decoration: underline;
+}
+.laihaocun a:active {
+	color: #FF6600;
+	text-decoration: none;
+}
+
+.tubiao {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.tubiao a:link {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.tubiao a:visited {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.tubiao a:hover {
+	font-size: 12px;
+	color: #FF6600;
+	text-decoration: none;
+}
+.tubiao a:active {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.news {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #8DB6DF;
+}
+.news a:link {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.news a:visited {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+.news a:hover {
+	font-size: 12px;
+	color: #FF6600;
+	text-decoration: none;
+}
+.news a:active {
+	color: #194671;
+	font-size: 12px;
+	text-decoration: none;
+}
+-->
+</style>
+
+<body id="body"  jwcid="@Body" >
+   
+ <script jwcid="Datejs" />
+ <script jwcid="Reportjs"/>
+<script jwcid="Validatejs" />
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+   <script><span jwcid="@Insert" value="ognl:PageHome" /></script>
+    <OBJECT id=WebBrowser classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2 height=0 width=0></OBJECT>
+    <span jwcid="@Insert" value="ognl:ShowHtml"  raw="true"/>
+  
+    </form>
+</body>
+
+
+</html>

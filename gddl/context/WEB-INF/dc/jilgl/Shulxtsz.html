@@ -1,0 +1,415 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+	<title>人员信息修改</title>
+	<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+	<script type="text/javascript">
+Ext.onReady(function(){
+Ext.QuickTips.init();
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif'; 
+    <span jwcid="@Insert" raw="true" value="ognl:InitData"></span>
+	        
+	var daohqrsz_1 = new Ext.form.FieldSet({   
+        title:'到货确认设置',   
+        layout : 'column',
+        height:40, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5,   
+            items : [rd1g ]   
+        }, {   
+            columnWidth : .5,   
+            items : [rd1s ]   
+        }]
+    });
+            
+    var shoucrqsz = new Ext.form.FieldSet({   
+        title:'收车日期设置',   
+        layout : 'column',
+        height:40, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5,   
+            items : [rdscrqs ]   
+        }, {   
+            columnWidth : .5,   
+            items : [rdscrqe ]   
+        }]
+    });
+    
+    var duihsz_2 = new Ext.form.FieldSet({   
+        title:'对号设置', 
+        layout : 'column',  
+        height:40,
+        collapsible: true,  
+        items : [{
+        	columnWidth : .5,
+        	items : [cb2x ]
+        }]
+    });
+    
+    var hccysz_3 = new Ext.form.FieldSet({   
+        title:'火车采样设置',  
+        height:80,
+        layout : 'column',
+        collapsible: true,  
+        items : [
+        	{columnWidth : .3,
+            items : [cb3gys,cb3mk,cb3pz]},
+			{columnWidth : .3,
+            items : [cb3fz,cb3kj,cb3fhrq]},
+			{columnWidth : .4,
+            items : [cb3cyrq,cb3cc,cb3cb]}]
+    });
+	
+	var qccysz_4 = new Ext.form.FieldSet({   
+        title:'汽车采样设置',  
+        height:80,
+        layout : 'column',
+        collapsible: true,  
+        items : [
+        	{columnWidth : .3,
+            items : [cb4gys,cb4mk,cb4pz]},
+			{columnWidth : .3,
+            items : [cb4fz,cb4kj,cb4fhrq]},
+			{columnWidth : .4,
+            items : [cb4cyrq,cb4cc,cb4cb]}]
+    });
+
+	var yunssz_5 = new Ext.form.FieldSet({   
+        title:'运损计算方式',   
+        layout : 'column',
+        height:40, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5,   
+            items : [rd5dc ]   
+        }, {   
+            columnWidth : .5,   
+            items : [rd5fp ]   
+        }]
+    });
+    
+    var cysjd = new Ext.form.FieldSet({   
+        title:'采样编号生成点',   
+        layout : 'column',
+        height:40, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5,   
+            items : [rd6jh ]   
+        }, {   
+            columnWidth : .5,   
+            items : [rd6dr ]   
+        }]
+    });
+    
+    var hccybhscqr_7 = new Ext.form.FieldSet({   
+        title:'火车补录采样编号设置',   
+        layout : 'column',
+        height:40, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5,   
+            items : [rdybh ]   
+        }, {   
+            columnWidth : .5,   
+            items : [rdnbh ]   
+        }]
+    });
+    
+    var qccybhscqr_8 = new Ext.form.FieldSet({   
+        title:'汽车补录采样编号设置',   
+        layout : 'column',
+        height:40, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5,   
+            items : [rdqybh ]   
+        }, {   
+            columnWidth : .5,   
+            items : [rdqnbh ]   
+        }]
+    });
+    
+    var hyccxz_9 = new Ext.form.FieldSet({   
+        title:'火车车次自动计算',   
+        layout : 'column',
+        height:40, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5,   
+            items : [hycczd ]   
+        }, {   
+            columnWidth : .5,   
+            items : [hyccsd ]   
+        }]
+    });
+    
+    var caiyfssz_9 = new Ext.form.FieldSet({   
+        title:'采样按数量分样',   
+        layout : 'column',
+        height:65, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5, 
+            items : [{html:'采样分组字段'},caiyfzzd]   
+        }, {   
+            columnWidth : .5,
+            items : [{html:'采样分组值'},caiyfzz]   
+        }]
+    });
+            
+    var yunslmr = new Ext.form.FieldSet({   
+        title:'系统默认运损率',   
+        layout : 'column',
+        height:65, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5,
+            items : [{html:'火车运损率'},hcmrysl]   
+        },{
+            columnWidth : .5,
+            items : [{html:'汽车运损率'},qcmrysl]
+            }]
+    });
+
+    var shenhsz_10 = new Ext.form.FieldSet({   
+        title:'审核设置',   
+        layout : 'column',
+        height:65, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .3, 
+            items : [cb6ch]},{
+            columnWidth : .3, 
+            items : [cb6hc,hcmzkg]},{
+            columnWidth : .3, 
+            items : [cb6qc,qcmzkg]}
+            ]
+    });
+    var caiysz = new Ext.form.FieldSet({   
+        title:'采样设置',  
+        height:40,
+        layout : 'column',
+        collapsible: true,  
+        items : [
+            {   
+            columnWidth : .5,   
+            items : [caiysz1 ]   
+        }, {   
+            columnWidth : .5,   
+            items : [caiysz2 ]   
+        }]
+    });
+    var shujxg = new Ext.form.FieldSet({   
+        title:'数据修改', 
+        layout : 'column',  
+        height:40,
+        collapsible: true,  
+        items : [{
+        	columnWidth : .5,
+        	items : [cb3x ]
+        }]
+    });
+            
+    var jianjdsz = new Ext.form.FieldSet({   
+        title:'检斤单设置',   
+        layout : 'column',
+        height:65, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5, 
+            items : [{html:'汽车检斤单模式'},qicjjdms]   
+        }]
+    });
+            
+    var bulxxsz = new Ext.form.FieldSet({   
+        title:'补录信息设置',   
+        layout : 'column',
+        height:65, 
+        collapsible: true,  
+        items : [{
+        	columnWidth : .5,
+        	items : [cb4x ]
+        },{   
+            columnWidth : .5,
+            items : [{html:'补录默认皮重'},mfpz]   
+        }]
+    });
+            
+    var qicjjsz = new Ext.form.FieldSet({   
+        title:'汽车检斤设置',   
+        layout : 'column',
+        height:65, 
+        collapsible: true,  
+        items : [{
+        	columnWidth : .5,
+        	items : [cb5x ]
+        }]
+    });
+            
+    var sjdrsz = new Ext.form.FieldSet({   
+        title:'数据导入设置',   
+        layout : 'column',
+        height:65, 
+        collapsible: true,  
+        items : [{   
+            columnWidth : .5,
+            items : [{html:'数据导入默认日期'},mrrq]   
+        }]
+    });
+    
+    var cybhscsz = new Ext.form.FieldSet({
+    	title:'采样编号生成设置',
+    	layout : 'column',
+        height:40,
+        collapsible: true, 
+        items : [{
+        	columnWidth : .5,
+        	items : [cbcybh]
+        }]
+    });
+    
+    var kskzxssz = new Ext.form.FieldSet({
+    	title:'扣水扣杂显示设置',
+    	layout : 'column',
+    	height:40,
+    	collapsible: true,
+    	items : [{
+    		columnWidth : .5,
+    		items : [cbkskz]
+    	}]
+    });
+    
+    var shcxysz = new Ext.form.FieldSet({
+    	title:'收耗存日报休约设置',
+    	layout : 'column',
+    	height:40,
+    	collapsible: true,
+    	items : [{
+    		columnWidth : .5,
+    		items : [cbshcxy]
+    	}]
+    });
+    
+	var azlflsz = new Ext.form.FieldSet({
+    	title:'按质量分列设置',
+    	layout:'column',
+    	height:40,
+    	collapsible:true,
+    	items:[{
+    		columnWidth:.5,
+    		items:[cbazlfl]
+    	}]
+    })
+                    
+    /*var caiyfssz_6 = new Ext.form.FieldSet({
+    	title:'采样按数量分样',
+    	autoHeight:true,
+    	defaultType: 'panel',
+    	collapsible :true,
+    	items :[caiyfzzd,caiyfzz]
+    });*/
+    
+    var form = new Ext.form.FormPanel({
+	    defaultType: 'textfield',
+	    autoScroll:true,
+	    labelAlign: 'left',
+	    title: '数量基本设置',
+	    labelWidth: 370,
+	    height: bodyHeight - 10,
+	    frame: true,
+	    defaults: {
+	        msgTarget: 'side'
+	    },
+	    items: [daohqrsz_1,duihsz_2,hccysz_3,qccysz_4,yunssz_5,cysjd,hccybhscqr_7,
+            qccybhscqr_8,hyccxz_9,caiyfssz_9,shenhsz_10,yunslmr,shoucrqsz,caiysz,
+            shujxg,jianjdsz,bulxxsz,qicjjsz,sjdrsz,cybhscsz,kskzxssz,shcxysz,azlflsz],
+	    buttons: [{
+	        text: '确认',
+	        minWidth : 65
+	    }]
+	});
+	form.render("form");  
+	form.buttons[0].on("click",function(){
+		info = "rd1g," + rd1g.getValue() + ";"
+			//+ "rd1s," + rd1s.getValue() + ";"
+            + "rdscrqs," + rdscrqs.getValue() + ";"
+			+ "cb2x," + cb2x.getValue() + ";"
+			+ "cb3gys," + cb3gys.getValue() + ";"
+			+ "cb3mk," + cb3mk.getValue() + ";"
+			+ "cb3pz," + cb3pz.getValue() + ";"
+			+ "cb3fz," + cb3fz.getValue() + ";"
+			+ "cb3kj," + cb3kj.getValue() + ";"
+			+ "cb3fhrq," + cb3fhrq.getValue() + ";"
+			+ "cb3cyrq," + cb3cyrq.getValue() + ";"
+			+ "cb3cc," + cb3cc.getValue() + ";"
+			+ "cb3cb," + cb3cb.getValue() + ";"
+			+ "cb4gys," + cb4gys.getValue() + ";"
+			+ "cb4mk," + cb4mk.getValue() + ";"
+			+ "cb4pz," + cb4pz.getValue() + ";"
+			+ "cb4fz," + cb4fz.getValue() + ";"
+			+ "cb4kj," + cb4kj.getValue() + ";"
+			+ "cb4fhrq," + cb4fhrq.getValue() + ";"
+			+ "cb4cyrq," + cb4cyrq.getValue() + ";"
+			+ "cb4cc," + cb4cc.getValue() + ";"
+			+ "cb4cb," + cb4cb.getValue() + ";"
+			//+ "rd5fp," + rd5fp.getValue() + ";"
+			+ "rd5dc," + rd5dc.getValue() + ";"
+			+ "rd6jh," + rd6jh.getValue() + ";"
+			+ "rdybh," + rdybh.getValue() + ";"
+			+ "rdnbh," + rdnbh.getValue() + ";"
+			+ "rdqybh," + rdqybh.getValue() + ";"
+			+ "rdqnbh," + rdqnbh.getValue() + ";"
+			+ "hycczd," + hycczd.getValue() + ";"
+			//+ "hyccsd," + hyccsd.getValue() + ";"
+			+ "caiyfzzd," + caiyfzzd.getValue() + ";"
+			+ "caiyfzz," + caiyfzz.getValue()+";"
+            +"cb6ch," + cb6ch.getValue() + ";"
+            +"cb6hc," + cb6hc.getValue() + ";"
+            +"cb6qc," + cb6qc.getValue() +";"
+            +"hcmzkg," + hcmzkg.getValue() + ";"
+            +"qcmzkg," + qcmzkg.getValue() + ";"
+            +"hcmrysl," + hcmrysl.getValue() + ";"
+            +"qcmrysl," + qcmrysl.getValue() + ";"
+            +"caiysz1,"+ caiysz1.getValue() + ";"
+            +"caiysz2,"+ caiysz2.getValue() + ";"
+            +"cb3x,"+ cb3x.getValue() + ";"
+            +"qicjjdms,"+ qicjjdms.getValue() + ";"
+            +"cb4x,"+ cb4x.getValue() + ";"
+            +"mfpz,"+ mfpz.getValue() + ";"
+            +"cb5x,"+ cb5x.getValue() + ";"
+            +"mrrq,"+ mrrq.getValue() + ";"
+            +"cbcybh," + cbcybh.getValue() + ";"
+            +"cbkskz," + cbkskz.getValue() + ";"
+            +"cbshcxy," + cbshcxy.getValue() + ";"
+            +"cbazlfl," + cbazlfl.getValue();
+
+		var Cobj = document.getElementById("CHANGE");
+		Cobj.value = info ;
+		//alert(Cobj.value);
+		document.getElementById("SaveButton").click();
+	});
+
+});
+</script>
+</head>
+<body id="body" jwcid="@Body">
+<div id = "form" style="width:100%;height:100%;"></div>
+<form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+	<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+	<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype=""
+		label="保存" style="display:none" 
+		id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+	<span id="CHANGE"  jwcid = "CHANGE" style="display:none"></span>
+</form>
+</body>
+</html>

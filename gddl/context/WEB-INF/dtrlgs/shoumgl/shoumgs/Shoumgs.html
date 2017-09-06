@@ -1,0 +1,130 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>收煤暂估维护</title>
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+function Create(){
+	var MR = gridDiv_sm.getSelections();
+	if(MR.length == 0){
+		Ext.MessageBox.alert('提示信息','请先选择批次进行生成采样操作！');
+		return;
+	}
+	Rpt_window.show();
+}
+function Update(){
+	document.getElementById("UpdateButton").click();
+}
+function Insert(){
+	if(YPBM.getValue() == null || YPBM.getValue() == ""){
+		Ext.MessageBox.alert('提示信息','请填写样品编码！');
+		return;
+	}
+	if(YPZL.getValue() == "" || YPZL.getValue() == 0){
+		Ext.MessageBox.alert('提示信息','请填写样品重量！');
+		return;
+	}
+	if(YPFS.getValue() == null || YPFS.getValue() == ""){
+		Ext.MessageBox.alert('提示信息','请选择采样方式！');
+		return;
+	}
+	if(SJDW.getValue() == null || SJDW.getValue() == ""){
+		Ext.MessageBox.alert('提示信息','请选择送检单位！');
+		return;
+	}
+	if(JYR.getValue() == null || JYR.getValue() == ""){
+		Ext.MessageBox.alert('提示信息','请填写接样人员！');
+		return;
+	}
+	var MR = gridDiv_sm.getSelections();
+	var fhids = "";
+	for(i = 0 ; i < MR.length ; i++){
+		fhids += "," + MR[i].get('ID');
+	}
+	fhids = fhids.substr(1);
+    var param = document.getElementById('CHANGE');
+	param.value = fhids;
+    document.getElementById("YANGPBH").value = YPBM.getValue();
+    document.getElementById("YANGPZL").value = YPZL.getValue();
+    document.getElementById("YANGPFS").value = YPFS.getValue();
+    document.getElementById("JIANYDW").value = SJDW.getValue();
+    document.getElementById("JIEYR").value = JYR.getValue();
+    document.getElementById("BEIZ").value = BZ.getValue();
+	document.getElementById("SaveButton").click();
+}
+var YPBM = new Ext.form.TextField({fieldLabel: '样品编码', anchor:'95%'}); 
+var YPZL = new Ext.form.NumberField({fieldLabel: '样品重量(千克)', anchor:'95%'}); 
+var YPFS = new Ext.form.ComboBox({fieldLabel: '采样方式', selectOnFocus:true, transform:'YPLB', lazyRender:true, width:260, triggerAction:'all', typeAhead:true, forceSelection:true, editable:false });
+var SJDW = new Ext.form.ComboBox({fieldLabel: '送检单位', selectOnFocus:true, transform:'Songjdw', lazyRender:true, width:260, triggerAction:'all', typeAhead:true, forceSelection:true, editable:false });  
+var JYR = new Ext.form.TextField({fieldLabel: '接样人员', anchor:'95%'});  
+var BZ = new Ext.form.TextArea({ fieldLabel:'备注', anchor:'95%', height:75 }); 
+var CYForm = new Ext.form.FormPanel({labelAlign: 'left', title: '采样信息', labelWidth: 100, frame: true, layout : 'form',items:[YPBM,YPZL,YPFS,SJDW,JYR,BZ],buttons:[{text:'确认',minwidth:75,handler:Insert},{text:'取消',minwidth:75,handler:function(){Rpt_window.hide();}}]}); 
+
+var Rpt_window =new Ext.Window({
+	width:420,
+	height:310,
+	closable:false,
+	modal:true,
+	layout:'fit',
+	items:[CYForm]
+});
+});
+</script>
+</head>
+<body id="body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+	<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+		<tr>
+			<td>
+                <span jwcid="YANGPBH" style="display:none" id="YANGPBH" ></span>
+                <span jwcid="YANGPZL" style="display:none" id="YANGPZL" ></span>
+                <span jwcid="YANGPFS" style="display:none" id="YANGPFS" ></span>
+                <span jwcid="JIANYDW" style="display:none" id="JIANYDW" ></span>
+                <span jwcid="JIEYR" style="display:none" id="JIEYR" ></span>
+                <span jwcid="BEIZ" style="display:none" id="BEIZ" ></span>
+                
+                <span jwcid="Songjdw" style="display:none" id="Songjdw" ></span>
+				<span jwcid="RefurbishButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="RefurbishButton"
+					listener="ognl:listeners.RefurbishButton"></span>
+                <span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label=""
+					style="display:none" id="SaveButton"
+					listener="ognl:listeners.SaveButton"></span>
+                <span jwcid="ChongxzgButton@ZRcontrib:ImgButton" buttontype=""
+					label="重新暂估" style="display:none" 
+					id = "ChongxzgButton" listener="ognl:listeners.ChongxzgButton"></span>
+		       
+                <span jwcid="RIQE" style="display:none" id="RIQE"></span>
+				<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+                <select style='display:none' id = YPLB>
+					<option value='人工'>人工</option>
+					<option value='机械'>机械</option>
+					<option value='混合'>混合</option>
+				</select>
+			</td>
+		</tr>
+		<tr height="100%">
+			<td>
+			<div id="gridDiv" style="width:100%;height:100%;overflow:none"></div>
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

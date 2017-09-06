@@ -1,0 +1,30 @@
+ <html jwcid="@Shell" doctype=" " title="杂费报销单"  stylesheet="ognl:assets.Rmis">
+ <script jwcid="Reportjs"/>
+ 
+<body id="body"  jwcid="@Body"  class="bgs"bottommargin=0 topmargin=2 leftmargin=5 rightmargin=5>   
+    <form jwcid="@Form" delegate="ognl:beans.delegate">
+    <!--显示报表内容开始-->    
+    <table id="tablemain"  border="0" cellspacing="0"  cellpadding="0" width ="100%" height="100%">
+		<!-- 报表工具条结束 -->
+        <tr id="SelectData" valign="top" height="80%">
+
+        	<td > 
+                <div id="SelectFrmDiv">
+            	<span jwcid="@Iframe"id="Zafbxd_footer" page="Zafbxd_footer"width="100%"height="100%"></span>
+                </div>
+            </td>
+            
+        </tr>
+       <tr id="SelectDatab" valign=top height="20%">
+			<td><span style="cursor:move">
+			<div id="SelectFrmDivb"
+				style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%; WIDTH:100%">
+			<span jwcid="PrintTableU" width="100%" height="100%" /></div>
+			</span> </td>
+		</tr>
+    </table>
+    <!--报表条件设置结束-->    
+    </form>
+</body>
+
+</html>

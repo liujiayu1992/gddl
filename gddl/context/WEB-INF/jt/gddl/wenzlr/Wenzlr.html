@@ -1,0 +1,94 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>文字录入</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css" href="ognl:assets.Rmis" />
+<link jwcid="@Any"  rel="stylesheet" type="text/css" href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+<script>
+	Ext.onReady(function(){
+		var url = "http://"+document.location.host+document.location.pathname;
+		var end = url.indexOf("/app");
+		url = url.substring(0,end);
+		Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+		<span jwcid="@Insert" raw="true" value="ognl:ToolbarScript"></span>
+		<span jwcid="@Insert" raw="true" value="ognl:InitData"></span>
+    	<span jwcid="@Insert" raw="true" value="ognl:TreeScript"></span>
+		<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+		
+		var top = new Ext.Panel({
+        applyTo:'extPanel',
+        layout:'form',
+  	    labelAlign: 'top',
+        frame:true,
+ 		buttonAlign :'center',
+        width: 540,
+    	height:350,
+        items: [{
+            layout:'table',          
+            layoutConfig: {
+			    columns: 4
+			}
+         },
+            {xtype:'htmleditor', colspan:4,
+            id:'neir',
+            fieldLabel:'内容',
+            width:540,
+            height:300,enableSourceEdit :false,
+            anchor:'100%',value:Ext.util.Format.htmlDecode(document.getElementById('c').value) }
+    		]
+    });
+		
+	});
+</script>
+</head>
+<body id="body"  jwcid="@Body" class="bgs">
+    <form listener="ognl:listeners.submit" jwcid="@Form" delegate="ognl:beans.delegate">
+    <table id="tablemain"  border="0" height=100%  cellspacing="0"  cellpadding="0" width ="100%">
+        <tr  id="trcondition"  valign=middle  height ="20" width="100%">
+            <td > 
+                <div id = container>
+			    	 <div id = tbdiv></div>
+			    </div>
+                <table valign="middle" class="toolBar"style="display:none">
+	                <tr id="caozq">
+	                	
+		                <td width="53">日期:</td> 
+		                <td><span jwcid="Riq" style="display:none" id="Riq"></span> 
+                        <td width="30"><span jwcid="QueryButton@ZRcontrib:ImgButton" buttontype="" label="刷新"
+							listener="ognl:listeners.QueryButton" /></td>
+						<td width="30"><span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" id="baoc"
+						label="保存" style="display:none" 
+						id = "SaveButton" listener="ognl:listeners.SaveButton" ></span>
+                    </tr>
+                </table>
+              
+            </td> 
+        </tr>
+		<tr  id="SelectData" valign=center width="100%">
+            <td bgcolor="#dfe8f6" align="center" width="100%">
+                <div id="SelectFrmDiv" align="left" class = "" style=" PADDING-RIGHT: 2px; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: auto;width:605px; PADDING-TOP: 2px;HEIGHT: 80%">
+					<span>
+					<br/><br/>
+					<p><font size="2pt"><b>请输入文字描述:</b></font></p>
+					<br/>
+					<div id="extPanel"></div>
+					<!--<textarea id ="Wenz"   jwcid="Wenz" id="Wenz" cols="80" rows="26" ></textarea>
+              		--></span>
+                </div>
+            </td>
+        </tr>
+        <span id="diancTree_id"  jwcid = "TREEID" style="display:none"/>
+        <input jwcid="neir@TextArea" id='c' value="ognl:neir" style='display:none'></input>
+        <!--input class = "text-position" style="display:none;" jwcid="Flag" id="Falg" type="text" /-->
+    </table>
+    </form>
+</body>
+<script>
+	setNavigatorButton();
+	window.onresize();document.all.item("wait").style.display="none";
+</script>
+</html>

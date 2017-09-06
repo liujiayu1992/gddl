@@ -1,0 +1,110 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>数据补录(汽)</title>
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.Rmis" />
+<link jwcid="@Any" rel="stylesheet" type="text/css"
+	href="ognl:assets.extallcss" />
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extbasejs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extalljs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.pagingmpjs"></script>
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.extlangjs"></script>
+
+
+<script type="text/javascript"> 
+    
+    
+     function getAfValue(val){
+                  
+                  
+        if(val=='0') return '0';
+        else return '0'+val;
+                  
+     }
+    
+     function replaceRecTree(gridDiv_ds,cks,dcmc){
+          
+              if(!SelectLike.checked) return;
+              for(var i=row;i<gridDiv_ds.getCount();i++){
+                   var rec=gridDiv_ds.getAt(i);
+                  
+        			if(cks.getDepth()==4){
+            			rec.set('GONGYSMC', cks.parentNode.parentNode.parentNode.text);
+                        rec.set('MEIKDWMC', cks.parentNode.parentNode.text);
+                        rec.set('YUANMKDW', cks.parentNode.parentNode.text);
+                        rec.set('FAZ', cks.parentNode.text);
+                        rec.set('JIHKJ', cks.text);
+                  
+            		}
+        			if(cks.getDepth()==3){
+            			rec.set('GONGYSMC', cks.parentNode.parentNode.text);
+                        rec.set('MEIKDWMC', cks.parentNode.text);
+                        rec.set('YUANMKDW', cks.parentNode.text);
+                        rec.set('FAZ', cks.text);
+         		    }
+        			if(cks.getDepth()==2){
+            			rec.set('GONGYSMC', cks.parentNode.text);
+                        rec.set('MEIKDWMC', cks.text);
+                        rec.set('YUANMKDW', cks.text);
+       			    }
+        			if(cks.getDepth()==1){
+            			rec.set('GONGYSMC', cks.text);
+           			} 
+                    
+                  	if(dcmc!=null){ rec.set('DIANCXXB_ID',dcmc.text); }
+                  
+                  
+                  }
+      
+     }
+                  
+   
+    
+</script>   
+    
+
+
+<script type="text/javascript">
+var gridDiv_history = "";
+Ext.onReady(function(){
+var url = "http://"+document.location.host+document.location.pathname;
+var end = url.indexOf("/app");
+url = url.substring(0,end);
+Ext.BLANK_IMAGE_URL = url+'/ext/resources/images/s.gif';
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript2"></span>
+<span jwcid="@Insert" raw="true" value="ognl:TreeScript1"></span>
+<span jwcid="@Insert" raw="true" value="ognl:GridScript"></span>
+<span jwcid="@Insert" raw="true" value="ognl:msg"></span>
+
+});
+</script>
+</head>
+<body id="body">
+<script jwcid="@Any" type="text/javascript" src="ognl:assets.Mainjs"></script>
+
+<span jwcid="@Insert" raw="true" value="ognl:GridHtml"></span>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate">
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%" height="100%">
+	<tr style="display:none">
+		<td>
+		<span jwcid="SaveButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+			style="display:none" id="SaveButton"
+			listener="ognl:listeners.SaveButton"></span>
+        <span jwcid="ReturnButton@ZRcontrib:ImgButton" buttontype="" label="保存"
+			style="display:none" id="ReturnButton"
+			listener="ognl:listeners.ReturnButton"></span>
+		<span id="CHANGE" jwcid="CHANGE" style="display:none"></span>
+		</td>
+	</tr>
+	<tr hight="100%">
+		<td>
+		<div id="gridDiv" style="height:100%;overflow:none"></div>
+		</td>
+	</tr>	
+</table>	
+</form>
+</body>
+</html>

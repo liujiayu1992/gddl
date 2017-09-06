@@ -1,0 +1,274 @@
+<html jwcid="@Shell" doctype=" " title="计划合同"
+	stylesheet="ognl:assets.Rmis">
+<link rel="stylesheet" type="text/css"
+	href="ext/resources/css/ext-all.css" />
+<link rel="stylesheet" type="text/css"
+	href="ext/resources/css/xtheme-gray.css" />
+<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<script type="text/javascript" src="ext/source/widgets/form/Combo.js"></script>
+<script type="text/javascript">
+Ext.onReady(function(){
+	cbofun_NIANF();
+	cbofun_YUEF();
+	
+	cbofun_DiancmcDropDown();
+	cbofun_MeikmcDropDown();
+	if(	document.getElementById('FengsSelect')!=null){
+		cbofun_FengsSelect();
+		
+	}
+	
+});
+</script>
+<body id="body" jwcid="@Body" class="bgs" bottommargin=0 topmargin=2
+	leftmargin=5 rightmargin=5>
+<div id="wait"
+	style="POSITION: absolute;BORDER-RIGHT: gray 0px solid;z-index:1; PADDING-RIGHT: 2px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 0px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 0px solid;HEIGHT: 218;width:330">
+<iframe jwcid="@Iframe" page="Waiting" height="100%"
+	oncontextmenu="self.event.returnValue=false" name="mainFrame"
+	style="background:ThreeDLowwer" width="100%" align="middle"
+	frameborder="0" scrolling="no"> </iframe></div>
+<script>
+		document.all.item("wait").style.posTop=(body.clientHeight-document.all.item("wait").clientHeight)/2;
+		document.all.item("wait").style.posLeft=(body.clientWidth-document.all.item("wait").clientWidth )/2;
+     	function Showwait(){
+			if(document.all.item("wait").style.display=="none"){
+                 document.all.item("wait").style.display="";
+                 return true;
+            }else{
+                 return false;
+            }
+        }
+    </script>
+<script jwcid="Yunsjhjs" />
+    
+<script jwcid="Datejs" />
+    
+<script jwcid="Validatejs" />
+    
+<script>
+  	   <span jwcid="@Insert" raw="true" value="ognl:ArrayScript"/> 
+    </script>
+<form listener="ognl:listeners.submit" jwcid="@Form"
+	delegate="ognl:beans.delegate"><span
+	jwcid="@ZRcontrib:ModalDialog" message="ognl:msg"> </span>
+<table id="tablemain" border="0" cellspacing="0" cellpadding="0"
+	width="100%">
+	<tr id="trcondition" valign=middle height="20">
+		<td>
+		<table valign="middle" class="toolBar">
+			<tr>
+				<!-- span jwcid="@Conditional" condition="ognl:GongsUser">
+                     <td style="font-size: 12px;">电厂:</td>
+	                 <td><input submitOnChange="true" jwcid="DiancmcDropDown" id="DiancmcSelect" type="text" /></td>
+	                 </span-->
+				<td width="35" style="font-size: 12px;">年份:</td>
+				<td width="50"><input readonly="true" class="text-position"
+					submitOnChange="true" jwcid="NIANF" id="NIANF" type="text" /></td>
+				<td width="35" style="font-size: 12px;">月份:</td>
+				<td width="35"><input readonly="true" class="text-position"
+					submitOnChange="true" jwcid="YUEF" id="YUEF" type="text" /></td>
+				<!-- 集团用户进来时显示分公司下拉框 -->
+				<span jwcid="@Conditional" condition="ognl:JitUserShow">
+				<td width="50" class="text-position"
+					style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;">分公司:</td>
+				<td width="110"><input width="130"
+					style="font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 11px;color: #666666;z-index:200"
+					submitOnChange="true" jwcid="FengsSelect" id="FengsSelect"
+					type="text" /></td>
+				</span>
+				<!-- span jwcid="@Conditional" condition="ognl:GongsUser"-->
+				<td width="35" style="font-size: 12px;">电厂:</td>
+				<td width="100"><input width="100" jwcid="DiancmcDropDown"
+					id="DiancmcDropDown" submitOnChange="true" type="text" /></td>
+				<!--  /span-->
+				<td width="35" style="font-size: 12px;">矿别:</td>
+				<td width="120"><span style="width:150;height:21"
+					jwcid="MeikmcDropDown" id='MeikmcDropDown' submitOnChange="true"
+					type="text" /></td>
+
+				<td><span jwcid="@ZRcontrib:ImgButton" buttontype="refurbish"
+					onclick="return Showwait()" label="刷新"
+					listener="ognl:listeners.RefurbishButton" /> <span
+					jwcid="@ZRcontrib:ImgButton" onclick="return Showwait()"
+					buttontype="insert" label="添加"
+					listener="ognl:listeners.InsertButton" /> <span
+					jwcid="@ZRcontrib:ImgButton" buttontype="delete"
+					onclick="if(RealDelSel(this,'delet')){return Showwait();}else{return false;}"
+					label="删除" listener="ognl:listeners.DeleteButton" /> <span
+					jwcid="@ZRcontrib:ImgButton" buttontype="save" label="保存"
+					onclick="if(IsNotNull('TIELJ,FAZ,PINM','铁路局,发站,品名')){return Showwait();} else {return false;} "
+					listener="ognl:listeners.SaveButton" /> <input
+					class="text-position" style="display:none;" jwcid="EditTableRow"
+					id="EditTableRow" type="text" /> <font color="#FF0000" size="2">(单位;吨)</font></td>
+
+
+
+			</tr>
+		</table>
+		</td>
+	</tr>
+
+	<tr id="SelectData" valign=top>
+		<td>
+		<div id="SelectFrmDiv" class="text-position"
+			style="BORDER-RIGHT: gray 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: gray 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; OVERFLOW: none; BORDER-LEFT: gray 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: gray 1px solid;HEIGHT: 100%">
+		<div id="SelectHeadDiv"
+			style="OVERFLOW: hidden; background-color:#FFFFFF">
+		<table id="EditHeadTabel" bordercolordark="#ffffff" cellpadding="1"
+			bordercolor="#ffffff"
+			style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;padding: 3px;"
+			bordercolorlight="#AFB6C7" border="1" cellspacing="#ffffff"
+			class="edittablehead" jwcid="@Any"
+			background="ognl:assets.background" width="1220">
+			<tr width="1220" align="center">
+				<th jwcid="@Any" width="40" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:35px">&nbsp;序号</label></th>
+				<th jwcid="@Any" width="150" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:145px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地区及矿别</label></th>
+				<th jwcid="@Any" width="150" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:145px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电厂名称</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;铁路局</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发站</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到站</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;品名</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批车</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批吨</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;批准计划号</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;&nbsp;&nbsp;换装港</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;&nbsp;&nbsp;终到港</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;自备车车次</label></th>
+				<th jwcid="@Any" width="80" height="23" align="center"><label
+					id="tittleHead" class="text-position"
+					style="position:relative;left:0;width:75px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顺号</label></th>
+			</tr>
+		</table>
+		</div>
+		<div id="SelectDataDiv" onscroll="_onscroll(this,SelectHeadDiv)"
+			style="POSITION: absolute;BORDER-RIGHT: gray 0px solid; PADDING-RIGHT: 0px; BORDER-TOP: gray 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM:0px; OVERFLOW: auto; BORDER-LEFT: gray 0px solid; PADDING-TOP: 0px; BORDER-BOTTOM: gray 0px solid;">
+		<table id="oData" class="edittable" border="0" cellpadding="0"
+			cellspacing="0"
+			style="font-family:Geneva, Arial, Helvetica, sans-serif;font-size: 11px;color: #525252;"
+			width="1220">
+			<tr Height="21" onclick="classchange(this,'onclick')"
+				onblur="editin(this,'onblur');ChangeSelectRow(this);"
+				onmouseout="classchange(this,'onmouseout')"
+				onmouseover="classchange(this,'onmouseover')" width="1220"
+				jwcid="EditValues" class="edittableTrOut">
+				<td width="40" class="tdText"><input readonly="true"
+					class="text-position" style="width:38px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="XUH"
+					id="XUH" type="text" /></td>
+				<td width="150" class="tdText"><input readonly="false"
+					class="text-position" style="width:148px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="MEIKDQMC"
+					id="MEIKDQMC" type="text" /></td>
+				<td width="150" class="tdText"><input readonly="false"
+					class="text-position" style="width:148px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9"
+					jwcid="DIANCHANGMC" id="DIANCHANGMC" type="text" /></td>
+				<td width="80"><input readonly="true"
+					onclick="editin(this,'onclick');dropdown(this,LujDropDown);"
+					class="bigtext-position" style="width:78px" jwcid="TIELJ"
+					id="TIELJ" type="text" /></td>
+				<td width="80"><!-- select class="text-position" style="width:80%;"  class = "text-position" style="width:78px" jwcid="FAZ" id="FAZ" type="text" >
+                             <option>请选择</option></select--> <input
+					readonly="true"
+					onclick="editin(this,'onclick');dropdown(this,FAZselect);"
+					class="bigtext-position" style="width:78px" jwcid="FAZ" id="FAZ"
+					type="text" /></td>
+				<td width="80" class="tdText"><input readonly="false"
+					class="text-position" style="width:78px"
+					onkeydown="if(event.keyCode==13)event.keyCode=9" jwcid="DAOZ"
+					id="DAOZ" type="text" /></td>
+				<td width="80"><!--input readonly="true" onfocus="editin(this,'onclick');editclick(this,EditInput);" onclick="editin(this,'onclick');editclick(this,EditInput);" class = "text-position" style="width:78px" jwcid="PINM" id="PINM" type="text" /-->
+				<input readonly="true"
+					onclick="editin(this,'onclick');dropdown(this,PINMSelect);"
+					class="bigtext-position" style="width:78px" jwcid="PINM" id="PINM"
+					type="text" /></td>
+				<td width="80"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput);"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:78px"
+					onchange="MatchNum(this,/^[0-9]{0,5}$|^[0-9]{0,5}$|^\-[0-9]{0,5}$|^\-[0-9]{0,5}$/);"
+					jwcid="PIC" id="PIC" type="text" /></td>
+				<td width="80"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput);"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:78px"
+					onchange="MatchNum(this,/^[0-9]{0,8}$|^[0-9]{0,8}$|^\-[0-9]{0,8}$|^\-[0-9]{0,8}$/)"
+					jwcid="PID" id="PID" type="text" /></td>
+				<td width="80"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput);"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:78px" jwcid="PIZJHH" id="PIZJHH"
+					type="text" /></td>
+				<td width="80"><!-- input readonly="true" onfocus="editin(this,'onclick');editclick(this,EditInput);" onclick="editin(this,'onclick');editclick(this,EditInput);" class = "text-position" style="width:78px" jwcid="HUANGZG" id="HUANGZG" type="text" /-->
+				<input readonly="true"
+					onclick="editin(this,'onclick');dropdown(this,GANGKMCSelect);"
+					class="bigtext-position" style="width:78px" jwcid="HUANGZG"
+					id="HUANGZG" type="text" /></td>
+				<td width="80"><!--input readonly="true" onfocus="editin(this,'onclick');editclick(this,EditInput);" onclick="editin(this,'onclick');editclick(this,EditInput);" class = "text-position" style="width:78px" jwcid="ZHONGDG" id="ZHONGDG" type="text" /-->
+				<input readonly="true"
+					onclick="editin(this,'onclick');dropdown(this,GANGKMCSelect);"
+					class="bigtext-position" style="width:78px" jwcid="ZHONGDG"
+					id="ZHONGDG" type="text" /></td>
+				<td width="80"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput);"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:78px" jwcid="ZIBBCC" id="ZIBBCC"
+					type="text" /></td>
+				<td width="80"><input readonly="true"
+					onfocus="editin(this,'onclick');editclick(this,EditInput);"
+					onclick="editin(this,'onclick');editclick(this,EditInput);"
+					class="text-position" style="width:78px" jwcid="SHUNH" id="SHUNH"
+					type="text" /></td>
+			</tr>
+		</table>
+		<input
+			onchange="ParentChangeChild(arrZhan,0,'FAZselect');droponchange(0);"
+			class="bigtext-position" style="display:none;" jwcid="LujDropDown"
+			id="LujDropDown" type="text" /> <input onchange="droponchange(0)"
+			class="bigtext-position" style="display:none;" jwcid="PINMSelect"
+			id="PINMSelect" type="text" /> <input onchange="droponchange(0)"
+			class="bigtext-position" style="display:none;" jwcid="GANGKMCSelect"
+			id="GANGKMCSelect" type="text" /> <select class="bigtext-position"
+			onblur="droponchange(0)" style="display:none;" id="FAZselect"
+			type="text">
+			<option>请选择</option>
+		</select> <input onchange="editchange(1)" style="display:none;"
+			class="bigtext-position" id="EditInputUpdateAll" type="text" /> <input
+			onchange="editchange(0)" style="display:none;"
+			class="bigtext-position" id="EditInput" type="text" /></div>
+		</div>
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+<script>window.onresize();document.all.item("wait").style.display="none";</script>
+</html>
